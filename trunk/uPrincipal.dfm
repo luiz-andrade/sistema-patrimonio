@@ -1,8 +1,8 @@
 object frmPrincpal: TfrmPrincpal
   Left = 0
   Top = 0
-  ClientHeight = 480
-  ClientWidth = 662
+  ClientHeight = 477
+  ClientWidth = 735
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,12 +17,10 @@ object frmPrincpal: TfrmPrincpal
   TextHeight = 13
   object StatusBar: TStatusBar
     Left = 0
-    Top = 461
-    Width = 662
+    Top = 458
+    Width = 735
     Height = 19
     Panels = <>
-    ExplicitTop = 286
-    ExplicitWidth = 434
   end
   object MainMenu: TMainMenu
     Left = 32
@@ -63,6 +61,9 @@ object frmPrincpal: TfrmPrincpal
     object N4: TMenuItem
       Caption = '?'
     end
+    object rocardeusurio1: TMenuItem
+      Action = actTrocaUsuario
+    end
   end
   object ActionManager: TActionManager
     Left = 120
@@ -74,6 +75,9 @@ object frmPrincpal: TfrmPrincpal
     object actLocais: TAction
       Caption = 'Locais'
       OnExecute = actLocaisExecute
+    end
+    object actTrocaUsuario: TAction
+      Caption = 'Trocar de usu'#225'rio'
     end
   end
 end

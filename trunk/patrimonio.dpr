@@ -7,7 +7,8 @@ uses
   uLocais in 'uLocais.pas' {frmLocais},
   uGlobais in 'uGlobais.pas',
   uAcesso in 'uAcesso.pas' {frmAcesso},
-  uFuncoes in 'uFuncoes.pas';
+  uFuncoes in 'uFuncoes.pas',
+  uMd5 in 'uMd5.pas';
 
 {$R *.res}
 
