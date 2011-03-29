@@ -26,6 +26,8 @@ type
 		ActionManager: TActionManager;
 		actPessoa: TAction;
 		actLocais: TAction;
+    actTrocaUsuario: TAction;
+    rocardeusurio1: TMenuItem;
 		procedure actLocaisExecute(Sender: TObject);
 	private
 		{ Private declarations }
@@ -38,7 +40,7 @@ var
 
 implementation
 
-uses uLocais;
+uses uLocais, uAcesso;
 
 {$R *.dfm}
 

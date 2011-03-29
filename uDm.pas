@@ -10,7 +10,8 @@ type
     SQLConnection: TSQLConnection;
     cdsEmpresa: TClientDataSet;
     dspEpresa: TDataSetProvider;
-    sqiEmpresa: TSQLQuery;
+    sqlEmpresa: TSQLQuery;
+    sqlLocal: TSQLQuery;
   private
     { Private declarations }
   public

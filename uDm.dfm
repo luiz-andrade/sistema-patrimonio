@@ -32,15 +32,15 @@ object dm: Tdm
     Aggregates = <>
     Params = <>
     ProviderName = 'dspEpresa'
-    Left = 152
+    Left = 176
     Top = 32
   end
   object dspEpresa: TDataSetProvider
-    DataSet = sqiEmpresa
-    Left = 240
+    DataSet = sqlEmpresa
+    Left = 248
     Top = 32
   end
-  object sqiEmpresa: TSQLQuery
+  object sqlEmpresa: TSQLQuery
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
@@ -49,5 +49,15 @@ object dm: Tdm
     SQLConnection = SQLConnection
     Left = 317
     Top = 32
+  end
+  object sqlLocal: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from local')
+    SQLConnection = SQLConnection
+    Left = 40
+    Top = 216
   end
 end
