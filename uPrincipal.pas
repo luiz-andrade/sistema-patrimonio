@@ -5,7 +5,7 @@ interface
 uses
 	Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
 	Dialogs, Menus, ComCtrls, PlatformDefaultStyleActnCtrls, ActnList, ActnMan,
-	uGlobais;
+	uGlobais, ToolWin, ExtCtrls, ActnCtrls;
 
 type
 	TfrmPrincpal = class(TForm)
@@ -28,6 +28,14 @@ type
 		actLocais: TAction;
     actTrocaUsuario: TAction;
     rocardeusurio1: TMenuItem;
+    Panel1: TPanel;
+    ToolBar: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton2: TToolButton;
+    ActionToolBar1: TActionToolBar;
+    actGrupos: TAction;
+    ToolButton4: TToolButton;
 		procedure actLocaisExecute(Sender: TObject);
 	private
 		{ Private declarations }
@@ -40,7 +48,7 @@ var
 
 implementation
 
-uses uLocais, uAcesso;
+uses uLocais, uAcesso, uDm;
 
 {$R *.dfm}
 
