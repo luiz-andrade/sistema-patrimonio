@@ -36,7 +36,8 @@ type
     actGrupos: TAction;
     ToolButton4: TToolButton;
 		procedure actLocaisExecute(Sender: TObject);
-    procedure actPessoaExecute(Sender: TObject);
+		procedure actPessoaExecute(Sender: TObject);
+    procedure actGruposExecute(Sender: TObject);
 	private
 		{ Private declarations }
 	public
@@ -48,9 +49,21 @@ var
 
 implementation
 
-uses uLocal, uAcesso, uDm, uPessoa;
+uses uLocal, uAcesso, uDm, uPessoa, uGrupo;
 
 {$R *.dfm}
+
+procedure TfrmPrincpal.actGruposExecute(Sender: TObject);
+begin
+	with TfrmGrupo.Create(Application, gEmpresaId) do
+	begin
+		try
+			Show;
+		finally
+			//Free - Metodo configurado dentro do formulario;
+		end;
+	end;
+end;
 
 procedure TfrmPrincpal.actLocaisExecute(Sender: TObject);
 begin
@@ -71,7 +84,7 @@ begin
 		try
 			Show;
 		finally
-      //Free - Metodo configurado dentro do formulario;
+			//Free - Metodo configurado dentro do formulario;
 		end;
 	end;
 end;

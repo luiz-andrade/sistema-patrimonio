@@ -1,10 +1,8 @@
-object frmLocal: TfrmLocal
+object frmLocais: TfrmLocais
   Left = 0
   Top = 0
-  BorderIcons = [biSystemMenu]
-  BorderStyle = bsSingle
-  ClientHeight = 493
-  ClientWidth = 738
+  ClientHeight = 483
+  ClientWidth = 728
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -26,9 +24,8 @@ object frmLocal: TfrmLocal
     AlignWithMargins = True
     Left = 85
     Top = 3
-    Width = 650
-    Height = 487
-    Cursor = crHandPoint
+    Width = 640
+    Height = 477
     Margins.Left = 85
     ActivePage = tsInformacao
     Align = alClient
@@ -39,8 +36,8 @@ object frmLocal: TfrmLocal
       Caption = 'Perquisar'
       object pnPesquisa: TPanel
         Left = 0
-        Top = 415
-        Width = 642
+        Top = 405
+        Width = 632
         Height = 41
         Align = alBottom
         Alignment = taLeftJustify
@@ -51,7 +48,7 @@ object frmLocal: TfrmLocal
         TabOrder = 0
         object btnPesquisar: TSpeedButton
           AlignWithMargins = True
-          Left = 542
+          Left = 532
           Top = 10
           Width = 90
           Height = 24
@@ -70,7 +67,7 @@ object frmLocal: TfrmLocal
           AlignWithMargins = True
           Left = 55
           Top = 12
-          Width = 327
+          Width = 317
           Height = 21
           Margins.Left = 50
           Margins.Top = 7
@@ -81,7 +78,7 @@ object frmLocal: TfrmLocal
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
-          Left = 389
+          Left = 379
           Top = 12
           Width = 145
           Height = 21
@@ -98,8 +95,8 @@ object frmLocal: TfrmLocal
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 636
-        Height = 409
+        Width = 626
+        Height = 399
         Cursor = crHandPoint
         Align = alClient
         DataSource = dsLocal
@@ -138,7 +135,7 @@ object frmLocal: TfrmLocal
         Width = 30
         Height = 13
         Caption = 'Titulo:'
-        FocusControl = titulo
+        FocusControl = DBEdit2
       end
       object Label1: TLabel
         Left = 3
@@ -146,7 +143,7 @@ object frmLocal: TfrmLocal
         Width = 28
         Height = 13
         Caption = 'Local:'
-        FocusControl = vLocalId
+        FocusControl = DBLookupComboBox1
       end
       object Label3: TLabel
         Left = 3
@@ -156,10 +153,10 @@ object frmLocal: TfrmLocal
         Caption = 'Respons'#225'vel:'
       end
       object pnAcoes: TPanel
-        Left = 535
+        Left = 525
         Top = 0
         Width = 107
-        Height = 456
+        Height = 446
         Align = alRight
         BevelOuter = bvNone
         BorderWidth = 5
@@ -405,7 +402,7 @@ object frmLocal: TfrmLocal
           OnClick = btnFecharClick
         end
       end
-      object titulo: TDBEdit
+      object DBEdit2: TDBEdit
         Left = 3
         Top = 30
         Width = 486
@@ -414,7 +411,7 @@ object frmLocal: TfrmLocal
         DataSource = dsLocal
         TabOrder = 0
       end
-      object vLocalId: TDBLookupComboBox
+      object DBLookupComboBox1: TDBLookupComboBox
         Left = 3
         Top = 71
         Width = 209
@@ -427,7 +424,7 @@ object frmLocal: TfrmLocal
         NullValueKey = 46
         TabOrder = 1
       end
-      object pessoaId: TDBLookupComboBox
+      object DBLookupComboBox2: TDBLookupComboBox
         Left = 3
         Top = 114
         Width = 209
@@ -452,7 +449,7 @@ object frmLocal: TfrmLocal
   object cdsLocal: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'dspLocal'
+    ProviderName = 'dpsLocal'
     OnReconcileError = cdsLocalReconcileError
     Left = 24
     Top = 64
@@ -474,9 +471,9 @@ object frmLocal: TfrmLocal
       Required = True
     end
   end
-  object dspLocal: TDataSetProvider
+  object dpsLocal: TDataSetProvider
     DataSet = dm.sqlLocal
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poPropogateChanges, poUseQuoteChar]
+    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 24
     Top = 120
@@ -484,19 +481,19 @@ object frmLocal: TfrmLocal
   object dsAuxLocal: TDataSource
     DataSet = cdsAuxLocal
     Left = 26
-    Top = 232
+    Top = 344
   end
   object dsPessoa: TDataSource
-    DataSet = dm.sqlPessoa
+    DataSet = dm.sqlPessoal
     Left = 26
-    Top = 302
+    Top = 230
   end
   object cdsAuxLocal: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'dspLocal'
+    ProviderName = 'dpsLocal'
     Left = 24
-    Top = 176
+    Top = 288
     object IntegerField1: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'localId'

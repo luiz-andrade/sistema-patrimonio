@@ -9,7 +9,8 @@ uses
   uAcesso in 'uAcesso.pas' {frmAcesso},
   uFuncoes in 'uFuncoes.pas',
   uMd5 in 'uMd5.pas',
-  uPessoa in 'uPessoa.pas' {frmPessoa};
+  uPessoa in 'uPessoa.pas' {frmPessoa},
+  uGrupo in 'uGrupo.pas' {frmGrupo};
 
 {$R *.res}
 

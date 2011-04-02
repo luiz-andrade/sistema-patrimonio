@@ -134,6 +134,7 @@ object frmPrincpal: TfrmPrincpal
     object actGrupos: TAction
       Caption = 'Grupos'
       ImageIndex = 1
+      OnExecute = actGruposExecute
     end
     object actTrocaUsuario: TAction
       Caption = 'Trocar de usu'#225'rio'
