@@ -19,9 +19,14 @@ type
     sqlLocaltitulo: TStringField;
     sqlLocalvLocalId: TIntegerField;
     sqlLocalpessoaId: TIntegerField;
-    sqlPessoal: TSQLQuery;
-    sqlPessoalpessoaId: TIntegerField;
-    sqlPessoalnome: TStringField;
+    sqlPessoa: TSQLQuery;
+    sqlPessoapessoaId: TIntegerField;
+    sqlPessoanome: TStringField;
+    sqlGrupo: TSQLQuery;
+    sqlGrupogrupoId: TIntegerField;
+    sqlGrupodescricao: TStringField;
+    sqlGrupoempresaId: TIntegerField;
+    sqlGrupovGrupoId: TIntegerField;
   private
     { Private declarations }
   public

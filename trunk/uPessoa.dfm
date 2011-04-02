@@ -3,7 +3,6 @@ object frmPessoa: TfrmPessoa
   Top = 0
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  Caption = 'frmPessoa'
   ClientHeight = 493
   ClientWidth = 738
   Color = clBtnFace
@@ -35,14 +34,8 @@ object frmPessoa: TfrmPessoa
     HotTrack = True
     Style = tsButtons
     TabOrder = 0
-    ExplicitWidth = 640
-    ExplicitHeight = 477
     object tsPesquisa: TTabSheet
       Caption = 'Perquisar'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pnPesquisa: TPanel
         Left = 0
         Top = 415
@@ -55,8 +48,6 @@ object frmPessoa: TfrmPessoa
         Caption = 'Pesquisa:'
         ParentBackground = False
         TabOrder = 0
-        ExplicitTop = 405
-        ExplicitWidth = 632
         object btnPesquisar: TSpeedButton
           AlignWithMargins = True
           Left = 542
@@ -86,7 +77,6 @@ object frmPessoa: TfrmPessoa
           Align = alClient
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
-          ExplicitWidth = 317
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
@@ -101,7 +91,6 @@ object frmPessoa: TfrmPessoa
           Text = 'Descri'#231#227'o'
           Items.Strings = (
             'Descri'#231#227'o')
-          ExplicitLeft = 379
         end
       end
       object DBGrid1: TDBGrid
@@ -142,10 +131,6 @@ object frmPessoa: TfrmPessoa
     object tsInformacao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label2: TLabel
         Left = 3
         Top = 11
@@ -163,8 +148,6 @@ object frmPessoa: TfrmPessoa
         BevelOuter = bvNone
         BorderWidth = 5
         TabOrder = 1
-        ExplicitLeft = -105
-        ExplicitTop = -210
         object btnNovo: TBitBtn
           AlignWithMargins = True
           Left = 8
@@ -442,7 +425,7 @@ object frmPessoa: TfrmPessoa
     end
   end
   object dspPessoa: TDataSetProvider
-    DataSet = dm.sqlPessoal
+    DataSet = dm.sqlPessoa
     Options = [poAllowMultiRecordUpdates, poAutoRefresh, poPropogateChanges, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 24

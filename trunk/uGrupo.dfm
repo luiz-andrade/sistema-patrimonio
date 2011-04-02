@@ -1,7 +1,6 @@
-object frmLocal: TfrmLocal
+object frmGrupo: TfrmGrupo
   Left = 0
   Top = 0
-  BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   ClientHeight = 493
   ClientWidth = 738
@@ -12,13 +11,11 @@ object frmLocal: TfrmLocal
   Font.Name = 'Tahoma'
   Font.Style = []
   FormStyle = fsMDIChild
-  KeyPreview = True
   OldCreateOrder = False
   Position = poMainFormCenter
   Visible = True
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
-  OnKeyPress = FormKeyPress
   OnPaint = FormPaint
   PixelsPerInch = 96
   TextHeight = 13
@@ -37,6 +34,10 @@ object frmLocal: TfrmLocal
     TabOrder = 0
     object tsPesquisa: TTabSheet
       Caption = 'Perquisar'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pnPesquisa: TPanel
         Left = 0
         Top = 415
@@ -102,7 +103,7 @@ object frmLocal: TfrmLocal
         Height = 409
         Cursor = crHandPoint
         Align = alClient
-        DataSource = dsLocal
+        DataSource = dsGrupo
         DrawingStyle = gdsGradient
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleHotTrack]
         ReadOnly = True
@@ -112,18 +113,17 @@ object frmLocal: TfrmLocal
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
-        OnDrawColumnCell = DBGrid1DrawColumnCell
         Columns = <
           item
             Expanded = False
-            FieldName = 'localId'
+            FieldName = 'grupoId'
             Title.Caption = 'C'#243'digo'
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'titulo'
-            Title.Caption = 'Titulo'
+            FieldName = 'descricao'
+            Title.Caption = 'Nome'
             Width = 525
             Visible = True
           end>
@@ -132,28 +132,24 @@ object frmLocal: TfrmLocal
     object tsInformacao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
-      object Label2: TLabel
-        Left = 3
-        Top = 11
-        Width = 30
-        Height = 13
-        Caption = 'Titulo:'
-        FocusControl = titulo
-      end
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label1: TLabel
-        Left = 3
-        Top = 56
-        Width = 28
+        Left = 16
+        Top = 16
+        Width = 27
         Height = 13
-        Caption = 'Local:'
-        FocusControl = vLocalId
+        Caption = 'Nome'
+        FocusControl = descricao
       end
-      object Label3: TLabel
-        Left = 3
-        Top = 99
-        Width = 65
+      object Label2: TLabel
+        Left = 16
+        Top = 64
+        Width = 45
         Height = 13
-        Caption = 'Respons'#225'vel:'
+        Caption = 'vGrupoId'
       end
       object pnAcoes: TPanel
         Left = 535
@@ -163,7 +159,7 @@ object frmLocal: TfrmLocal
         Align = alRight
         BevelOuter = bvNone
         BorderWidth = 5
-        TabOrder = 3
+        TabOrder = 0
         object btnNovo: TBitBtn
           AlignWithMargins = True
           Left = 8
@@ -206,7 +202,6 @@ object frmLocal: TfrmLocal
           ParentShowHint = False
           ShowHint = False
           TabOrder = 0
-          OnClick = btnNovoClick
         end
         object btnGravar: TBitBtn
           AlignWithMargins = True
@@ -263,7 +258,6 @@ object frmLocal: TfrmLocal
             080707070707ECD8ECFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
           ParentDoubleBuffered = False
           TabOrder = 1
-          OnClick = btnGravarClick
         end
         object btnCancelar: TBitBtn
           AlignWithMargins = True
@@ -320,7 +314,6 @@ object frmLocal: TfrmLocal
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
           ParentDoubleBuffered = False
           TabOrder = 2
-          OnClick = btnCancelarClick
         end
         object btnApagar: TBitBtn
           AlignWithMargins = True
@@ -361,7 +354,6 @@ object frmLocal: TfrmLocal
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
           ParentDoubleBuffered = False
           TabOrder = 3
-          OnClick = btnApagarClick
         end
         object btnFechar: TBitBtn
           AlignWithMargins = True
@@ -402,118 +394,96 @@ object frmLocal: TfrmLocal
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
           ParentDoubleBuffered = False
           TabOrder = 4
-          OnClick = btnFecharClick
         end
       end
-      object titulo: TDBEdit
-        Left = 3
-        Top = 30
+      object descricao: TDBEdit
+        Left = 16
+        Top = 32
         Width = 486
         Height = 21
-        DataField = 'titulo'
-        DataSource = dsLocal
-        TabOrder = 0
-      end
-      object vLocalId: TDBLookupComboBox
-        Left = 3
-        Top = 71
-        Width = 209
-        Height = 21
-        DataField = 'vLocalId'
-        DataSource = dsLocal
-        KeyField = 'localId'
-        ListField = 'titulo'
-        ListSource = dsAuxLocal
-        NullValueKey = 46
+        DataField = 'descricao'
+        DataSource = dsGrupo
         TabOrder = 1
       end
-      object pessoaId: TDBLookupComboBox
-        Left = 3
-        Top = 114
-        Width = 209
+      object vGrupoId: TDBLookupComboBox
+        Left = 16
+        Top = 80
+        Width = 257
         Height = 21
-        DataField = 'pessoaId'
-        DataSource = dsLocal
-        KeyField = 'pessoaId'
-        ListField = 'nome'
-        ListSource = dsPessoa
-        NullValueKey = 46
+        DataField = 'vGrupoId'
+        DataSource = dsGrupo
+        KeyField = 'grupoId'
+        ListField = 'descricao'
+        ListSource = dsAuxGrupo
         TabOrder = 2
       end
     end
   end
-  object dsLocal: TDataSource
-    DataSet = cdsLocal
-    OnStateChange = dsLocalStateChange
-    OnDataChange = dsLocalDataChange
-    Left = 24
-    Top = 16
+  object dsGrupo: TDataSource
+    DataSet = cdsGrupo
+    Left = 32
+    Top = 32
   end
-  object cdsLocal: TClientDataSet
+  object cdsGrupo: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'dspLocal'
-    OnReconcileError = cdsLocalReconcileError
-    Left = 24
-    Top = 64
-    object cdsLocallocalId: TIntegerField
+    ProviderName = 'dspGrupo'
+    Left = 32
+    Top = 96
+    object cdsGrupogrupoId: TIntegerField
       AutoGenerateValue = arAutoInc
-      FieldName = 'localId'
+      FieldName = 'grupoId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object cdsLocaltitulo: TStringField
-      FieldName = 'titulo'
+    object cdsGrupodescricao: TStringField
+      FieldName = 'descricao'
       Required = True
       Size = 100
     end
-    object cdsLocalvLocalId: TIntegerField
-      FieldName = 'vLocalId'
+    object cdsGrupoempresaId: TIntegerField
+      FieldName = 'empresaId'
+      Required = True
     end
-    object cdsLocalpessoaId: TIntegerField
-      FieldName = 'pessoaId'
+    object cdsGrupovGrupoId: TIntegerField
+      FieldName = 'vGrupoId'
       Required = True
     end
   end
-  object dspLocal: TDataSetProvider
-    DataSet = dm.sqlLocal
+  object dspGrupo: TDataSetProvider
+    DataSet = dm.sqlGrupo
     Options = [poAllowMultiRecordUpdates, poAutoRefresh, poPropogateChanges, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
-    Left = 24
-    Top = 120
+    Left = 32
+    Top = 160
   end
-  object dsAuxLocal: TDataSource
-    DataSet = cdsAuxLocal
-    Left = 26
-    Top = 232
-  end
-  object dsPessoa: TDataSource
-    DataSet = dm.sqlPessoa
-    Left = 26
-    Top = 302
-  end
-  object cdsAuxLocal: TClientDataSet
+  object cdsAuxGrupo: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'dspLocal'
-    Left = 24
-    Top = 176
+    ProviderName = 'dspGrupo'
+    Left = 32
+    Top = 216
     object IntegerField1: TIntegerField
       AutoGenerateValue = arAutoInc
-      FieldName = 'localId'
+      FieldName = 'grupoId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
     object StringField1: TStringField
-      FieldName = 'titulo'
+      FieldName = 'descricao'
       Required = True
       Size = 100
     end
     object IntegerField2: TIntegerField
-      FieldName = 'vLocalId'
+      FieldName = 'empresaId'
       Required = True
     end
     object IntegerField3: TIntegerField
-      FieldName = 'pessoaId'
+      FieldName = 'vGrupoId'
       Required = True
     end
+  end
+  object dsAuxGrupo: TDataSource
+    DataSet = cdsAuxGrupo
+    Left = 33
+    Top = 272
   end
 end

@@ -80,10 +80,10 @@ object dm: Tdm
   object ImageListAcoes: TImageList
     Height = 32
     Width = 32
-    Left = 176
-    Top = 152
+    Left = 320
+    Top = 200
     Bitmap = {
-      494C0101040020002C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104002000300020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1150,7 +1150,7 @@ object dm: Tdm
     Left = 317
     Top = 152
     Bitmap = {
-      494C010104001400200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104001400240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1421,7 +1421,7 @@ object dm: Tdm
       F01F8001E3E3F01FFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object sqlPessoal: TSQLQuery
+  object sqlPessoa: TSQLQuery
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
@@ -1430,15 +1430,44 @@ object dm: Tdm
     SQLConnection = SQLConnection
     Left = 97
     Top = 155
-    object sqlPessoalpessoaId: TIntegerField
+    object sqlPessoapessoaId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'pessoaId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object sqlPessoalnome: TStringField
+    object sqlPessoanome: TStringField
       FieldName = 'nome'
       Required = True
       Size = 100
+    end
+  end
+  object sqlGrupo: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from grupo')
+    SQLConnection = SQLConnection
+    Left = 154
+    Top = 155
+    object sqlGrupogrupoId: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sqlGrupodescricao: TStringField
+      FieldName = 'descricao'
+      Required = True
+      Size = 100
+    end
+    object sqlGrupoempresaId: TIntegerField
+      FieldName = 'empresaId'
+      Required = True
+    end
+    object sqlGrupovGrupoId: TIntegerField
+      FieldName = 'vGrupoId'
+      Required = True
     end
   end
 end
