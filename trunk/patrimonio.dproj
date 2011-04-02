@@ -56,8 +56,8 @@
 				<Form>dm</Form>
 				<DesignClass>TDataModule</DesignClass>
 			</DCCReference>
-			<DCCReference Include="uLocais.pas">
-				<Form>frmLocais</Form>
+			<DCCReference Include="uLocal.pas">
+				<Form>frmLocal</Form>
 			</DCCReference>
 			<DCCReference Include="uGlobais.pas"/>
 			<DCCReference Include="uAcesso.pas">
@@ -65,6 +65,9 @@
 			</DCCReference>
 			<DCCReference Include="uFuncoes.pas"/>
 			<DCCReference Include="uMd5.pas"/>
+			<DCCReference Include="uPessoa.pas">
+				<Form>frmPessoa</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
