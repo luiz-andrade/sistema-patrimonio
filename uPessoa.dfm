@@ -1,8 +1,11 @@
-object frmLocais: TfrmLocais
+object frmPessoa: TfrmPessoa
   Left = 0
   Top = 0
-  ClientHeight = 483
-  ClientWidth = 728
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'frmPessoa'
+  ClientHeight = 493
+  ClientWidth = 738
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -10,6 +13,7 @@ object frmLocais: TfrmLocais
   Font.Name = 'Tahoma'
   Font.Style = []
   FormStyle = fsMDIChild
+  KeyPreview = True
   OldCreateOrder = False
   Position = poMainFormCenter
   Visible = True
@@ -22,20 +26,27 @@ object frmLocais: TfrmLocais
     AlignWithMargins = True
     Left = 85
     Top = 3
-    Width = 640
-    Height = 477
+    Width = 650
+    Height = 487
+    Cursor = crHandPoint
     Margins.Left = 85
     ActivePage = tsInformacao
     Align = alClient
     HotTrack = True
     Style = tsButtons
     TabOrder = 0
+    ExplicitWidth = 640
+    ExplicitHeight = 477
     object tsPesquisa: TTabSheet
       Caption = 'Perquisar'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pnPesquisa: TPanel
         Left = 0
-        Top = 405
-        Width = 632
+        Top = 415
+        Width = 642
         Height = 41
         Align = alBottom
         Alignment = taLeftJustify
@@ -44,9 +55,11 @@ object frmLocais: TfrmLocais
         Caption = 'Pesquisa:'
         ParentBackground = False
         TabOrder = 0
+        ExplicitTop = 405
+        ExplicitWidth = 632
         object btnPesquisar: TSpeedButton
           AlignWithMargins = True
-          Left = 532
+          Left = 542
           Top = 10
           Width = 90
           Height = 24
@@ -65,7 +78,7 @@ object frmLocais: TfrmLocais
           AlignWithMargins = True
           Left = 55
           Top = 12
-          Width = 317
+          Width = 327
           Height = 21
           Margins.Left = 50
           Margins.Top = 7
@@ -73,10 +86,11 @@ object frmLocais: TfrmLocais
           Align = alClient
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
+          ExplicitWidth = 317
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
-          Left = 379
+          Left = 389
           Top = 12
           Width = 145
           Height = 21
@@ -87,17 +101,18 @@ object frmLocais: TfrmLocais
           Text = 'Descri'#231#227'o'
           Items.Strings = (
             'Descri'#231#227'o')
+          ExplicitLeft = 379
         end
       end
       object DBGrid1: TDBGrid
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 626
-        Height = 399
+        Width = 636
+        Height = 409
         Cursor = crHandPoint
         Align = alClient
-        DataSource = dsLocal
+        DataSource = dsPessoa
         DrawingStyle = gdsGradient
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleHotTrack]
         ReadOnly = True
@@ -111,13 +126,13 @@ object frmLocais: TfrmLocais
         Columns = <
           item
             Expanded = False
-            FieldName = 'localId'
+            FieldName = 'pessoaId'
             Title.Caption = 'C'#243'digo'
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'titulo'
+            FieldName = 'nome'
             Title.Caption = 'Titulo'
             Width = 525
             Visible = True
@@ -128,24 +143,28 @@ object frmLocais: TfrmLocais
       Caption = 'Cadastro'
       ImageIndex = 1
       ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label2: TLabel
         Left = 3
         Top = 11
-        Width = 30
+        Width = 31
         Height = 13
-        Caption = 'Titulo:'
-        FocusControl = DBEdit2
+        Caption = 'Nome:'
+        FocusControl = nome
       end
       object pnAcoes: TPanel
-        Left = 525
+        Left = 535
         Top = 0
         Width = 107
-        Height = 446
+        Height = 456
         Align = alRight
         BevelOuter = bvNone
         BorderWidth = 5
-        TabOrder = 0
-        ExplicitLeft = 520
+        TabOrder = 1
+        ExplicitLeft = -105
+        ExplicitTop = -210
         object btnNovo: TBitBtn
           AlignWithMargins = True
           Left = 8
@@ -189,8 +208,6 @@ object frmLocais: TfrmLocais
           ShowHint = False
           TabOrder = 0
           OnClick = btnNovoClick
-          ExplicitTop = -1
-          ExplicitWidth = 96
         end
         object btnGravar: TBitBtn
           AlignWithMargins = True
@@ -248,8 +265,6 @@ object frmLocais: TfrmLocais
           ParentDoubleBuffered = False
           TabOrder = 1
           OnClick = btnGravarClick
-          ExplicitLeft = 24
-          ExplicitTop = 56
         end
         object btnCancelar: TBitBtn
           AlignWithMargins = True
@@ -307,8 +322,6 @@ object frmLocais: TfrmLocais
           ParentDoubleBuffered = False
           TabOrder = 2
           OnClick = btnCancelarClick
-          ExplicitLeft = 24
-          ExplicitTop = 87
         end
         object btnApagar: TBitBtn
           AlignWithMargins = True
@@ -350,8 +363,6 @@ object frmLocais: TfrmLocais
           ParentDoubleBuffered = False
           TabOrder = 3
           OnClick = btnApagarClick
-          ExplicitLeft = 24
-          ExplicitTop = 118
         end
         object btnFechar: TBitBtn
           AlignWithMargins = True
@@ -393,60 +404,48 @@ object frmLocais: TfrmLocais
           ParentDoubleBuffered = False
           TabOrder = 4
           OnClick = btnFecharClick
-          ExplicitLeft = 5
-          ExplicitTop = 111
-          ExplicitWidth = 102
         end
       end
-      object DBEdit2: TDBEdit
+      object nome: TDBEdit
         Left = 3
         Top = 30
         Width = 486
         Height = 21
-        DataField = 'titulo'
-        DataSource = dsLocal
-        TabOrder = 1
+        DataField = 'nome'
+        DataSource = dsPessoa
+        TabOrder = 0
       end
     end
   end
-  object dsLocal: TDataSource
-    DataSet = cdsLocal
-    OnStateChange = dsLocalStateChange
-    OnDataChange = dsLocalDataChange
+  object dsPessoa: TDataSource
+    DataSet = cdsPessoa
+    OnStateChange = dsPessoaStateChange
+    OnDataChange = dsPessoaDataChange
     Left = 24
     Top = 16
   end
-  object cdsLocal: TClientDataSet
+  object cdsPessoa: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'dpsLocal'
-    OnReconcileError = cdsLocalReconcileError
+    ProviderName = 'dspPessoa'
+    OnReconcileError = cdsPessoaReconcileError
     Left = 24
-    Top = 64
-    object cdsLocallocalId: TIntegerField
+    Top = 80
+    object cdsPessoapessoaId: TIntegerField
       AutoGenerateValue = arAutoInc
-      FieldName = 'localId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      FieldName = 'pessoaId'
     end
-    object cdsLocaltitulo: TStringField
-      FieldName = 'titulo'
+    object cdsPessoanome: TStringField
+      FieldName = 'nome'
       Required = True
       Size = 100
     end
-    object cdsLocalvLocalId: TIntegerField
-      FieldName = 'vLocalId'
-      Required = True
-    end
-    object cdsLocalpessoaId: TIntegerField
-      FieldName = 'pessoaId'
-      Required = True
-    end
   end
-  object dpsLocal: TDataSetProvider
-    DataSet = dm.sqlLocal
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
+  object dspPessoa: TDataSetProvider
+    DataSet = dm.sqlPessoal
+    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poPropogateChanges, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 24
-    Top = 120
+    Top = 144
   end
 end

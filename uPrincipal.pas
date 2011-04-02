@@ -33,10 +33,10 @@ type
     ToolButton1: TToolButton;
     ToolButton3: TToolButton;
     ToolButton2: TToolButton;
-    ActionToolBar1: TActionToolBar;
     actGrupos: TAction;
     ToolButton4: TToolButton;
 		procedure actLocaisExecute(Sender: TObject);
+    procedure actPessoaExecute(Sender: TObject);
 	private
 		{ Private declarations }
 	public
@@ -48,18 +48,30 @@ var
 
 implementation
 
-uses uLocais, uAcesso, uDm;
+uses uLocal, uAcesso, uDm, uPessoa;
 
 {$R *.dfm}
 
 procedure TfrmPrincpal.actLocaisExecute(Sender: TObject);
 begin
-	with TfrmLocais.Create(Application, gEmpresaId) do
+	with TfrmLocal.Create(Application, gEmpresaId) do
 	begin
 		try
 			Show;
 		finally
-      //Free - Methodo configurado dentro do formulario;
+			//Free - Metodo configurado dentro do formulario;
+		end;
+	end;
+end;
+
+procedure TfrmPrincpal.actPessoaExecute(Sender: TObject);
+begin
+	with TfrmPessoa.Create(Application, gEmpresaId) do
+	begin
+		try
+			Show;
+		finally
+      //Free - Metodo configurado dentro do formulario;
 		end;
 	end;
 end;

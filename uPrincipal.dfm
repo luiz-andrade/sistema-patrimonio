@@ -12,6 +12,7 @@ object frmPrincpal: TfrmPrincpal
   FormStyle = fsMDIForm
   Menu = MainMenu
   OldCreateOrder = False
+  WindowState = wsMaximized
   PixelsPerInch = 96
   TextHeight = 13
   object StatusBar: TStatusBar
@@ -20,8 +21,6 @@ object frmPrincpal: TfrmPrincpal
     Width = 860
     Height = 19
     Panels = <>
-    ExplicitTop = 458
-    ExplicitWidth = 735
   end
   object Panel1: TPanel
     Left = 0
@@ -34,7 +33,6 @@ object frmPrincpal: TfrmPrincpal
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitWidth = 735
     object ToolBar: TToolBar
       Left = 2
       Top = 2
@@ -50,7 +48,6 @@ object frmPrincpal: TfrmPrincpal
       ShowCaptions = True
       TabOrder = 0
       Transparent = True
-      ExplicitWidth = 731
       object ToolButton1: TToolButton
         Left = 0
         Top = 0
@@ -75,21 +72,6 @@ object frmPrincpal: TfrmPrincpal
         Action = actGrupos
       end
     end
-  end
-  object ActionToolBar1: TActionToolBar
-    Left = 0
-    Top = 58
-    Width = 860
-    Height = 29
-    ActionManager = ActionManager
-    Caption = 'ActionToolBar1'
-    ColorMap.HighlightColor = 14410210
-    ColorMap.BtnSelectedColor = clBtnFace
-    ColorMap.UnusedColor = 14410210
-    Spacing = 0
-    ExplicitLeft = 312
-    ExplicitTop = 136
-    ExplicitWidth = 150
   end
   object MainMenu: TMainMenu
     Left = 32
@@ -142,6 +124,7 @@ object frmPrincpal: TfrmPrincpal
     object actPessoa: TAction
       Caption = 'Registro de pessoas'
       ImageIndex = 3
+      OnExecute = actPessoaExecute
     end
     object actLocais: TAction
       Caption = 'Locais'

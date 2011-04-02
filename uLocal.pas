@@ -1,4 +1,4 @@
-unit uLocais;
+unit uLocal;
 
 interface
 
@@ -8,7 +8,7 @@ uses
   DBGrids, Mask, DBCtrls, ToolWin;
 
 type
-  TfrmLocais = class(TForm)
+  TfrmLocal = class(TForm)
     pcGeral: TPageControl;
     tsPesquisa: TTabSheet;
     tsInformacao: TTabSheet;
@@ -18,7 +18,7 @@ type
     btnPesquisar: TSpeedButton;
     dsLocal: TDataSource;
     cdsLocal: TClientDataSet;
-    dpsLocal: TDataSetProvider;
+    dspLocal: TDataSetProvider;
     DBGrid1: TDBGrid;
     cdsLocallocalId: TIntegerField;
     cdsLocaltitulo: TStringField;
@@ -26,12 +26,23 @@ type
     cdsLocalpessoaId: TIntegerField;
     pnAcoes: TPanel;
     Label2: TLabel;
-    DBEdit2: TDBEdit;
+    titulo: TDBEdit;
     btnNovo: TBitBtn;
     btnGravar: TBitBtn;
     btnCancelar: TBitBtn;
     btnApagar: TBitBtn;
     btnFechar: TBitBtn;
+    Label1: TLabel;
+    dsAuxLocal: TDataSource;
+    vLocalId: TDBLookupComboBox;
+    dsPessoa: TDataSource;
+    Label3: TLabel;
+    pessoaId: TDBLookupComboBox;
+    cdsAuxLocal: TClientDataSet;
+    IntegerField1: TIntegerField;
+    StringField1: TStringField;
+    IntegerField2: TIntegerField;
+    IntegerField3: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormPaint(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -47,6 +58,7 @@ type
       E: EReconcileError; UpdateKind: TUpdateKind;
       var Action: TReconcileAction);
     procedure btnApagarClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -56,7 +68,7 @@ type
 	end;
 
 var
-	frmLocais: TfrmLocais;
+	frmLocal: TfrmLocal;
 
 implementation
 
@@ -64,19 +76,32 @@ uses uFuncoes, uDm, uGlobais;
 
 {$R *.dfm}
 
-procedure TfrmLocais.btnApagarClick(Sender: TObject);
+
+constructor TfrmLocal.Create(AOwner: TComponent; empresaId: Integer);
+begin
+	inherited Create(AOwner);
+	_empresaId := empresaId;
+	tsPesquisa.Show;
+	// Abre tabelas.
+	dsLocal.DataSet.Open;
+	dsPessoa.DataSet.Open;
+	dsAuxLocal.DataSet.Open;
+end;
+
+
+procedure TfrmLocal.btnApagarClick(Sender: TObject);
 begin
 	with cdsLocal do
 	begin
-		if Application.MessageBox(PChar(Concat('Confirmar a deleção do registro: ',FieldByName('titulo').AsString)), PChar(Application.Title), MB_ICONQUESTION or MB_YESNO) = IDYES then
+		if Application.MessageBox(PChar(Concat('Confirmar a deleção do registro: ',cdsLocaltitulo.AsString)), PChar(Application.Title), MB_ICONQUESTION or MB_YESNO) = IDYES then
 		begin
 			Delete;
 			ApplyUpdates(-1);
-    end;
+		end;
 	end;
 end;
 
-procedure TfrmLocais.btnCancelarClick(Sender: TObject);
+procedure TfrmLocal.btnCancelarClick(Sender: TObject);
 begin
 	with cdsLocal do
 	begin
@@ -84,12 +109,12 @@ begin
 	end;
 end;
 
-procedure TfrmLocais.btnFecharClick(Sender: TObject);
+procedure TfrmLocal.btnFecharClick(Sender: TObject);
 begin
-  Close;
+	Close;
 end;
 
-procedure TfrmLocais.btnGravarClick(Sender: TObject);
+procedure TfrmLocal.btnGravarClick(Sender: TObject);
 begin
 	with cdsLocal do
 	begin
@@ -98,32 +123,24 @@ begin
 	end;
 end;
 
-procedure TfrmLocais.btnNovoClick(Sender: TObject);
+procedure TfrmLocal.btnNovoClick(Sender: TObject);
 begin
 	with cdsLocal do
 	begin
 		Append;
-		FieldByName('vLocalId').Value := 0;
-		FieldByName('pessoaId').Value := 1;
+		titulo.SetFocus;
 	end;
 end;
 
-procedure TfrmLocais.cdsLocalReconcileError(DataSet: TCustomClientDataSet;
+procedure TfrmLocal.cdsLocalReconcileError(DataSet: TCustomClientDataSet;
 	E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
 begin
 	Application.MessageBox(PChar(E.Message), PChar(Application.Title), MB_ICONERROR);
 	Action := raAbort;
 end;
 
-constructor TfrmLocais.Create(AOwner: TComponent; empresaId: Integer);
-begin
-	inherited Create(AOwner);
-	_empresaId := empresaId;
-	cdsLocal.Open;
-end;
-
-procedure TfrmLocais.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
-  DataCol: Integer; Column: TColumn; State: TGridDrawState);
+procedure TfrmLocal.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+	DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
 	with TDBGrid(Sender) do
 	begin
@@ -145,13 +162,13 @@ begin
 	end;
 end;
 
-procedure TfrmLocais.dsLocalDataChange(Sender: TObject; Field: TField);
+procedure TfrmLocal.dsLocalDataChange(Sender: TObject; Field: TField);
 begin
 	Caption := cdsLocaltitulo.AsString;
 	tsInformacao.Caption := cdsLocaltitulo.AsString;
 end;
 
-procedure TfrmLocais.dsLocalStateChange(Sender: TObject);
+procedure TfrmLocal.dsLocalStateChange(Sender: TObject);
 begin
 	with cdsLocal do
 	begin
@@ -166,17 +183,24 @@ begin
 	end;
 end;
 
-procedure TfrmLocais.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmLocal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 	Action := caFree; // Configura formulario para ser destruido ao fechar.
 end;
 
-procedure TfrmLocais.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+procedure TfrmLocal.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-	cdsLocal.Close;
+	dsLocal.DataSet.Close;
+	dsPessoa.DataSet.Close;
+	dsAuxLocal.DataSet.Close;
 end;
 
-procedure TfrmLocais.FormPaint(Sender: TObject);
+procedure TfrmLocal.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+	if Key = #13 then Perform(WM_NEXTDLGCTL,0,0);
+end;
+
+procedure TfrmLocal.FormPaint(Sender: TObject);
 begin
 	with Canvas do
 	begin
