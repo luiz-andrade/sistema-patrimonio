@@ -426,7 +426,7 @@ object frmPessoa: TfrmPessoa
   end
   object dspPessoa: TDataSetProvider
     DataSet = dm.sqlPessoa
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poPropogateChanges, poUseQuoteChar]
+    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 24
     Top = 144

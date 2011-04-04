@@ -1,6 +1,7 @@
 object frmGrupo: TfrmGrupo
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   ClientHeight = 493
   ClientWidth = 738
@@ -27,17 +28,13 @@ object frmGrupo: TfrmGrupo
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsInformacao
+    ActivePage = tsPesquisa
     Align = alClient
     HotTrack = True
     Style = tsButtons
     TabOrder = 0
     object tsPesquisa: TTabSheet
       Caption = 'Perquisar'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pnPesquisa: TPanel
         Left = 0
         Top = 415
@@ -132,10 +129,6 @@ object frmGrupo: TfrmGrupo
     object tsInformacao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label1: TLabel
         Left = 16
         Top = 16
@@ -147,9 +140,9 @@ object frmGrupo: TfrmGrupo
       object Label2: TLabel
         Left = 16
         Top = 64
-        Width = 45
+        Width = 33
         Height = 13
-        Caption = 'vGrupoId'
+        Caption = 'Grupo:'
       end
       object pnAcoes: TPanel
         Left = 535
@@ -202,6 +195,7 @@ object frmGrupo: TfrmGrupo
           ParentShowHint = False
           ShowHint = False
           TabOrder = 0
+          OnClick = btnNovoClick
         end
         object btnGravar: TBitBtn
           AlignWithMargins = True
@@ -258,6 +252,7 @@ object frmGrupo: TfrmGrupo
             080707070707ECD8ECFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
           ParentDoubleBuffered = False
           TabOrder = 1
+          OnClick = btnGravarClick
         end
         object btnCancelar: TBitBtn
           AlignWithMargins = True
@@ -314,6 +309,7 @@ object frmGrupo: TfrmGrupo
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
           ParentDoubleBuffered = False
           TabOrder = 2
+          OnClick = btnCancelarClick
         end
         object btnApagar: TBitBtn
           AlignWithMargins = True
@@ -354,6 +350,7 @@ object frmGrupo: TfrmGrupo
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
           ParentDoubleBuffered = False
           TabOrder = 3
+          OnClick = btnApagarClick
         end
         object btnFechar: TBitBtn
           AlignWithMargins = True
@@ -394,6 +391,7 @@ object frmGrupo: TfrmGrupo
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
           ParentDoubleBuffered = False
           TabOrder = 4
+          OnClick = btnFecharClick
         end
       end
       object descricao: TDBEdit
@@ -415,12 +413,15 @@ object frmGrupo: TfrmGrupo
         KeyField = 'grupoId'
         ListField = 'descricao'
         ListSource = dsAuxGrupo
+        NullValueKey = 46
         TabOrder = 2
       end
     end
   end
   object dsGrupo: TDataSource
     DataSet = cdsGrupo
+    OnStateChange = dsGrupoStateChange
+    OnDataChange = dsGrupoDataChange
     Left = 32
     Top = 32
   end
@@ -446,12 +447,11 @@ object frmGrupo: TfrmGrupo
     end
     object cdsGrupovGrupoId: TIntegerField
       FieldName = 'vGrupoId'
-      Required = True
     end
   end
   object dspGrupo: TDataSetProvider
     DataSet = dm.sqlGrupo
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poPropogateChanges, poUseQuoteChar]
+    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 32
     Top = 160

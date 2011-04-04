@@ -43,6 +43,13 @@ type
     procedure FormPaint(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure btnNovoClick(Sender: TObject);
+    procedure btnGravarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnApagarClick(Sender: TObject);
+    procedure btnFecharClick(Sender: TObject);
+    procedure dsGrupoStateChange(Sender: TObject);
+    procedure dsGrupoDataChange(Sender: TObject; Field: TField);
   private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -60,6 +67,52 @@ uses uGlobais, uFuncoes, uDm;
 
 {$R *.dfm}
 
+procedure TfrmGrupo.btnApagarClick(Sender: TObject);
+begin
+	with cdsGrupo do
+	begin
+		if Application.MessageBox(PChar(Concat('Confirmar a deleção do registro: ',cdsGrupodescricao.AsString)), PChar(Application.Title), MB_ICONQUESTION or MB_YESNO) = IDYES then
+		begin
+			Delete;
+			ApplyUpdates(-1);
+		end;
+	end;
+end;
+
+procedure TfrmGrupo.btnCancelarClick(Sender: TObject);
+begin
+	with cdsGrupo do
+	begin
+		Cancel;
+	end;
+end;
+
+procedure TfrmGrupo.btnFecharClick(Sender: TObject);
+begin
+	Close;
+end;
+
+procedure TfrmGrupo.btnGravarClick(Sender: TObject);
+begin
+	with cdsGrupo do
+	begin
+		Post;
+		ApplyUpdates(-1);
+		Close;
+		Open;
+	end;
+end;
+
+procedure TfrmGrupo.btnNovoClick(Sender: TObject);
+begin
+	with cdsGrupo do
+	begin
+		Append;
+		cdsGrupoempresaId.Value := _empresaId;
+		descricao.SetFocus;
+	end;
+end;
+
 constructor TfrmGrupo.Create(AOwner: TComponent; empresaId: Integer);
 begin
 	inherited Create(AOwner);
@@ -68,6 +121,27 @@ begin
 	// Abre tabelas.
 	dsGrupo.DataSet.Open;
 	dsAuxGrupo.DataSet.Open;
+end;
+
+procedure TfrmGrupo.dsGrupoDataChange(Sender: TObject; Field: TField);
+begin
+	Caption := cdsGrupodescricao.AsString;
+	tsInformacao.Caption := cdsGrupodescricao.AsString;
+end;
+
+procedure TfrmGrupo.dsGrupoStateChange(Sender: TObject);
+begin
+	with cdsGrupo do
+	begin
+		btnNovo.Enabled     := not(State in [dsInsert, dsEdit]);
+		btnGravar.Enabled   := (State in [dsInsert, dsEdit]);
+		btnCancelar.Enabled := (State in [dsInsert, dsEdit]);
+		btnApagar.Enabled   := not(State in [dsInsert, dsEdit]);
+		if State in [dsInsert] then
+		begin
+			Caption := 'Novo registro';
+		end;
+	end;
 end;
 
 procedure TfrmGrupo.FormClose(Sender: TObject; var Action: TCloseAction);
