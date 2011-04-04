@@ -93,6 +93,8 @@ begin
 	begin
 		Post;
 		ApplyUpdates(-1);
+		Close;
+		Open;
 	end;
 
 end;

@@ -476,7 +476,7 @@ object frmLocal: TfrmLocal
   end
   object dspLocal: TDataSetProvider
     DataSet = dm.sqlLocal
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poPropogateChanges, poUseQuoteChar]
+    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 24
     Top = 120
