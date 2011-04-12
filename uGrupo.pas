@@ -50,6 +50,11 @@ type
     procedure btnFecharClick(Sender: TObject);
     procedure dsGrupoStateChange(Sender: TObject);
     procedure dsGrupoDataChange(Sender: TObject; Field: TField);
+    procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure cdsGrupoReconcileError(DataSet: TCustomClientDataSet;
+      E: EReconcileError; UpdateKind: TUpdateKind;
+      var Action: TReconcileAction);
   private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -101,6 +106,11 @@ begin
 		Close;
 		Open;
 	end;
+	with cdsAuxGrupo do
+	begin
+		Close;
+		Open;
+  end;
 end;
 
 procedure TfrmGrupo.btnNovoClick(Sender: TObject);
@@ -113,6 +123,13 @@ begin
 	end;
 end;
 
+procedure TfrmGrupo.cdsGrupoReconcileError(DataSet: TCustomClientDataSet;
+  E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
+begin
+	raise Exception.Create(E.Message);
+	Action := raAbort;
+end;
+
 constructor TfrmGrupo.Create(AOwner: TComponent; empresaId: Integer);
 begin
 	inherited Create(AOwner);
@@ -121,6 +138,29 @@ begin
 	// Abre tabelas.
 	dsGrupo.DataSet.Open;
 	dsAuxGrupo.DataSet.Open;
+end;
+
+procedure TfrmGrupo.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+	with TDBGrid(Sender) do
+	begin
+		with Canvas do
+		begin
+			if not(gdSelected in State) then
+			begin
+				with DataSource.DataSet do
+				begin
+					if not(Odd(RecNo)) then
+					begin
+						Brush.Color := corZebra;
+					end;
+				end;
+			end;
+		FillRect(Rect);
+		DefaultDrawDataCell(Rect, Column.Field, State);
+		end;
+	end;
 end;
 
 procedure TfrmGrupo.dsGrupoDataChange(Sender: TObject; Field: TField);

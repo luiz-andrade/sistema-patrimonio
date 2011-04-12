@@ -449,13 +449,70 @@ object frmLocal: TfrmLocal
     Left = 24
     Top = 16
   end
+  object dsAuxLocal: TDataSource
+    DataSet = cdsAuxLocal
+    Left = 26
+    Top = 232
+  end
+  object dsPessoa: TDataSource
+    DataSet = cdsPessoa
+    Left = 26
+    Top = 302
+  end
+  object cdsAuxLocal: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspLocal'
+    ReadOnly = True
+    Left = 24
+    Top = 176
+    object IntegerField1: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'localId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object StringField1: TStringField
+      FieldName = 'titulo'
+      Required = True
+      Size = 100
+    end
+    object IntegerField2: TIntegerField
+      FieldName = 'vLocalId'
+      Required = True
+    end
+    object IntegerField3: TIntegerField
+      FieldName = 'pessoaId'
+      Required = True
+    end
+  end
+  object cdsPessoa: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspPessoa'
+    ReadOnly = True
+    Left = 24
+    Top = 352
+    object cdsPessoapessoaId: TIntegerField
+      FieldName = 'pessoaId'
+    end
+    object cdsPessoanome: TStringField
+      FieldName = 'nome'
+      Required = True
+      Size = 100
+    end
+  end
+  object dspPessoa: TDataSetProvider
+    DataSet = dm.sqlPessoa
+    Left = 24
+    Top = 408
+  end
   object cdsLocal: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspLocal'
     OnReconcileError = cdsLocalReconcileError
     Left = 24
-    Top = 64
+    Top = 72
     object cdsLocallocalId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'localId'
@@ -479,41 +536,6 @@ object frmLocal: TfrmLocal
     Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 24
-    Top = 120
-  end
-  object dsAuxLocal: TDataSource
-    DataSet = cdsAuxLocal
-    Left = 26
-    Top = 232
-  end
-  object dsPessoa: TDataSource
-    DataSet = dm.sqlPessoa
-    Left = 26
-    Top = 302
-  end
-  object cdsAuxLocal: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'dspLocal'
-    Left = 24
-    Top = 176
-    object IntegerField1: TIntegerField
-      AutoGenerateValue = arAutoInc
-      FieldName = 'localId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object StringField1: TStringField
-      FieldName = 'titulo'
-      Required = True
-      Size = 100
-    end
-    object IntegerField2: TIntegerField
-      FieldName = 'vLocalId'
-      Required = True
-    end
-    object IntegerField3: TIntegerField
-      FieldName = 'pessoaId'
-      Required = True
-    end
+    Top = 128
   end
 end

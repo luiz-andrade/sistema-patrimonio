@@ -35,9 +35,12 @@ type
     ToolButton2: TToolButton;
     actGrupos: TAction;
     ToolButton4: TToolButton;
+    actRegistroBens: TAction;
+    ToolButton5: TToolButton;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
+    procedure actRegistroBensExecute(Sender: TObject);
 	private
 		{ Private declarations }
 	public
@@ -49,7 +52,7 @@ var
 
 implementation
 
-uses uLocal, uAcesso, uDm, uPessoa, uGrupo;
+uses uLocal, uAcesso, uDm, uPessoa, uGrupo, uBem;
 
 {$R *.dfm}
 
@@ -87,6 +90,14 @@ begin
 			//Free - Metodo configurado dentro do formulario;
 		end;
 	end;
+end;
+
+procedure TfrmPrincpal.actRegistroBensExecute(Sender: TObject);
+begin
+	with TfrmBem.Create(Application, gEmpresaId) do
+	begin
+		Show;
+  end;
 end;
 
 end.

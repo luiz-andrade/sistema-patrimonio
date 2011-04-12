@@ -58,18 +58,23 @@ object frmPrincpal: TfrmPrincpal
         Top = 0
         Action = actPessoa
       end
-      object ToolButton2: TToolButton
+      object ToolButton4: TToolButton
         Left = 208
+        Top = 0
+        Action = actGrupos
+      end
+      object ToolButton2: TToolButton
+        Left = 312
         Top = 0
         Width = 8
         Caption = 'ToolButton2'
         ImageIndex = 2
         Style = tbsSeparator
       end
-      object ToolButton4: TToolButton
-        Left = 216
+      object ToolButton5: TToolButton
+        Left = 320
         Top = 0
-        Action = actGrupos
+        Action = actRegistroBens
       end
     end
   end
@@ -138,6 +143,11 @@ object frmPrincpal: TfrmPrincpal
     end
     object actTrocaUsuario: TAction
       Caption = 'Trocar de usu'#225'rio'
+    end
+    object actRegistroBens: TAction
+      Caption = 'Registro de bens'
+      ImageIndex = 0
+      OnExecute = actRegistroBensExecute
     end
   end
 end

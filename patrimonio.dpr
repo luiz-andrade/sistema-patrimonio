@@ -10,7 +10,8 @@ uses
   uFuncoes in 'uFuncoes.pas',
   uMd5 in 'uMd5.pas',
   uPessoa in 'uPessoa.pas' {frmPessoa},
-  uGrupo in 'uGrupo.pas' {frmGrupo};
+  uGrupo in 'uGrupo.pas' {frmGrupo},
+  uBem in 'uBem.pas' {frmBem};
 
 {$R *.res}
 

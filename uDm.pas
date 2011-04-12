@@ -27,6 +27,14 @@ type
     sqlGrupodescricao: TStringField;
     sqlGrupoempresaId: TIntegerField;
     sqlGrupovGrupoId: TIntegerField;
+    sqlBem: TSQLQuery;
+    sqlBembemId: TIntegerField;
+    sqlBemidenficacao: TStringField;
+    sqlBemdescricao: TStringField;
+    sqlBemgrupoId: TIntegerField;
+    sqlBemestadoId: TIntegerField;
+    sqlBemlocaId: TIntegerField;
+    sqlBemgestaoId: TIntegerField;
   private
     { Private declarations }
   public

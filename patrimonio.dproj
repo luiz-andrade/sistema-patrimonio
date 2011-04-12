@@ -71,6 +71,9 @@
 			<DCCReference Include="uGrupo.pas">
 				<Form>frmGrupo</Form>
 			</DCCReference>
+			<DCCReference Include="uBem.pas">
+				<Form>frmBem</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
