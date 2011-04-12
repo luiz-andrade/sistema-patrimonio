@@ -1,4 +1,4 @@
-object frmGrupo: TfrmGrupo
+object frmBem: TfrmBem
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu]
@@ -12,6 +12,7 @@ object frmGrupo: TfrmGrupo
   Font.Name = 'Tahoma'
   Font.Style = []
   FormStyle = fsMDIChild
+  KeyPreview = True
   OldCreateOrder = False
   Position = poMainFormCenter
   Visible = True
@@ -28,13 +29,17 @@ object frmGrupo: TfrmGrupo
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsPesquisa
+    ActivePage = tsInformacao
     Align = alClient
     HotTrack = True
     Style = tsButtons
     TabOrder = 0
     object tsPesquisa: TTabSheet
       Caption = 'Perquisar'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pnPesquisa: TPanel
         Left = 0
         Top = 415
@@ -100,7 +105,6 @@ object frmGrupo: TfrmGrupo
         Height = 409
         Cursor = crHandPoint
         Align = alClient
-        DataSource = dsGrupo
         DrawingStyle = gdsGradient
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleHotTrack]
         ReadOnly = True
@@ -110,18 +114,17 @@ object frmGrupo: TfrmGrupo
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
-        OnDrawColumnCell = DBGrid1DrawColumnCell
         Columns = <
           item
             Expanded = False
-            FieldName = 'grupoId'
+            FieldName = 'localId'
             Title.Caption = 'C'#243'digo'
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'descricao'
-            Title.Caption = 'Nome'
+            FieldName = 'titulo'
+            Title.Caption = 'Titulo'
             Width = 525
             Visible = True
           end>
@@ -130,20 +133,62 @@ object frmGrupo: TfrmGrupo
     object tsInformacao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
+      ExplicitLeft = 0
       object Label1: TLabel
-        Left = 16
+        Left = 8
         Top = 16
-        Width = 27
+        Width = 76
         Height = 13
-        Caption = 'Nome'
-        FocusControl = descricao
+        Caption = 'C'#243'digo Interno:'
+        FocusControl = DBEdit1
       end
       object Label2: TLabel
-        Left = 16
-        Top = 64
-        Width = 33
+        Left = 113
+        Top = 16
+        Width = 240
         Height = 13
-        Caption = 'Grupo:'
+        Caption = 'Identifica'#231#227'o (Ex: N'#250'mero de s'#233'rie/Tombamento):'
+        FocusControl = idenficacao
+      end
+      object Label3: TLabel
+        Left = 8
+        Top = 64
+        Width = 118
+        Height = 13
+        Caption = 'Descri'#231#227'o/Especifica'#231#227'o:'
+        FocusControl = DBMemo1
+      end
+      object Label4: TLabel
+        Left = 8
+        Top = 224
+        Width = 55
+        Height = 13
+        Caption = 'Sub-Grupo:'
+        FocusControl = DBEdit4
+      end
+      object Label5: TLabel
+        Left = 8
+        Top = 264
+        Width = 75
+        Height = 13
+        Caption = 'Estado do bem:'
+        FocusControl = DBEdit5
+      end
+      object Label6: TLabel
+        Left = 8
+        Top = 304
+        Width = 58
+        Height = 13
+        Caption = 'Localiza'#231#227'o:'
+        FocusControl = DBEdit6
+      end
+      object Label7: TLabel
+        Left = 8
+        Top = 344
+        Width = 38
+        Height = 13
+        Caption = 'Gest'#227'o:'
+        FocusControl = DBEdit7
       end
       object pnAcoes: TPanel
         Left = 535
@@ -395,97 +440,125 @@ object frmGrupo: TfrmGrupo
           OnClick = btnFecharClick
         end
       end
-      object descricao: TDBEdit
-        Left = 16
+      object DBEdit1: TDBEdit
+        Left = 8
         Top = 32
-        Width = 486
+        Width = 100
         Height = 21
-        DataField = 'descricao'
-        DataSource = dsGrupo
+        DataField = 'bemId'
+        DataSource = dsBem
+        ParentColor = True
+        ReadOnly = True
         TabOrder = 1
       end
-      object vGrupoId: TDBLookupComboBox
-        Left = 16
-        Top = 80
-        Width = 257
+      object idenficacao: TDBEdit
+        Left = 113
+        Top = 32
+        Width = 297
         Height = 21
-        DataField = 'vGrupoId'
-        DataSource = dsGrupo
-        KeyField = 'grupoId'
-        ListField = 'descricao'
-        ListSource = dsAuxGrupo
-        NullValueKey = 46
+        DataField = 'idenficacao'
+        DataSource = dsBem
         TabOrder = 2
+      end
+      object DBEdit4: TDBEdit
+        Left = 8
+        Top = 240
+        Width = 134
+        Height = 21
+        DataField = 'grupoId'
+        DataSource = dsBem
+        TabOrder = 3
+      end
+      object DBEdit5: TDBEdit
+        Left = 8
+        Top = 280
+        Width = 134
+        Height = 21
+        DataField = 'estadoId'
+        DataSource = dsBem
+        TabOrder = 4
+      end
+      object DBEdit6: TDBEdit
+        Left = 8
+        Top = 320
+        Width = 134
+        Height = 21
+        DataField = 'locaId'
+        DataSource = dsBem
+        TabOrder = 5
+      end
+      object DBEdit7: TDBEdit
+        Left = 8
+        Top = 360
+        Width = 134
+        Height = 21
+        DataField = 'gestaoId'
+        DataSource = dsBem
+        TabOrder = 6
+      end
+      object DBMemo1: TDBMemo
+        Left = 8
+        Top = 83
+        Width = 400
+        Height = 120
+        DataField = 'descricao'
+        DataSource = dsBem
+        ScrollBars = ssVertical
+        TabOrder = 7
       end
     end
   end
-  object dsGrupo: TDataSource
-    DataSet = cdsGrupo
-    OnStateChange = dsGrupoStateChange
-    OnDataChange = dsGrupoDataChange
-    Left = 32
-    Top = 32
+  object dsBem: TDataSource
+    DataSet = cdsBem
+    OnStateChange = dsBemStateChange
+    OnDataChange = dsBemDataChange
+    Left = 24
+    Top = 16
   end
-  object cdsGrupo: TClientDataSet
+  object cdsBem: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'dspGrupo'
-    OnReconcileError = cdsGrupoReconcileError
-    Left = 32
-    Top = 96
-    object cdsGrupogrupoId: TIntegerField
+    ProviderName = 'dspBem'
+    OnReconcileError = cdsBemReconcileError
+    Left = 24
+    Top = 72
+    object cdsBembemId: TIntegerField
       AutoGenerateValue = arAutoInc
-      FieldName = 'grupoId'
+      FieldName = 'bemId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object cdsGrupodescricao: TStringField
+    object cdsBemidenficacao: TStringField
+      FieldName = 'idenficacao'
+      Required = True
+      Size = 50
+    end
+    object cdsBemdescricao: TStringField
       FieldName = 'descricao'
       Required = True
-      Size = 100
+      Size = 255
     end
-    object cdsGrupoempresaId: TIntegerField
-      FieldName = 'empresaId'
+    object cdsBemgrupoId: TIntegerField
+      FieldName = 'grupoId'
       Required = True
     end
-    object cdsGrupovGrupoId: TIntegerField
-      FieldName = 'vGrupoId'
+    object cdsBemestadoId: TIntegerField
+      FieldName = 'estadoId'
+      Required = True
+    end
+    object cdsBemlocaId: TIntegerField
+      FieldName = 'locaId'
+      Required = True
+    end
+    object cdsBemgestaoId: TIntegerField
+      FieldName = 'gestaoId'
+      Required = True
     end
   end
-  object dspGrupo: TDataSetProvider
-    DataSet = dm.sqlGrupo
+  object dspBem: TDataSetProvider
+    DataSet = dm.sqlBem
     Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
-    Left = 32
-    Top = 160
-  end
-  object cdsAuxGrupo: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'dspGrupo'
-    Left = 32
-    Top = 216
-    object IntegerField1: TIntegerField
-      AutoGenerateValue = arAutoInc
-      FieldName = 'grupoId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object StringField1: TStringField
-      FieldName = 'descricao'
-      Required = True
-      Size = 100
-    end
-    object IntegerField2: TIntegerField
-      FieldName = 'empresaId'
-      Required = True
-    end
-    object IntegerField3: TIntegerField
-      FieldName = 'vGrupoId'
-      Required = True
-    end
-  end
-  object dsAuxGrupo: TDataSource
-    DataSet = cdsAuxGrupo
-    Left = 33
-    Top = 272
+    Left = 24
+    Top = 128
   end
 end

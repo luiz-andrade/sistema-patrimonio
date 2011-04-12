@@ -17,13 +17,7 @@ type
     cbPesquisar: TComboBox;
     btnPesquisar: TSpeedButton;
     dsLocal: TDataSource;
-    cdsLocal: TClientDataSet;
-    dspLocal: TDataSetProvider;
     DBGrid1: TDBGrid;
-    cdsLocallocalId: TIntegerField;
-    cdsLocaltitulo: TStringField;
-    cdsLocalvLocalId: TIntegerField;
-    cdsLocalpessoaId: TIntegerField;
     pnAcoes: TPanel;
     Label2: TLabel;
     titulo: TDBEdit;
@@ -43,6 +37,16 @@ type
     StringField1: TStringField;
     IntegerField2: TIntegerField;
     IntegerField3: TIntegerField;
+    cdsPessoa: TClientDataSet;
+    dspPessoa: TDataSetProvider;
+    cdsPessoapessoaId: TIntegerField;
+    cdsPessoanome: TStringField;
+    cdsLocal: TClientDataSet;
+    cdsLocallocalId: TIntegerField;
+    cdsLocaltitulo: TStringField;
+    cdsLocalvLocalId: TIntegerField;
+    cdsLocalpessoaId: TIntegerField;
+    dspLocal: TDataSetProvider;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormPaint(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -122,6 +126,11 @@ begin
 		Close;
 		Open;
 	end;
+	with cdsAuxLocal do
+	begin
+		Close;
+		Open;
+	end;
 end;
 
 procedure TfrmLocal.btnNovoClick(Sender: TObject);
@@ -136,7 +145,7 @@ end;
 procedure TfrmLocal.cdsLocalReconcileError(DataSet: TCustomClientDataSet;
 	E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
 begin
-	Application.MessageBox(PChar(E.Message), PChar(Application.Title), MB_ICONERROR);
+	raise Exception.Create(E.Message);
 	Action := raAbort;
 end;
 

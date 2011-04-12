@@ -80,10 +80,10 @@ object dm: Tdm
   object ImageListAcoes: TImageList
     Height = 32
     Width = 32
-    Left = 320
-    Top = 200
+    Left = 318
+    Top = 203
     Bitmap = {
-      494C010104002000340020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104002000400020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1150,7 +1150,7 @@ object dm: Tdm
     Left = 317
     Top = 152
     Bitmap = {
-      494C010104001400280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104001400340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1466,6 +1466,47 @@ object dm: Tdm
     end
     object sqlGrupovGrupoId: TIntegerField
       FieldName = 'vGrupoId'
+    end
+  end
+  object sqlBem: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from bem')
+    SQLConnection = SQLConnection
+    Left = 207
+    Top = 156
+    object sqlBembemId: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'bemId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object sqlBemidenficacao: TStringField
+      FieldName = 'idenficacao'
+      Required = True
+      Size = 50
+    end
+    object sqlBemdescricao: TStringField
+      FieldName = 'descricao'
+      Required = True
+      Size = 255
+    end
+    object sqlBemgrupoId: TIntegerField
+      FieldName = 'grupoId'
+      Required = True
+    end
+    object sqlBemestadoId: TIntegerField
+      FieldName = 'estadoId'
+      Required = True
+    end
+    object sqlBemlocaId: TIntegerField
+      FieldName = 'locaId'
+      Required = True
+    end
+    object sqlBemgestaoId: TIntegerField
+      FieldName = 'gestaoId'
+      Required = True
     end
   end
 end

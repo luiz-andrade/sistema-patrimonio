@@ -111,7 +111,7 @@ end;
 procedure TfrmPessoa.cdsPessoaReconcileError(DataSet: TCustomClientDataSet;
   E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
 begin
-	Application.MessageBox(PChar(E.Message), PChar(Application.Title), MB_ICONERROR);
+	raise Exception.Create(E.Message);
 	Action := raAbort;
 end;
 
