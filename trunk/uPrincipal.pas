@@ -41,6 +41,7 @@ type
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
     procedure actRegistroBensExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
 	private
 		{ Private declarations }
 	public
@@ -97,6 +98,18 @@ begin
 	with TfrmBem.Create(Application, gEmpresaId) do
 	begin
 		Show;
+  end;
+end;
+
+procedure TfrmPrincpal.FormShow(Sender: TObject);
+begin
+	with TfrmAcesso.Create(Application) do
+	begin
+		try
+			ShowModal;
+		finally
+			Free;
+    end;
   end;
 end;
 
