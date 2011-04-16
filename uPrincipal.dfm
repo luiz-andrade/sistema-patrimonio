@@ -13,6 +13,7 @@ object frmPrincpal: TfrmPrincpal
   Menu = MainMenu
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object StatusBar: TStatusBar
