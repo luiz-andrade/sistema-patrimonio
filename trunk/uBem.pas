@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, Grids, DBGrids, ExtCtrls, ComCtrls, DB, Provider,
-  DBClient, Mask, DBCtrls, pngimage, untWaterEffect;
+  DBClient, Mask, DBCtrls, pngimage, untWaterEffect, uControlsTunning;
 
 type
   TfrmBem = class(TForm)
