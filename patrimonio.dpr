@@ -13,7 +13,8 @@ uses
   uGrupo in 'uGrupo.pas' {frmGrupo},
   uBem in 'uBem.pas' {frmBem},
   untWaterEffect in 'untWaterEffect.pas',
-  uSobre in 'uSobre.pas' {frmSobre};
+  uSobre in 'uSobre.pas' {frmSobre},
+  uControlsTunning in 'uControlsTunning.pas';
 
 {$R *.res}
 
