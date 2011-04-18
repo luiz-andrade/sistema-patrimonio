@@ -35,6 +35,24 @@ type
     sqlBemestadoId: TIntegerField;
     sqlBemlocaId: TIntegerField;
     sqlBemgestaoId: TIntegerField;
+    sqlGestao: TSQLQuery;
+    sqlEstado: TSQLQuery;
+    sqlEstadoestadoId: TIntegerField;
+    sqlEstadodescricao: TStringField;
+    sqlGestaogestaoId: TIntegerField;
+    sqlGestaoinicio: TSQLTimeStampField;
+    sqlGestaofim: TSQLTimeStampField;
+    sqlGestaopessoaId: TIntegerField;
+    sqlBemAquisicao: TSQLQuery;
+    sqlBemAquisicaobemId: TIntegerField;
+    sqlBemAquisicaodata: TSQLTimeStampField;
+    sqlBemAquisicaodataNota: TSQLTimeStampField;
+    sqlBemAquisicaofornecedorId: TIntegerField;
+    sqlFornecedor: TSQLQuery;
+    sqlFornecedorfornecedorId: TIntegerField;
+    sqlFornecedorrazaoSocial: TStringField;
+    sqlFornecedorcnpj: TStringField;
+    sqlFornecedorpessoaId: TIntegerField;
   private
     { Private declarations }
   public

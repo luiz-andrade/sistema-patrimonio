@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, ComCtrls, StdCtrls, Buttons, DB, DBClient, Provider, Grids,
-  DBGrids, Mask, DBCtrls, ToolWin;
+  DBGrids, Mask, DBCtrls, ToolWin, pngimage, untWaterEffect;
 
 type
   TfrmLocal = class(TForm)
@@ -47,8 +47,10 @@ type
     cdsLocalvLocalId: TIntegerField;
     cdsLocalpessoaId: TIntegerField;
     dspLocal: TDataSetProvider;
+    pnLateral: TPanel;
+    imgLateral: TImage;
+    Timer: TTimer;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormPaint(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
@@ -63,9 +65,18 @@ type
       var Action: TReconcileAction);
     procedure btnApagarClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure TimerTimer(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure imgLateralMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
 		{ Private declarations }
 		_empresaId : Integer;
+		Water : TWaterEffect;
+		bmp : TBitmap;
+		xImage : Integer;
   public
 		{ Public declarations }
 		constructor Create(AOwner : TComponent; empresaId : Integer);reintroduce;overload;
@@ -128,6 +139,8 @@ begin
 	end;
 	with cdsAuxLocal do
 	begin
+		Post;
+		ApplyUpdates(-1);
 		Close;
 		Open;
 	end;
@@ -174,8 +187,16 @@ end;
 
 procedure TfrmLocal.dsLocalDataChange(Sender: TObject; Field: TField);
 begin
-	Caption := cdsLocaltitulo.AsString;
-	tsInformacao.Caption := cdsLocaltitulo.AsString;
+	if cdsLocal.IsEmpty then
+	begin
+		Caption := 'Cadastro de locais';
+		tsInformacao.Caption := 'Cadastrar';
+	end
+	else
+	begin
+		Caption := Concat('Local - ', cdsLocaltitulo.AsString);
+		tsInformacao.Caption := Concat('Local - ',cdsLocaltitulo.AsString);
+	end;
 end;
 
 procedure TfrmLocal.dsLocalStateChange(Sender: TObject);
@@ -205,29 +226,47 @@ begin
 	dsAuxLocal.DataSet.Close;
 end;
 
-procedure TfrmLocal.FormKeyPress(Sender: TObject; var Key: Char);
+procedure TfrmLocal.FormCreate(Sender: TObject);
 begin
-	if Key = #13 then Perform(WM_NEXTDLGCTL,0,0);
+	bmp := TBitmap.Create;
+	bmp.Assign(imgLateral.Picture.Graphic);
+	imgLateral.Picture.Graphic := nil;
+	imgLateral.Picture.Bitmap.Height  := bmp.Height;
+	imgLateral.Picture.Bitmap.Width   := bmp.Width;
+	Water := TWaterEffect.Create;
+	Water.SetSize(bmp.Width, bmp.Height);
+	xImage := imgLateral.Height;
 end;
 
-procedure TfrmLocal.FormPaint(Sender: TObject);
+procedure TfrmLocal.FormDestroy(Sender: TObject);
 begin
-	with Canvas do
-	begin
-		Brush.Style := bsSolid;
-		Pen.Color := $00804000;
-		Brush.Color := clWhite;
-		Rectangle(0,1,65,Self.ClientHeight);
+	bmp.Free;
+	Water.Free;
+end;
 
-		Font.Name  :=   'Arial';
-		Font.Color := $00837369;
-		Font.Size  := 6;
+procedure TfrmLocal.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+	if Key = VK_ESCAPE then btnFechar.Click;
+end;
 
-		Pen.Color := $00804000;
-		Brush.Color := $00804000;
-		Rectangle(42,55,65,Self.ClientHeight);
-	end;
-	VerticalText(Self,'Cadastro de locais',Application.Title,Self.Height - 50,30);
+procedure TfrmLocal.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+	if Key = #13 then SelectNext(ActiveControl, True, True);
+end;
+
+procedure TfrmLocal.imgLateralMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+	Water.Blob(X,Y,1,100);
+end;
+
+procedure TfrmLocal.TimerTimer(Sender: TObject);
+begin
+	if Random(8) = 1 then
+		Water.Blob(-1,-1, Random(1) + 1, Random(500) + 50);
+	Water.Render(bmp, imgLateral.Picture.Bitmap);
+	VerticalText(imgLateral,'Cadastro de locais',Application.Title,Self.Height - 50,30);
 end;
 
 end.

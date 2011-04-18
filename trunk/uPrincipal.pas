@@ -5,7 +5,7 @@ interface
 uses
 	Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
 	Dialogs, Menus, ComCtrls, PlatformDefaultStyleActnCtrls, ActnList, ActnMan,
-	uGlobais, ToolWin, ExtCtrls, ActnCtrls;
+	uGlobais, ToolWin, ExtCtrls, ActnCtrls, StdCtrls, ActnColorMaps;
 
 type
 	TfrmPrincpal = class(TForm)
@@ -26,24 +26,27 @@ type
 		ActionManager: TActionManager;
 		actPessoa: TAction;
 		actLocais: TAction;
-    actTrocaUsuario: TAction;
     rocardeusurio1: TMenuItem;
-    Panel1: TPanel;
+    actGrupos: TAction;
+    actRegistroBens: TAction;
+    pnToolBar: TPanel;
     ToolBar: TToolBar;
     ToolButton1: TToolButton;
     ToolButton3: TToolButton;
-    ToolButton2: TToolButton;
-    actGrupos: TAction;
     ToolButton4: TToolButton;
-    actRegistroBens: TAction;
+    ToolButton2: TToolButton;
     ToolButton5: TToolButton;
+    actSobre: TAction;
+    Informaessobreoprojeto1: TMenuItem;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
     procedure actRegistroBensExecute(Sender: TObject);
+    procedure actSobreExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
 	private
 		{ Private declarations }
+		procedure updateInfo;
 	public
 		{ Public declarations }
 	end;
@@ -53,7 +56,7 @@ var
 
 implementation
 
-uses uLocal, uAcesso, uDm, uPessoa, uGrupo, uBem;
+uses uLocal, uAcesso, uDm, uPessoa, uGrupo, uBem, uFuncoes, uMd5, uSobre;
 
 {$R *.dfm}
 
@@ -101,16 +104,39 @@ begin
   end;
 end;
 
-procedure TfrmPrincpal.FormShow(Sender: TObject);
+procedure TfrmPrincpal.actSobreExecute(Sender: TObject);
 begin
-	with TfrmAcesso.Create(Application) do
+	with TfrmSobre.Create(Application) do
 	begin
 		try
 			ShowModal;
 		finally
 			Free;
-    end;
-  end;
+		end;
+	end;
+end;
+
+procedure TfrmPrincpal.updateInfo;
+begin
+	Caption := Concat('Patrimonio - ', gEmpresaFantasia);
+	StatusBar.Panels[0].Text := 'Usuário:';
+	StatusBar.Panels[1].Text := gUsuarioNome;
+end;
+
+procedure TfrmPrincpal.FormShow(Sender: TObject);
+var
+	_auth : Boolean;
+	Index : Integer;
+begin
+	_auth := Autenticacao;
+	with ActionManager do
+	begin
+		for Index := 0 to ActionCount -1 do
+		begin
+			TAction(Actions[Index]).Enabled := _auth;
+		end;
+	end;
+	updateInfo;
 end;
 
 end.
