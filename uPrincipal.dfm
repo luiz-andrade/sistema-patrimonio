@@ -10,6 +10,7 @@ object frmPrincpal: TfrmPrincpal
   Font.Name = 'Tahoma'
   Font.Style = []
   FormStyle = fsMDIForm
+  KeyPreview = True
   Menu = MainMenu
   OldCreateOrder = False
   WindowState = wsMaximized
@@ -21,51 +22,66 @@ object frmPrincpal: TfrmPrincpal
     Top = 591
     Width = 860
     Height = 19
-    Panels = <>
+    Panels = <
+      item
+        Bevel = pbNone
+        Width = 100
+      end
+      item
+        Width = 300
+      end
+      item
+        Bevel = pbNone
+        Width = 50
+      end>
   end
-  object Panel1: TPanel
+  object pnToolBar: TPanel
     Left = 0
     Top = 0
     Width = 860
-    Height = 58
+    Height = 62
     Align = alTop
     BevelOuter = bvNone
-    BorderWidth = 2
+    BorderWidth = 5
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
     object ToolBar: TToolBar
-      Left = 2
-      Top = 2
-      Width = 856
-      Height = 57
-      BorderWidth = 1
+      Left = 5
+      Top = 5
+      Width = 850
+      Height = 52
+      Align = alClient
       ButtonHeight = 52
       ButtonWidth = 104
       EdgeInner = esNone
       EdgeOuter = esNone
-      GradientEndColor = clWindow
+      GradientEndColor = clWhite
+      GradientStartColor = clWhite
       Images = dm.ImageListAcoes
+      Indent = 2
+      GradientDirection = gdHorizontal
       ShowCaptions = True
       TabOrder = 0
       Transparent = True
+      ExplicitHeight = 51
       object ToolButton1: TToolButton
-        Left = 0
+        Left = 2
         Top = 0
         Action = actLocais
       end
       object ToolButton3: TToolButton
-        Left = 104
+        Left = 106
         Top = 0
         Action = actPessoa
       end
       object ToolButton4: TToolButton
-        Left = 208
+        Left = 210
         Top = 0
         Action = actGrupos
       end
       object ToolButton2: TToolButton
-        Left = 312
+        Left = 314
         Top = 0
         Width = 8
         Caption = 'ToolButton2'
@@ -73,7 +89,7 @@ object frmPrincpal: TfrmPrincpal
         Style = tbsSeparator
       end
       object ToolButton5: TToolButton
-        Left = 320
+        Left = 322
         Top = 0
         Action = actRegistroBens
       end
@@ -85,7 +101,7 @@ object frmPrincpal: TfrmPrincpal
     object Operaes1: TMenuItem
       Caption = 'Opera'#231#245'es'
       object IncorporarBem1: TMenuItem
-        Caption = 'Incorporar Bem'
+        Action = actRegistroBens
       end
       object N1: TMenuItem
         Caption = '-'
@@ -97,7 +113,7 @@ object frmPrincpal: TfrmPrincpal
         Action = actLocais
       end
       object Grupos1: TMenuItem
-        Caption = 'Grupos'
+        Action = actGrupos
       end
       object N2: TMenuItem
         Caption = '-'
@@ -117,12 +133,41 @@ object frmPrincpal: TfrmPrincpal
     end
     object N4: TMenuItem
       Caption = '?'
+      object Informaessobreoprojeto1: TMenuItem
+        Action = actSobre
+      end
     end
     object rocardeusurio1: TMenuItem
-      Action = actTrocaUsuario
+      Caption = 'Trocar de usu'#225'rio'
     end
   end
   object ActionManager: TActionManager
+    ActionBars = <
+      item
+        Items = <
+          item
+            Action = actLocais
+            Caption = '&Locais'
+            ImageIndex = 2
+          end
+          item
+            Action = actPessoa
+            ImageIndex = 3
+          end
+          item
+            Action = actGrupos
+            Caption = '&Grupos'
+            ImageIndex = 1
+          end
+          item
+            Caption = '-'
+          end
+          item
+            Action = actRegistroBens
+            Caption = 'R&egistro de bens'
+            ImageIndex = 0
+          end>
+      end>
     Images = dm.ImageListAcoes
     Left = 112
     Top = 113
@@ -142,13 +187,14 @@ object frmPrincpal: TfrmPrincpal
       ImageIndex = 1
       OnExecute = actGruposExecute
     end
-    object actTrocaUsuario: TAction
-      Caption = 'Trocar de usu'#225'rio'
-    end
     object actRegistroBens: TAction
       Caption = 'Registro de bens'
       ImageIndex = 0
       OnExecute = actRegistroBensExecute
+    end
+    object actSobre: TAction
+      Caption = 'Informa'#231#245'es sobre o projeto'
+      OnExecute = actSobreExecute
     end
   end
 end

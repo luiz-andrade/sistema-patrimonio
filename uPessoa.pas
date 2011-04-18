@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DBCtrls, Mask, StdCtrls, Buttons, Grids, DBGrids, ExtCtrls, ComCtrls,
-  DB, DBClient, Provider;
+  DB, DBClient, Provider, pngimage, untWaterEffect;
 
 type
   TfrmPessoa = class(TForm)
@@ -30,6 +30,9 @@ type
     dspPessoa: TDataSetProvider;
     cdsPessoapessoaId: TIntegerField;
     cdsPessoanome: TStringField;
+    pnLateral: TPanel;
+    imgLateral: TImage;
+    Timer: TTimer;
 		procedure FormPaint(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnFecharClick(Sender: TObject);
@@ -45,9 +48,19 @@ type
     procedure btnCancelarClick(Sender: TObject);
     procedure btnApagarClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure imgLateralMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure TimerTimer(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
 		{ Private declarations }
 		_empresaId : Integer;
+		Water : TWaterEffect;
+		bmp : TBitmap;
+		xImage : Integer;
 	public
 		{ Public declarations }
 		constructor Create(AOwner : TComponent; empresaId : Integer);reintroduce;overload;
@@ -150,8 +163,16 @@ end;
 
 procedure TfrmPessoa.dsPessoaDataChange(Sender: TObject; Field: TField);
 begin
-	Caption := cdsPessoanome.AsString;
-	tsInformacao.Caption := cdsPessoanome.AsString;
+	if cdsPessoa.IsEmpty then
+	begin
+		Caption := 'Cadastro de pessoas';
+		tsInformacao.Caption := 'Cadastrar';
+	end
+	else
+	begin
+		Caption := Concat('Pessoa - ',cdsPessoanome.AsString);
+		tsInformacao.Caption := Concat('Pessoa - ', cdsPessoanome.AsString);
+	end;
 end;
 
 procedure TfrmPessoa.dsPessoaStateChange(Sender: TObject);
@@ -179,24 +200,52 @@ begin
 	cdsPessoa.Close;
 end;
 
+procedure TfrmPessoa.FormCreate(Sender: TObject);
+begin
+	bmp := TBitmap.Create;
+	bmp.Assign(imgLateral.Picture.Graphic);
+	imgLateral.Picture.Graphic := nil;
+	imgLateral.Picture.Bitmap.Height  := bmp.Height;
+	imgLateral.Picture.Bitmap.Width   := bmp.Width;
+	Water := TWaterEffect.Create;
+	Water.SetSize(bmp.Width, bmp.Height);
+	xImage := imgLateral.Height;
+end;
+
+procedure TfrmPessoa.FormDestroy(Sender: TObject);
+begin
+	bmp.Free;
+	Water.Free;
+end;
+
+procedure TfrmPessoa.FormKeyDown(Sender: TObject; var Key: Word;
+	Shift: TShiftState);
+begin
+	if Key = VK_ESCAPE then btnFechar.Click;
+end;
+
+procedure TfrmPessoa.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+	if Key = #13 then SelectNext(ActiveControl, True, True);
+end;
+
 procedure TfrmPessoa.FormPaint(Sender: TObject);
 begin
-	with Canvas do
-	begin
-		Brush.Style := bsSolid;
-		Pen.Color := $00804000;
-		Brush.Color := clWhite;
-		Rectangle(0,1,65,Self.ClientHeight);
-
-		Font.Name  :=   'Arial';
-		Font.Color := $00837369;
-		Font.Size  := 6;
-
-		Pen.Color := $00804000;
-		Brush.Color := $00804000;
-		Rectangle(42,55,65,Self.ClientHeight);
-	end;
 	VerticalText(Self,'Cadastro de locais',Application.Title,Self.Height - 50,30);
+end;
+
+procedure TfrmPessoa.imgLateralMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+	Water.Blob(X,Y,1,100);
+end;
+
+procedure TfrmPessoa.TimerTimer(Sender: TObject);
+begin
+	if Random(8) = 1 then
+		Water.Blob(-1,-1, Random(1) + 1, Random(500) + 50);
+	Water.Render(bmp, imgLateral.Picture.Bitmap);
+	VerticalText(imgLateral,'Cadastro de locais',Application.Title,Self.Height - 50,30);
 end;
 
 end.

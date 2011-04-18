@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DBCtrls, Mask, StdCtrls, Buttons, Grids, DBGrids, ExtCtrls, ComCtrls,
-  Provider, DB, DBClient;
+  Provider, DB, DBClient, untWaterEffect, pngimage;
 
 type
   TfrmGrupo = class(TForm)
@@ -40,7 +40,9 @@ type
     IntegerField2: TIntegerField;
     IntegerField3: TIntegerField;
     dsAuxGrupo: TDataSource;
-    procedure FormPaint(Sender: TObject);
+    pnLateral: TPanel;
+    imgLateral: TImage;
+    Timer: TTimer;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure btnNovoClick(Sender: TObject);
@@ -55,9 +57,19 @@ type
     procedure cdsGrupoReconcileError(DataSet: TCustomClientDataSet;
       E: EReconcileError; UpdateKind: TUpdateKind;
       var Action: TReconcileAction);
+    procedure FormCreate(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure TimerTimer(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure imgLateralMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
 		{ Private declarations }
 		_empresaId : Integer;
+		Water : TWaterEffect;
+		bmp : TBitmap;
+		xImage : Integer;
 	public
 		{ Public declarations }
 		constructor Create(AOwner: TComponent; empresaId: Integer);reintroduce;overload;
@@ -165,8 +177,16 @@ end;
 
 procedure TfrmGrupo.dsGrupoDataChange(Sender: TObject; Field: TField);
 begin
-	Caption := cdsGrupodescricao.AsString;
-	tsInformacao.Caption := cdsGrupodescricao.AsString;
+	if cdsGrupo.IsEmpty then
+	begin
+		Caption := 'Cadastro de grupos';
+		tsInformacao.Caption := 'Cadastrar';
+	end
+	else
+	begin
+		Caption := Concat('Grupo - ', cdsGrupodescricao.AsString);
+		tsInformacao.Caption := Concat('Grupo - ', cdsGrupodescricao.AsString);
+	end;
 end;
 
 procedure TfrmGrupo.dsGrupoStateChange(Sender: TObject);
@@ -196,24 +216,47 @@ begin
 	dsAuxGrupo.DataSet.Close;
 end;
 
-procedure TfrmGrupo.FormPaint(Sender: TObject);
+procedure TfrmGrupo.FormCreate(Sender: TObject);
 begin
-	with Canvas do
-	begin
-		Brush.Style := bsSolid;
-		Pen.Color := $00804000;
-		Brush.Color := clWhite;
-		Rectangle(0,1,65,Self.ClientHeight);
+	bmp := TBitmap.Create;
+	bmp.Assign(imgLateral.Picture.Graphic);
+	imgLateral.Picture.Graphic := nil;
+	imgLateral.Picture.Bitmap.Height  := bmp.Height;
+	imgLateral.Picture.Bitmap.Width   := bmp.Width;
+	Water := TWaterEffect.Create;
+	Water.SetSize(bmp.Width, bmp.Height);
+	xImage := imgLateral.Height;
+end;
 
-		Font.Name  :=   'Arial';
-		Font.Color := $00837369;
-		Font.Size  := 6;
+procedure TfrmGrupo.FormDestroy(Sender: TObject);
+begin
+	bmp.Free;
+	Water.Free;
+end;
 
-		Pen.Color := $00804000;
-		Brush.Color := $00804000;
-		Rectangle(42,55,65,Self.ClientHeight);
-	end;
-	VerticalText(Self,'Cadastro de locais',Application.Title,Self.Height - 50,30);
+procedure TfrmGrupo.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+	if Key = VK_ESCAPE then btnFechar.Click;
+end;
+
+procedure TfrmGrupo.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+	if Key = #13 then SelectNext(ActiveControl, True, True);
+end;
+
+procedure TfrmGrupo.imgLateralMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+	Water.Blob(X,Y,1,100);
+end;
+
+procedure TfrmGrupo.TimerTimer(Sender: TObject);
+begin
+	if Random(8) = 1 then
+		Water.Blob(-1,-1, Random(1) + 1, Random(500) + 50);
+	Water.Render(bmp, imgLateral.Picture.Bitmap);
+	VerticalText(imgLateral, 'Cadastro de grupos',Application.Title,Self.Height - 50,30);
 end;
 
 end.

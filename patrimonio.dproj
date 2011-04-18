@@ -74,6 +74,10 @@
 			<DCCReference Include="uBem.pas">
 				<Form>frmBem</Form>
 			</DCCReference>
+			<DCCReference Include="untWaterEffect.pas"/>
+			<DCCReference Include="uSobre.pas">
+				<Form>frmSobre</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
@@ -94,8 +98,8 @@
 			<BorlandProject>
 				<Delphi.Personality>
 					<VersionInfo>
-						<VersionInfo Name="IncludeVerInfo">False</VersionInfo>
-						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">True</VersionInfo>
 						<VersionInfo Name="MajorVer">1</VersionInfo>
 						<VersionInfo Name="MinorVer">0</VersionInfo>
 						<VersionInfo Name="Release">0</VersionInfo>

@@ -1,7 +1,7 @@
 object dm: Tdm
   OldCreateOrder = False
-  Height = 332
-  Width = 416
+  Height = 334
+  Width = 599
   object SQLConnection: TSQLConnection
     ConnectionName = 'MSSQLConnection'
     DriverName = 'MSSQL'
@@ -57,7 +57,7 @@ object dm: Tdm
       'from local')
     SQLConnection = SQLConnection
     Left = 40
-    Top = 155
+    Top = 156
     object sqlLocallocalId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'localId'
@@ -80,10 +80,10 @@ object dm: Tdm
   object ImageListAcoes: TImageList
     Height = 32
     Width = 32
-    Left = 318
-    Top = 203
+    Left = 342
+    Top = 267
     Bitmap = {
-      494C010104002000400020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104004C004C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1147,10 +1147,10 @@ object dm: Tdm
       000000000000}
   end
   object ImageListBotoes: TImageList
-    Left = 317
-    Top = 152
+    Left = 341
+    Top = 216
     Bitmap = {
-      494C010104001400340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104004000400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1429,7 +1429,7 @@ object dm: Tdm
       'from pessoa')
     SQLConnection = SQLConnection
     Left = 97
-    Top = 155
+    Top = 156
     object sqlPessoapessoaId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'pessoaId'
@@ -1449,7 +1449,7 @@ object dm: Tdm
       'from grupo')
     SQLConnection = SQLConnection
     Left = 154
-    Top = 155
+    Top = 156
     object sqlGrupogrupoId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'grupoId'
@@ -1506,6 +1506,106 @@ object dm: Tdm
     end
     object sqlBemgestaoId: TIntegerField
       FieldName = 'gestaoId'
+      Required = True
+    end
+  end
+  object sqlGestao: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from gestao')
+    SQLConnection = SQLConnection
+    Left = 264
+    Top = 156
+    object sqlGestaogestaoId: TIntegerField
+      FieldName = 'gestaoId'
+      Required = True
+    end
+    object sqlGestaoinicio: TSQLTimeStampField
+      FieldName = 'inicio'
+      Required = True
+    end
+    object sqlGestaofim: TSQLTimeStampField
+      FieldName = 'fim'
+      Required = True
+    end
+    object sqlGestaopessoaId: TIntegerField
+      FieldName = 'pessoaId'
+      Required = True
+    end
+  end
+  object sqlEstado: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from estado')
+    SQLConnection = SQLConnection
+    Left = 316
+    Top = 156
+    object sqlEstadoestadoId: TIntegerField
+      FieldName = 'estadoId'
+      Required = True
+    end
+    object sqlEstadodescricao: TStringField
+      FieldName = 'descricao'
+      Required = True
+      Size = 100
+    end
+  end
+  object sqlBemAquisicao: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from bemAquisicao')
+    SQLConnection = SQLConnection
+    Left = 208
+    Top = 210
+    object sqlBemAquisicaobemId: TIntegerField
+      FieldName = 'bemId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sqlBemAquisicaodata: TSQLTimeStampField
+      FieldName = 'data'
+      Required = True
+    end
+    object sqlBemAquisicaodataNota: TSQLTimeStampField
+      FieldName = 'dataNota'
+      Required = True
+    end
+    object sqlBemAquisicaofornecedorId: TIntegerField
+      FieldName = 'fornecedorId'
+      Required = True
+    end
+  end
+  object sqlFornecedor: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from fornecedor')
+    SQLConnection = SQLConnection
+    Left = 376
+    Top = 155
+    object sqlFornecedorfornecedorId: TIntegerField
+      FieldName = 'fornecedorId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sqlFornecedorrazaoSocial: TStringField
+      FieldName = 'razaoSocial'
+      Required = True
+      Size = 100
+    end
+    object sqlFornecedorcnpj: TStringField
+      FieldName = 'cnpj'
+      Required = True
+    end
+    object sqlFornecedorpessoaId: TIntegerField
+      FieldName = 'pessoaId'
       Required = True
     end
   end

@@ -11,15 +11,17 @@ uses
   uMd5 in 'uMd5.pas',
   uPessoa in 'uPessoa.pas' {frmPessoa},
   uGrupo in 'uGrupo.pas' {frmGrupo},
-  uBem in 'uBem.pas' {frmBem};
+  uBem in 'uBem.pas' {frmBem},
+  untWaterEffect in 'untWaterEffect.pas',
+  uSobre in 'uSobre.pas' {frmSobre};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.Title := 'Controle de Patrimônio';
   Application.CreateForm(Tdm, dm);
   Application.CreateForm(TfrmPrincpal, frmPrincpal);
-  Application.CreateForm(TfrmAcesso, frmAcesso);
   Application.Run;
 end.
