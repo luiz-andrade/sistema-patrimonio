@@ -12,6 +12,7 @@ var
 	gUsuarioId : Integer;
 	gUsuarioNome : String;
 	gUsuarioLogin : String;
+	gUsuarioSenha : String;
 	const
 		corZebra : TColor = clSkyBlue;
 		corFoco  : TColor = clMoneyGreen;

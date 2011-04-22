@@ -53,6 +53,18 @@ type
     sqlFornecedorrazaoSocial: TStringField;
     sqlFornecedorcnpj: TStringField;
     sqlFornecedorpessoaId: TIntegerField;
+    sqlPessoatipo: TSmallintField;
+    sqlPessoalogradouro: TStringField;
+    sqlPessoamunicipio: TStringField;
+    sqlPessoacep: TStringField;
+    sqlUsuario: TSQLQuery;
+    sqlUsuariousuarioId: TIntegerField;
+    sqlUsuariologin: TStringField;
+    sqlUsuariosenha: TMemoField;
+    sqlUsuariopessoaId: TIntegerField;
+    sqlUsuariodesativado: TBooleanField;
+    sqlPessoafornecedor: TBooleanField;
+    sqlPessoausuario: TBooleanField;
   private
     { Private declarations }
   public

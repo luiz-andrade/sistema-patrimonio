@@ -9,12 +9,13 @@ function validaAcesso(login : String; pws : String) : TDataSet;
 procedure VerticalText(Form : TForm; Texto1, Texto2 : String; Top : Integer; FontSize : Integer);overload;
 procedure VerticalText(img : TImage; Texto1, Texto2 : String; Top : Integer; FontSize : Integer);overload;
 function Autenticacao : Boolean;
+function alteraSenhaUsuario(login, oldPws : String; nUser : Boolean) : WideString;
 function GetLocalVersion: String;
 
 
 implementation
 
-uses uAcesso;
+uses uAcesso, uAlteracaoSenha;
 
 /// <summary>
 ///   Exibe tela de autenticação do usuário.
@@ -48,12 +49,14 @@ begin
 			SQLConnection := dm.SQLConnection;
 			with SQL do
 			begin
-				Add('select usuario.usuarioId, usuario.login, pessoa.nome');
+				Add('select usuario.usuarioId, usuario.login, pessoa.nome, usuario.senha');
 				Add('from usuario inner join pessoa on pessoa.pessoaId = usuario.pessoaId');
 				Add('where usuario.login=:login and usuario.senha=:senha');
+				Add('and desativado = :desativado');
 			end;
 			ParamByName('login').AsString := login;
 			ParamByName('senha').AsString := MD5Print(MD5String(pws));
+			ParamByName('desativado').AsBoolean := False;
 			try
 				Open;
 				Result := qryValidaAcesso;
@@ -200,6 +203,19 @@ begin
 			StrDispose(Data);
 	 end;
 	 StrDispose(Parquivo);
+end;
+
+function alteraSenhaUsuario(login, oldPws : String; nUser : Boolean) : WideString;
+begin
+	with TfrmAlteracaoSenha.Create(Application, login, oldPws, nUser) do
+	begin
+		try
+			ShowModal;
+			Result := _resulPws;
+		finally
+			Free;
+		end;
+	end;
 end;
 
 end.

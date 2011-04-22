@@ -141,8 +141,11 @@ begin
 		begin
 			with cdsAquisicao do
 			begin
-				Delete;
-				ApplyUpdates(-1);
+				if not(IsEmpty) then
+				begin
+					Delete;
+					ApplyUpdates(-1);
+				end;
 			end;
 			Delete;
 			ApplyUpdates(-1);
@@ -300,7 +303,7 @@ begin
 		btnGravar.Enabled   := (State in [dsInsert, dsEdit]);
 		btnCancelar.Enabled := (State in [dsInsert, dsEdit]);
 		btnApagar.Enabled   := not(State in [dsInsert, dsEdit]);
-		tsAquisicao.TabVisible := not(State in [dsInsert]) and not(IsEmpty);
+		tsAquisicao.TabVisible  := not(State in [dsInsert]) and not(IsEmpty);
 		if State in [dsInsert] then
 		begin
 			Caption := 'Novo registro';
@@ -315,8 +318,18 @@ end;
 
 procedure TfrmBem.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-	dsBem.DataSet.Close;
-	dsAquisicao.DataSet.Close;
+	with dsBem.DataSet do
+	begin
+		if State in [dsInsert, dsEdit] then
+			Cancel;
+		Close;
+	end;
+	with dsAquisicao.DataSet do
+	begin
+		if State in [dsInsert, dsEdit] then
+			Cancel;
+		Close;
+	end;
 	dsGestao.DataSet.Close;
 	dsLocalizacao.DataSet.Close;
 	dsEstado.DataSet.Close;

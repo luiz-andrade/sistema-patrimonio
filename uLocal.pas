@@ -221,7 +221,13 @@ end;
 
 procedure TfrmLocal.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-	dsLocal.DataSet.Close;
+	// Fecha tabelas
+	with dsLocal.DataSet do
+	begin
+		if State in [dsInsert, dsEdit] then
+			Cancel;
+		Close;
+	end;
 	dsPessoa.DataSet.Close;
 	dsAuxLocal.DataSet.Close;
 end;
