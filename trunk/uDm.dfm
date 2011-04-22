@@ -11,15 +11,15 @@ object dm: Tdm
     Params.Strings = (
       'SchemaOverride=sa.dbo'
       'DriverName=MSSQL'
-      'HostName=127.0.0.1'
+      'HostName=10.1.1.235'
       'DataBase=patrimonio'
-      'User_Name='
-      'Password='
+      'User_Name=sa'
+      'Password=098063'
       'BlobSize=-1'
       'ErrorResourceFile='
       'LocaleCode=0000'
       'IsolationLevel=ReadCommitted'
-      'OS Authentication=True'
+      'OS Authentication=False'
       'Prepare SQL=False'
       'ConnectTimeout=60'
       'Mars_Connection=False')
@@ -80,10 +80,10 @@ object dm: Tdm
   object ImageListAcoes: TImageList
     Height = 32
     Width = 32
-    Left = 342
-    Top = 267
+    Left = 518
+    Top = 75
     Bitmap = {
-      494C010104004C004C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104005000500020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1147,10 +1147,10 @@ object dm: Tdm
       000000000000}
   end
   object ImageListBotoes: TImageList
-    Left = 341
-    Top = 216
+    Left = 517
+    Top = 24
     Bitmap = {
-      494C010104004000400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104004400440010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1440,6 +1440,33 @@ object dm: Tdm
       Required = True
       Size = 100
     end
+    object sqlPessoatipo: TSmallintField
+      FieldName = 'tipo'
+      Required = True
+    end
+    object sqlPessoalogradouro: TStringField
+      FieldName = 'logradouro'
+      Required = True
+      Size = 100
+    end
+    object sqlPessoamunicipio: TStringField
+      FieldName = 'municipio'
+      Required = True
+      Size = 10
+    end
+    object sqlPessoacep: TStringField
+      FieldName = 'cep'
+      Required = True
+      Size = 10
+    end
+    object sqlPessoafornecedor: TBooleanField
+      FieldName = 'fornecedor'
+      Required = True
+    end
+    object sqlPessoausuario: TBooleanField
+      FieldName = 'usuario'
+      Required = True
+    end
   end
   object sqlGrupo: TSQLQuery
     MaxBlobSize = -1
@@ -1588,12 +1615,11 @@ object dm: Tdm
       'select *'
       'from fornecedor')
     SQLConnection = SQLConnection
-    Left = 376
-    Top = 155
+    Left = 96
+    Top = 267
     object sqlFornecedorfornecedorId: TIntegerField
       FieldName = 'fornecedorId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
     object sqlFornecedorrazaoSocial: TStringField
       FieldName = 'razaoSocial'
@@ -1606,6 +1632,40 @@ object dm: Tdm
     end
     object sqlFornecedorpessoaId: TIntegerField
       FieldName = 'pessoaId'
+      Required = True
+    end
+  end
+  object sqlUsuario: TSQLQuery
+    MaxBlobSize = 1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from usuario')
+    SQLConnection = SQLConnection
+    Left = 96
+    Top = 211
+    object sqlUsuariousuarioId: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'usuarioId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object sqlUsuariologin: TStringField
+      FieldName = 'login'
+      Required = True
+      Size = 10
+    end
+    object sqlUsuariosenha: TMemoField
+      FieldName = 'senha'
+      Required = True
+      BlobType = ftMemo
+      Size = 1
+    end
+    object sqlUsuariopessoaId: TIntegerField
+      FieldName = 'pessoaId'
+      Required = True
+    end
+    object sqlUsuariodesativado: TBooleanField
+      FieldName = 'desativado'
       Required = True
     end
   end

@@ -572,6 +572,7 @@ object frmBem: TfrmBem
       ParentDoubleBuffered = False
       TabOrder = 2
       OnClick = btnCancelarClick
+      ExplicitLeft = 3
     end
     object btnApagar: TBitBtn
       AlignWithMargins = True

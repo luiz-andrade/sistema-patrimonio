@@ -212,7 +212,12 @@ end;
 procedure TfrmGrupo.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
 	// Fecha tabelas.
-	dsGrupo.DataSet.Close;
+	with dsGrupo.DataSet do
+	begin
+		if State in [dsInsert, dsEdit] then
+			Cancel;
+		Close;
+  end;
 	dsAuxGrupo.DataSet.Close;
 end;
 

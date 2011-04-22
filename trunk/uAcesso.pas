@@ -113,6 +113,7 @@ begin
 			gUsuarioId    := FieldByName('usuarioId').AsInteger;
 			gUsuarioNome  := FieldByName('nome').AsString;
 			gUsuarioLogin := FieldByName('login').AsString;
+			gUsuarioSenha := FieldByName('senha').AsString;
 		end
 		else
 		begin

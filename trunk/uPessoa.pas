@@ -18,12 +18,6 @@ type
 		DBGrid1: TDBGrid;
 		tsInformacao: TTabSheet;
 		Label2: TLabel;
-		pnAcoes: TPanel;
-		btnNovo: TBitBtn;
-		btnGravar: TBitBtn;
-		btnCancelar: TBitBtn;
-		btnApagar: TBitBtn;
-		btnFechar: TBitBtn;
     nome: TDBEdit;
     dsPessoa: TDataSource;
     cdsPessoa: TClientDataSet;
@@ -33,6 +27,62 @@ type
     pnLateral: TPanel;
     imgLateral: TImage;
     Timer: TTimer;
+    cdsPessoatipo: TSmallintField;
+    cdsPessoalogradouro: TStringField;
+    cdsPessoamunicipio: TStringField;
+    cdsPessoacep: TStringField;
+    Label1: TLabel;
+    logradouro: TDBEdit;
+    Label3: TLabel;
+    municipio: TDBEdit;
+    Label4: TLabel;
+    cep: TDBEdit;
+    tipo: TDBRadioGroup;
+    tsUsuario: TTabSheet;
+    tsFornecedor: TTabSheet;
+    dsPessoaUsuario: TDataSource;
+    cdsPessoaUsuario: TClientDataSet;
+    dspPessoaUsuario: TDataSetProvider;
+    cdsPessoaUsuariousuarioId: TIntegerField;
+    cdsPessoaUsuariologin: TStringField;
+    cdsPessoaUsuariosenha: TMemoField;
+    cdsPessoaUsuariopessoaId: TIntegerField;
+    Label5: TLabel;
+    usuarioId: TDBEdit;
+    Label6: TLabel;
+    login: TDBEdit;
+    Label7: TLabel;
+    Label8: TLabel;
+    pessoaId: TDBEdit;
+    pnAcoes: TPanel;
+    btnNovo: TBitBtn;
+    btnGravar: TBitBtn;
+    btnCancelar: TBitBtn;
+    btnApagar: TBitBtn;
+    btnFechar: TBitBtn;
+    btnDefinirSenha: TSpeedButton;
+    desativado: TDBCheckBox;
+    cdsPessoaUsuariodesativado: TBooleanField;
+    senha: TDBEdit;
+    dsPessoaFornc: TDataSource;
+    cdsPessoaForc: TClientDataSet;
+    dpsPessoaForc: TDataSetProvider;
+    cdsPessoaForcfornecedorId: TIntegerField;
+    cdsPessoaForcrazaoSocial: TStringField;
+    cdsPessoaForccnpj: TStringField;
+    cdsPessoaForcpessoaId: TIntegerField;
+    Label9: TLabel;
+    DBEdit1: TDBEdit;
+    Label10: TLabel;
+    razaoSocial: TDBEdit;
+    Label11: TLabel;
+    cnpj: TDBEdit;
+    Label12: TLabel;
+    DBEdit4: TDBEdit;
+    cdsPessoafornecedor: TBooleanField;
+    cdsPessoausuario_: TBooleanField;
+    fornecedor: TDBCheckBox;
+    usuario: TDBCheckBox;
 		procedure FormPaint(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnFecharClick(Sender: TObject);
@@ -55,6 +105,15 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure pcGeralChange(Sender: TObject);
+    procedure dsPessoaUsuarioStateChange(Sender: TObject);
+    procedure btnDefinirSenhaClick(Sender: TObject);
+    procedure cdsPessoaAfterOpen(DataSet: TDataSet);
+    procedure cdsPessoaUsuarioAfterInsert(DataSet: TDataSet);
+    procedure cdsPessoaUsuarioReconcileError(DataSet: TCustomClientDataSet;
+      E: EReconcileError; UpdateKind: TUpdateKind;
+      var Action: TReconcileAction);
+    procedure dsPessoaForncStateChange(Sender: TObject);
   private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -81,6 +140,22 @@ begin
 	begin
 		if Application.MessageBox(PChar(Concat('Confirmar a deleção do registro: ',cdsPessoanome.AsString)), PChar(Application.Title), MB_ICONQUESTION or MB_YESNO) = IDYES then
 		begin
+			with cdsPessoaUsuario do
+			begin
+				if not(IsEmpty) then
+				begin
+					Delete;
+					ApplyUpdates(-1);
+				end;
+			end;
+			with cdsPessoaForc do
+			begin
+				if not(IsEmpty) then
+				begin
+					Delete;
+					ApplyUpdates(-1);
+				end;
+			end;
 			Delete;
 			ApplyUpdates(-1);
 		end;
@@ -91,7 +166,34 @@ procedure TfrmPessoa.btnCancelarClick(Sender: TObject);
 begin
 	with cdsPessoa do
 	begin
-		Cancel;
+		if State in [dsInsert, dsEdit] then
+		begin
+			Cancel;
+		end;
+	end;
+	with cdsPessoaUsuario do
+	begin
+		if State in [dsInsert, dsEdit] then
+		begin
+			Cancel;
+		end;
+	end;
+	with cdsPessoaForc do
+	begin
+		if State in [dsInsert, dsEdit] then
+		begin
+			Cancel;
+		end;
+	end;
+end;
+
+procedure TfrmPessoa.btnDefinirSenhaClick(Sender: TObject);
+begin
+	with cdsPessoaUsuario do
+	begin
+		if not (State in [dsInsert, dsEdit]) then
+			Edit;
+		senha.Field.Value := alteraSenhaUsuario(login.Text, gUsuarioSenha, (State in [dsInsert]));
 	end;
 end;
 
@@ -104,12 +206,34 @@ procedure TfrmPessoa.btnGravarClick(Sender: TObject);
 begin
 	with cdsPessoa do
 	begin
-		Post;
-		ApplyUpdates(-1);
-		Close;
-		Open;
+		if State in [dsInsert, dsEdit] then
+		begin
+			Post;
+			ApplyUpdates(-1);
+			Close;
+			Open;
+		end;
 	end;
-
+	with cdsPessoaUsuario do
+	begin
+		if State in [dsInsert, dsEdit] then
+		begin
+			Post;
+			ApplyUpdates(-1);
+			Close;
+			Open;
+		end;
+	end;
+	with cdsPessoaForc do
+	begin
+		if State in [dsInsert, dsEdit] then
+		begin
+			Post;
+			ApplyUpdates(-1);
+			Close;
+			Open;
+		end;
+	end;
 end;
 
 procedure TfrmPessoa.btnNovoClick(Sender: TObject);
@@ -121,8 +245,33 @@ begin
 	end;
 end;
 
+procedure TfrmPessoa.cdsPessoaAfterOpen(DataSet: TDataSet);
+begin
+	with cdsPessoaUsuario do
+	begin
+		Open;
+	end;
+	with cdsPessoaForc do
+	begin
+		Open;
+	end;
+end;
+
 procedure TfrmPessoa.cdsPessoaReconcileError(DataSet: TCustomClientDataSet;
   E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
+begin
+	raise Exception.Create(E.Message);
+	Action := raAbort;
+end;
+
+procedure TfrmPessoa.cdsPessoaUsuarioAfterInsert(DataSet: TDataSet);
+begin
+	cdsPessoaUsuariodesativado.Value := True;
+end;
+
+procedure TfrmPessoa.cdsPessoaUsuarioReconcileError(
+  DataSet: TCustomClientDataSet; E: EReconcileError; UpdateKind: TUpdateKind;
+  var Action: TReconcileAction);
 begin
 	raise Exception.Create(E.Message);
 	Action := raAbort;
@@ -175,9 +324,41 @@ begin
 	end;
 end;
 
+procedure TfrmPessoa.dsPessoaForncStateChange(Sender: TObject);
+begin
+	with cdsPessoaForc do
+	begin
+		btnNovo.Enabled     := not(State in [dsInsert, dsEdit]);
+		btnGravar.Enabled   := (State in [dsInsert, dsEdit]);
+		btnCancelar.Enabled := (State in [dsInsert, dsEdit]);
+		btnApagar.Enabled   := not(State in [dsInsert, dsEdit]);
+		if State in [dsInsert] then
+		begin
+			Caption := 'Novo registro';
+		end;
+	end;
+end;
+
 procedure TfrmPessoa.dsPessoaStateChange(Sender: TObject);
 begin
 	with cdsPessoa do
+	begin
+		btnNovo.Enabled     := not(State in [dsInsert, dsEdit]);
+		btnGravar.Enabled   := (State in [dsInsert, dsEdit]);
+		btnCancelar.Enabled := (State in [dsInsert, dsEdit]);
+		btnApagar.Enabled   := not(State in [dsInsert, dsEdit]);
+		tsUsuario.TabVisible := not(State in [dsInsert]) and not(IsEmpty) and cdsPessoausuario_.Value;
+		tsFornecedor.TabVisible := not(State in [dsInsert]) and not(IsEmpty) and cdsPessoafornecedor.Value;
+		if State in [dsInsert] then
+		begin
+			Caption := 'Novo registro';
+		end;
+	end;
+end;
+
+procedure TfrmPessoa.dsPessoaUsuarioStateChange(Sender: TObject);
+begin
+	with cdsPessoaUsuario do
 	begin
 		btnNovo.Enabled     := not(State in [dsInsert, dsEdit]);
 		btnGravar.Enabled   := (State in [dsInsert, dsEdit]);
@@ -197,7 +378,24 @@ end;
 
 procedure TfrmPessoa.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-	cdsPessoa.Close;
+	with cdsPessoa do
+	begin
+		if State in [dsInsert, dsEdit] then
+			Cancel;
+		Close;
+	end;
+	with cdsPessoaUsuario do
+	begin
+		if State in [dsInsert, dsEdit] then
+			Cancel;
+		Close;
+	end;
+	with cdsPessoaForc do
+	begin
+		if State in [dsInsert, dsEdit] then
+			Cancel;
+		Close;
+	end;
 end;
 
 procedure TfrmPessoa.FormCreate(Sender: TObject);
@@ -238,6 +436,14 @@ procedure TfrmPessoa.imgLateralMouseMove(Sender: TObject; Shift: TShiftState; X,
   Y: Integer);
 begin
 	Water.Blob(X,Y,1,100);
+end;
+
+procedure TfrmPessoa.pcGeralChange(Sender: TObject);
+begin
+	with pcGeral do
+	begin
+		pnAcoes.Visible := not(ActivePage = tsPesquisa);
+	end;
 end;
 
 procedure TfrmPessoa.TimerTimer(Sender: TObject);

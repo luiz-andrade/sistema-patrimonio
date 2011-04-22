@@ -14,7 +14,8 @@ uses
   uBem in 'uBem.pas' {frmBem},
   untWaterEffect in 'untWaterEffect.pas',
   uSobre in 'uSobre.pas' {frmSobre},
-  uControlsTunning in 'uControlsTunning.pas';
+  uControlsTunning in 'uControlsTunning.pas',
+  uAlteracaoSenha in 'uAlteracaoSenha.pas' {frmAlteracaoSenha};
 
 {$R *.res}
 
@@ -24,5 +25,6 @@ begin
   Application.Title := 'Controle de Patrimônio';
   Application.CreateForm(Tdm, dm);
   Application.CreateForm(TfrmPrincpal, frmPrincpal);
+  Application.CreateForm(TfrmAlteracaoSenha, frmAlteracaoSenha);
   Application.Run;
 end.
