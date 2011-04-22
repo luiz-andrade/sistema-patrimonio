@@ -39,10 +39,6 @@ object frmLocal: TfrmLocal
     TabOrder = 0
     object tsPesquisa: TTabSheet
       Caption = 'Perquisar'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pnPesquisa: TPanel
         Left = 0
         Top = 415

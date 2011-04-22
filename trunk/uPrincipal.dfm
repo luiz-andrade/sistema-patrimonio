@@ -1,4 +1,4 @@
-object frmPrincpal: TfrmPrincpal
+object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   ClientHeight = 610
@@ -14,6 +14,7 @@ object frmPrincpal: TfrmPrincpal
   Menu = MainMenu
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnCloseQuery = FormCloseQuery
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -64,20 +65,22 @@ object frmPrincpal: TfrmPrincpal
       ShowCaptions = True
       TabOrder = 0
       Transparent = True
-      ExplicitHeight = 51
       object ToolButton1: TToolButton
         Left = 2
         Top = 0
+        Cursor = crHandPoint
         Action = actLocais
       end
       object ToolButton3: TToolButton
         Left = 106
         Top = 0
+        Cursor = crHandPoint
         Action = actPessoa
       end
       object ToolButton4: TToolButton
         Left = 210
         Top = 0
+        Cursor = crHandPoint
         Action = actGrupos
       end
       object ToolButton2: TToolButton
@@ -91,7 +94,36 @@ object frmPrincpal: TfrmPrincpal
       object ToolButton5: TToolButton
         Left = 322
         Top = 0
+        Cursor = crHandPoint
         Action = actRegistroBens
+      end
+      object ToolButton6: TToolButton
+        Left = 426
+        Top = 0
+        Width = 8
+        Caption = 'ToolButton6'
+        ImageIndex = 1
+        Style = tbsSeparator
+      end
+      object ToolButton7: TToolButton
+        Left = 434
+        Top = 0
+        Cursor = crHandPoint
+        Action = actInfoEmpresa
+      end
+      object ToolButton8: TToolButton
+        Left = 538
+        Top = 0
+        Width = 8
+        Caption = 'ToolButton8'
+        ImageIndex = 5
+        Style = tbsSeparator
+      end
+      object ToolButton9: TToolButton
+        Left = 546
+        Top = 0
+        Cursor = crHandPoint
+        Action = actMovimentacao
       end
     end
   end
@@ -120,6 +152,9 @@ object frmPrincpal: TfrmPrincpal
       end
       object ransferencia1: TMenuItem
         Caption = 'Transferencia'
+      end
+      object Movimentao1: TMenuItem
+        Action = actMovimentacao
       end
       object N3: TMenuItem
         Caption = '-'
@@ -195,6 +230,16 @@ object frmPrincpal: TfrmPrincpal
     object actSobre: TAction
       Caption = 'Informa'#231#245'es sobre o projeto'
       OnExecute = actSobreExecute
+    end
+    object actInfoEmpresa: TAction
+      Caption = 'Empresa'
+      ImageIndex = 4
+      OnExecute = actInfoEmpresaExecute
+    end
+    object actMovimentacao: TAction
+      Caption = 'Movimenta'#231#227'o'
+      ImageIndex = 5
+      OnExecute = actMovimentacaoExecute
     end
   end
 end

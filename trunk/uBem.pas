@@ -147,8 +147,11 @@ begin
 					ApplyUpdates(-1);
 				end;
 			end;
-			Delete;
-			ApplyUpdates(-1);
+			if not(IsEmpty) then
+			begin
+				Delete;
+				ApplyUpdates(-1);
+			end;
 		end;
 	end;
 end;

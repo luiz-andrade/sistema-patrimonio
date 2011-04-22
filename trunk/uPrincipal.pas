@@ -8,7 +8,7 @@ uses
 	uGlobais, ToolWin, ExtCtrls, ActnCtrls, StdCtrls, ActnColorMaps;
 
 type
-	TfrmPrincpal = class(TForm)
+	TfrmPrincipal = class(TForm)
 		MainMenu: TMainMenu;
 		Operaes1: TMenuItem;
 		IncorporarBem1: TMenuItem;
@@ -38,12 +38,22 @@ type
     ToolButton5: TToolButton;
     actSobre: TAction;
     Informaessobreoprojeto1: TMenuItem;
+    actInfoEmpresa: TAction;
+    ToolButton6: TToolButton;
+    ToolButton7: TToolButton;
+    ToolButton8: TToolButton;
+    actMovimentacao: TAction;
+    ToolButton9: TToolButton;
+    Movimentao1: TMenuItem;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
     procedure actRegistroBensExecute(Sender: TObject);
     procedure actSobreExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure actInfoEmpresaExecute(Sender: TObject);
+    procedure actMovimentacaoExecute(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 	private
 		{ Private declarations }
 		procedure updateInfo;
@@ -52,15 +62,16 @@ type
 	end;
 
 var
-	frmPrincpal: TfrmPrincpal;
+	frmPrincipal: TfrmPrincipal;
 
 implementation
 
-uses uLocal, uAcesso, uDm, uPessoa, uGrupo, uBem, uFuncoes, uMd5, uSobre;
+uses uLocal, uAcesso, uDm, uPessoa, uGrupo, uBem, uFuncoes, uMd5, uSobre,
+  uEmpresa, uMovimentacao;
 
 {$R *.dfm}
 
-procedure TfrmPrincpal.actGruposExecute(Sender: TObject);
+procedure TfrmPrincipal.actGruposExecute(Sender: TObject);
 begin
 	with TfrmGrupo.Create(Application, gEmpresaId) do
 	begin
@@ -72,7 +83,19 @@ begin
 	end;
 end;
 
-procedure TfrmPrincpal.actLocaisExecute(Sender: TObject);
+procedure TfrmPrincipal.actInfoEmpresaExecute(Sender: TObject);
+begin
+	with TfrmEmpresa.Create(Application, gEmpresaId) do
+	begin
+		try
+			Show;
+		finally
+			//Free - Metodo configurado dentro do formulario;
+		end;
+  end;
+end;
+
+procedure TfrmPrincipal.actLocaisExecute(Sender: TObject);
 begin
 	with TfrmLocal.Create(Application, gEmpresaId) do
 	begin
@@ -84,7 +107,19 @@ begin
 	end;
 end;
 
-procedure TfrmPrincpal.actPessoaExecute(Sender: TObject);
+procedure TfrmPrincipal.actMovimentacaoExecute(Sender: TObject);
+begin
+	with TfrmMovimentacao.Create(Application, gEmpresaId) do
+	begin
+		try
+			ShowModal;
+		finally
+			Free;
+		end;
+	end;
+end;
+
+procedure TfrmPrincipal.actPessoaExecute(Sender: TObject);
 begin
 	with TfrmPessoa.Create(Application, gEmpresaId) do
 	begin
@@ -96,7 +131,7 @@ begin
 	end;
 end;
 
-procedure TfrmPrincpal.actRegistroBensExecute(Sender: TObject);
+procedure TfrmPrincipal.actRegistroBensExecute(Sender: TObject);
 begin
 	with TfrmBem.Create(Application, gEmpresaId) do
 	begin
@@ -104,7 +139,7 @@ begin
   end;
 end;
 
-procedure TfrmPrincpal.actSobreExecute(Sender: TObject);
+procedure TfrmPrincipal.actSobreExecute(Sender: TObject);
 begin
 	with TfrmSobre.Create(Application) do
 	begin
@@ -116,14 +151,21 @@ begin
 	end;
 end;
 
-procedure TfrmPrincpal.updateInfo;
+procedure TfrmPrincipal.updateInfo;
 begin
 	Caption := Concat('Patrimonio - ', gEmpresaFantasia);
 	StatusBar.Panels[0].Text := 'Usuário:';
 	StatusBar.Panels[1].Text := gUsuarioNome;
 end;
 
-procedure TfrmPrincpal.FormShow(Sender: TObject);
+procedure TfrmPrincipal.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+	CanClose := (Application.MessageBox(	'Deseja realmente sair do sistema?',
+																			PChar(Application.Title),
+																			MB_ICONQUESTION or MB_YESNO) = IDYES);
+end;
+
+procedure TfrmPrincipal.FormShow(Sender: TObject);
 var
 	_auth : Boolean;
 	Index : Integer;

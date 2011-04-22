@@ -4,7 +4,8 @@ interface
 
 uses
 	Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-	Dialogs, DB, ExtCtrls, Buttons, StdCtrls, DBCtrls, SqlExpr, pngimage;
+	Dialogs, DB, ExtCtrls, Buttons, StdCtrls, DBCtrls, SqlExpr, pngimage, DBClient,
+  Provider;
 
 type
 	TfrmAcesso = class(TForm)
@@ -15,6 +16,8 @@ type
     lblEmpresa: TLabel;
     imgLogar: TImage;
     imgCancelar: TImage;
+    dspEpresa: TDataSetProvider;
+    cdsEmpresa: TClientDataSet;
 		procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure dsEmpresaDataChange(Sender: TObject; Field: TField);

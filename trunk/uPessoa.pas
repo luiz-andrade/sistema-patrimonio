@@ -114,6 +114,7 @@ type
       E: EReconcileError; UpdateKind: TUpdateKind;
       var Action: TReconcileAction);
     procedure dsPessoaForncStateChange(Sender: TObject);
+    procedure cdsPessoaAfterInsert(DataSet: TDataSet);
   private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -245,6 +246,14 @@ begin
 	end;
 end;
 
+procedure TfrmPessoa.cdsPessoaAfterInsert(DataSet: TDataSet);
+begin 
+	// Configura valores inicais para novos registros.
+	cdsPessoausuario_.Value   := False;
+	cdsPessoafornecedor.Value := False;
+	cdsPessoatipo.Value       := 1;
+end;
+
 procedure TfrmPessoa.cdsPessoaAfterOpen(DataSet: TDataSet);
 begin
 	with cdsPessoaUsuario do
@@ -312,15 +321,20 @@ end;
 
 procedure TfrmPessoa.dsPessoaDataChange(Sender: TObject; Field: TField);
 begin
-	if cdsPessoa.IsEmpty then
+	with cdsPessoa do
 	begin
-		Caption := 'Cadastro de pessoas';
-		tsInformacao.Caption := 'Cadastrar';
-	end
-	else
-	begin
-		Caption := Concat('Pessoa - ',cdsPessoanome.AsString);
-		tsInformacao.Caption := Concat('Pessoa - ', cdsPessoanome.AsString);
+		if IsEmpty then
+		begin
+			Caption := 'Cadastro de pessoas';
+			tsInformacao.Caption := 'Cadastrar';
+		end
+		else
+		begin
+			Caption := Concat('Pessoa - ',cdsPessoanome.AsString);
+			tsInformacao.Caption := Concat('Pessoa - ', cdsPessoanome.AsString);
+		end;
+			tsUsuario.TabVisible    := (not(State in [dsInsert]) and not(IsEmpty) and cdsPessoausuario_.Value);
+			tsFornecedor.TabVisible := (not(State in [dsInsert]) and not(IsEmpty) and cdsPessoafornecedor.Value);
 	end;
 end;
 
@@ -347,8 +361,6 @@ begin
 		btnGravar.Enabled   := (State in [dsInsert, dsEdit]);
 		btnCancelar.Enabled := (State in [dsInsert, dsEdit]);
 		btnApagar.Enabled   := not(State in [dsInsert, dsEdit]);
-		tsUsuario.TabVisible := not(State in [dsInsert]) and not(IsEmpty) and cdsPessoausuario_.Value;
-		tsFornecedor.TabVisible := not(State in [dsInsert]) and not(IsEmpty) and cdsPessoafornecedor.Value;
 		if State in [dsInsert] then
 		begin
 			Caption := 'Novo registro';
@@ -433,7 +445,7 @@ begin
 end;
 
 procedure TfrmPessoa.imgLateralMouseMove(Sender: TObject; Shift: TShiftState; X,
-  Y: Integer);
+	Y: Integer);
 begin
 	Water.Blob(X,Y,1,100);
 end;

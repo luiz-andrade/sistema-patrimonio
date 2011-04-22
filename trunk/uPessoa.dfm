@@ -33,7 +33,7 @@ object frmPessoa: TfrmPessoa
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsUsuario
+    ActivePage = tsPesquisa
     Align = alClient
     HotTrack = True
     Style = tsButtons
@@ -41,7 +41,6 @@ object frmPessoa: TfrmPessoa
     OnChange = pcGeralChange
     object tsPesquisa: TTabSheet
       Caption = 'Perquisar'
-      ExplicitWidth = 642
       object pnPesquisa: TPanel
         Left = 0
         Top = 415
@@ -54,7 +53,6 @@ object frmPessoa: TfrmPessoa
         Caption = 'Pesquisa:'
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 642
         object btnPesquisar: TSpeedButton
           AlignWithMargins = True
           Left = 435
@@ -84,7 +82,6 @@ object frmPessoa: TfrmPessoa
           Align = alClient
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
-          ExplicitWidth = 327
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
@@ -99,7 +96,6 @@ object frmPessoa: TfrmPessoa
           Text = 'Descri'#231#227'o'
           Items.Strings = (
             'Descri'#231#227'o')
-          ExplicitLeft = 389
         end
       end
       object DBGrid1: TDBGrid
@@ -131,8 +127,20 @@ object frmPessoa: TfrmPessoa
           item
             Expanded = False
             FieldName = 'nome'
-            Title.Caption = 'Titulo'
-            Width = 525
+            Title.Caption = 'Nome'
+            Width = 300
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'fornecedor'
+            Title.Caption = 'Fornecedor'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'usuario'
+            Title.Caption = 'Usu'#225'rio'
             Visible = True
           end>
       end
@@ -140,7 +148,6 @@ object frmPessoa: TfrmPessoa
     object tsInformacao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
-      ExplicitLeft = 8
       object Label2: TLabel
         Left = 3
         Top = 11
@@ -257,7 +264,6 @@ object frmPessoa: TfrmPessoa
     object tsUsuario: TTabSheet
       Caption = 'Acesso ao sistema'
       ImageIndex = 2
-      ExplicitLeft = 8
       object Label5: TLabel
         Left = 3
         Top = 216
@@ -422,7 +428,6 @@ object frmPessoa: TfrmPessoa
     object tsFornecedor: TTabSheet
       Caption = 'Informa'#231#245'es para fornecimento'
       ImageIndex = 3
-      ExplicitLeft = 8
       object Label9: TLabel
         Left = 8
         Top = 240
@@ -2237,6 +2242,7 @@ object frmPessoa: TfrmPessoa
       ShowHint = True
       TabOrder = 0
       OnClick = btnNovoClick
+      ExplicitLeft = 3
     end
     object btnGravar: TBitBtn
       AlignWithMargins = True
@@ -2355,7 +2361,6 @@ object frmPessoa: TfrmPessoa
       ShowHint = True
       TabOrder = 2
       OnClick = btnCancelarClick
-      ExplicitLeft = 3
     end
     object btnApagar: TBitBtn
       AlignWithMargins = True
@@ -2399,6 +2404,7 @@ object frmPessoa: TfrmPessoa
       ShowHint = True
       TabOrder = 3
       OnClick = btnApagarClick
+      ExplicitLeft = 3
     end
     object btnFechar: TBitBtn
       AlignWithMargins = True
@@ -2448,17 +2454,18 @@ object frmPessoa: TfrmPessoa
     DataSet = cdsPessoa
     OnStateChange = dsPessoaStateChange
     OnDataChange = dsPessoaDataChange
-    Left = 376
-    Top = 320
+    Left = 384
+    Top = 272
   end
   object cdsPessoa: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspPessoa'
     AfterOpen = cdsPessoaAfterOpen
+    AfterInsert = cdsPessoaAfterInsert
     OnReconcileError = cdsPessoaReconcileError
-    Left = 376
-    Top = 368
+    Left = 384
+    Top = 320
     object cdsPessoapessoaId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'pessoaId'
@@ -2491,18 +2498,20 @@ object frmPessoa: TfrmPessoa
     object cdsPessoafornecedor: TBooleanField
       FieldName = 'fornecedor'
       Required = True
+      DisplayValues = 'Sim;N'#227'o'
     end
     object cdsPessoausuario_: TBooleanField
       FieldName = 'usuario'
       Required = True
+      DisplayValues = 'Sim;N'#227'o'
     end
   end
   object dspPessoa: TDataSetProvider
     DataSet = dm.sqlPessoa
     Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
-    Left = 376
-    Top = 416
+    Left = 384
+    Top = 368
   end
   object Timer: TTimer
     Interval = 50
@@ -2513,8 +2522,8 @@ object frmPessoa: TfrmPessoa
   object dsPessoaUsuario: TDataSource
     DataSet = cdsPessoaUsuario
     OnStateChange = dsPessoaUsuarioStateChange
-    Left = 256
-    Top = 320
+    Left = 264
+    Top = 272
   end
   object cdsPessoaUsuario: TClientDataSet
     Aggregates = <>
@@ -2525,8 +2534,8 @@ object frmPessoa: TfrmPessoa
     ProviderName = 'dspPessoaUsuario'
     AfterInsert = cdsPessoaUsuarioAfterInsert
     OnReconcileError = cdsPessoaUsuarioReconcileError
-    Left = 256
-    Top = 368
+    Left = 264
+    Top = 320
     object cdsPessoaUsuariousuarioId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'usuarioId'
@@ -2554,14 +2563,14 @@ object frmPessoa: TfrmPessoa
   end
   object dspPessoaUsuario: TDataSetProvider
     DataSet = dm.sqlUsuario
-    Left = 256
-    Top = 416
+    Left = 264
+    Top = 368
   end
   object dsPessoaFornc: TDataSource
     DataSet = cdsPessoaForc
     OnStateChange = dsPessoaForncStateChange
-    Left = 120
-    Top = 320
+    Left = 128
+    Top = 272
   end
   object cdsPessoaForc: TClientDataSet
     Aggregates = <>
@@ -2570,8 +2579,8 @@ object frmPessoa: TfrmPessoa
     MasterSource = dsPessoa
     Params = <>
     ProviderName = 'dpsPessoaForc'
-    Left = 120
-    Top = 368
+    Left = 128
+    Top = 320
     object cdsPessoaForcfornecedorId: TIntegerField
       FieldName = 'fornecedorId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -2593,7 +2602,7 @@ object frmPessoa: TfrmPessoa
   end
   object dpsPessoaForc: TDataSetProvider
     DataSet = dm.sqlFornecedor
-    Left = 120
-    Top = 416
+    Left = 128
+    Top = 368
   end
 end
