@@ -32,7 +32,7 @@ object frmGrupo: TfrmGrupo
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsPesquisa
+    ActivePage = tsInformacao
     Align = alClient
     HotTrack = True
     Style = tsButtons
@@ -134,10 +134,6 @@ object frmGrupo: TfrmGrupo
     object tsInformacao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label1: TLabel
         Left = 16
         Top = 16
@@ -2108,16 +2104,17 @@ object frmGrupo: TfrmGrupo
     DataSet = cdsGrupo
     OnStateChange = dsGrupoStateChange
     OnDataChange = dsGrupoDataChange
-    Left = 32
-    Top = 32
+    Left = 376
+    Top = 296
   end
   object cdsGrupo: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspGrupo'
+    BeforePost = cdsGrupoBeforePost
     OnReconcileError = cdsGrupoReconcileError
-    Left = 32
-    Top = 96
+    Left = 376
+    Top = 352
     object cdsGrupogrupoId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'grupoId'
@@ -2140,15 +2137,15 @@ object frmGrupo: TfrmGrupo
     DataSet = dm.sqlGrupo
     Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
-    Left = 32
-    Top = 160
+    Left = 288
+    Top = 296
   end
   object cdsAuxGrupo: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspGrupo'
-    Left = 32
-    Top = 216
+    Left = 192
+    Top = 352
     object IntegerField1: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'grupoId'
@@ -2170,8 +2167,8 @@ object frmGrupo: TfrmGrupo
   end
   object dsAuxGrupo: TDataSource
     DataSet = cdsAuxGrupo
-    Left = 33
-    Top = 272
+    Left = 193
+    Top = 296
   end
   object Timer: TTimer
     Interval = 50

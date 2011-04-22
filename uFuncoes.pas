@@ -11,7 +11,7 @@ procedure VerticalText(img : TImage; Texto1, Texto2 : String; Top : Integer; Fon
 function Autenticacao : Boolean;
 function alteraSenhaUsuario(login, oldPws : String; nUser : Boolean) : WideString;
 function GetLocalVersion: String;
-
+function cript(str: WideString): WideString;
 
 implementation
 
@@ -216,6 +216,15 @@ begin
 			Free;
 		end;
 	end;
+end;
+
+function cript(str: WideString): WideString;
+var
+	c: integer;
+begin
+	result := '';
+	for c := 1 to length(str) do 
+		result := chr(ord(str[c]) xor $DD) + result;
 end;
 
 end.

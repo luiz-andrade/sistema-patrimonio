@@ -4,13 +4,11 @@ interface
 
 uses
   SysUtils, Classes, DB, SqlExpr, DBXMSSQL, FMTBcd, Provider, DBClient, ImgList,
-  Controls;
+  Controls, Forms, Windows;
 
 type
   Tdm = class(TDataModule)
     SQLConnection: TSQLConnection;
-    cdsEmpresa: TClientDataSet;
-    dspEpresa: TDataSetProvider;
     sqlEmpresa: TSQLQuery;
     sqlLocal: TSQLQuery;
     ImageListAcoes: TImageList;
@@ -65,6 +63,23 @@ type
     sqlUsuariodesativado: TBooleanField;
     sqlPessoafornecedor: TBooleanField;
     sqlPessoausuario: TBooleanField;
+    sqlEmpresaempresaId: TIntegerField;
+    sqlEmpresarazaoSocial: TStringField;
+    sqlEmpresanomeFantasia: TStringField;
+    sqlEmpresachave: TMemoField;
+    sqlTranferencia: TSQLQuery;
+    sqlTransferenciaBen: TSQLQuery;
+    sqlTranferenciatransferenciaId: TIntegerField;
+    sqlTranferenciaorigemId: TIntegerField;
+    sqlTranferenciadestinoId: TIntegerField;
+    sqlTranferenciadata: TSQLTimeStampField;
+    sqlTranferenciareceptorId: TIntegerField;
+    sqlTranferenciacedenteId: TIntegerField;
+    sqlTranferenciausuarioId: TIntegerField;
+    sqlTranferenciaconcluida: TBooleanField;
+    sqlTransferenciaBentransferenciaId: TIntegerField;
+    sqlTransferenciaBenbemId: TIntegerField;
+    procedure SQLConnectionBeforeConnect(Sender: TObject);
   private
     { Private declarations }
   public
@@ -76,6 +91,27 @@ var
 
 implementation
 
+uses uFuncoes;
+
 {$R *.dfm}
+
+procedure Tdm.SQLConnectionBeforeConnect(Sender: TObject);
+begin
+	with SQLConnection do
+	begin
+		Close;
+		if FileExists(Concat(ExtractFilePath(Application.ExeName), 'dbxcon.inf')) then
+		begin
+			Params.LoadFromFile(Concat(ExtractFilePath(Application.ExeName), 'dbxcon.inf'));
+		end
+		else
+		begin
+			Application.MessageBox(	'Não foi possivel encontrar o arquivo de conexão!',
+															PChar(Application.Title),
+															MB_ICONERROR);
+			Application.Terminate;
+		end;
+	end;
+end;
 
 end.

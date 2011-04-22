@@ -2,7 +2,7 @@ program patrimonio;
 
 uses
   Forms,
-  uPrincipal in 'uPrincipal.pas' {frmPrincpal},
+  uPrincipal in 'uPrincipal.pas' {frmPrincipal},
   uDm in 'uDm.pas' {dm: TDataModule},
   uLocal in 'uLocal.pas' {frmLocal},
   uGlobais in 'uGlobais.pas',
@@ -15,7 +15,10 @@ uses
   untWaterEffect in 'untWaterEffect.pas',
   uSobre in 'uSobre.pas' {frmSobre},
   uControlsTunning in 'uControlsTunning.pas',
-  uAlteracaoSenha in 'uAlteracaoSenha.pas' {frmAlteracaoSenha};
+  uAlteracaoSenha in 'uAlteracaoSenha.pas' {frmAlteracaoSenha},
+  uEmpresa in 'uEmpresa.pas' {frmEmpresa},
+  uTransferencia in 'uTransferencia.pas' {frmTransferência},
+  uMovimentacao in 'uMovimentacao.pas' {frmMovimentacao};
 
 {$R *.res}
 
@@ -24,7 +27,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.Title := 'Controle de Patrimônio';
   Application.CreateForm(Tdm, dm);
-  Application.CreateForm(TfrmPrincpal, frmPrincpal);
-  Application.CreateForm(TfrmAlteracaoSenha, frmAlteracaoSenha);
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.Run;
 end.

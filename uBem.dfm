@@ -212,7 +212,7 @@ object frmBem: TfrmBem
       object idenficacao: TDBEdit
         Left = 113
         Top = 32
-        Width = 297
+        Width = 408
         Height = 21
         DataField = 'idenficacao'
         DataSource = dsBem
@@ -257,7 +257,7 @@ object frmBem: TfrmBem
       object dbmDescricao: TDBMemo
         Left = 8
         Top = 83
-        Width = 402
+        Width = 513
         Height = 120
         DataField = 'descricao'
         DataSource = dsBem
@@ -267,7 +267,7 @@ object frmBem: TfrmBem
       object dblGrupo: TDBLookupComboBox
         Left = 113
         Top = 222
-        Width = 297
+        Width = 408
         Height = 21
         DataField = 'grupoId'
         DataSource = dsBem
@@ -279,7 +279,7 @@ object frmBem: TfrmBem
       object dblEstado: TDBLookupComboBox
         Left = 113
         Top = 265
-        Width = 297
+        Width = 408
         Height = 21
         DataField = 'estadoId'
         DataSource = dsBem
@@ -291,7 +291,7 @@ object frmBem: TfrmBem
       object dblLocal: TDBLookupComboBox
         Left = 113
         Top = 305
-        Width = 297
+        Width = 408
         Height = 21
         DataField = 'locaId'
         DataSource = dsBem
@@ -303,7 +303,7 @@ object frmBem: TfrmBem
       object dblGestao: TDBLookupComboBox
         Left = 113
         Top = 345
-        Width = 297
+        Width = 408
         Height = 21
         DataField = 'gestaoId'
         DataSource = dsBem
@@ -347,6 +347,7 @@ object frmBem: TfrmBem
         Height = 13
         Caption = 'bemId'
         FocusControl = DBEdit1
+        Visible = False
       end
       object DBEdit2: TDBEdit
         Left = 16
@@ -397,6 +398,7 @@ object frmBem: TfrmBem
         ParentColor = True
         ReadOnly = True
         TabOrder = 4
+        Visible = False
       end
     end
   end
@@ -572,7 +574,6 @@ object frmBem: TfrmBem
       ParentDoubleBuffered = False
       TabOrder = 2
       OnClick = btnCancelarClick
-      ExplicitLeft = 3
     end
     object btnApagar: TBitBtn
       AlignWithMargins = True

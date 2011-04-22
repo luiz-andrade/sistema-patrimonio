@@ -2349,7 +2349,7 @@ object frmAcesso: TfrmAcesso
   object txtLogin: TLabeledEdit
     Left = 34
     Top = 147
-    Width = 90
+    Width = 100
     Height = 21
     BevelInner = bvSpace
     BevelKind = bkFlat
@@ -2368,7 +2368,7 @@ object frmAcesso: TfrmAcesso
   object txtPassword: TLabeledEdit
     Left = 34
     Top = 188
-    Width = 90
+    Width = 100
     Height = 21
     BevelInner = bvSpace
     BevelKind = bkFlat
@@ -2382,9 +2382,21 @@ object frmAcesso: TfrmAcesso
     TextHint = 'Entre com sua senha'
   end
   object dsEmpresa: TDataSource
-    DataSet = dm.cdsEmpresa
+    DataSet = cdsEmpresa
     OnDataChange = dsEmpresaDataChange
     Left = 304
+    Top = 24
+  end
+  object dspEpresa: TDataSetProvider
+    DataSet = dm.sqlEmpresa
+    Left = 440
+    Top = 24
+  end
+  object cdsEmpresa: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspEpresa'
+    Left = 373
     Top = 24
   end
 end

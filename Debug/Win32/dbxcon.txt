@@ -1,0 +1,14 @@
+SchemaOverride=sa.dbo
+DriverName=MSSQL
+HostName=10.1.1.235
+DataBase=patrimonio
+User_Name=user
+Password=password
+BlobSize=-1
+ErrorResourceFile=
+LocaleCode=0000
+IsolationLevel=ReadCommitted
+OS Authentication=True
+Prepare SQL=False
+ConnectTimeout=60
+Mars_Connection=False

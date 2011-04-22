@@ -64,6 +64,7 @@ type
     procedure imgLateralMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure cdsGrupoBeforePost(DataSet: TDataSet);
   private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -133,6 +134,14 @@ begin
 		cdsGrupoempresaId.Value := _empresaId;
 		descricao.SetFocus;
 	end;
+end;
+
+procedure TfrmGrupo.cdsGrupoBeforePost(DataSet: TDataSet);
+begin
+	// Corrige bug gerado quando o DBLookup passar null para a coluna.
+	if cdsGrupovGrupoId.IsNull then
+		cdsGrupovGrupoId.Value := 0;
+	
 end;
 
 procedure TfrmGrupo.cdsGrupoReconcileError(DataSet: TCustomClientDataSet;

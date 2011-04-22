@@ -109,8 +109,11 @@ begin
 	begin
 		if Application.MessageBox(PChar(Concat('Confirmar a deleção do registro: ',cdsLocaltitulo.AsString)), PChar(Application.Title), MB_ICONQUESTION or MB_YESNO) = IDYES then
 		begin
-			Delete;
-			ApplyUpdates(-1);
+			if not(IsEmpty) then
+			begin
+				Delete;
+				ApplyUpdates(-1);
+			end;
 		end;
 	end;
 end;
@@ -140,8 +143,6 @@ begin
 	with cdsAuxLocal do
 	begin
 		Post;
-		ApplyUpdates(-1);
-		Close;
 		Open;
 	end;
 end;
