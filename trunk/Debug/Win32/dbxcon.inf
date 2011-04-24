@@ -1,6 +1,6 @@
 SchemaOverride=sa.dbo
 DriverName=MSSQL
-HostName=10.1.1.235
+HostName=127.0.0.1
 DataBase=patrimonio
 User_Name=sa
 Password=098063

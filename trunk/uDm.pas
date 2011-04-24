@@ -68,17 +68,18 @@ type
     sqlEmpresanomeFantasia: TStringField;
     sqlEmpresachave: TMemoField;
     sqlTranferencia: TSQLQuery;
-    sqlTransferenciaBen: TSQLQuery;
+    sqlTransferenciaBem: TSQLQuery;
     sqlTranferenciatransferenciaId: TIntegerField;
     sqlTranferenciaorigemId: TIntegerField;
     sqlTranferenciadestinoId: TIntegerField;
-    sqlTranferenciadata: TSQLTimeStampField;
     sqlTranferenciareceptorId: TIntegerField;
     sqlTranferenciacedenteId: TIntegerField;
     sqlTranferenciausuarioId: TIntegerField;
     sqlTranferenciaconcluida: TBooleanField;
-    sqlTransferenciaBentransferenciaId: TIntegerField;
-    sqlTransferenciaBenbemId: TIntegerField;
+    sqlTransferenciaBemtransferenciaId: TIntegerField;
+    sqlTransferenciaBembemId: TIntegerField;
+    sqlTranferenciadata: TSQLTimeStampField;
+    sqlTranferenciatipo: TSmallintField;
     procedure SQLConnectionBeforeConnect(Sender: TObject);
   private
     { Private declarations }
