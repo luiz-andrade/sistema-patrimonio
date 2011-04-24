@@ -11,7 +11,7 @@ object dm: Tdm
     Params.Strings = (
       'SchemaOverride=sa.dbo'
       'DriverName=MSSQL'
-      'HostName=10.1.1.235'
+      'HostName=127.0.0.1'
       'DataBase=patrimonio'
       'User_Name=sa'
       'Password=098063'
@@ -93,7 +93,7 @@ object dm: Tdm
     Left = 518
     Top = 75
     Bitmap = {
-      494C010106007800780020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101060078007C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1160,7 +1160,7 @@ object dm: Tdm
     Left = 517
     Top = 24
     Bitmap = {
-      494C010104005400540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104005400580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1701,10 +1701,6 @@ object dm: Tdm
       FieldName = 'destinoId'
       Required = True
     end
-    object sqlTranferenciadata: TSQLTimeStampField
-      FieldName = 'data'
-      Required = True
-    end
     object sqlTranferenciareceptorId: TIntegerField
       FieldName = 'receptorId'
       Required = True
@@ -1721,8 +1717,16 @@ object dm: Tdm
       FieldName = 'concluida'
       Required = True
     end
+    object sqlTranferenciadata: TSQLTimeStampField
+      FieldName = 'data'
+      Required = True
+    end
+    object sqlTranferenciatipo: TSmallintField
+      FieldName = 'tipo'
+      Required = True
+    end
   end
-  object sqlTransferenciaBen: TSQLQuery
+  object sqlTransferenciaBem: TSQLQuery
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
@@ -1731,12 +1735,12 @@ object dm: Tdm
     SQLConnection = SQLConnection
     Left = 384
     Top = 216
-    object sqlTransferenciaBentransferenciaId: TIntegerField
+    object sqlTransferenciaBemtransferenciaId: TIntegerField
       FieldName = 'transferenciaId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object sqlTransferenciaBenbemId: TIntegerField
+    object sqlTransferenciaBembemId: TIntegerField
       FieldName = 'bemId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
