@@ -174,6 +174,7 @@ object frmPrincipal: TfrmPrincipal
     end
     object rocardeusurio1: TMenuItem
       Caption = 'Trocar de usu'#225'rio'
+      OnClick = FormShow
     end
   end
   object ActionManager: TActionManager
