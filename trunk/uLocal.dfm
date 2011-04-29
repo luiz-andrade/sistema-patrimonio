@@ -419,7 +419,7 @@ object frmLocal: TfrmLocal
       object vLocalId: TDBLookupComboBox
         Left = 3
         Top = 71
-        Width = 209
+        Width = 486
         Height = 21
         DataField = 'vLocalId'
         DataSource = dsLocal
@@ -432,7 +432,7 @@ object frmLocal: TfrmLocal
       object pessoaId: TDBLookupComboBox
         Left = 3
         Top = 114
-        Width = 209
+        Width = 486
         Height = 21
         DataField = 'pessoaId'
         DataSource = dsLocal

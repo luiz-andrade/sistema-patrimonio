@@ -93,7 +93,7 @@ object dm: Tdm
     Left = 518
     Top = 75
     Bitmap = {
-      494C0101060078007C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010106008000800020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1160,7 +1160,7 @@ object dm: Tdm
     Left = 517
     Top = 24
     Bitmap = {
-      494C010104005400580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104005C005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1537,8 +1537,8 @@ object dm: Tdm
       FieldName = 'estadoId'
       Required = True
     end
-    object sqlBemlocaId: TIntegerField
-      FieldName = 'locaId'
+    object sqlBemlocalId: TIntegerField
+      FieldName = 'localId'
       Required = True
     end
     object sqlBemgestaoId: TIntegerField
@@ -1717,13 +1717,13 @@ object dm: Tdm
       FieldName = 'concluida'
       Required = True
     end
-    object sqlTranferenciadata: TSQLTimeStampField
-      FieldName = 'data'
-      Required = True
-    end
     object sqlTranferenciatipo: TSmallintField
       FieldName = 'tipo'
       Required = True
+    end
+    object sqlTranferenciadata: TSQLTimeStampField
+      AutoGenerateValue = arDefault
+      FieldName = 'data'
     end
   end
   object sqlTransferenciaBem: TSQLQuery

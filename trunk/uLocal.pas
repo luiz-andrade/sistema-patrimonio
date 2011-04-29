@@ -142,7 +142,7 @@ begin
 	end;
 	with cdsAuxLocal do
 	begin
-		Post;
+		Close;
 		Open;
 	end;
 end;
