@@ -32,7 +32,7 @@ object frmBem: TfrmBem
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsPesquisa
+    ActivePage = tsInformacao
     Align = alClient
     HotTrack = True
     Style = tsButtons
@@ -237,11 +237,11 @@ object frmBem: TfrmBem
         TabOrder = 5
       end
       object edtLocalizacao: TDBEdit
-        Left = 8
+        Left = 7
         Top = 305
         Width = 100
         Height = 21
-        DataField = 'locaId'
+        DataField = 'localId'
         DataSource = dsBem
         TabOrder = 7
       end
@@ -293,7 +293,7 @@ object frmBem: TfrmBem
         Top = 305
         Width = 408
         Height = 21
-        DataField = 'locaId'
+        DataField = 'localId'
         DataSource = dsBem
         KeyField = 'localId'
         ListField = 'titulo'
@@ -2343,6 +2343,7 @@ object frmBem: TfrmBem
     Top = 16
   end
   object cdsBem: TClientDataSet
+    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspBem'
@@ -2373,8 +2374,8 @@ object frmBem: TfrmBem
       FieldName = 'estadoId'
       Required = True
     end
-    object cdsBemlocaId: TIntegerField
-      FieldName = 'locaId'
+    object cdsBemlocalId: TIntegerField
+      FieldName = 'localId'
       Required = True
     end
     object cdsBemgestaoId: TIntegerField

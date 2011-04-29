@@ -411,7 +411,7 @@ object frmGrupo: TfrmGrupo
       object vGrupoId: TDBLookupComboBox
         Left = 16
         Top = 80
-        Width = 257
+        Width = 486
         Height = 21
         DataField = 'vGrupoId'
         DataSource = dsGrupo

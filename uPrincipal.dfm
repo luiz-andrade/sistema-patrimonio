@@ -111,19 +111,19 @@ object frmPrincipal: TfrmPrincipal
         Cursor = crHandPoint
         Action = actInfoEmpresa
       end
-      object ToolButton8: TToolButton
+      object ToolButton9: TToolButton
         Left = 538
+        Top = 0
+        Cursor = crHandPoint
+        Action = actMovimentacao
+      end
+      object ToolButton8: TToolButton
+        Left = 642
         Top = 0
         Width = 8
         Caption = 'ToolButton8'
         ImageIndex = 5
         Style = tbsSeparator
-      end
-      object ToolButton9: TToolButton
-        Left = 546
-        Top = 0
-        Cursor = crHandPoint
-        Action = actMovimentacao
       end
     end
   end

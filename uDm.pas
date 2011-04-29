@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, Classes, DB, SqlExpr, DBXMSSQL, FMTBcd, Provider, DBClient, ImgList,
-  Controls, Forms, Windows;
+	Controls, Forms, Windows;
 
 type
   Tdm = class(TDataModule)
@@ -31,7 +31,7 @@ type
     sqlBemdescricao: TStringField;
     sqlBemgrupoId: TIntegerField;
     sqlBemestadoId: TIntegerField;
-    sqlBemlocaId: TIntegerField;
+    sqlBemlocalId: TIntegerField;
     sqlBemgestaoId: TIntegerField;
     sqlGestao: TSQLQuery;
     sqlEstado: TSQLQuery;
@@ -78,8 +78,8 @@ type
     sqlTranferenciaconcluida: TBooleanField;
     sqlTransferenciaBemtransferenciaId: TIntegerField;
     sqlTransferenciaBembemId: TIntegerField;
-    sqlTranferenciadata: TSQLTimeStampField;
     sqlTranferenciatipo: TSmallintField;
+    sqlTranferenciadata: TSQLTimeStampField;
     procedure SQLConnectionBeforeConnect(Sender: TObject);
   private
     { Private declarations }

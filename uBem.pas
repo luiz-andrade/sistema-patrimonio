@@ -25,7 +25,7 @@ type
     cdsBemdescricao: TStringField;
     cdsBemgrupoId: TIntegerField;
     cdsBemestadoId: TIntegerField;
-    cdsBemlocaId: TIntegerField;
+    cdsBemlocalId: TIntegerField;
     cdsBemgestaoId: TIntegerField;
     Label1: TLabel;
     edtCodigo: TDBEdit;

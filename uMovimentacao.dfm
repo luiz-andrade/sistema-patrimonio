@@ -1,10 +1,11 @@
 object frmMovimentacao: TfrmMovimentacao
   Left = 0
   Top = 0
-  BorderIcons = [biSystemMenu, biMaximize]
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'Movimenta'#231#227'o de Bens'
-  ClientHeight = 600
-  ClientWidth = 918
+  ClientHeight = 602
+  ClientWidth = 920
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,7 +22,7 @@ object frmMovimentacao: TfrmMovimentacao
   object pnTopo: TPanel
     Left = 0
     Top = 0
-    Width = 918
+    Width = 920
     Height = 49
     Align = alTop
     Alignment = taLeftJustify
@@ -30,8 +31,11 @@ object frmMovimentacao: TfrmMovimentacao
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
+    ExplicitLeft = -3
+    ExplicitTop = -3
+    ExplicitWidth = 918
     object btnFechar: TBitBtn
-      Left = 811
+      Left = 813
       Top = 12
       Width = 95
       Height = 25
@@ -75,12 +79,11 @@ object frmMovimentacao: TfrmMovimentacao
       ParentFont = False
       TabOrder = 0
       OnClick = btnFecharClick
-      ExplicitLeft = 809
-      ExplicitTop = 10
+      ExplicitLeft = 811
     end
     object btnGravar: TBitBtn
       AlignWithMargins = True
-      Left = 711
+      Left = 613
       Top = 12
       Width = 95
       Height = 25
@@ -138,34 +141,237 @@ object frmMovimentacao: TfrmMovimentacao
       ParentDoubleBuffered = False
       TabOrder = 1
       OnClick = btnGravarClick
-      ExplicitLeft = 783
-      ExplicitTop = 15
-      ExplicitHeight = 19
+      ExplicitLeft = 711
+    end
+    object btnConcluir: TBitBtn
+      AlignWithMargins = True
+      Left = 413
+      Top = 12
+      Width = 95
+      Height = 25
+      Cursor = crHandPoint
+      Margins.Left = 0
+      Margins.Top = 0
+      Margins.Right = 5
+      Margins.Bottom = 0
+      Align = alRight
+      Caption = 'Concluir'
+      DoubleBuffered = True
+      Glyph.Data = {
+        36030000424D3603000000000000360000002800000010000000100000000100
+        18000000000000030000EB0A0000EB0A00000000000000000000FFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD6E9F277B4CEA2
+        CEE0909A9F7C7C7C9B5B357A73709C9C9CFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        EEF8FB97CDE531A0CF0F94C815AADDA3D8EB828485F1DCCFA84305C6723A8181
+        81FFFFFFFFFFFFFFFFFFFFFFFF62BADF1997CB2DB2E52BB3E624ACDF1FA9DCB5
+        DFEF8E8E8EB6652EA94403B24C01B06E3CFFFFFFFFFFFFFFFFFFFFFFFF269ECE
+        3DBBEE37B6E933B2E52DAFE228ADE0B6E1F0AC734AAB4600B96E3BBB6521C05C
+        04F3CAA8FFFFFFFFFFFFFFFFFF279DCE48BFF243BAED3DB7EA36B4E72FB0E3B8
+        E3F3AD6430B17138C0C2C4BE9674C2610ACF6C06F9BD6BFFFFFFFFFFFF2CA3D5
+        54C5F84EBFF247BCEF3EB6E936B2E5B8E3F3A7BDBBADD8E6B3DFEEB2DCECC196
+        69D16B01E3820BFFFFFFFFFFFF2EA5D461CBFE59C4F74DC0F33FB9EC34B4E843
+        B6E04AB4D90098CB0097CA2AA1CCB4D8E7E59B4EDD7905FFFFFFFFFFFF30A8DA
+        69CFFF5ECAFE58C8FB6BCCF978C5ED7FD0F811A1D50097CA0096C90090C344A0
+        C5FFFFFFE38B29FFFFFFFFFFFF2DAADE87DDFF71C7F23E9FCB107CAD89D2F938
+        B6EA3DB7EA34B2E50E9ED1008BBE057EB0FFFFFFFFFFFFFFFFFFFFFFFF6CC1E3
+        338EBC0073A8007DB01E8EBE45BCEF58C7FA4EC1F441BAED36B5E823ADE01087
+        B5FFFFFFFFFFFFFFFFFFFFFFFF9BD2E782C2E8005388006A9E0076A90074A710
+        A1D43FBAED51C4F840BBEF28A1D2CCE6F1FFFFFFFFFFFFFFFFFFFFFFFFF4FBFD
+        7BD3FB4693C100598E005B8F00649763A3C2C1DEEC78DBFB3ABDEEDCF0F9FFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAFE9FD73D7FD79D1FB66ACD60C6C9E9F
+        C6DCFFFFFFFFFFFFFEFEFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFDBF1F983CAE36DC4E999D5EEFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+      ParentDoubleBuffered = False
+      TabOrder = 2
+      OnClick = btnConcluirClick
+      ExplicitLeft = 711
+    end
+    object btnNovo: TBitBtn
+      AlignWithMargins = True
+      Left = 513
+      Top = 12
+      Width = 95
+      Height = 25
+      Cursor = crHandPoint
+      Margins.Left = 0
+      Margins.Top = 0
+      Margins.Right = 5
+      Margins.Bottom = 0
+      Align = alRight
+      Caption = 'Nova'
+      DoubleBuffered = True
+      Glyph.Data = {
+        36030000424D3603000000000000360000002800000010000000100000000100
+        18000000000000030000C40E0000C40E00000000000000000000FFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDAEBDA66A66623791814
+        6C011369002271145E9E5ED2E6D2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFF98CF980A83080990000794000A8F001686002C7700386A001B690487C1
+        87FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF9BD29B048D0704A309049F0933CC6666
+        FF9966FF9966FF990B89003A6C00276B0186BF86FFFFFFFFFFFFFFFFFFE0F0E0
+        1390160BA8170AA3160AA315539B51FFF8FFFFF7FF66FF990099000191003B6C
+        001B6B04D1E5D1FFFFFFFFFFFF71B47129B0370FA92311AA2310A922539B51FF
+        F9FFFFFAFF66FF99029B06009A00108900396B005E9E5EFFFFFFFFFFFF309B30
+        38BF4F33CC6666FF9966FF9933CC66F9F4F9FEF7FC66FF9966FF9966FF9966FF
+        99347400217514FFFFFFFFFFFF1D992342C45D539B51FCE9F9F0E4ECF1EBF0F1
+        EFF1F5F3F4FFF8FCFFF8FFFFF4FF66FF991D8300146D00FFFFFFFFFFFF1F9C25
+        58CF76539B51FDECFDF2E9F2F0EBF0ECEBECEFEEEFF8F3F8FFF8FFFFF5FF66FF
+        99118E00126E00FFFFFFFFFFFF37A43879DE99539B51539B51539B518EC18EF1
+        EBF1F2ECF133CC66539B51539B5133CC66109403237D18FFFFFFFFFFFF79BE79
+        70D68D51D47C2ECA602FC960539B51F2E8F2F0E4ED66FF9914AD2B0EA72007A3
+        1212900565A865FFFFFFFFFFFFE7F5E730AB368CE8B03ACF6D2FCB64539B51FE
+        ECFEFCE7F766FF9916AF2E11AA220AA91810860BDAEDDAFFFFFFFFFFFFFFFFFF
+        AAE0AA3FB84E89E8AF4CD57B219827539B51539B5133CC6616B02F11AF260792
+        0C97D197FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAAE0AA31AC3775DB9476E19D50
+        D2783BC65F30C05024B2391192159BD49BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFE7F5E779BF793CA93C24A32B229F2733A13471B771E0F2E0FFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+      ParentDoubleBuffered = False
+      TabOrder = 3
+      OnClick = btnNovoClick
+      ExplicitLeft = 711
+    end
+    object btnCancelar: TBitBtn
+      AlignWithMargins = True
+      Left = 713
+      Top = 12
+      Width = 95
+      Height = 25
+      Cursor = crHandPoint
+      Margins.Left = 0
+      Margins.Top = 0
+      Margins.Right = 5
+      Margins.Bottom = 0
+      Align = alRight
+      Caption = 'Cancelar'
+      DoubleBuffered = True
+      Glyph.Data = {
+        36050000424D3605000000000000360400002800000010000000100000000100
+        08000000000000010000C40E0000C40E00000001000000000000000000000000
+        80000080000000808000800000008000800080800000C0C0C000C0DCC000F0CA
+        A6000020400000206000002080000020A0000020C0000020E000004000000040
+        20000040400000406000004080000040A0000040C0000040E000006000000060
+        20000060400000606000006080000060A0000060C0000060E000008000000080
+        20000080400000806000008080000080A0000080C0000080E00000A0000000A0
+        200000A0400000A0600000A0800000A0A00000A0C00000A0E00000C0000000C0
+        200000C0400000C0600000C0800000C0A00000C0C00000C0E00000E0000000E0
+        200000E0400000E0600000E0800000E0A00000E0C00000E0E000400000004000
+        20004000400040006000400080004000A0004000C0004000E000402000004020
+        20004020400040206000402080004020A0004020C0004020E000404000004040
+        20004040400040406000404080004040A0004040C0004040E000406000004060
+        20004060400040606000406080004060A0004060C0004060E000408000004080
+        20004080400040806000408080004080A0004080C0004080E00040A0000040A0
+        200040A0400040A0600040A0800040A0A00040A0C00040A0E00040C0000040C0
+        200040C0400040C0600040C0800040C0A00040C0C00040C0E00040E0000040E0
+        200040E0400040E0600040E0800040E0A00040E0C00040E0E000800000008000
+        20008000400080006000800080008000A0008000C0008000E000802000008020
+        20008020400080206000802080008020A0008020C0008020E000804000008040
+        20008040400080406000804080008040A0008040C0008040E000806000008060
+        20008060400080606000806080008060A0008060C0008060E000808000008080
+        20008080400080806000808080008080A0008080C0008080E00080A0000080A0
+        200080A0400080A0600080A0800080A0A00080A0C00080A0E00080C0000080C0
+        200080C0400080C0600080C0800080C0A00080C0C00080C0E00080E0000080E0
+        200080E0400080E0600080E0800080E0A00080E0C00080E0E000C0000000C000
+        2000C0004000C0006000C0008000C000A000C000C000C000E000C0200000C020
+        2000C0204000C0206000C0208000C020A000C020C000C020E000C0400000C040
+        2000C0404000C0406000C0408000C040A000C040C000C040E000C0600000C060
+        2000C0604000C0606000C0608000C060A000C060C000C060E000C0800000C080
+        2000C0804000C0806000C0808000C080A000C080C000C080E000C0A00000C0A0
+        2000C0A04000C0A06000C0A08000C0A0A000C0A0C000C0A0E000C0C00000C0C0
+        2000C0C04000C0C06000C0C08000C0C0A000F0FBFF00A4A0A000808080000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00FFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFF09EAE2F3FFFFFFFF09FFFFFFFFFFECEAEA0909EAFFFFFFF4EBFFFFFF
+        ECE2EA09090909E909FFFFE3ECFFFFFFEA090909090909EBF4FFFFE209FFFFFF
+        09EBEBE109090909EBFFFFE1ECFFFFFFFFFFEB0909090909E2FFFFD9E2FFFFFF
+        FFF6E20909E2EA09EAFFFFE1E109FFFFF6E1090909EBF409E2FFFFE3E9E1E2E3
+        E1F3F309E2FFFFEAECFFFF09E1E9E9EAEAEB09E209FFFFFFFFFFFFFFECE20909
+        0909E109FFFFFFFFFFFFFFFFFFECE2D9E1E309FFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+      ParentDoubleBuffered = False
+      TabOrder = 4
+      OnClick = btnCancelarClick
+      ExplicitLeft = 756
+    end
+    object btnImprimir: TBitBtn
+      AlignWithMargins = True
+      Left = 313
+      Top = 12
+      Width = 95
+      Height = 25
+      Cursor = crHandPoint
+      Margins.Left = 0
+      Margins.Top = 0
+      Margins.Right = 5
+      Margins.Bottom = 0
+      Align = alRight
+      Caption = 'Imprimir'
+      DoubleBuffered = True
+      Glyph.Data = {
+        36030000424D3603000000000000360000002800000010000000100000000100
+        18000000000000030000EB0A0000EB0A00000000000000000000FFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAFAFAC8C8C89D9D9D90
+        9090B8B8B8EDEDEDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        EDEDEDB9B9B9A8A8A8DEDEDEFFFFFF9C9C9C8080808181819D9D9DC9C9C9F6F6
+        F6FFFFFFFFFFFFFFFFFFFFFFFFB5B5B5C3C3C3FDFDFDFFFFFFFFFFFFFFFFFF9B
+        9B9B7A7A7A6C6C6C7777777F7F7F7F7F7FA1A1A1D4D4D4FFFFFFFFFFFFADADAD
+        FFFFFFFFFFFFE2E2E2C4C4C4C3C3C39292927A7A7A7C7C7C7D7D7D7070706767
+        677C7C7C787878FFFFFFFFFFFFA7A7A7E0E0E0CDCDCDDCDCDCEBEBEBE9E9E9BF
+        BFBFACACACA1A1A18A8A8A7D7D7D7A7A7A8181817D7D7DFFFFFFFFFFFFA6A6A6
+        F5F5F5EAEAEAE3E3E3DCDCDCDCDCDCE9E9E9DDDDDDCCCCCCBABABAB1AEB0AFA4
+        AD968E95787577FFFFFFFFFFFFABABABEEEEEEDFDFDFDCDCDCE8E8E8FEFEFEF9
+        F9F9F3F3F3F1F1F1EBEBEBDBD2D92DC04B72CC7C8F8A8FFFFFFFFFFFFFBEBEBE
+        B8B8B8D4D4D5A1A2A365686B86888BB8BABBE0E0E1F5F5F5FCFCFCFFFCFFE7E5
+        E6B3B3B3C0BFC0FFFFFFFFFFFFFFFFFFF1F1F1D1D2D2847F7BFFE7C7CAB39D96
+        887B6E6A6666696CADADAEC6C6C69F9F9FD3D3D3FFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFF4F4F4A7A19BFFF3DAFFEAD0FFEBCCFFF0CBE4C6A7969899E2E2E2FDFD
+        FDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC7C8C8E5DBD1FFF2E3FFEBDAFF
+        E8D4FFEED6B8AA9CE3E3E4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        F8F8F8ABAAAAFFFFFFFFF8EEFFF3E8FFF3E5FFFDEA91918EFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC2C2C2EAEAEBFFFFFFFFFFFFFFFFFFFF
+        FFFFABA7A3D8D9D9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        F8F8F8E0E0E0C8C9C9BEBFBFBEBFBFADADACBABBBBFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+      ParentDoubleBuffered = False
+      TabOrder = 5
+      ExplicitLeft = 711
     end
   end
   object pgGeral: TPageControl
     AlignWithMargins = True
     Left = 3
     Top = 52
-    Width = 912
-    Height = 545
+    Width = 914
+    Height = 547
     ActivePage = tsInformacao
     Align = alClient
     TabOrder = 1
+    ExplicitLeft = -2
+    ExplicitTop = 47
     object tsConsulta: TTabSheet
-      Caption = 'tsConsulta'
+      Caption = 'Consulta'
+      ExplicitWidth = 904
+      ExplicitHeight = 517
       object DBGrid1: TDBGrid
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 898
-        Height = 470
+        Width = 900
+        Height = 472
         Cursor = crHandPoint
         Align = alClient
         DataSource = dsMovimentacao
         DrawingStyle = gdsGradient
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleHotTrack]
+        ParentShowHint = False
         ReadOnly = True
+        ShowHint = True
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -176,14 +382,40 @@ object frmMovimentacao: TfrmMovimentacao
           item
             Expanded = False
             FieldName = 'transferenciaId'
-            Title.Caption = 'C'#243'digo'
+            Title.Caption = 'N'#250'mero da transfer'#234'ncia'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'TituloOrigem'
+            Title.Caption = 'Origem'
+            Width = 240
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'TituloDestino'
+            Title.Caption = 'Destino'
+            Width = 240
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'data'
+            Title.Caption = 'Data'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'concluida'
+            Title.Caption = 'Conclu'#237'da'
             Visible = True
           end>
       end
       object pnPesquisa: TPanel
         Left = 0
-        Top = 476
-        Width = 904
+        Top = 478
+        Width = 906
         Height = 41
         Align = alBottom
         Alignment = taLeftJustify
@@ -192,11 +424,11 @@ object frmMovimentacao: TfrmMovimentacao
         Caption = 'Pesquisa:'
         ParentBackground = False
         TabOrder = 1
-        ExplicitTop = 415
-        ExplicitWidth = 535
+        ExplicitTop = 476
+        ExplicitWidth = 904
         object btnPesquisar: TSpeedButton
           AlignWithMargins = True
-          Left = 804
+          Left = 806
           Top = 10
           Width = 90
           Height = 24
@@ -215,7 +447,7 @@ object frmMovimentacao: TfrmMovimentacao
           AlignWithMargins = True
           Left = 55
           Top = 12
-          Width = 589
+          Width = 591
           Height = 21
           Margins.Left = 50
           Margins.Top = 7
@@ -223,10 +455,11 @@ object frmMovimentacao: TfrmMovimentacao
           Align = alClient
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
+          ExplicitWidth = 589
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
-          Left = 651
+          Left = 653
           Top = 12
           Width = 145
           Height = 21
@@ -237,74 +470,75 @@ object frmMovimentacao: TfrmMovimentacao
           Text = 'Descri'#231#227'o'
           Items.Strings = (
             'Descri'#231#227'o')
-          ExplicitLeft = 282
+          ExplicitLeft = 651
         end
       end
     end
     object tsInformacao: TTabSheet
-      Caption = 'tsInformacao'
+      Caption = 'Informa'#231#245'es sobre a transfer'#234'ncia'
       ImageIndex = 1
-      ExplicitLeft = -1
-      ExplicitTop = -24
+      ExplicitLeft = 0
+      ExplicitWidth = 904
+      ExplicitHeight = 517
       object Label1: TLabel
         Left = 24
         Top = 24
-        Width = 74
+        Width = 41
         Height = 13
-        Caption = 'transferenciaId'
-        FocusControl = DBEdit1
+        Caption = 'N'#250'mero:'
+        FocusControl = transferenciaId
       end
       object Label2: TLabel
         Left = 24
         Top = 64
-        Width = 42
+        Width = 38
         Height = 13
-        Caption = 'origemId'
-        FocusControl = DBEdit2
+        Caption = 'Origem:'
+        FocusControl = origemId
       end
       object Label3: TLabel
         Left = 24
-        Top = 104
-        Width = 45
+        Top = 112
+        Width = 40
         Height = 13
-        Caption = 'destinoId'
-        FocusControl = DBEdit3
+        Caption = 'Destino:'
+        FocusControl = destinoId
       end
       object Label4: TLabel
-        Left = 24
-        Top = 144
-        Width = 22
+        Left = 164
+        Top = 24
+        Width = 114
         Height = 13
-        Caption = 'data'
-        FocusControl = DBEdit4
+        Caption = 'Data da movimenta'#231#227'o:'
+        FocusControl = data
       end
       object Label5: TLabel
-        Left = 448
-        Top = 104
-        Width = 51
+        Left = 432
+        Top = 112
+        Width = 48
         Height = 13
-        Caption = 'receptorId'
-        FocusControl = DBEdit5
+        Caption = 'Receptor:'
+        FocusControl = receptorId
       end
       object Label6: TLabel
-        Left = 448
+        Left = 432
         Top = 64
-        Width = 49
-        Height = 13
-        Caption = 'cedenteId'
-        FocusControl = DBEdit6
-      end
-      object Label7: TLabel
-        Left = 597
-        Top = 22
         Width = 45
         Height = 13
-        Caption = 'usuarioId'
-        FocusControl = DBEdit7
+        Caption = 'Cedente:'
+        FocusControl = cedenteId
       end
-      object DBEdit1: TDBEdit
+      object Label7: TLabel
+        Left = 573
+        Top = 24
+        Width = 40
+        Height = 13
+        Caption = 'Usuario:'
+        FocusControl = usuarioId
+      end
+      object transferenciaId: TDBEdit
         Left = 24
-        Top = 40
+        Top = 39
         Width = 134
         Height = 21
         DataField = 'transferenciaId'
@@ -313,7 +547,7 @@ object frmMovimentacao: TfrmMovimentacao
         ReadOnly = True
         TabOrder = 0
       end
-      object DBEdit2: TDBEdit
+      object origemId: TDBEdit
         Left = 24
         Top = 80
         Width = 134
@@ -322,45 +556,49 @@ object frmMovimentacao: TfrmMovimentacao
         DataSource = dsMovimentacao
         TabOrder = 1
       end
-      object DBEdit3: TDBEdit
+      object destinoId: TDBEdit
         Left = 24
-        Top = 120
+        Top = 128
         Width = 134
         Height = 21
         DataField = 'destinoId'
         DataSource = dsMovimentacao
         TabOrder = 2
       end
-      object DBEdit4: TDBEdit
-        Left = 24
-        Top = 160
-        Width = 446
+      object data: TDBEdit
+        Left = 164
+        Top = 39
+        Width = 113
         Height = 21
         DataField = 'data'
         DataSource = dsMovimentacao
+        ReadOnly = True
         TabOrder = 3
       end
-      object DBEdit5: TDBEdit
-        Left = 448
-        Top = 120
+      object receptorId: TDBEdit
+        Left = 432
+        Top = 128
         Width = 134
         Height = 21
         DataField = 'receptorId'
         DataSource = dsMovimentacao
+        ReadOnly = True
         TabOrder = 4
       end
-      object DBEdit6: TDBEdit
-        Left = 448
+      object cedenteId: TDBEdit
+        Left = 432
         Top = 80
         Width = 134
         Height = 21
         DataField = 'cedenteId'
         DataSource = dsMovimentacao
+        Enabled = False
+        ReadOnly = True
         TabOrder = 5
       end
-      object DBEdit7: TDBEdit
-        Left = 597
-        Top = 38
+      object usuarioId: TDBEdit
+        Left = 573
+        Top = 39
         Width = 134
         Height = 21
         DataField = 'usuarioId'
@@ -369,32 +607,33 @@ object frmMovimentacao: TfrmMovimentacao
       end
       object DBCheckBox1: TDBCheckBox
         Left = 749
-        Top = 39
-        Width = 97
+        Top = 41
+        Width = 64
         Height = 17
-        Caption = 'concluida'
+        Caption = 'Conclu'#237'da'
         DataField = 'concluida'
         DataSource = dsMovimentacao
         TabOrder = 7
         ValueChecked = 'True'
         ValueUnchecked = 'False'
       end
-      object DBLookupComboBox1: TDBLookupComboBox
-        Left = 597
+      object dblCedenteId: TDBLookupComboBox
+        Left = 573
         Top = 80
-        Width = 145
+        Width = 240
         Height = 21
         DataField = 'cedenteId'
         DataSource = dsMovimentacao
+        Enabled = False
         KeyField = 'pessoaId'
         ListField = 'nome'
         ListSource = dsCedente
         TabOrder = 8
       end
-      object DBLookupComboBox2: TDBLookupComboBox
-        Left = 176
+      object dblOrigemId: TDBLookupComboBox
+        Left = 164
         Top = 80
-        Width = 145
+        Width = 240
         Height = 21
         DataField = 'origemId'
         DataSource = dsMovimentacao
@@ -403,10 +642,10 @@ object frmMovimentacao: TfrmMovimentacao
         ListSource = dsOrigem
         TabOrder = 9
       end
-      object DBLookupComboBox3: TDBLookupComboBox
-        Left = 597
-        Top = 120
-        Width = 145
+      object dblReceptorId: TDBLookupComboBox
+        Left = 573
+        Top = 128
+        Width = 240
         Height = 21
         DataField = 'receptorId'
         DataSource = dsMovimentacao
@@ -415,10 +654,10 @@ object frmMovimentacao: TfrmMovimentacao
         ListSource = dsReceptor
         TabOrder = 10
       end
-      object DBLookupComboBox4: TDBLookupComboBox
-        Left = 176
-        Top = 120
-        Width = 145
+      object dblDestinoId: TDBLookupComboBox
+        Left = 164
+        Top = 128
+        Width = 240
         Height = 21
         DataField = 'destinoId'
         DataSource = dsMovimentacao
@@ -427,10 +666,185 @@ object frmMovimentacao: TfrmMovimentacao
         ListSource = dsDestino
         TabOrder = 11
       end
+      object tipo: TDBRadioGroup
+        Left = 283
+        Top = 22
+        Width = 285
+        Height = 38
+        Caption = 'Tipo de movimenta'#231#227'o:'
+        Columns = 2
+        DataField = 'tipo'
+        DataSource = dsMovimentacao
+        Items.Strings = (
+          'Movimenta'#231#227'o'
+          'Transfer'#234'ncia')
+        ParentBackground = True
+        TabOrder = 12
+        Values.Strings = (
+          '1'
+          '2')
+        OnChange = tipoChange
+      end
+    end
+    object tsBens: TTabSheet
+      Caption = 'Bens vinculados a tranfer'#234'ncia'
+      ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitWidth = 904
+      ExplicitHeight = 517
+      object pnAcoesProduto: TPanel
+        Left = 0
+        Top = 0
+        Width = 906
+        Height = 49
+        Align = alTop
+        Alignment = taLeftJustify
+        BevelOuter = bvNone
+        BorderWidth = 11
+        Color = clWhite
+        ParentBackground = False
+        TabOrder = 0
+        ExplicitLeft = -3
+        ExplicitTop = -3
+        ExplicitWidth = 918
+        object btnRemover: TBitBtn
+          Left = 800
+          Top = 11
+          Width = 95
+          Height = 27
+          Cursor = crHandPoint
+          Align = alRight
+          Caption = 'Remover'
+          DoubleBuffered = True
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Glyph.Data = {
+            36030000424D3603000000000000360000002800000010000000100000000100
+            18000000000000030000C40E0000C40E00000000000000000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2F2FC8488D5383CBA14
+            1BAF141AAC383AB28585CDF2F2FAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFB2B6F11324C40020D80023E00020D90019CC0011BD000BB01417A7B4B4
+            E8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB2B7F40420D6002FFF002AFB002DF800
+            2BF20029EE001FE50012CA000DB50409A4B4B4E7FFFFFFFFFFFFFFFFFFF5F5FD
+            1932D50035FF97A9E86888F40034FF002DFF0033FA95B1FD4570FB0019D4000D
+            B61316A7F2F2FBFFFFFFFFFFFF818BE4254EF80034FFCACDDCF5EFDEB1C0EF06
+            3DFFB1C4FAFFFFFBFFFFFF6187FD0012CA000CB28484CEFFFFFFFFFFFF3A51DF
+            3D6AFF083CFE97A3E2F4F1E1F6F3EAE4E8F3FFFFF8FFFFFFF3F7FF446DFD0022
+            E70012BE373BB6FFFFFFFFFFFF2341E34B76FF2255FF0D41FE5C7AF0EFEDEBF6
+            F6F3FFFFFBCDDAFE174AFF002AFC002CF30019CB121AB2FFFFFFFFFFFF2545E7
+            6489FF2E5FFF3364FF0639FCDADCEDFBF9F3FFFFFBADC0FE0033FF0236FF0030
+            FA0020DA121CB5FFFFFFFFFFFF3C58E983A2FF3D6CFF3C6CFF526DE9FFFBE9B2
+            BFF3D4DAF9FFFFFF6D8FFF0033FF0032FF0023E23941C2FFFFFFFFFFFF8492F1
+            688AFA7096FF2958F7BABEDEF5F3E71543F70E41FDE7ECFBFFFFFF2958FE0035
+            FF0021DA878DDAFFFFFFFFFFFFF3F4FF294EEF97B6FF4C75F95B6CD8546BE133
+            65FF2D5FFF1745FCC7D1FA4C73FF0135FF1629CBF4F4FDFFFFFFFFFFFFFFFFFF
+            B7C2FF2F53F396B3FF6F95FF3966FA396AFF2F60FF2153FE083CFF0C40FF0725
+            DCBABFF6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB8C3FF294DF26688FA88A9FF6A
+            8FFF4F7AFF3E6DFF204CF61E38DDBAC0F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFF4F5FE8C99F5405DED2C4CEC2A4AE94059E58D99ECF5F6FDFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          ParentDoubleBuffered = False
+          ParentFont = False
+          TabOrder = 0
+          OnClick = btnRemoverClick
+          ExplicitLeft = 801
+        end
+        object btnAddBem: TBitBtn
+          AlignWithMargins = True
+          Left = 700
+          Top = 11
+          Width = 95
+          Height = 27
+          Cursor = crHandPoint
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 5
+          Margins.Bottom = 0
+          Align = alRight
+          Caption = 'Adicionar'
+          DoubleBuffered = True
+          Glyph.Data = {
+            36030000424D3603000000000000360000002800000010000000100000000100
+            18000000000000030000C40E0000C40E00000000000000000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDAEBDA66A66623791814
+            6C011369002271145E9E5ED2E6D2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFF98CF980A83080990000794000A8F001686002C7700386A001B690487C1
+            87FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF9BD29B048D0704A309049F0933CC6666
+            FF9966FF9966FF990B89003A6C00276B0186BF86FFFFFFFFFFFFFFFFFFE0F0E0
+            1390160BA8170AA3160AA315539B51FFF8FFFFF7FF66FF990099000191003B6C
+            001B6B04D1E5D1FFFFFFFFFFFF71B47129B0370FA92311AA2310A922539B51FF
+            F9FFFFFAFF66FF99029B06009A00108900396B005E9E5EFFFFFFFFFFFF309B30
+            38BF4F33CC6666FF9966FF9933CC66F9F4F9FEF7FC66FF9966FF9966FF9966FF
+            99347400217514FFFFFFFFFFFF1D992342C45D539B51FCE9F9F0E4ECF1EBF0F1
+            EFF1F5F3F4FFF8FCFFF8FFFFF4FF66FF991D8300146D00FFFFFFFFFFFF1F9C25
+            58CF76539B51FDECFDF2E9F2F0EBF0ECEBECEFEEEFF8F3F8FFF8FFFFF5FF66FF
+            99118E00126E00FFFFFFFFFFFF37A43879DE99539B51539B51539B518EC18EF1
+            EBF1F2ECF133CC66539B51539B5133CC66109403237D18FFFFFFFFFFFF79BE79
+            70D68D51D47C2ECA602FC960539B51F2E8F2F0E4ED66FF9914AD2B0EA72007A3
+            1212900565A865FFFFFFFFFFFFE7F5E730AB368CE8B03ACF6D2FCB64539B51FE
+            ECFEFCE7F766FF9916AF2E11AA220AA91810860BDAEDDAFFFFFFFFFFFFFFFFFF
+            AAE0AA3FB84E89E8AF4CD57B219827539B51539B5133CC6616B02F11AF260792
+            0C97D197FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAAE0AA31AC3775DB9476E19D50
+            D2783BC65F30C05024B2391192159BD49BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFE7F5E779BF793CA93C24A32B229F2733A13471B771E0F2E0FFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          ParentDoubleBuffered = False
+          TabOrder = 1
+          OnClick = btnAddBemClick
+          ExplicitLeft = 697
+        end
+        object ledtIdentificacao: TLabeledEdit
+          Left = 128
+          Top = 15
+          Width = 121
+          Height = 21
+          EditLabel.Width = 107
+          EditLabel.Height = 13
+          EditLabel.Caption = 'Identifica'#231#227'o do bem: '
+          LabelPosition = lpLeft
+          TabOrder = 2
+        end
+      end
+      object DBGrid2: TDBGrid
+        AlignWithMargins = True
+        Left = 3
+        Top = 52
+        Width = 900
+        Height = 464
+        Cursor = crHandPoint
+        Align = alClient
+        DataSource = dsMovimentacaoBem
+        DrawingStyle = gdsGradient
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleHotTrack]
+        ReadOnly = True
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'bemId'
+            Title.Caption = 'Identifica'#231#227'o do Bem'
+            Width = 120
+            Visible = True
+          end>
+      end
     end
   end
   object dsMovimentacao: TDataSource
     DataSet = cdsMovimentacao
+    OnStateChange = dsMovimentacaoStateChange
+    OnDataChange = dsMovimentacaoDataChange
     Left = 296
     Top = 368
   end
@@ -439,11 +853,14 @@ object frmMovimentacao: TfrmMovimentacao
     Params = <>
     ProviderName = 'dpsMovimentacao'
     AfterOpen = cdsMovimentacaoAfterOpen
+    OnReconcileError = cdsMovimentacaoReconcileError
     Left = 296
     Top = 432
     object cdsMovimentacaotransferenciaId: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'transferenciaId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      DisplayFormat = '00000000'
     end
     object cdsMovimentacaoorigemId: TIntegerField
       FieldName = 'origemId'
@@ -452,9 +869,6 @@ object frmMovimentacao: TfrmMovimentacao
     object cdsMovimentacaodestinoId: TIntegerField
       FieldName = 'destinoId'
       Required = True
-    end
-    object cdsMovimentacaodata: TSQLTimeStampField
-      FieldName = 'data'
     end
     object cdsMovimentacaoreceptorId: TIntegerField
       FieldName = 'receptorId'
@@ -471,16 +885,48 @@ object frmMovimentacao: TfrmMovimentacao
     object cdsMovimentacaoconcluida: TBooleanField
       FieldName = 'concluida'
       Required = True
+      DisplayValues = 'Sim;N'#227'o'
+    end
+    object cdsMovimentacaodata: TSQLTimeStampField
+      AutoGenerateValue = arDefault
+      FieldName = 'data'
+      DisplayFormat = 'dd/MM/yyyy hh:mm:ss'
+    end
+    object cdsMovimentacaotipo: TSmallintField
+      FieldName = 'tipo'
+      Required = True
+    end
+    object cdsMovimentacaoTituloOrigem: TStringField
+      FieldKind = fkLookup
+      FieldName = 'TituloOrigem'
+      LookupDataSet = cdsOrigem
+      LookupKeyFields = 'localId'
+      LookupResultField = 'titulo'
+      KeyFields = 'origemId'
+      Size = 255
+      Lookup = True
+    end
+    object cdsMovimentacaoTituloDestino: TStringField
+      FieldKind = fkLookup
+      FieldName = 'TituloDestino'
+      LookupDataSet = cdsDestino
+      LookupKeyFields = 'localId'
+      LookupResultField = 'titulo'
+      KeyFields = 'destinoId'
+      Size = 255
+      Lookup = True
     end
   end
   object dpsMovimentacao: TDataSetProvider
     DataSet = dm.sqlTranferencia
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
+    Options = [poAllowMultiRecordUpdates, poUseQuoteChar]
+    AfterUpdateRecord = dpsMovimentacaoAfterUpdateRecord
     Left = 200
     Top = 368
   end
   object dsOrigem: TDataSource
     DataSet = cdsOrigem
+    OnDataChange = dsOrigemDataChange
     Left = 376
     Top = 368
   end
@@ -515,6 +961,7 @@ object frmMovimentacao: TfrmMovimentacao
   end
   object dsDestino: TDataSource
     DataSet = cdsDestino
+    OnDataChange = dsDestinoDataChange
     Left = 480
     Top = 368
   end
@@ -640,5 +1087,52 @@ object frmMovimentacao: TfrmMovimentacao
       FieldName = 'usuario'
       Required = True
     end
+  end
+  object dsMovimentacaoBem: TDataSource
+    DataSet = cdsMovimentacaoBem
+    Left = 88
+    Top = 368
+  end
+  object cdsMovimentacaoBem: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'transferenciaId'
+    MasterFields = 'transferenciaId'
+    MasterSource = dsMovimentacao
+    Params = <>
+    ProviderName = 'dpsMovimentacaoBem'
+    OnReconcileError = cdsMovimentacaoBemReconcileError
+    Left = 88
+    Top = 432
+    object cdsMovimentacaoBemtransferenciaId: TIntegerField
+      FieldName = 'transferenciaId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsMovimentacaoBembemId: TIntegerField
+      FieldName = 'bemId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      DisplayFormat = '00000000'
+    end
+  end
+  object dpsMovimentacaoBem: TDataSetProvider
+    DataSet = dm.sqlTransferenciaBem
+    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
+    Left = 88
+    Top = 496
+  end
+  object sp_finalizaTransferencia: TSQLStoredProc
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Precision = 10
+        Name = '@transferenciaId'
+        ParamType = ptInput
+      end>
+    SQLConnection = dm.SQLConnection
+    StoredProcName = 'sp_finalizaTransferencia'
+    Left = 754
+    Top = 366
   end
 end

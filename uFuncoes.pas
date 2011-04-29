@@ -8,9 +8,12 @@ uses 	uMd5, DB, SqlExpr, uDm, SysUtils, Classes, Forms, Dialogs, Windows,
 function validaAcesso(login : String; pws : String) : TDataSet;
 procedure VerticalText(Form : TForm; Texto1, Texto2 : String; Top : Integer; FontSize : Integer);overload;
 procedure VerticalText(img : TImage; Texto1, Texto2 : String; Top : Integer; FontSize : Integer);overload;
+function GetBemById(bemId : Integer) : TDataSet;overload;
+function GetBemById(bemId : Integer; locaId : Integer) : TDataSet;overload;
 function Autenticacao : Boolean;
 function alteraSenhaUsuario(login, oldPws : String; nUser : Boolean) : WideString;
 function GetLocalVersion: String;
+function getLastId() : Integer;
 function cript(str: WideString): WideString;
 
 implementation
@@ -225,6 +228,72 @@ begin
 	result := '';
 	for c := 1 to length(str) do 
 		result := chr(ord(str[c]) xor $DD) + result;
+end;
+
+function GetBemById(bemId : Integer) : TDataSet;
+var
+	qryBem : TSQLQuery;
+begin
+	qryBem := TSQLQuery.Create(nil);
+	with qryBem do
+	begin
+		try
+			Close;
+			SQLConnection := dm.SQLConnection;
+			SQL.Clear;
+			SQL.Add('select * from bem where bemId = :bemId');
+			Params.ParamByName('bemId').Value := bemId;
+			Open;
+			Result := qryBem;
+		except
+			raise;
+		end;
+	end;
+end;
+
+function GetBemById(bemId : Integer; locaId : Integer) : TDataSet;
+var
+	qryBem : TSQLQuery;
+begin
+	qryBem := TSQLQuery.Create(nil);
+	with qryBem do
+	begin
+		try
+			Close;
+			SQLConnection := dm.SQLConnection;
+			SQL.Clear;
+			SQL.Add('select * from bem where bemId = :bemId and localId = :localId');
+			Params.ParamByName('bemId').Value   := bemId;
+			Params.ParamByName('localId').Value := locaId;
+			Open;
+			Result := qryBem;
+		except
+			raise;
+		end;
+	end;
+end;
+
+function GetLastId() : Integer;
+begin
+	Result := -1;
+	with TSQLQuery.Create(nil) do
+	begin
+		try
+			try
+				Close;
+				SQLConnection := dm.SQLConnection;
+				SQL.Clear;
+				SQL.Add('select @@identity as newId');
+				Open;
+				Result := FieldByName('newId').AsInteger;
+				Close;
+			except;
+				raise;
+			end;
+		finally
+			Free;
+		end;
+  end;
 end;
 
 end.

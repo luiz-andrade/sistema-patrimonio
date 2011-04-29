@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2011/04/22 16:37:07.000.653,C:\Users\Fagner\Documents\RAD Studio\Projects\Unit1.dfm=C:\Projetos\sistema-patrimonio\Config\uPrincipal.dfm</Transaction>
-    <Transaction>2011/04/22 16:37:13.000.174,C:\Users\Fagner\Documents\RAD Studio\Projects\Project1.dproj=C:\Projetos\sistema-patrimonio\Config\Config.dproj</Transaction>
+    <Transaction>2011/04/22 16:37:07.000.653,C:\Projetos\sistema-patrimonio\Config\uPrincipal.dfm=C:\Users\Fagner\Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2011/04/22 16:37:13.000.174,C:\Projetos\sistema-patrimonio\Config\Config.dproj=C:\Users\Fagner\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
     <Transaction>2011/04/22 17:07:51.000.653,=C:\Projetos\sistema-patrimonio\Config\Unit1.pas</Transaction>
-    <Transaction>2011/04/22 17:07:58.000.029,C:\Projetos\sistema-patrimonio\Config\Unit1.dfm=C:\Projetos\sistema-patrimonio\Config\uDm.dfm</Transaction>
+    <Transaction>2011/04/22 17:07:58.000.029,C:\Projetos\sistema-patrimonio\Config\uDm.dfm=C:\Projetos\sistema-patrimonio\Config\Unit1.dfm</Transaction>
   </Transactions>
 </BorlandProject>
