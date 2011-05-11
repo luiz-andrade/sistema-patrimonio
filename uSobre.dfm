@@ -30,23 +30,23 @@ object frmSobre: TfrmSobre
   object Label2: TLabel
     Left = 60
     Top = 176
-    Width = 176
+    Width = 302
     Height = 13
-    Caption = 'Autor: Fagner Rodrigues Damacena.'
+    Caption = 'Autor: Fagner Rodrigues Damacena, Luscleide Nazareno Mota.'
   end
   object Label3: TLabel
     Left = 60
     Top = 193
-    Width = 118
+    Width = 193
     Height = 13
-    Caption = 'Contato: 63-9221-2227.'
+    Caption = 'Contato: 63-9221-2227, 63-8402-8999.'
   end
   object Label4: TLabel
     Left = 60
     Top = 210
-    Width = 134
+    Width = 240
     Height = 13
-    Caption = 'e-mail: fagnerto@gmail.com'
+    Caption = 'e-mail: fagnerto@gmail.com, luscleide@globo.com'
   end
   object memoInfo: TMemo
     Left = 60

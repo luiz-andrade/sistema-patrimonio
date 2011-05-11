@@ -5,7 +5,7 @@ interface
 uses
 	Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
 	Dialogs, DB, ExtCtrls, Buttons, StdCtrls, DBCtrls, SqlExpr, pngimage, DBClient,
-  Provider;
+  Provider, Grids, DBGrids;
 
 type
 	TfrmAcesso = class(TForm)
@@ -18,6 +18,7 @@ type
     imgCancelar: TImage;
     dspEpresa: TDataSetProvider;
     cdsEmpresa: TClientDataSet;
+    dbgEmpresa: TDBGrid;
 		procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure dsEmpresaDataChange(Sender: TObject; Field: TField);
@@ -25,6 +26,8 @@ type
     procedure imgCancelarClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure lblEmpresaClick(Sender: TObject);
+    procedure dbgEmpresaCellClick(Column: TColumn);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -50,6 +53,11 @@ begin
 	inherited Create(AOwner);
 	_empresaId := empresaId;
 	_liberado  := False;
+end;
+
+procedure TfrmAcesso.dbgEmpresaCellClick(Column: TColumn);
+begin
+	dbgEmpresa.Visible := not(dbgEmpresa.Visible);
 end;
 
 procedure TfrmAcesso.dsEmpresaDataChange(Sender: TObject; Field: TField);
@@ -127,6 +135,11 @@ begin
 		Free;
 	end;
 	Close;
+end;
+
+procedure TfrmAcesso.lblEmpresaClick(Sender: TObject);
+begin
+	dbgEmpresa.Visible := not(dbgEmpresa.Visible);
 end;
 
 end.

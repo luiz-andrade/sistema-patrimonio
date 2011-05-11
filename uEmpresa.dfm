@@ -51,11 +51,35 @@ object frmEmpresa: TfrmEmpresa
   end
   object Label4: TLabel
     Left = 96
-    Top = 105
+    Top = 141
     Width = 86
     Height = 13
     Caption = 'Chave de acesso:'
     FocusControl = chave
+  end
+  object Label5: TLabel
+    Left = 96
+    Top = 102
+    Width = 65
+    Height = 13
+    Caption = 'Respons'#225'vel:'
+    FocusControl = edtPessoaId
+  end
+  object Label6: TLabel
+    Left = 448
+    Top = 141
+    Width = 45
+    Height = 13
+    Cursor = crHandPoint
+    Caption = 'Logotipo:'
+    FocusControl = chave
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = 8404992
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsUnderline]
+    ParentFont = False
+    OnClick = Label6Click
   end
   object pnLateral: TPanel
     Left = 0
@@ -1748,8 +1772,6 @@ object frmEmpresa: TfrmEmpresa
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 5
-    ExplicitLeft = 626
-    ExplicitTop = 35
     object btnGravar: TBitBtn
       AlignWithMargins = True
       Left = 8
@@ -1808,7 +1830,6 @@ object frmEmpresa: TfrmEmpresa
       ShowHint = True
       TabOrder = 0
       OnClick = btnGravarClick
-      ExplicitTop = 46
     end
     object btnCancelar: TBitBtn
       AlignWithMargins = True
@@ -1868,7 +1889,6 @@ object frmEmpresa: TfrmEmpresa
       ShowHint = True
       TabOrder = 1
       OnClick = btnCancelarClick
-      ExplicitTop = 77
     end
     object btnFechar: TBitBtn
       AlignWithMargins = True
@@ -1912,7 +1932,6 @@ object frmEmpresa: TfrmEmpresa
       ShowHint = True
       TabOrder = 2
       OnClick = btnFecharClick
-      ExplicitTop = 139
     end
   end
   object empresaId: TDBEdit
@@ -1946,14 +1965,44 @@ object frmEmpresa: TfrmEmpresa
   end
   object chave: TDBMemo
     Left = 96
-    Top = 120
-    Width = 458
-    Height = 89
+    Top = 156
+    Width = 347
+    Height = 105
     DataField = 'chave'
     DataSource = dsEmpresa
     ParentColor = True
     ReadOnly = True
     TabOrder = 3
+  end
+  object edtPessoaId: TDBEdit
+    Left = 96
+    Top = 117
+    Width = 100
+    Height = 21
+    DataField = 'pessoaId'
+    DataSource = dsEmpresa
+    TabOrder = 6
+  end
+  object pessoaId: TDBLookupComboBox
+    Left = 202
+    Top = 117
+    Width = 352
+    Height = 21
+    DataField = 'pessoaId'
+    DataSource = dsEmpresa
+    KeyField = 'pessoaId'
+    ListField = 'nome'
+    ListSource = dsPessoa
+    TabOrder = 7
+  end
+  object logotipo: TDBImage
+    Left = 449
+    Top = 156
+    Width = 105
+    Height = 105
+    DataField = 'logotipo'
+    DataSource = dsEmpresa
+    TabOrder = 8
   end
   object Timer: TTimer
     Interval = 50
@@ -1994,6 +2043,14 @@ object frmEmpresa: TfrmEmpresa
       BlobType = ftMemo
       Size = 1
     end
+    object cdsEmpresapessoaId: TIntegerField
+      FieldName = 'pessoaId'
+      Required = True
+    end
+    object cdsEmpresalogotipo: TBlobField
+      FieldName = 'logotipo'
+      Size = 1
+    end
   end
   object dpsEmpresa: TDataSetProvider
     DataSet = dm.sqlEmpresa
@@ -2001,5 +2058,35 @@ object frmEmpresa: TfrmEmpresa
     UpdateMode = upWhereKeyOnly
     Left = 144
     Top = 408
+  end
+  object cdsPessoa: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspPessoa'
+    ReadOnly = True
+    Left = 216
+    Top = 352
+    object cdsPessoapessoaId: TIntegerField
+      FieldName = 'pessoaId'
+    end
+    object cdsPessoanome: TStringField
+      FieldName = 'nome'
+      Required = True
+      Size = 100
+    end
+  end
+  object dspPessoa: TDataSetProvider
+    DataSet = dm.sqlPessoa
+    Left = 216
+    Top = 408
+  end
+  object dsPessoa: TDataSource
+    DataSet = cdsPessoa
+    Left = 218
+    Top = 295
+  end
+  object OpenPictureDialog: TOpenPictureDialog
+    Left = 352
+    Top = 296
   end
 end

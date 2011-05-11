@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Provider, DB, DBClient, StdCtrls, DBCtrls, Mask, Buttons, ExtCtrls,
-  ComCtrls, Grids, DBGrids, FMTBcd, SqlExpr;
+  ComCtrls, Grids, DBGrids, FMTBcd, SqlExpr, RpDefine, RpCon, RpConDS;
 
 type
   TfrmMovimentacao = class(TForm)
@@ -104,6 +104,11 @@ type
     cdsMovimentacaoTituloOrigem: TStringField;
     cdsMovimentacaoTituloDestino: TStringField;
     btnImprimir: TBitBtn;
+    Label8: TLabel;
+    img: TImage;
+    cdsMovimentacaoBemDescricaoBem: TStringField;
+    rdstMovimentacao: TRvDataSetConnection;
+    rdstMovimentacaoBem: TRvDataSetConnection;
     procedure btnFecharClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnGravarClick(Sender: TObject);
@@ -128,6 +133,8 @@ type
     procedure btnRemoverClick(Sender: TObject);
     procedure btnConcluirClick(Sender: TObject);
     procedure tipoChange(Sender: TObject);
+    procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -314,6 +321,37 @@ begin
 	// Abre tabela principal.
 	cdsMovimentacao.Open;
 	tsConsulta.Show;
+end;
+
+procedure TfrmMovimentacao.DBGrid1DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+	with TDBGrid(Sender) do
+	begin
+		with Canvas do
+		begin
+			if not(gdSelected in State) then
+			begin
+				with DataSource.DataSet do
+				begin
+					if not(Odd(RecNo)) then
+					begin
+						Brush.Color := corZebra;
+					end;
+					if FieldByName('concluida').AsBoolean then
+					begin
+						Font.Color := clGreen;
+					end
+					else
+					begin
+						Font.Color := clRed;
+					end;
+				end;
+			end;
+		FillRect(Rect);
+		DefaultDrawDataCell(Rect, Column.Field, State);
+		end;
+	end;
 end;
 
 procedure TfrmMovimentacao.dpsMovimentacaoAfterUpdateRecord(Sender: TObject;

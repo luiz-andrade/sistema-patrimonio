@@ -33,7 +33,7 @@ object frmPessoa: TfrmPessoa
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsPesquisa
+    ActivePage = tsInformacao
     Align = alClient
     HotTrack = True
     Style = tsButtons
@@ -180,6 +180,14 @@ object frmPessoa: TfrmPessoa
         Caption = 'CEP'
         FocusControl = cep
       end
+      object Label13: TLabel
+        Left = 285
+        Top = 60
+        Width = 52
+        Height = 13
+        Caption = 'CPF/CNPJ:'
+        FocusControl = cnpjCpf
+      end
       object nome: TDBEdit
         Left = 3
         Top = 30
@@ -196,7 +204,7 @@ object frmPessoa: TfrmPessoa
         Height = 21
         DataField = 'logradouro'
         DataSource = dsPessoa
-        TabOrder = 1
+        TabOrder = 2
       end
       object municipio: TDBEdit
         Left = 3
@@ -205,7 +213,7 @@ object frmPessoa: TfrmPessoa
         Height = 21
         DataField = 'municipio'
         DataSource = dsPessoa
-        TabOrder = 2
+        TabOrder = 3
       end
       object cep: TDBEdit
         Left = 143
@@ -214,12 +222,12 @@ object frmPessoa: TfrmPessoa
         Height = 21
         DataField = 'cep'
         DataSource = dsPessoa
-        TabOrder = 3
+        TabOrder = 4
       end
       object tipo: TDBRadioGroup
         Left = 3
         Top = 57
-        Width = 486
+        Width = 273
         Height = 40
         Caption = 'tipo'
         Columns = 2
@@ -229,7 +237,7 @@ object frmPessoa: TfrmPessoa
           '&1 - Pessoa Fisica'
           '&2 - Pessoa Juridica')
         ParentBackground = True
-        TabOrder = 4
+        TabOrder = 5
         Values.Strings = (
           '1'
           '0')
@@ -243,7 +251,7 @@ object frmPessoa: TfrmPessoa
         Caption = 'Fornecedor'
         DataField = 'fornecedor'
         DataSource = dsPessoa
-        TabOrder = 5
+        TabOrder = 6
         ValueChecked = 'True'
         ValueUnchecked = 'False'
       end
@@ -256,9 +264,18 @@ object frmPessoa: TfrmPessoa
         Caption = 'Usu'#225'rio'
         DataField = 'usuario'
         DataSource = dsPessoa
-        TabOrder = 6
+        TabOrder = 7
         ValueChecked = 'True'
         ValueUnchecked = 'False'
+      end
+      object cnpjCpf: TDBEdit
+        Left = 285
+        Top = 76
+        Width = 204
+        Height = 21
+        DataField = 'cnpjCpf'
+        DataSource = dsPessoa
+        TabOrder = 1
       end
     end
     object tsUsuario: TTabSheet
@@ -2197,8 +2214,6 @@ object frmPessoa: TfrmPessoa
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 2
-    Visible = False
-    ExplicitTop = 35
     object btnNovo: TBitBtn
       AlignWithMargins = True
       Left = 8
@@ -2242,7 +2257,6 @@ object frmPessoa: TfrmPessoa
       ShowHint = True
       TabOrder = 0
       OnClick = btnNovoClick
-      ExplicitLeft = 3
     end
     object btnGravar: TBitBtn
       AlignWithMargins = True
@@ -2404,7 +2418,6 @@ object frmPessoa: TfrmPessoa
       ShowHint = True
       TabOrder = 3
       OnClick = btnApagarClick
-      ExplicitLeft = 3
     end
     object btnFechar: TBitBtn
       AlignWithMargins = True
@@ -2504,6 +2517,10 @@ object frmPessoa: TfrmPessoa
       FieldName = 'usuario'
       Required = True
       DisplayValues = 'Sim;N'#227'o'
+    end
+    object cdsPessoacnpjCpf: TStringField
+      FieldName = 'cnpjCpf'
+      Required = True
     end
   end
   object dspPessoa: TDataSetProvider

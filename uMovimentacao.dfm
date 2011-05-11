@@ -27,13 +27,33 @@ object frmMovimentacao: TfrmMovimentacao
     Align = alTop
     Alignment = taLeftJustify
     BorderWidth = 11
-    Caption = 'Movimenta'#231#227'o/Transfer'#234'ncia'
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = -3
-    ExplicitTop = -3
-    ExplicitWidth = 918
+    object Label8: TLabel
+      Left = 38
+      Top = 12
+      Width = 234
+      Height = 25
+      Align = alLeft
+      Caption = 'Movimenta'#231#227'o/Transfer'#234'ncia'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentFont = False
+      Layout = tlCenter
+      ExplicitHeight = 18
+    end
+    object img: TImage
+      Left = 12
+      Top = 12
+      Width = 26
+      Height = 25
+      Align = alLeft
+      ExplicitLeft = 0
+    end
     object btnFechar: TBitBtn
       Left = 813
       Top = 12
@@ -79,7 +99,6 @@ object frmMovimentacao: TfrmMovimentacao
       ParentFont = False
       TabOrder = 0
       OnClick = btnFecharClick
-      ExplicitLeft = 811
     end
     object btnGravar: TBitBtn
       AlignWithMargins = True
@@ -141,7 +160,6 @@ object frmMovimentacao: TfrmMovimentacao
       ParentDoubleBuffered = False
       TabOrder = 1
       OnClick = btnGravarClick
-      ExplicitLeft = 711
     end
     object btnConcluir: TBitBtn
       AlignWithMargins = True
@@ -187,7 +205,6 @@ object frmMovimentacao: TfrmMovimentacao
       ParentDoubleBuffered = False
       TabOrder = 2
       OnClick = btnConcluirClick
-      ExplicitLeft = 711
     end
     object btnNovo: TBitBtn
       AlignWithMargins = True
@@ -233,7 +250,6 @@ object frmMovimentacao: TfrmMovimentacao
       ParentDoubleBuffered = False
       TabOrder = 3
       OnClick = btnNovoClick
-      ExplicitLeft = 711
     end
     object btnCancelar: TBitBtn
       AlignWithMargins = True
@@ -295,7 +311,6 @@ object frmMovimentacao: TfrmMovimentacao
       ParentDoubleBuffered = False
       TabOrder = 4
       OnClick = btnCancelarClick
-      ExplicitLeft = 756
     end
     object btnImprimir: TBitBtn
       AlignWithMargins = True
@@ -340,7 +355,6 @@ object frmMovimentacao: TfrmMovimentacao
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       ParentDoubleBuffered = False
       TabOrder = 5
-      ExplicitLeft = 711
     end
   end
   object pgGeral: TPageControl
@@ -349,15 +363,11 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 52
     Width = 914
     Height = 547
-    ActivePage = tsInformacao
+    ActivePage = tsBens
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = -2
-    ExplicitTop = 47
     object tsConsulta: TTabSheet
       Caption = 'Consulta'
-      ExplicitWidth = 904
-      ExplicitHeight = 517
       object DBGrid1: TDBGrid
         AlignWithMargins = True
         Left = 3
@@ -378,6 +388,7 @@ object frmMovimentacao: TfrmMovimentacao
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        OnDrawColumnCell = DBGrid1DrawColumnCell
         Columns = <
           item
             Expanded = False
@@ -424,8 +435,6 @@ object frmMovimentacao: TfrmMovimentacao
         Caption = 'Pesquisa:'
         ParentBackground = False
         TabOrder = 1
-        ExplicitTop = 476
-        ExplicitWidth = 904
         object btnPesquisar: TSpeedButton
           AlignWithMargins = True
           Left = 806
@@ -455,7 +464,6 @@ object frmMovimentacao: TfrmMovimentacao
           Align = alClient
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
-          ExplicitWidth = 589
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
@@ -470,16 +478,12 @@ object frmMovimentacao: TfrmMovimentacao
           Text = 'Descri'#231#227'o'
           Items.Strings = (
             'Descri'#231#227'o')
-          ExplicitLeft = 651
         end
       end
     end
     object tsInformacao: TTabSheet
       Caption = 'Informa'#231#245'es sobre a transfer'#234'ncia'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitWidth = 904
-      ExplicitHeight = 517
       object Label1: TLabel
         Left = 24
         Top = 24
@@ -689,9 +693,6 @@ object frmMovimentacao: TfrmMovimentacao
     object tsBens: TTabSheet
       Caption = 'Bens vinculados a tranfer'#234'ncia'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitWidth = 904
-      ExplicitHeight = 517
       object pnAcoesProduto: TPanel
         Left = 0
         Top = 0
@@ -704,9 +705,6 @@ object frmMovimentacao: TfrmMovimentacao
         Color = clWhite
         ParentBackground = False
         TabOrder = 0
-        ExplicitLeft = -3
-        ExplicitTop = -3
-        ExplicitWidth = 918
         object btnRemover: TBitBtn
           Left = 800
           Top = 11
@@ -752,7 +750,6 @@ object frmMovimentacao: TfrmMovimentacao
           ParentFont = False
           TabOrder = 0
           OnClick = btnRemoverClick
-          ExplicitLeft = 801
         end
         object btnAddBem: TBitBtn
           AlignWithMargins = True
@@ -798,7 +795,6 @@ object frmMovimentacao: TfrmMovimentacao
           ParentDoubleBuffered = False
           TabOrder = 1
           OnClick = btnAddBemClick
-          ExplicitLeft = 697
         end
         object ledtIdentificacao: TLabeledEdit
           Left = 128
@@ -836,6 +832,13 @@ object frmMovimentacao: TfrmMovimentacao
             FieldName = 'bemId'
             Title.Caption = 'Identifica'#231#227'o do Bem'
             Width = 120
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DescricaoBem'
+            Title.Caption = 'Descri'#231#227'o do bem'
+            Width = 745
             Visible = True
           end>
       end
@@ -931,6 +934,7 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 368
   end
   object cdsOrigem: TClientDataSet
+    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dpsLocal'
@@ -938,6 +942,7 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 429
     object cdsOrigemlocalId: TIntegerField
       FieldName = 'localId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
     object cdsOrigemtitulo: TStringField
       FieldName = 'titulo'
@@ -966,6 +971,7 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 368
   end
   object cdsDestino: TClientDataSet
+    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dpsLocal'
@@ -973,6 +979,7 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 429
     object cdsDestinolocalId: TIntegerField
       FieldName = 'localId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
     object cdsDestinotitulo: TStringField
       FieldName = 'titulo'
@@ -1114,6 +1121,16 @@ object frmMovimentacao: TfrmMovimentacao
       Required = True
       DisplayFormat = '00000000'
     end
+    object cdsMovimentacaoBemDescricaoBem: TStringField
+      FieldKind = fkLookup
+      FieldName = 'DescricaoBem'
+      LookupDataSet = dm.sqlBem
+      LookupKeyFields = 'bemId'
+      LookupResultField = 'descricao'
+      KeyFields = 'bemId'
+      Size = 255
+      Lookup = True
+    end
   end
   object dpsMovimentacaoBem: TDataSetProvider
     DataSet = dm.sqlTransferenciaBem
@@ -1134,5 +1151,17 @@ object frmMovimentacao: TfrmMovimentacao
     StoredProcName = 'sp_finalizaTransferencia'
     Left = 754
     Top = 366
+  end
+  object rdstMovimentacao: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = cdsMovimentacao
+    Left = 64
+    Top = 192
+  end
+  object rdstMovimentacaoBem: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = cdsMovimentacaoBem
+    Left = 64
+    Top = 248
   end
 end
