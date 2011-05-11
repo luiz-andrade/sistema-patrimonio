@@ -83,6 +83,9 @@ type
     cdsPessoausuario_: TBooleanField;
     fornecedor: TDBCheckBox;
     usuario: TDBCheckBox;
+    cdsPessoacnpjCpf: TStringField;
+    Label13: TLabel;
+    cnpjCpf: TDBEdit;
 		procedure FormPaint(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnFecharClick(Sender: TObject);
@@ -112,7 +115,7 @@ type
     procedure cdsPessoaUsuarioAfterInsert(DataSet: TDataSet);
     procedure cdsPessoaUsuarioReconcileError(DataSet: TCustomClientDataSet;
       E: EReconcileError; UpdateKind: TUpdateKind;
-      var Action: TReconcileAction);
+			var Action: TReconcileAction);
     procedure dsPessoaForncStateChange(Sender: TObject);
     procedure cdsPessoaAfterInsert(DataSet: TDataSet);
   private
@@ -242,6 +245,7 @@ begin
 	with cdsPessoa do
 	begin
 		Append;
+		tsInformacao.Show;
 		nome.SetFocus;
 	end;
 end;
@@ -454,7 +458,7 @@ procedure TfrmPessoa.pcGeralChange(Sender: TObject);
 begin
 	with pcGeral do
 	begin
-		pnAcoes.Visible := not(ActivePage = tsPesquisa);
+		//pnAcoes.Visible := not(ActivePage = tsPesquisa);
 	end;
 end;
 

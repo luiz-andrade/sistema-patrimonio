@@ -14,7 +14,7 @@ var
 	gUsuarioLogin : String;
 	gUsuarioSenha : String;
 	const
-		corZebra : TColor = clSkyBlue;
+		corZebra : TColor = clMoneyGreen;
 		corFoco  : TColor = clMoneyGreen;
 
 implementation

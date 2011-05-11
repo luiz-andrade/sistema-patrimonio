@@ -58,6 +58,14 @@ object dm: Tdm
       BlobType = ftMemo
       Size = 1
     end
+    object sqlEmpresapessoaId: TIntegerField
+      FieldName = 'pessoaId'
+      Required = True
+    end
+    object sqlEmpresalogotipo: TBlobField
+      FieldName = 'logotipo'
+      Size = 1
+    end
   end
   object sqlLocal: TSQLQuery
     MaxBlobSize = -1
@@ -80,11 +88,9 @@ object dm: Tdm
     end
     object sqlLocalvLocalId: TIntegerField
       FieldName = 'vLocalId'
-      Required = True
     end
     object sqlLocalpessoaId: TIntegerField
       FieldName = 'pessoaId'
-      Required = True
     end
   end
   object ImageListAcoes: TImageList
@@ -93,7 +99,7 @@ object dm: Tdm
     Left = 518
     Top = 75
     Bitmap = {
-      494C010106008000800020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010106008000880020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1160,7 +1166,7 @@ object dm: Tdm
     Left = 517
     Top = 24
     Bitmap = {
-      494C010104005C005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104005C00640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1477,6 +1483,10 @@ object dm: Tdm
       FieldName = 'usuario'
       Required = True
     end
+    object sqlPessoacnpjCpf: TStringField
+      FieldName = 'cnpjCpf'
+      Required = True
+    end
   end
   object sqlGrupo: TSQLQuery
     MaxBlobSize = -1
@@ -1543,7 +1553,22 @@ object dm: Tdm
     end
     object sqlBemgestaoId: TIntegerField
       FieldName = 'gestaoId'
+    end
+    object sqlBemvalor: TFMTBCDField
+      FieldName = 'valor'
       Required = True
+      Precision = 19
+      Size = 4
+    end
+    object sqlBemtipoIdentificacao: TIntegerField
+      FieldName = 'tipoIdentificacao'
+      Required = True
+    end
+    object sqlBemsubgrupoId: TIntegerField
+      FieldName = 'subgrupoId'
+    end
+    object sqlBemsubLocalId: TIntegerField
+      FieldName = 'subLocalId'
     end
   end
   object sqlGestao: TSQLQuery
@@ -1616,6 +1641,11 @@ object dm: Tdm
     object sqlBemAquisicaofornecedorId: TIntegerField
       FieldName = 'fornecedorId'
       Required = True
+    end
+    object sqlBemAquisicaonumeroNota: TStringField
+      FieldName = 'numeroNota'
+      Required = True
+      Size = 100
     end
   end
   object sqlFornecedor: TSQLQuery
@@ -1745,5 +1775,9 @@ object dm: Tdm
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
+  end
+  object Rvmovimentacao: TRvProject
+    Left = 256
+    Top = 48
   end
 end

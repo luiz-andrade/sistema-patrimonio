@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, pngimage, untWaterEffect, StdCtrls, Buttons, Provider, DB,
-  DBClient, DBCtrls, Mask;
+  DBClient, DBCtrls, Mask, ExtDlgs;
 
 type
   TfrmEmpresa = class(TForm)
@@ -31,6 +31,19 @@ type
     nomeFantasia: TDBEdit;
     Label4: TLabel;
     chave: TDBMemo;
+    cdsEmpresapessoaId: TIntegerField;
+    Label5: TLabel;
+    edtPessoaId: TDBEdit;
+    pessoaId: TDBLookupComboBox;
+    cdsPessoa: TClientDataSet;
+    cdsPessoapessoaId: TIntegerField;
+    cdsPessoanome: TStringField;
+    dspPessoa: TDataSetProvider;
+    dsPessoa: TDataSource;
+    logotipo: TDBImage;
+    cdsEmpresalogotipo: TBlobField;
+    Label6: TLabel;
+    OpenPictureDialog: TOpenPictureDialog;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -44,6 +57,7 @@ type
     procedure btnGravarClick(Sender: TObject);
     procedure dsEmpresaStateChange(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure Label6Click(Sender: TObject);
   private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -100,6 +114,7 @@ begin
 	_empresaId := empresaId;
 	// Abre tabela principal.
 	cdsEmpresa.Open;
+	cdsPessoa.Open;
 end;
 
 procedure TfrmEmpresa.dsEmpresaStateChange(Sender: TObject);
@@ -123,7 +138,8 @@ begin
 		if State in [dsInsert, dsEdit] then
 			Cancel;
 		Close;
-  end;
+	end;
+	cdsPessoa.Close;
 end;
 
 procedure TfrmEmpresa.FormCreate(Sender: TObject);
@@ -159,6 +175,20 @@ procedure TfrmEmpresa.imgLateralMouseMove(Sender: TObject; Shift: TShiftState;
   X, Y: Integer);
 begin
 	Water.Blob(X,Y,1,100);
+end;
+
+procedure TfrmEmpresa.Label6Click(Sender: TObject);
+begin
+	with OpenPictureDialog do
+	begin
+		Execute();
+		if not (Trim(FileName) = EmptyStr) then
+		begin
+			if not(cdsEmpresa.State in [dsInsert,dsEdit]) then
+				cdsEmpresa.Edit;
+			cdsEmpresalogotipo.LoadFromFile(FileName);
+		end;
+	end;
 end;
 
 procedure TfrmEmpresa.TimerTimer(Sender: TObject);

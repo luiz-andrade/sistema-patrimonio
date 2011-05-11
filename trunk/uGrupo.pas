@@ -17,12 +17,6 @@ type
     cbPesquisar: TComboBox;
     DBGrid1: TDBGrid;
     tsInformacao: TTabSheet;
-    pnAcoes: TPanel;
-    btnNovo: TBitBtn;
-    btnGravar: TBitBtn;
-    btnCancelar: TBitBtn;
-    btnApagar: TBitBtn;
-    btnFechar: TBitBtn;
     dsGrupo: TDataSource;
     cdsGrupo: TClientDataSet;
     dspGrupo: TDataSetProvider;
@@ -43,6 +37,12 @@ type
     pnLateral: TPanel;
     imgLateral: TImage;
     Timer: TTimer;
+    pnAcoes: TPanel;
+    btnNovo: TBitBtn;
+    btnGravar: TBitBtn;
+    btnCancelar: TBitBtn;
+    btnApagar: TBitBtn;
+    btnFechar: TBitBtn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure btnNovoClick(Sender: TObject);
@@ -65,12 +65,16 @@ type
       Y: Integer);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure cdsGrupoBeforePost(DataSet: TDataSet);
+    procedure dspGrupoAfterUpdateRecord(Sender: TObject; SourceDS: TDataSet;
+      DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
+    procedure cdsGrupoAfterEdit(DataSet: TDataSet);
   private
 		{ Private declarations }
 		_empresaId : Integer;
 		Water : TWaterEffect;
 		bmp : TBitmap;
 		xImage : Integer;
+		_grupoId : Integer;
 	public
 		{ Public declarations }
 		constructor Create(AOwner: TComponent; empresaId: Integer);reintroduce;overload;
@@ -118,6 +122,7 @@ begin
 		ApplyUpdates(-1);
 		Close;
 		Open;
+		Locate('grupoId', _grupoId, [loCaseInsensitive]);
 	end;
 	with cdsAuxGrupo do
 	begin
@@ -132,8 +137,14 @@ begin
 	begin
 		Append;
 		cdsGrupoempresaId.Value := _empresaId;
+		tsInformacao.Show;
 		descricao.SetFocus;
 	end;
+end;
+
+procedure TfrmGrupo.cdsGrupoAfterEdit(DataSet: TDataSet);
+begin
+	_grupoId := cdsGrupogrupoId.Value;
 end;
 
 procedure TfrmGrupo.cdsGrupoBeforePost(DataSet: TDataSet);
@@ -157,6 +168,7 @@ begin
 	_empresaId := empresaId;
 	tsPesquisa.Show;
 	// Abre tabelas.
+	cdsGrupo.CommandText := 'select * from grupo';
 	dsGrupo.DataSet.Open;
 	dsAuxGrupo.DataSet.Open;
 end;
@@ -211,6 +223,13 @@ begin
 			Caption := 'Novo registro';
 		end;
 	end;
+end;
+
+procedure TfrmGrupo.dspGrupoAfterUpdateRecord(Sender: TObject;
+  SourceDS: TDataSet; DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
+begin
+	if cdsGrupogrupoId.IsNull then
+	_grupoId := getLastId;
 end;
 
 procedure TfrmGrupo.FormClose(Sender: TObject; var Action: TCloseAction);

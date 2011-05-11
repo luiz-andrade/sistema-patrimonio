@@ -134,7 +134,7 @@ object frmBem: TfrmBem
             Expanded = False
             FieldName = 'descricao'
             Title.Caption = 'Especifica'#231#227'o'
-            Width = 385
+            Width = 275
             Visible = True
           end>
       end
@@ -142,24 +142,16 @@ object frmBem: TfrmBem
     object tsInformacao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
-      object Label1: TLabel
-        Left = 8
-        Top = 16
-        Width = 76
-        Height = 13
-        Caption = 'C'#243'digo Interno:'
-        FocusControl = edtCodigo
-      end
       object Label2: TLabel
-        Left = 113
+        Left = 7
         Top = 16
-        Width = 240
+        Width = 158
         Height = 13
-        Caption = 'Identifica'#231#227'o (Ex: N'#250'mero de s'#233'rie/Tombamento):'
+        Caption = 'Identifica'#231#227'o (Ex: Tombamento):'
         FocusControl = idenficacao
       end
       object Label3: TLabel
-        Left = 8
+        Left = 7
         Top = 64
         Width = 118
         Height = 13
@@ -167,98 +159,111 @@ object frmBem: TfrmBem
         FocusControl = dbmDescricao
       end
       object Label4: TLabel
-        Left = 8
-        Top = 209
+        Left = 7
+        Top = 167
         Width = 33
         Height = 13
         Caption = 'Grupo:'
         FocusControl = edtGrupo
       end
       object Label5: TLabel
-        Left = 8
-        Top = 249
+        Left = 7
+        Top = 250
         Width = 75
         Height = 13
         Caption = 'Estado do bem:'
         FocusControl = edtEstado
       end
       object Label6: TLabel
-        Left = 8
-        Top = 289
-        Width = 58
+        Left = 7
+        Top = 292
+        Width = 43
         Height = 13
-        Caption = 'Localiza'#231#227'o:'
+        Caption = 'Unidade:'
         FocusControl = edtLocalizacao
       end
       object Label7: TLabel
-        Left = 8
-        Top = 329
+        Left = 7
+        Top = 374
         Width = 38
         Height = 13
         Caption = 'Gest'#227'o:'
         FocusControl = editGestao
       end
-      object edtCodigo: TDBEdit
-        Left = 8
-        Top = 32
-        Width = 100
-        Height = 21
-        DataField = 'bemId'
-        DataSource = dsBem
-        ParentColor = True
-        ReadOnly = True
-        TabOrder = 0
+      object Label12: TLabel
+        Left = 395
+        Top = 16
+        Width = 28
+        Height = 13
+        Caption = 'Valor:'
+        FocusControl = valor
+      end
+      object Label14: TLabel
+        Left = 7
+        Top = 208
+        Width = 55
+        Height = 13
+        Caption = 'Sub-Grupo:'
+        FocusControl = subgrupoId
+      end
+      object Label1: TLabel
+        Left = 7
+        Top = 332
+        Width = 28
+        Height = 13
+        Caption = 'Local:'
+        FocusControl = subLocalId
       end
       object idenficacao: TDBEdit
-        Left = 113
+        Left = 7
         Top = 32
-        Width = 408
+        Width = 382
         Height = 21
         DataField = 'idenficacao'
         DataSource = dsBem
-        TabOrder = 1
+        TabOrder = 0
       end
       object edtGrupo: TDBEdit
-        Left = 8
-        Top = 222
+        Left = 7
+        Top = 180
         Width = 100
         Height = 21
         DataField = 'grupoId'
         DataSource = dsBem
-        TabOrder = 3
+        TabOrder = 4
       end
       object edtEstado: TDBEdit
-        Left = 8
-        Top = 265
+        Left = 7
+        Top = 266
         Width = 100
         Height = 21
         DataField = 'estadoId'
         DataSource = dsBem
-        TabOrder = 5
+        TabOrder = 8
       end
       object edtLocalizacao: TDBEdit
         Left = 7
-        Top = 305
+        Top = 308
         Width = 100
         Height = 21
         DataField = 'localId'
         DataSource = dsBem
-        TabOrder = 7
+        TabOrder = 10
       end
       object editGestao: TDBEdit
-        Left = 8
-        Top = 345
+        Left = 7
+        Top = 390
         Width = 100
         Height = 21
         DataField = 'gestaoId'
         DataSource = dsBem
-        TabOrder = 9
+        TabOrder = 14
       end
       object dbmDescricao: TDBMemo
-        Left = 8
+        Left = 7
         Top = 83
-        Width = 513
-        Height = 120
+        Width = 305
+        Height = 78
         DataField = 'descricao'
         DataSource = dsBem
         ScrollBars = ssVertical
@@ -266,19 +271,19 @@ object frmBem: TfrmBem
       end
       object dblGrupo: TDBLookupComboBox
         Left = 113
-        Top = 222
+        Top = 180
         Width = 408
         Height = 21
         DataField = 'grupoId'
         DataSource = dsBem
         KeyField = 'grupoId'
         ListField = 'descricao'
-        ListSource = dsGrupo
-        TabOrder = 4
+        ListSource = dsGrupoPrincipal
+        TabOrder = 5
       end
       object dblEstado: TDBLookupComboBox
         Left = 113
-        Top = 265
+        Top = 266
         Width = 408
         Height = 21
         DataField = 'estadoId'
@@ -286,23 +291,23 @@ object frmBem: TfrmBem
         KeyField = 'estadoId'
         ListField = 'descricao'
         ListSource = dsEstado
-        TabOrder = 6
+        TabOrder = 9
       end
       object dblLocal: TDBLookupComboBox
         Left = 113
-        Top = 305
+        Top = 308
         Width = 408
         Height = 21
         DataField = 'localId'
         DataSource = dsBem
         KeyField = 'localId'
         ListField = 'titulo'
-        ListSource = dsLocalizacao
-        TabOrder = 8
+        ListSource = dsUnidade
+        TabOrder = 11
       end
       object dblGestao: TDBLookupComboBox
         Left = 113
-        Top = 345
+        Top = 390
         Width = 408
         Height = 21
         DataField = 'gestaoId'
@@ -310,7 +315,78 @@ object frmBem: TfrmBem
         KeyField = 'gestaoId'
         ListField = 'inicio;fim'
         ListSource = dsGestao
-        TabOrder = 10
+        NullValueKey = 46
+        TabOrder = 15
+      end
+      object valor: TDBEdit
+        Left = 395
+        Top = 32
+        Width = 126
+        Height = 21
+        DataField = 'valor'
+        DataSource = dsBem
+        TabOrder = 1
+      end
+      object tipoIdentificacao: TDBRadioGroup
+        Left = 319
+        Top = 76
+        Width = 202
+        Height = 85
+        Caption = 'Tipo de identifica'#231#227'o'
+        DataField = 'tipoIdentificacao'
+        DataSource = dsBem
+        Items.Strings = (
+          '01 - Plaqueta  Convencional'
+          '02 - Plaqueta c/ Cod. de Barras'
+          '03 - Sem plaqueta')
+        ParentBackground = True
+        TabOrder = 3
+        Values.Strings = (
+          '1'
+          '2'
+          '3')
+      end
+      object subgrupoId: TDBEdit
+        Left = 7
+        Top = 224
+        Width = 99
+        Height = 21
+        DataField = 'subgrupoId'
+        DataSource = dsBem
+        TabOrder = 6
+      end
+      object dblSubGrupo: TDBLookupComboBox
+        Left = 113
+        Top = 224
+        Width = 408
+        Height = 21
+        DataField = 'subgrupoId'
+        DataSource = dsBem
+        KeyField = 'grupoId'
+        ListField = 'descricao'
+        ListSource = dsGrupo
+        TabOrder = 7
+      end
+      object subLocalId: TDBEdit
+        Left = 7
+        Top = 348
+        Width = 100
+        Height = 21
+        DataField = 'subLocalId'
+        DataSource = dsBem
+        TabOrder = 12
+      end
+      object dblsubLocalId: TDBLookupComboBox
+        Left = 113
+        Top = 348
+        Width = 408
+        Height = 21
+        DataField = 'subLocalId'
+        DataSource = dsBem
+        KeyField = 'localId'
+        ListField = 'titulo'
+        ListSource = dsLocalizacao
+        TabOrder = 13
       end
     end
     object tsAquisicao: TTabSheet
@@ -319,9 +395,9 @@ object frmBem: TfrmBem
       object Label8: TLabel
         Left = 16
         Top = 25
-        Width = 27
+        Width = 92
         Height = 13
-        Caption = 'Data:'
+        Caption = 'Data incorpora'#231#227'o:'
         FocusControl = DBEdit2
       end
       object Label9: TLabel
@@ -342,12 +418,20 @@ object frmBem: TfrmBem
       end
       object Label11: TLabel
         Left = 16
-        Top = 80
+        Top = 120
         Width = 30
         Height = 13
         Caption = 'bemId'
         FocusControl = DBEdit1
         Visible = False
+      end
+      object Label13: TLabel
+        Left = 16
+        Top = 71
+        Width = 117
+        Height = 13
+        Caption = 'N'#250'mero/Chave da Nota:'
+        FocusControl = numeroNota
       end
       object DBEdit2: TDBEdit
         Left = 16
@@ -390,7 +474,7 @@ object frmBem: TfrmBem
       end
       object DBEdit1: TDBEdit
         Left = 16
-        Top = 96
+        Top = 136
         Width = 134
         Height = 21
         DataField = 'bemId'
@@ -399,6 +483,15 @@ object frmBem: TfrmBem
         ReadOnly = True
         TabOrder = 4
         Visible = False
+      end
+      object numeroNota: TDBEdit
+        Left = 16
+        Top = 87
+        Width = 514
+        Height = 21
+        DataField = 'numeroNota'
+        DataSource = dsAquisicao
+        TabOrder = 5
       end
     end
   end
@@ -416,7 +509,6 @@ object frmBem: TfrmBem
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 1
-    Visible = False
     object btnNovo: TBitBtn
       AlignWithMargins = True
       Left = 8
@@ -2343,11 +2435,12 @@ object frmBem: TfrmBem
     Top = 16
   end
   object cdsBem: TClientDataSet
-    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspBem'
     AfterOpen = cdsBemAfterOpen
+    AfterInsert = cdsBemAfterInsert
+    AfterEdit = cdsBemAfterEdit
     OnReconcileError = cdsBemReconcileError
     Left = 24
     Top = 72
@@ -2380,13 +2473,30 @@ object frmBem: TfrmBem
     end
     object cdsBemgestaoId: TIntegerField
       FieldName = 'gestaoId'
+    end
+    object cdsBemvalor: TFMTBCDField
+      FieldName = 'valor'
       Required = True
+      currency = True
+      Precision = 19
+      Size = 4
+    end
+    object cdsBemtipoIdentificacao: TIntegerField
+      FieldName = 'tipoIdentificacao'
+      Required = True
+    end
+    object cdsBemsubgrupoId: TIntegerField
+      FieldName = 'subgrupoId'
+    end
+    object cdsBemsubLocalId: TIntegerField
+      FieldName = 'subLocalId'
     end
   end
   object dspBem: TDataSetProvider
     DataSet = dm.sqlBem
     Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
+    AfterUpdateRecord = dspBemAfterUpdateRecord
     Left = 24
     Top = 128
   end
@@ -2416,6 +2526,7 @@ object frmBem: TfrmBem
   end
   object cdsGrupo: TClientDataSet
     Aggregates = <>
+    CommandText = 'select * from grupo'
     Params = <>
     ProviderName = 'dspGrupo'
     Left = 601
@@ -2430,10 +2541,25 @@ object frmBem: TfrmBem
   end
   object cdsLocalizacao: TClientDataSet
     Aggregates = <>
+    CommandText = 'select * from local'
     Params = <>
     ProviderName = 'dspLocalizacao'
     Left = 601
     Top = 334
+    object cdsLocalizacaolocalId: TIntegerField
+      FieldName = 'localId'
+    end
+    object cdsLocalizacaotitulo: TStringField
+      FieldName = 'titulo'
+      Required = True
+      Size = 100
+    end
+    object cdsLocalizacaovLocalId: TIntegerField
+      FieldName = 'vLocalId'
+    end
+    object cdsLocalizacaopessoaId: TIntegerField
+      FieldName = 'pessoaId'
+    end
   end
   object cdsGestao: TClientDataSet
     Aggregates = <>
@@ -2444,7 +2570,7 @@ object frmBem: TfrmBem
   end
   object dspGrupo: TDataSetProvider
     DataSet = dm.sqlGrupo
-    Options = [poReadOnly, poUseQuoteChar]
+    Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
     Left = 681
     Top = 222
   end
@@ -2456,7 +2582,7 @@ object frmBem: TfrmBem
   end
   object dspLocalizacao: TDataSetProvider
     DataSet = dm.sqlLocal
-    Options = [poReadOnly, poUseQuoteChar]
+    Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
     Left = 681
     Top = 334
   end
@@ -2479,6 +2605,7 @@ object frmBem: TfrmBem
     MasterSource = dsBem
     Params = <>
     ProviderName = 'dspAquisicao'
+    AfterInsert = cdsAquisicaoAfterInsert
     OnReconcileError = cdsAquisicaoReconcileError
     Left = 24
     Top = 248
@@ -2500,6 +2627,11 @@ object frmBem: TfrmBem
     object cdsAquisicaofornecedorId: TIntegerField
       FieldName = 'fornecedorId'
       Required = True
+    end
+    object cdsAquisicaonumeroNota: TStringField
+      FieldName = 'numeroNota'
+      Required = True
+      Size = 100
     end
   end
   object dspAquisicao: TDataSetProvider
@@ -2532,5 +2664,62 @@ object frmBem: TfrmBem
     OnTimer = TimerTimer
     Left = 656
     Top = 8
+  end
+  object cdsGrupoPrincipal: TClientDataSet
+    Aggregates = <>
+    CommandText = 'select * from grupo'
+    Params = <>
+    ProviderName = 'dspGrupo'
+    Left = 424
+    Top = 224
+    object cdsGrupoPrincipalgrupoId: TIntegerField
+      FieldName = 'grupoId'
+    end
+    object cdsGrupoPrincipaldescricao: TStringField
+      FieldName = 'descricao'
+      Required = True
+      Size = 100
+    end
+    object cdsGrupoPrincipalempresaId: TIntegerField
+      FieldName = 'empresaId'
+      Required = True
+    end
+    object cdsGrupoPrincipalvGrupoId: TIntegerField
+      FieldName = 'vGrupoId'
+    end
+  end
+  object dsGrupoPrincipal: TDataSource
+    DataSet = cdsGrupoPrincipal
+    OnDataChange = dsGrupoPrincipalDataChange
+    Left = 328
+    Top = 224
+  end
+  object cdsUnidade: TClientDataSet
+    Aggregates = <>
+    CommandText = 'select * from local'
+    Params = <>
+    ProviderName = 'dspLocalizacao'
+    Left = 424
+    Top = 277
+    object cdsUnidadelocalId: TIntegerField
+      FieldName = 'localId'
+    end
+    object cdsUnidadetitulo: TStringField
+      FieldName = 'titulo'
+      Required = True
+      Size = 100
+    end
+    object cdsUnidadevLocalId: TIntegerField
+      FieldName = 'vLocalId'
+    end
+    object cdsUnidadepessoaId: TIntegerField
+      FieldName = 'pessoaId'
+    end
+  end
+  object dsUnidade: TDataSource
+    DataSet = cdsUnidade
+    OnDataChange = dsUnidadeDataChange
+    Left = 328
+    Top = 277
   end
 end

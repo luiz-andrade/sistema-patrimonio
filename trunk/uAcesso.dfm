@@ -4,7 +4,7 @@ object frmAcesso: TfrmAcesso
   AutoSize = True
   BorderIcons = [biSystemMenu]
   BorderStyle = bsNone
-  ClientHeight = 260
+  ClientHeight = 349
   ClientWidth = 530
   Color = clBtnFace
   TransparentColor = True
@@ -28,7 +28,7 @@ object frmAcesso: TfrmAcesso
     Top = 0
     Width = 530
     Height = 260
-    AutoSize = True
+    Align = alTop
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000002120000
       010408060000007D5ADDA40000000473424954080808087C0864880000000970
@@ -2175,16 +2175,24 @@ object frmAcesso: TfrmAcesso
       AE426082}
   end
   object lblEmpresa: TLabel
-    Left = 34
-    Top = 222
+    Left = 28
+    Top = 197
     Width = 89
     Height = 13
+    Cursor = crHandPoint
     Caption = 'Empresa: Empresa'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clNavy
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsUnderline]
+    ParentFont = False
     Transparent = True
+    OnClick = lblEmpresaClick
   end
   object imgLogar: TImage
-    Left = 424
-    Top = 196
+    Left = 435
+    Top = 205
     Width = 32
     Height = 32
     Cursor = crHandPoint
@@ -2262,8 +2270,8 @@ object frmAcesso: TfrmAcesso
     OnClick = imgLogarClick
   end
   object imgCancelar: TImage
-    Left = 462
-    Top = 196
+    Left = 473
+    Top = 205
     Width = 32
     Height = 32
     Cursor = crHandPoint
@@ -2347,8 +2355,8 @@ object frmAcesso: TfrmAcesso
     OnClick = imgCancelarClick
   end
   object txtLogin: TLabeledEdit
-    Left = 34
-    Top = 147
+    Left = 62
+    Top = 216
     Width = 100
     Height = 21
     BevelInner = bvSpace
@@ -2361,13 +2369,14 @@ object frmAcesso: TfrmAcesso
     EditLabel.Caption = 'Login:'
     EditLabel.ParentBiDiMode = False
     EditLabel.Transparent = True
+    LabelPosition = lpLeft
     ParentCtl3D = False
     TabOrder = 0
     TextHint = 'Entre com seu login'
   end
   object txtPassword: TLabeledEdit
-    Left = 34
-    Top = 188
+    Left = 213
+    Top = 216
     Width = 100
     Height = 21
     BevelInner = bvSpace
@@ -2377,9 +2386,42 @@ object frmAcesso: TfrmAcesso
     EditLabel.Height = 13
     EditLabel.Caption = 'Senha:'
     EditLabel.Transparent = True
+    LabelPosition = lpLeft
     PasswordChar = '*'
     TabOrder = 1
     TextHint = 'Entre com sua senha'
+  end
+  object dbgEmpresa: TDBGrid
+    Left = 0
+    Top = 258
+    Width = 530
+    Height = 91
+    Cursor = crHandPoint
+    DataSource = dsEmpresa
+    Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgTitleClick, dgTitleHotTrack]
+    ReadOnly = True
+    TabOrder = 2
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    Visible = False
+    OnCellClick = dbgEmpresaCellClick
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'empresaId'
+        Title.Caption = 'C'#243'digo Interno'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'razaoSocial'
+        Title.Caption = 'Raz'#227'o Social'
+        Width = 430
+        Visible = True
+      end>
   end
   object dsEmpresa: TDataSource
     DataSet = cdsEmpresa
@@ -2389,10 +2431,12 @@ object frmAcesso: TfrmAcesso
   end
   object dspEpresa: TDataSetProvider
     DataSet = dm.sqlEmpresa
+    Options = [poReadOnly, poUseQuoteChar]
     Left = 440
     Top = 24
   end
   object cdsEmpresa: TClientDataSet
+    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspEpresa'

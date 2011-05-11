@@ -27,8 +27,6 @@ type
     cdsBemestadoId: TIntegerField;
     cdsBemlocalId: TIntegerField;
     cdsBemgestaoId: TIntegerField;
-    Label1: TLabel;
-    edtCodigo: TDBEdit;
     Label2: TLabel;
     idenficacao: TDBEdit;
     Label3: TLabel;
@@ -86,6 +84,38 @@ type
     Timer: TTimer;
     pnLateral: TPanel;
     imgLateral: TImage;
+    cdsBemvalor: TFMTBCDField;
+    Label12: TLabel;
+    valor: TDBEdit;
+    cdsAquisicaonumeroNota: TStringField;
+    Label13: TLabel;
+    numeroNota: TDBEdit;
+    cdsBemtipoIdentificacao: TIntegerField;
+    tipoIdentificacao: TDBRadioGroup;
+    cdsGrupoPrincipal: TClientDataSet;
+    dsGrupoPrincipal: TDataSource;
+    cdsGrupoPrincipalgrupoId: TIntegerField;
+    cdsGrupoPrincipaldescricao: TStringField;
+    cdsGrupoPrincipalempresaId: TIntegerField;
+    cdsGrupoPrincipalvGrupoId: TIntegerField;
+    cdsBemsubgrupoId: TIntegerField;
+    cdsBemsubLocalId: TIntegerField;
+    Label14: TLabel;
+    subgrupoId: TDBEdit;
+    dblSubGrupo: TDBLookupComboBox;
+    subLocalId: TDBEdit;
+    Label1: TLabel;
+    dblsubLocalId: TDBLookupComboBox;
+    cdsUnidade: TClientDataSet;
+    dsUnidade: TDataSource;
+    cdsUnidadelocalId: TIntegerField;
+    cdsUnidadetitulo: TStringField;
+    cdsUnidadevLocalId: TIntegerField;
+    cdsUnidadepessoaId: TIntegerField;
+    cdsLocalizacaolocalId: TIntegerField;
+    cdsLocalizacaotitulo: TStringField;
+    cdsLocalizacaovLocalId: TIntegerField;
+    cdsLocalizacaopessoaId: TIntegerField;
     procedure btnNovoClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -113,12 +143,20 @@ type
       Y: Integer);
     procedure FormDestroy(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure cdsBemAfterInsert(DataSet: TDataSet);
+    procedure cdsAquisicaoAfterInsert(DataSet: TDataSet);
+    procedure dsGrupoPrincipalDataChange(Sender: TObject; Field: TField);
+    procedure dsUnidadeDataChange(Sender: TObject; Field: TField);
+    procedure dspBemAfterUpdateRecord(Sender: TObject; SourceDS: TDataSet;
+      DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
+    procedure cdsBemAfterEdit(DataSet: TDataSet);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
 		Water : TWaterEffect;
 		bmp : TBitmap;
 		xImage : Integer;
+		_bemId : Integer;
 	public
 		{ Public declarations }
 		constructor Create(AOwner : TComponent; empresaId : Integer);reintroduce;overload;
@@ -189,6 +227,7 @@ begin
 			ApplyUpdates(-1);
 			Close;
 			Open;
+			Locate('bemId', _bemId, [loCaseInsensitive])
 		end;
 	end;
 	with cdsAquisicao do
@@ -213,11 +252,28 @@ begin
 	end;
 end;
 
+procedure TfrmBem.cdsAquisicaoAfterInsert(DataSet: TDataSet);
+begin
+	cdsAquisicaodata.AsDateTime     := (Now);
+	cdsAquisicaodataNota.AsDateTime :=(Now);
+end;
+
 procedure TfrmBem.cdsAquisicaoReconcileError(DataSet: TCustomClientDataSet;
   E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
 begin
 	raise Exception.Create(E.Message);
 	Action := raAbort;
+end;
+
+procedure TfrmBem.cdsBemAfterEdit(DataSet: TDataSet);
+begin
+	_bemid := cdsBembemId.Value;
+end;
+
+procedure TfrmBem.cdsBemAfterInsert(DataSet: TDataSet);
+begin
+	cdsBemtipoIdentificacao.Value := 1;
+	cdsBemvalor.AsCurrency := 0;
 end;
 
 procedure TfrmBem.cdsBemAfterOpen(DataSet: TDataSet);
@@ -240,8 +296,10 @@ begin
 	// Abre tabelas.
 	dsBem.DataSet.Open;
 	dsGestao.DataSet.Open;
+	dsUnidade.DataSet.Open;
 	dsLocalizacao.DataSet.Open;
 	dsEstado.DataSet.Open;
+	dsGrupoPrincipal.DataSet.Open;
 	dsGrupo.DataSet.Open;
 	dsFornecedor.DataSet.Open;
 end;
@@ -314,6 +372,45 @@ begin
 	end;
 end;
 
+procedure TfrmBem.dsGrupoPrincipalDataChange(Sender: TObject; Field: TField);
+begin
+	with cdsGrupo do
+	begin
+		Close;
+		CommandText := 'select * from grupo where vGrupoId =:vGrupoId';
+		Params.ParamByName('vGrupoId').Value := cdsGrupoPrincipalgrupoId.Value;
+		Open;
+		if cdsBem.State in [dsInsert, dsEdit] then
+		begin
+			dblSubGrupo.KeyValue   := Null;
+			subgrupoId.Field.Value := Null;
+		end;
+	end;
+end;
+
+procedure TfrmBem.dspBemAfterUpdateRecord(Sender: TObject; SourceDS: TDataSet;
+  DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
+begin
+	if cdsBembemId.IsNull then
+	_bemId := getLastId;
+end;
+
+procedure TfrmBem.dsUnidadeDataChange(Sender: TObject; Field: TField);
+begin
+	with cdsLocalizacao do
+	begin
+		Close;
+		CommandText := 'select * from local where vLocalId =:vLocalId';
+		Params.ParamByName('vLocalId').Value := cdsUnidadelocalId.Value;
+		Open;
+		if cdsBem.State in [dsInsert, dsEdit] then
+		begin
+			dblsubLocalId.KeyValue := Null;
+			subLocalId.Field.Value := Null; 
+		end;
+  end;
+end;
+
 procedure TfrmBem.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 	Action := caFree; // Configura formulario para ser destruido ao fechar.
@@ -334,9 +431,11 @@ begin
 		Close;
 	end;
 	dsGestao.DataSet.Close;
+	dsUnidade.DataSet.Close;
 	dsLocalizacao.DataSet.Close;
 	dsEstado.DataSet.Close;
 	dsGrupo.DataSet.Close;
+	dsGrupoPrincipal.DataSet.Close;
 	dsFornecedor.DataSet.Close;
 end;
 
@@ -379,7 +478,7 @@ procedure TfrmBem.pcGeralChange(Sender: TObject);
 begin
 	with pcGeral do
 	begin
-		pnAcoes.Visible := (ActivePage = tsInformacao) or  (ActivePage = tsAquisicao);
+		//pnAcoes.Visible := (ActivePage = tsInformacao) or  (ActivePage = tsAquisicao);
 	end;
 end;
 
