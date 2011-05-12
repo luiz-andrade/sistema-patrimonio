@@ -14,7 +14,7 @@ object frmMovimentacao: TfrmMovimentacao
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
-  Position = poOwnerFormCenter
+  Position = poMainFormCenter
   OnCloseQuery = FormCloseQuery
   OnKeyDown = FormKeyDown
   PixelsPerInch = 96
@@ -368,6 +368,10 @@ object frmMovimentacao: TfrmMovimentacao
     TabOrder = 1
     object tsConsulta: TTabSheet
       Caption = 'Consulta'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object DBGrid1: TDBGrid
         AlignWithMargins = True
         Left = 3
@@ -484,6 +488,10 @@ object frmMovimentacao: TfrmMovimentacao
     object tsInformacao: TTabSheet
       Caption = 'Informa'#231#245'es sobre a transfer'#234'ncia'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label1: TLabel
         Left = 24
         Top = 24
