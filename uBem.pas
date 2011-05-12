@@ -272,7 +272,7 @@ end;
 
 procedure TfrmBem.cdsBemAfterInsert(DataSet: TDataSet);
 begin
-	cdsBemtipoIdentificacao.Value := 1;
+	cdsBemtipoIdentificacao.Value := 2;
 	cdsBemvalor.AsCurrency := 0;
 end;
 

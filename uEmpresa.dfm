@@ -15,7 +15,7 @@ object frmEmpresa: TfrmEmpresa
   FormStyle = fsMDIChild
   KeyPreview = True
   OldCreateOrder = False
-  Position = poOwnerFormCenter
+  Position = poMainFormCenter
   Visible = True
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
@@ -60,9 +60,9 @@ object frmEmpresa: TfrmEmpresa
   object Label5: TLabel
     Left = 96
     Top = 102
-    Width = 65
+    Width = 97
     Height = 13
-    Caption = 'Respons'#225'vel:'
+    Caption = 'Gestor respons'#225'vel:'
     FocusControl = edtPessoaId
   end
   object Label6: TLabel
@@ -1993,6 +1993,7 @@ object frmEmpresa: TfrmEmpresa
     KeyField = 'pessoaId'
     ListField = 'nome'
     ListSource = dsPessoa
+    NullValueKey = 46
     TabOrder = 7
   end
   object logotipo: TDBImage
@@ -2045,7 +2046,6 @@ object frmEmpresa: TfrmEmpresa
     end
     object cdsEmpresapessoaId: TIntegerField
       FieldName = 'pessoaId'
-      Required = True
     end
     object cdsEmpresalogotipo: TBlobField
       FieldName = 'logotipo'

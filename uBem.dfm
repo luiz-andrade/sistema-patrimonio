@@ -277,7 +277,8 @@ object frmBem: TfrmBem
         DataField = 'grupoId'
         DataSource = dsBem
         KeyField = 'grupoId'
-        ListField = 'descricao'
+        ListField = 'grupoId;descricao'
+        ListFieldIndex = 1
         ListSource = dsGrupoPrincipal
         TabOrder = 5
       end
@@ -289,7 +290,8 @@ object frmBem: TfrmBem
         DataField = 'estadoId'
         DataSource = dsBem
         KeyField = 'estadoId'
-        ListField = 'descricao'
+        ListField = 'estadoId;descricao'
+        ListFieldIndex = 1
         ListSource = dsEstado
         TabOrder = 9
       end
@@ -301,7 +303,8 @@ object frmBem: TfrmBem
         DataField = 'localId'
         DataSource = dsBem
         KeyField = 'localId'
-        ListField = 'titulo'
+        ListField = 'localId;titulo'
+        ListFieldIndex = 1
         ListSource = dsUnidade
         TabOrder = 11
       end
@@ -363,7 +366,8 @@ object frmBem: TfrmBem
         DataField = 'subgrupoId'
         DataSource = dsBem
         KeyField = 'grupoId'
-        ListField = 'descricao'
+        ListField = 'grupoId;descricao'
+        ListFieldIndex = 1
         ListSource = dsGrupo
         TabOrder = 7
       end
@@ -384,7 +388,8 @@ object frmBem: TfrmBem
         DataField = 'subLocalId'
         DataSource = dsBem
         KeyField = 'localId'
-        ListField = 'titulo'
+        ListField = 'localId;titulo'
+        ListFieldIndex = 1
         ListSource = dsLocalizacao
         TabOrder = 13
       end
