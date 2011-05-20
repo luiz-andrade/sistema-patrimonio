@@ -2464,20 +2464,9 @@ object frmBem: TfrmBem
       Required = True
       Size = 255
     end
-    object cdsBemgrupoId: TIntegerField
-      FieldName = 'grupoId'
-      Required = True
-    end
     object cdsBemestadoId: TIntegerField
       FieldName = 'estadoId'
       Required = True
-    end
-    object cdsBemlocalId: TIntegerField
-      FieldName = 'localId'
-      Required = True
-    end
-    object cdsBemgestaoId: TIntegerField
-      FieldName = 'gestaoId'
     end
     object cdsBemvalor: TFMTBCDField
       FieldName = 'valor'
@@ -2490,11 +2479,27 @@ object frmBem: TfrmBem
       FieldName = 'tipoIdentificacao'
       Required = True
     end
-    object cdsBemsubgrupoId: TIntegerField
-      FieldName = 'subgrupoId'
+    object cdsBemgestaoId: TIntegerField
+      FieldName = 'gestaoId'
     end
-    object cdsBemsubLocalId: TIntegerField
+    object cdsBemgrupoId: TStringField
+      FieldName = 'grupoId'
+      Required = True
+      Size = 10
+    end
+    object cdsBemlocalId: TStringField
+      FieldName = 'localId'
+      Required = True
+      Size = 10
+    end
+    object cdsBemsubgrupoId: TStringField
+      FieldName = 'subgrupoId'
+      Size = 10
+    end
+    object cdsBemsubLocalId: TStringField
       FieldName = 'subLocalId'
+      Required = True
+      Size = 10
     end
   end
   object dspBem: TDataSetProvider
@@ -2551,19 +2556,22 @@ object frmBem: TfrmBem
     ProviderName = 'dspLocalizacao'
     Left = 601
     Top = 334
-    object cdsLocalizacaolocalId: TIntegerField
-      FieldName = 'localId'
-    end
     object cdsLocalizacaotitulo: TStringField
       FieldName = 'titulo'
       Required = True
       Size = 100
     end
-    object cdsLocalizacaovLocalId: TIntegerField
-      FieldName = 'vLocalId'
-    end
     object cdsLocalizacaopessoaId: TIntegerField
       FieldName = 'pessoaId'
+    end
+    object cdsLocalizacaolocalId: TStringField
+      FieldName = 'localId'
+      Required = True
+      Size = 10
+    end
+    object cdsLocalizacaovLocalId: TStringField
+      FieldName = 'vLocalId'
+      Size = 10
     end
   end
   object cdsGestao: TClientDataSet
@@ -2677,9 +2685,6 @@ object frmBem: TfrmBem
     ProviderName = 'dspGrupo'
     Left = 424
     Top = 224
-    object cdsGrupoPrincipalgrupoId: TIntegerField
-      FieldName = 'grupoId'
-    end
     object cdsGrupoPrincipaldescricao: TStringField
       FieldName = 'descricao'
       Required = True
@@ -2689,8 +2694,14 @@ object frmBem: TfrmBem
       FieldName = 'empresaId'
       Required = True
     end
-    object cdsGrupoPrincipalvGrupoId: TIntegerField
+    object cdsGrupoPrincipalgrupoId: TStringField
+      FieldName = 'grupoId'
+      Required = True
+      Size = 10
+    end
+    object cdsGrupoPrincipalvGrupoId: TStringField
       FieldName = 'vGrupoId'
+      Size = 10
     end
   end
   object dsGrupoPrincipal: TDataSource
@@ -2706,19 +2717,22 @@ object frmBem: TfrmBem
     ProviderName = 'dspLocalizacao'
     Left = 424
     Top = 277
-    object cdsUnidadelocalId: TIntegerField
-      FieldName = 'localId'
-    end
     object cdsUnidadetitulo: TStringField
       FieldName = 'titulo'
       Required = True
       Size = 100
     end
-    object cdsUnidadevLocalId: TIntegerField
-      FieldName = 'vLocalId'
-    end
     object cdsUnidadepessoaId: TIntegerField
       FieldName = 'pessoaId'
+    end
+    object cdsUnidadelocalId: TStringField
+      FieldName = 'localId'
+      Required = True
+      Size = 10
+    end
+    object cdsUnidadevLocalId: TStringField
+      FieldName = 'vLocalId'
+      Size = 10
     end
   end
   object dsUnidade: TDataSource

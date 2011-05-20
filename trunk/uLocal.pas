@@ -20,25 +20,19 @@ type
     DBGrid1: TDBGrid;
     Label2: TLabel;
     titulo: TDBEdit;
-    Label1: TLabel;
     dsAuxLocal: TDataSource;
-    vLocalId: TDBLookupComboBox;
     dsPessoa: TDataSource;
     Label3: TLabel;
     pessoaId: TDBLookupComboBox;
     cdsAuxLocal: TClientDataSet;
-    IntegerField1: TIntegerField;
     StringField1: TStringField;
-    IntegerField2: TIntegerField;
     IntegerField3: TIntegerField;
     cdsPessoa: TClientDataSet;
     dspPessoa: TDataSetProvider;
     cdsPessoapessoaId: TIntegerField;
     cdsPessoanome: TStringField;
     cdsLocal: TClientDataSet;
-    cdsLocallocalId: TIntegerField;
     cdsLocaltitulo: TStringField;
-    cdsLocalvLocalId: TIntegerField;
     cdsLocalpessoaId: TIntegerField;
     dspLocal: TDataSetProvider;
     pnLateral: TPanel;
@@ -50,6 +44,17 @@ type
     btnCancelar: TBitBtn;
     btnApagar: TBitBtn;
     btnFechar: TBitBtn;
+    dbgUnidades: TDBGrid;
+    lblUnidades: TLabel;
+    cdsAuxLocalpessoaNome: TStringField;
+    dpsLocalAux: TDataSetProvider;
+    DBNavigator1: TDBNavigator;
+    cdsLocallocalId: TStringField;
+    cdsLocalvLocalId: TStringField;
+    cdsAuxLocallocalId: TStringField;
+    cdsAuxLocalvLocalId: TStringField;
+    Label1: TLabel;
+    localId: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -71,18 +76,21 @@ type
     procedure imgLateralMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure vLocalIdKeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
     procedure dspLocalAfterUpdateRecord(Sender: TObject; SourceDS: TDataSet;
       DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
     procedure cdsLocalAfterEdit(DataSet: TDataSet);
+    procedure cdsAuxLocalReconcileError(DataSet: TCustomClientDataSet;
+      E: EReconcileError; UpdateKind: TUpdateKind;
+      var Action: TReconcileAction);
+    procedure cdsAuxLocalAfterDelete(DataSet: TDataSet);
+    procedure cdsAuxLocalAfterPost(DataSet: TDataSet);
   private
 		{ Private declarations }
 		_empresaId : Integer;
 		Water : TWaterEffect;
 		bmp : TBitmap;
 		xImage : Integer;
-		_localId : Integer;
+		_localId : String;
   public
 		{ Public declarations }
 		constructor Create(AOwner : TComponent; empresaId : Integer);reintroduce;overload;
@@ -104,7 +112,7 @@ begin
 	_empresaId := empresaId;
 	tsPesquisa.Show;
 	// Abre tabelas.
-	cdsLocal.CommandText := 'select * from local';
+	cdsLocal.CommandText := 'select * from local where vLocalId = 0';
 	dsLocal.DataSet.Open;
 	dsPessoa.DataSet.Open;
 	dsAuxLocal.DataSet.Open;
@@ -140,18 +148,22 @@ end;
 
 procedure TfrmLocal.btnGravarClick(Sender: TObject);
 begin
+	with cdsAuxLocal do
+	begin
+		if State in [dsInsert, dsEdit] then
+			Post;
+		ApplyUpdates(-1);
+		Close;
+		Open;
+	end;
 	with cdsLocal do
 	begin
-		Post;
+		if State in [dsInsert, dsEdit] then
+			Post;
 		ApplyUpdates(-1);
 		Close;
 		Open;
 		Locate('localId', _localId, [loCaseInsensitive]);
-	end;
-	with cdsAuxLocal do
-	begin
-		Close;
-		Open;
 	end;
 end;
 
@@ -165,9 +177,26 @@ begin
 	end;
 end;
 
+procedure TfrmLocal.cdsAuxLocalAfterDelete(DataSet: TDataSet);
+begin
+	cdsLocal.Edit;
+end;
+
+procedure TfrmLocal.cdsAuxLocalAfterPost(DataSet: TDataSet);
+begin
+	cdsLocal.Edit;
+end;
+
+procedure TfrmLocal.cdsAuxLocalReconcileError(DataSet: TCustomClientDataSet;
+  E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
+begin
+	raise Exception.Create(E.Message);
+	Action := raAbort;
+end;
+
 procedure TfrmLocal.cdsLocalAfterEdit(DataSet: TDataSet);
 begin
-	_localId := cdsLocallocalId.Value;
+	_localId := cdsLocallocalId.AsString;
 end;
 
 procedure TfrmLocal.cdsLocalReconcileError(DataSet: TCustomClientDataSet;
@@ -222,6 +251,9 @@ begin
 		btnGravar.Enabled   := (State in [dsInsert, dsEdit]);
 		btnCancelar.Enabled := (State in [dsInsert, dsEdit]);
 		btnApagar.Enabled   := not(State in [dsInsert, dsEdit]);
+		dbgUnidades.Visible := not(State in [dsInsert]);
+		lblUnidades.Visible := not(State in [dsInsert]);
+		localId.Enabled     := not(State in [dsEdit, dsBrowse]);
 		if State in [dsInsert] then
 		begin
 			Caption := 'Novo registro';
@@ -232,8 +264,7 @@ end;
 procedure TfrmLocal.dspLocalAfterUpdateRecord(Sender: TObject;
   SourceDS: TDataSet; DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
 begin
-	if cdsLocallocalId.IsNull then
-	_localId := getLastId;
+	_localId := cdsLocallocalId.AsString;
 end;
 
 procedure TfrmLocal.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -295,13 +326,6 @@ begin
 		Water.Blob(-1,-1, Random(1) + 1, Random(500) + 50);
 	Water.Render(bmp, imgLateral.Picture.Bitmap);
 	VerticalText(imgLateral,'Cadastro de locais',Application.Title,Self.Height - 50,30);
-end;
-
-procedure TfrmLocal.vLocalIdKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-	if Key = VK_DELETE then vLocalId.KeyValue := Null;
-	
 end;
 
 end.

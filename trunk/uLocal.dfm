@@ -37,10 +37,8 @@ object frmLocal: TfrmLocal
     HotTrack = True
     Style = tsButtons
     TabOrder = 0
-    ExplicitWidth = 650
     object tsPesquisa: TTabSheet
       Caption = 'Perquisar'
-      ExplicitWidth = 642
       object pnPesquisa: TPanel
         Left = 0
         Top = 415
@@ -53,7 +51,6 @@ object frmLocal: TfrmLocal
         Caption = 'Pesquisa:'
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 642
         object btnPesquisar: TSpeedButton
           AlignWithMargins = True
           Left = 435
@@ -83,7 +80,6 @@ object frmLocal: TfrmLocal
           Align = alClient
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
-          ExplicitWidth = 327
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
@@ -98,7 +94,6 @@ object frmLocal: TfrmLocal
           Text = 'Descri'#231#227'o'
           Items.Strings = (
             'Descri'#231#227'o')
-          ExplicitLeft = 389
         end
       end
       object DBGrid1: TDBGrid
@@ -141,54 +136,48 @@ object frmLocal: TfrmLocal
       ImageIndex = 1
       ExplicitLeft = 8
       object Label2: TLabel
-        Left = 3
-        Top = 41
-        Width = 82
-        Height = 13
-        Caption = 'Unidade Interna:'
-        FocusControl = titulo
-      end
-      object Label1: TLabel
-        Left = 3
-        Top = 1
+        Left = 88
+        Top = 10
         Width = 79
         Height = 13
         Caption = 'Orgao/Empresa:'
-        FocusControl = vLocalId
+        FocusControl = titulo
       end
       object Label3: TLabel
         Left = 3
-        Top = 84
+        Top = 52
         Width = 65
         Height = 13
         Caption = 'Respons'#225'vel:'
       end
-      object titulo: TDBEdit
+      object lblUnidades: TLabel
+        Left = 0
+        Top = 104
+        Width = 90
+        Height = 13
+        Caption = 'Unidades internas:'
+        Visible = False
+      end
+      object Label1: TLabel
         Left = 3
-        Top = 60
-        Width = 486
+        Top = 13
+        Width = 33
+        Height = 13
+        Caption = 'C'#243'digo'
+        FocusControl = localId
+      end
+      object titulo: TDBEdit
+        Left = 88
+        Top = 28
+        Width = 401
         Height = 21
         DataField = 'titulo'
         DataSource = dsLocal
-        TabOrder = 1
-      end
-      object vLocalId: TDBLookupComboBox
-        Left = 3
-        Top = 16
-        Width = 486
-        Height = 21
-        DataField = 'vLocalId'
-        DataSource = dsLocal
-        KeyField = 'localId'
-        ListField = 'titulo'
-        ListSource = dsAuxLocal
-        NullValueKey = 46
         TabOrder = 0
-        OnKeyDown = vLocalIdKeyDown
       end
       object pessoaId: TDBLookupComboBox
         Left = 3
-        Top = 99
+        Top = 67
         Width = 486
         Height = 21
         DataField = 'pessoaId'
@@ -197,7 +186,74 @@ object frmLocal: TfrmLocal
         ListField = 'nome'
         ListSource = dsPessoa
         NullValueKey = 46
+        TabOrder = 1
+      end
+      object dbgUnidades: TDBGrid
+        Left = 0
+        Top = 123
+        Width = 489
+        Height = 302
+        DataSource = dsAuxLocal
         TabOrder = 2
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        Visible = False
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'localId'
+            Title.Caption = 'C'#243'digo'
+            Width = 40
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'titulo'
+            Title.Caption = 'Unidade'
+            Width = 160
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'pessoaId'
+            Title.Caption = 'Respons'#225'vel'
+            Width = 70
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'pessoaNome'
+            Title.Caption = 'Respons'#225'vel'
+            Width = 180
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'vLocalId'
+            Visible = False
+          end>
+      end
+      object DBNavigator1: TDBNavigator
+        Left = 429
+        Top = 94
+        Width = 60
+        Height = 25
+        DataSource = dsAuxLocal
+        VisibleButtons = [nbDelete, nbPost, nbRefresh]
+        Flat = True
+        TabOrder = 3
+      end
+      object localId: TDBEdit
+        Left = 3
+        Top = 28
+        Width = 79
+        Height = 21
+        DataField = 'localId'
+        DataSource = dsLocal
+        TabOrder = 4
       end
     end
   end
@@ -1892,6 +1948,7 @@ object frmLocal: TfrmLocal
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 2
+    ExplicitTop = 35
     object btnNovo: TBitBtn
       AlignWithMargins = True
       Left = 8
@@ -2152,28 +2209,48 @@ object frmLocal: TfrmLocal
   end
   object cdsAuxLocal: TClientDataSet
     Aggregates = <>
+    IndexFieldNames = 'vLocalId'
+    MasterFields = 'localId'
+    MasterSource = dsLocal
     Params = <>
-    ProviderName = 'dspLocal'
-    ReadOnly = True
+    ProviderName = 'dpsLocalAux'
+    AfterPost = cdsAuxLocalAfterPost
+    AfterDelete = cdsAuxLocalAfterDelete
+    OnReconcileError = cdsAuxLocalReconcileError
     Left = 24
     Top = 176
-    object IntegerField1: TIntegerField
-      AutoGenerateValue = arAutoInc
-      FieldName = 'localId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
     object StringField1: TStringField
       FieldName = 'titulo'
       Required = True
       Size = 100
     end
-    object IntegerField2: TIntegerField
-      FieldName = 'vLocalId'
-      Required = True
-    end
     object IntegerField3: TIntegerField
       FieldName = 'pessoaId'
+      LookupDataSet = cdsPessoa
+      LookupKeyFields = 'pessoaId'
+      LookupResultField = 'nome'
+      KeyFields = 'pessoaId'
+    end
+    object cdsAuxLocalpessoaNome: TStringField
+      FieldKind = fkLookup
+      FieldName = 'pessoaNome'
+      LookupDataSet = cdsPessoa
+      LookupKeyFields = 'pessoaId'
+      LookupResultField = 'nome'
+      KeyFields = 'pessoaId'
+      Size = 255
+      Lookup = True
+    end
+    object cdsAuxLocallocalId: TStringField
+      FieldName = 'localId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
+      Size = 10
+    end
+    object cdsAuxLocalvLocalId: TStringField
+      FieldName = 'vLocalId'
+      Required = True
+      Size = 10
     end
   end
   object cdsPessoa: TClientDataSet
@@ -2205,21 +2282,23 @@ object frmLocal: TfrmLocal
     OnReconcileError = cdsLocalReconcileError
     Left = 24
     Top = 72
-    object cdsLocallocalId: TIntegerField
-      AutoGenerateValue = arAutoInc
-      FieldName = 'localId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
     object cdsLocaltitulo: TStringField
       FieldName = 'titulo'
       Required = True
       Size = 100
     end
-    object cdsLocalvLocalId: TIntegerField
-      FieldName = 'vLocalId'
-    end
     object cdsLocalpessoaId: TIntegerField
       FieldName = 'pessoaId'
+    end
+    object cdsLocallocalId: TStringField
+      FieldName = 'localId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
+    end
+    object cdsLocalvLocalId: TStringField
+      FieldName = 'vLocalId'
+      Size = 10
     end
   end
   object dspLocal: TDataSetProvider
@@ -2235,5 +2314,13 @@ object frmLocal: TfrmLocal
     OnTimer = TimerTimer
     Left = 700
     Top = 8
+  end
+  object dpsLocalAux: TDataSetProvider
+    DataSet = dm.sqlSubLocal
+    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    UpdateMode = upWhereKeyOnly
+    AfterUpdateRecord = dspLocalAfterUpdateRecord
+    Left = 104
+    Top = 232
   end
 end

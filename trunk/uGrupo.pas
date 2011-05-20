@@ -20,19 +20,11 @@ type
     dsGrupo: TDataSource;
     cdsGrupo: TClientDataSet;
     dspGrupo: TDataSetProvider;
-    cdsGrupogrupoId: TIntegerField;
     cdsGrupodescricao: TStringField;
     cdsGrupoempresaId: TIntegerField;
-    cdsGrupovGrupoId: TIntegerField;
     Label1: TLabel;
     descricao: TDBEdit;
-    Label2: TLabel;
-    vGrupoId: TDBLookupComboBox;
     cdsAuxGrupo: TClientDataSet;
-    IntegerField1: TIntegerField;
-    StringField1: TStringField;
-    IntegerField2: TIntegerField;
-    IntegerField3: TIntegerField;
     dsAuxGrupo: TDataSource;
     pnLateral: TPanel;
     imgLateral: TImage;
@@ -43,8 +35,19 @@ type
     btnCancelar: TBitBtn;
     btnApagar: TBitBtn;
     btnFechar: TBitBtn;
+    dbgSubGrupo: TDBGrid;
+    lblSubGrupo: TLabel;
+    DBNavigator1: TDBNavigator;
+    cdsGrupogrupoId: TStringField;
+    cdsAuxGrupogrupoId: TStringField;
+    cdsAuxGrupovGrupoId: TStringField;
+    Label3: TLabel;
+    grupoId: TDBEdit;
+    dspAuxGrupo: TDataSetProvider;
+    cdsAuxGrupoempresaId: TIntegerField;
+    cdsAuxGrupodescricao: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+		procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure btnNovoClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -64,17 +67,21 @@ type
     procedure imgLateralMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure cdsGrupoBeforePost(DataSet: TDataSet);
-    procedure dspGrupoAfterUpdateRecord(Sender: TObject; SourceDS: TDataSet;
-      DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
     procedure cdsGrupoAfterEdit(DataSet: TDataSet);
-  private
+    procedure cdsGrupoAfterInsert(DataSet: TDataSet);
+    procedure cdsAuxGrupoAfterInsert(DataSet: TDataSet);
+    procedure cdsAuxGrupoReconcileError(DataSet: TCustomClientDataSet;
+      E: EReconcileError; UpdateKind: TUpdateKind;
+      var Action: TReconcileAction);
+    procedure cdsAuxGrupoAfterDelete(DataSet: TDataSet);
+    procedure cdsAuxGrupoAfterPost(DataSet: TDataSet);
+	private
 		{ Private declarations }
 		_empresaId : Integer;
 		Water : TWaterEffect;
 		bmp : TBitmap;
 		xImage : Integer;
-		_grupoId : Integer;
+		_grupoId : String;
 	public
 		{ Public declarations }
 		constructor Create(AOwner: TComponent; empresaId: Integer);reintroduce;overload;
@@ -116,19 +123,24 @@ end;
 
 procedure TfrmGrupo.btnGravarClick(Sender: TObject);
 begin
+	with cdsAuxGrupo do
+	begin
+		if State in [dsInsert, dsEdit] then
+			Post;
+		ApplyUpdates(-1);
+		Close;
+		Open;
+	end;
+
 	with cdsGrupo do
 	begin
-		Post;
+		if State in [dsInsert, dsEdit] then
+			Post;
 		ApplyUpdates(-1);
 		Close;
 		Open;
 		Locate('grupoId', _grupoId, [loCaseInsensitive]);
 	end;
-	with cdsAuxGrupo do
-	begin
-		Close;
-		Open;
-  end;
 end;
 
 procedure TfrmGrupo.btnNovoClick(Sender: TObject);
@@ -136,23 +148,41 @@ begin
 	with cdsGrupo do
 	begin
 		Append;
-		cdsGrupoempresaId.Value := _empresaId;
 		tsInformacao.Show;
 		descricao.SetFocus;
 	end;
 end;
 
-procedure TfrmGrupo.cdsGrupoAfterEdit(DataSet: TDataSet);
+procedure TfrmGrupo.cdsAuxGrupoAfterDelete(DataSet: TDataSet);
 begin
-	_grupoId := cdsGrupogrupoId.Value;
+	cdsGrupo.Edit;
 end;
 
-procedure TfrmGrupo.cdsGrupoBeforePost(DataSet: TDataSet);
+procedure TfrmGrupo.cdsAuxGrupoAfterInsert(DataSet: TDataSet);
 begin
-	// Corrige bug gerado quando o DBLookup passar null para a coluna.
-	if cdsGrupovGrupoId.IsNull then
-		cdsGrupovGrupoId.Value := 0;
-	
+	cdsAuxGrupoempresaId.Value := _empresaId;
+end;
+
+procedure TfrmGrupo.cdsAuxGrupoAfterPost(DataSet: TDataSet);
+begin
+	cdsGrupo.Edit;
+end;
+
+procedure TfrmGrupo.cdsAuxGrupoReconcileError(DataSet: TCustomClientDataSet;
+  E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
+begin
+	raise Exception.Create(E.Message);
+	Action := raAbort;
+end;
+
+procedure TfrmGrupo.cdsGrupoAfterEdit(DataSet: TDataSet);
+begin
+	_grupoId := cdsGrupogrupoId.AsString;
+end;
+
+procedure TfrmGrupo.cdsGrupoAfterInsert(DataSet: TDataSet);
+begin
+	cdsGrupoempresaId.Value := _empresaId;
 end;
 
 procedure TfrmGrupo.cdsGrupoReconcileError(DataSet: TCustomClientDataSet;
@@ -168,7 +198,7 @@ begin
 	_empresaId := empresaId;
 	tsPesquisa.Show;
 	// Abre tabelas.
-	cdsGrupo.CommandText := 'select * from grupo';
+	cdsGrupo.CommandText := 'select * from grupo where vGrupoId = 0';
 	dsGrupo.DataSet.Open;
 	dsAuxGrupo.DataSet.Open;
 end;
@@ -218,18 +248,14 @@ begin
 		btnGravar.Enabled   := (State in [dsInsert, dsEdit]);
 		btnCancelar.Enabled := (State in [dsInsert, dsEdit]);
 		btnApagar.Enabled   := not(State in [dsInsert, dsEdit]);
+		dbgSubGrupo.Visible := not(State in [dsInsert]);
+		lblSubGrupo.Visible := not(State in [dsInsert]);
+		grupoId.Enabled     := not(State in [dsEdit, dsBrowse]);
 		if State in [dsInsert] then
 		begin
 			Caption := 'Novo registro';
 		end;
 	end;
-end;
-
-procedure TfrmGrupo.dspGrupoAfterUpdateRecord(Sender: TObject;
-  SourceDS: TDataSet; DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
-begin
-	if cdsGrupogrupoId.IsNull then
-	_grupoId := getLastId;
 end;
 
 procedure TfrmGrupo.FormClose(Sender: TObject; var Action: TCloseAction);

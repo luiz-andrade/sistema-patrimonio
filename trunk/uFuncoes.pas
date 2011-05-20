@@ -9,7 +9,7 @@ function validaAcesso(login : String; pws : String) : TDataSet;
 procedure VerticalText(Form : TForm; Texto1, Texto2 : String; Top : Integer; FontSize : Integer);overload;
 procedure VerticalText(img : TImage; Texto1, Texto2 : String; Top : Integer; FontSize : Integer);overload;
 function GetBemById(bemId : Integer) : TDataSet;overload;
-function GetBemById(bemId : Integer; locaId : Integer) : TDataSet;overload;
+function GetBemById(bemId : Integer; locaId : String) : TDataSet;overload;
 function Autenticacao : Boolean;
 function alteraSenhaUsuario(login, oldPws : String; nUser : Boolean) : WideString;
 function GetLocalVersion: String;
@@ -251,7 +251,7 @@ begin
 	end;
 end;
 
-function GetBemById(bemId : Integer; locaId : Integer) : TDataSet;
+function GetBemById(bemId : Integer; locaId : String) : TDataSet;
 var
 	qryBem : TSQLQuery;
 begin

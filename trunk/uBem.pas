@@ -23,10 +23,7 @@ type
     cdsBembemId: TIntegerField;
     cdsBemidenficacao: TStringField;
     cdsBemdescricao: TStringField;
-    cdsBemgrupoId: TIntegerField;
     cdsBemestadoId: TIntegerField;
-    cdsBemlocalId: TIntegerField;
-    cdsBemgestaoId: TIntegerField;
     Label2: TLabel;
     idenficacao: TDBEdit;
     Label3: TLabel;
@@ -94,12 +91,6 @@ type
     tipoIdentificacao: TDBRadioGroup;
     cdsGrupoPrincipal: TClientDataSet;
     dsGrupoPrincipal: TDataSource;
-    cdsGrupoPrincipalgrupoId: TIntegerField;
-    cdsGrupoPrincipaldescricao: TStringField;
-    cdsGrupoPrincipalempresaId: TIntegerField;
-    cdsGrupoPrincipalvGrupoId: TIntegerField;
-    cdsBemsubgrupoId: TIntegerField;
-    cdsBemsubLocalId: TIntegerField;
     Label14: TLabel;
     subgrupoId: TDBEdit;
     dblSubGrupo: TDBLookupComboBox;
@@ -108,14 +99,23 @@ type
     dblsubLocalId: TDBLookupComboBox;
     cdsUnidade: TClientDataSet;
     dsUnidade: TDataSource;
-    cdsUnidadelocalId: TIntegerField;
+    cdsBemgestaoId: TIntegerField;
     cdsUnidadetitulo: TStringField;
-    cdsUnidadevLocalId: TIntegerField;
     cdsUnidadepessoaId: TIntegerField;
-    cdsLocalizacaolocalId: TIntegerField;
+    cdsUnidadelocalId: TStringField;
+    cdsUnidadevLocalId: TStringField;
+    cdsGrupoPrincipaldescricao: TStringField;
+    cdsGrupoPrincipalempresaId: TIntegerField;
+    cdsGrupoPrincipalgrupoId: TStringField;
+    cdsGrupoPrincipalvGrupoId: TStringField;
     cdsLocalizacaotitulo: TStringField;
-    cdsLocalizacaovLocalId: TIntegerField;
     cdsLocalizacaopessoaId: TIntegerField;
+    cdsLocalizacaolocalId: TStringField;
+    cdsLocalizacaovLocalId: TStringField;
+    cdsBemgrupoId: TStringField;
+    cdsBemlocalId: TStringField;
+    cdsBemsubgrupoId: TStringField;
+    cdsBemsubLocalId: TStringField;
     procedure btnNovoClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -296,9 +296,13 @@ begin
 	// Abre tabelas.
 	dsBem.DataSet.Open;
 	dsGestao.DataSet.Open;
+	// Certifica que somente os grupos principais sejam exibidos.
+	cdsUnidade.CommandText := 'select * from local where vLocalId = 0';
 	dsUnidade.DataSet.Open;
 	dsLocalizacao.DataSet.Open;
 	dsEstado.DataSet.Open;
+	// Certifica que somente os grupos principais sejam exibidos.
+	cdsGrupoPrincipal.CommandText := 'select * from grupo where vGrupoId = 0';
 	dsGrupoPrincipal.DataSet.Open;
 	dsGrupo.DataSet.Open;
 	dsFornecedor.DataSet.Open;

@@ -171,6 +171,13 @@ object frmPrincipal: TfrmPrincipal
       object Informaessobreoprojeto1: TMenuItem
         Action = actSobre
       end
+      object N5: TMenuItem
+        Caption = '-'
+        Enabled = False
+      end
+      object Impotardados1: TMenuItem
+        Caption = 'Impotar dados'
+      end
     end
     object rocardeusurio1: TMenuItem
       Caption = 'Trocar de usu'#225'rio'
