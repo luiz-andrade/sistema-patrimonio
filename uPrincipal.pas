@@ -45,6 +45,8 @@ type
     actMovimentacao: TAction;
     ToolButton9: TToolButton;
     Movimentao1: TMenuItem;
+    N5: TMenuItem;
+    Impotardados1: TMenuItem;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);

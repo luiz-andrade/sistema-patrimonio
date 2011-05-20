@@ -13,8 +13,6 @@ type
     cdsMovimentacao: TClientDataSet;
     dpsMovimentacao: TDataSetProvider;
     cdsMovimentacaotransferenciaId: TIntegerField;
-    cdsMovimentacaoorigemId: TIntegerField;
-    cdsMovimentacaodestinoId: TIntegerField;
     cdsMovimentacaoreceptorId: TIntegerField;
     cdsMovimentacaocedenteId: TIntegerField;
     cdsMovimentacaousuarioId: TIntegerField;
@@ -109,6 +107,8 @@ type
     cdsMovimentacaoBemDescricaoBem: TStringField;
     rdstMovimentacao: TRvDataSetConnection;
     rdstMovimentacaoBem: TRvDataSetConnection;
+    cdsMovimentacaoorigemId: TStringField;
+    cdsMovimentacaodestinoId: TStringField;
     procedure btnFecharClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnGravarClick(Sender: TObject);
@@ -139,7 +139,7 @@ type
 		{ Private declarations }
 		_empresaId : Integer;
 		_transferenciaId : Integer;
-		procedure AddBem(bemId : Integer; origemId : Integer);
+		procedure AddBem(bemId : Integer; origemId : String);
 	public
 		{ Public declarations }
 		constructor Create(AOwner : TComponent; 
@@ -160,7 +160,7 @@ uses uDm, uFuncoes, uGlobais;
 /// <summary>
 ///   Adiciona um bem a movimentação.
 /// </summary>
-procedure TfrmMovimentacao.AddBem(bemId: Integer; origemId : Integer);
+procedure TfrmMovimentacao.AddBem(bemId: Integer; origemId : String);
 begin
 	with GetBemById(bemId, origemId) do
 	begin
@@ -191,7 +191,7 @@ end;
 
 procedure TfrmMovimentacao.btnAddBemClick(Sender: TObject);
 begin
-	AddBem(StrToInt(ledtIdentificacao.Text), cdsMovimentacaoorigemId.Value);
+	AddBem(StrToInt(ledtIdentificacao.Text), cdsMovimentacaoorigemId.AsString);
 end;
 
 procedure TfrmMovimentacao.btnCancelarClick(Sender: TObject);

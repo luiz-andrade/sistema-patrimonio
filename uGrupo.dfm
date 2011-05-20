@@ -37,10 +37,8 @@ object frmGrupo: TfrmGrupo
     HotTrack = True
     Style = tsButtons
     TabOrder = 0
-    ExplicitWidth = 650
     object tsPesquisa: TTabSheet
       Caption = 'Perquisar'
-      ExplicitWidth = 642
       object pnPesquisa: TPanel
         Left = 0
         Top = 415
@@ -53,7 +51,6 @@ object frmGrupo: TfrmGrupo
         Caption = 'Pesquisa:'
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 642
         object btnPesquisar: TSpeedButton
           AlignWithMargins = True
           Left = 435
@@ -83,7 +80,6 @@ object frmGrupo: TfrmGrupo
           Align = alClient
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
-          ExplicitWidth = 327
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
@@ -98,7 +94,6 @@ object frmGrupo: TfrmGrupo
           Text = 'Descri'#231#227'o'
           Items.Strings = (
             'Descri'#231#227'o')
-          ExplicitLeft = 389
         end
       end
       object DBGrid1: TDBGrid
@@ -139,43 +134,85 @@ object frmGrupo: TfrmGrupo
     object tsInformacao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
-      ExplicitWidth = 642
+      ExplicitLeft = 8
       object Label1: TLabel
-        Left = 16
+        Left = 88
         Top = 16
         Width = 27
         Height = 13
         Caption = 'Nome'
         FocusControl = descricao
       end
-      object Label2: TLabel
-        Left = 16
-        Top = 64
+      object lblSubGrupo: TLabel
+        Left = 3
+        Top = 69
+        Width = 90
+        Height = 13
+        Caption = 'Unidades internas:'
+        Visible = False
+      end
+      object Label3: TLabel
+        Left = 4
+        Top = 16
         Width = 33
         Height = 13
-        Caption = 'Grupo:'
+        Caption = 'C'#243'digo'
+        FocusControl = grupoId
       end
       object descricao: TDBEdit
-        Left = 16
+        Left = 88
         Top = 32
-        Width = 486
+        Width = 425
         Height = 21
         DataField = 'descricao'
         DataSource = dsGrupo
         TabOrder = 0
       end
-      object vGrupoId: TDBLookupComboBox
-        Left = 16
-        Top = 80
-        Width = 486
-        Height = 21
-        DataField = 'vGrupoId'
-        DataSource = dsGrupo
-        KeyField = 'grupoId'
-        ListField = 'descricao'
-        ListSource = dsAuxGrupo
-        NullValueKey = 46
+      object dbgSubGrupo: TDBGrid
+        Left = 3
+        Top = 88
+        Width = 509
+        Height = 353
+        DataSource = dsAuxGrupo
         TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        Visible = False
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'grupoId'
+            Title.Caption = 'C'#243'digo'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'descricao'
+            Width = 400
+            Visible = True
+          end>
+      end
+      object DBNavigator1: TDBNavigator
+        Left = 453
+        Top = 59
+        Width = 60
+        Height = 25
+        DataSource = dsAuxGrupo
+        VisibleButtons = [nbDelete, nbPost, nbRefresh]
+        Flat = True
+        TabOrder = 2
+      end
+      object grupoId: TDBEdit
+        Left = 4
+        Top = 32
+        Width = 79
+        Height = 21
+        DataField = 'grupoId'
+        DataSource = dsGrupo
+        TabOrder = 3
       end
     end
   end
@@ -2122,16 +2159,11 @@ object frmGrupo: TfrmGrupo
     Aggregates = <>
     Params = <>
     ProviderName = 'dspGrupo'
+    AfterInsert = cdsGrupoAfterInsert
     AfterEdit = cdsGrupoAfterEdit
-    BeforePost = cdsGrupoBeforePost
     OnReconcileError = cdsGrupoReconcileError
     Left = 376
     Top = 352
-    object cdsGrupogrupoId: TIntegerField
-      AutoGenerateValue = arAutoInc
-      FieldName = 'grupoId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
     object cdsGrupodescricao: TStringField
       FieldName = 'descricao'
       Required = True
@@ -2141,41 +2173,53 @@ object frmGrupo: TfrmGrupo
       FieldName = 'empresaId'
       Required = True
     end
-    object cdsGrupovGrupoId: TIntegerField
-      FieldName = 'vGrupoId'
+    object cdsGrupogrupoId: TStringField
+      FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
     end
   end
   object dspGrupo: TDataSetProvider
     DataSet = dm.sqlGrupo
     Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
-    AfterUpdateRecord = dspGrupoAfterUpdateRecord
     Left = 288
     Top = 296
   end
   object cdsAuxGrupo: TClientDataSet
+    Active = True
     Aggregates = <>
+    IndexFieldNames = 'vGrupoId'
+    MasterFields = 'grupoId'
+    MasterSource = dsGrupo
     Params = <>
-    ProviderName = 'dspGrupo'
+    ProviderName = 'dspAuxGrupo'
+    AfterInsert = cdsAuxGrupoAfterInsert
+    AfterPost = cdsAuxGrupoAfterPost
+    AfterDelete = cdsAuxGrupoAfterDelete
+    OnReconcileError = cdsAuxGrupoReconcileError
     Left = 192
     Top = 352
-    object IntegerField1: TIntegerField
-      AutoGenerateValue = arAutoInc
+    object cdsAuxGrupogrupoId: TStringField
       FieldName = 'grupoId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object StringField1: TStringField
-      FieldName = 'descricao'
       Required = True
-      Size = 100
+      Size = 10
     end
-    object IntegerField2: TIntegerField
+    object cdsAuxGrupovGrupoId: TStringField
+      FieldName = 'vGrupoId'
+      Required = True
+      Size = 10
+    end
+    object cdsAuxGrupoempresaId: TIntegerField
       FieldName = 'empresaId'
       Required = True
     end
-    object IntegerField3: TIntegerField
-      FieldName = 'vGrupoId'
+    object cdsAuxGrupodescricao: TStringField
+      FieldName = 'descricao'
       Required = True
+      Size = 100
     end
   end
   object dsAuxGrupo: TDataSource
@@ -2188,5 +2232,12 @@ object frmGrupo: TfrmGrupo
     OnTimer = TimerTimer
     Left = 656
     Top = 8
+  end
+  object dspAuxGrupo: TDataSetProvider
+    DataSet = dm.sqlSubGrupo
+    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    UpdateMode = upWhereKeyOnly
+    Left = 288
+    Top = 352
   end
 end

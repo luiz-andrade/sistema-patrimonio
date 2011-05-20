@@ -363,15 +363,11 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 52
     Width = 914
     Height = 547
-    ActivePage = tsBens
+    ActivePage = tsInformacao
     Align = alClient
     TabOrder = 1
     object tsConsulta: TTabSheet
       Caption = 'Consulta'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object DBGrid1: TDBGrid
         AlignWithMargins = True
         Left = 3
@@ -488,10 +484,6 @@ object frmMovimentacao: TfrmMovimentacao
     object tsInformacao: TTabSheet
       Caption = 'Informa'#231#245'es sobre a transfer'#234'ncia'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label1: TLabel
         Left = 24
         Top = 24
@@ -687,6 +679,7 @@ object frmMovimentacao: TfrmMovimentacao
         Columns = 2
         DataField = 'tipo'
         DataSource = dsMovimentacao
+        Enabled = False
         Items.Strings = (
           'Movimenta'#231#227'o'
           'Transfer'#234'ncia')
@@ -873,14 +866,6 @@ object frmMovimentacao: TfrmMovimentacao
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       DisplayFormat = '00000000'
     end
-    object cdsMovimentacaoorigemId: TIntegerField
-      FieldName = 'origemId'
-      Required = True
-    end
-    object cdsMovimentacaodestinoId: TIntegerField
-      FieldName = 'destinoId'
-      Required = True
-    end
     object cdsMovimentacaoreceptorId: TIntegerField
       FieldName = 'receptorId'
       Required = True
@@ -927,6 +912,16 @@ object frmMovimentacao: TfrmMovimentacao
       Size = 255
       Lookup = True
     end
+    object cdsMovimentacaoorigemId: TStringField
+      FieldName = 'origemId'
+      Required = True
+      Size = 10
+    end
+    object cdsMovimentacaodestinoId: TStringField
+      FieldName = 'destinoId'
+      Required = True
+      Size = 10
+    end
   end
   object dpsMovimentacao: TDataSetProvider
     DataSet = dm.sqlTranferencia
@@ -942,7 +937,6 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 368
   end
   object cdsOrigem: TClientDataSet
-    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dpsLocal'
@@ -979,7 +973,6 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 368
   end
   object cdsDestino: TClientDataSet
-    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dpsLocal'

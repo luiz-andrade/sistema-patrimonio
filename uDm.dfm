@@ -19,7 +19,7 @@ object dm: Tdm
       'ErrorResourceFile='
       'LocaleCode=0000'
       'IsolationLevel=ReadCommitted'
-      'OS Authentication=False'
+      'OS Authentication=True'
       'Prepare SQL=False'
       'ConnectTimeout=60'
       'Mars_Connection=False')
@@ -36,7 +36,7 @@ object dm: Tdm
       'select *'
       'from empresa')
     SQLConnection = SQLConnection
-    Left = 154
+    Left = 106
     Top = 88
     object sqlEmpresaempresaId: TIntegerField
       AutoGenerateValue = arAutoInc
@@ -76,21 +76,23 @@ object dm: Tdm
     SQLConnection = SQLConnection
     Left = 40
     Top = 156
-    object sqlLocallocalId: TIntegerField
-      AutoGenerateValue = arAutoInc
-      FieldName = 'localId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
     object sqlLocaltitulo: TStringField
       FieldName = 'titulo'
       Required = True
       Size = 100
     end
-    object sqlLocalvLocalId: TIntegerField
-      FieldName = 'vLocalId'
-    end
     object sqlLocalpessoaId: TIntegerField
       FieldName = 'pessoaId'
+    end
+    object sqlLocallocalId: TStringField
+      FieldName = 'localId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
+    end
+    object sqlLocalvLocalId: TStringField
+      FieldName = 'vLocalId'
+      Size = 10
     end
   end
   object ImageListAcoes: TImageList
@@ -99,7 +101,7 @@ object dm: Tdm
     Left = 518
     Top = 75
     Bitmap = {
-      494C0101060080008C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010106009400940020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1166,7 +1168,7 @@ object dm: Tdm
     Left = 517
     Top = 24
     Bitmap = {
-      494C010104005C00680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104007000700010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1444,7 +1446,7 @@ object dm: Tdm
       'select *'
       'from pessoa')
     SQLConnection = SQLConnection
-    Left = 97
+    Left = 105
     Top = 156
     object sqlPessoapessoaId: TIntegerField
       AutoGenerateValue = arAutoInc
@@ -1495,13 +1497,8 @@ object dm: Tdm
       'select *'
       'from grupo')
     SQLConnection = SQLConnection
-    Left = 154
+    Left = 175
     Top = 156
-    object sqlGrupogrupoId: TIntegerField
-      AutoGenerateValue = arAutoInc
-      FieldName = 'grupoId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
     object sqlGrupodescricao: TStringField
       FieldName = 'descricao'
       Required = True
@@ -1511,8 +1508,16 @@ object dm: Tdm
       FieldName = 'empresaId'
       Required = True
     end
-    object sqlGrupovGrupoId: TIntegerField
+    object sqlGrupogrupoId: TStringField
+      FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
+    end
+    object sqlGrupovGrupoId: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'vGrupoId'
+      Size = 10
     end
   end
   object sqlBem: TSQLQuery
@@ -1522,7 +1527,7 @@ object dm: Tdm
       'select *'
       'from bem')
     SQLConnection = SQLConnection
-    Left = 207
+    Left = 256
     Top = 156
     object sqlBembemId: TIntegerField
       AutoGenerateValue = arAutoInc
@@ -1539,16 +1544,8 @@ object dm: Tdm
       Required = True
       Size = 255
     end
-    object sqlBemgrupoId: TIntegerField
-      FieldName = 'grupoId'
-      Required = True
-    end
     object sqlBemestadoId: TIntegerField
       FieldName = 'estadoId'
-      Required = True
-    end
-    object sqlBemlocalId: TIntegerField
-      FieldName = 'localId'
       Required = True
     end
     object sqlBemgestaoId: TIntegerField
@@ -1564,11 +1561,23 @@ object dm: Tdm
       FieldName = 'tipoIdentificacao'
       Required = True
     end
-    object sqlBemsubgrupoId: TIntegerField
-      FieldName = 'subgrupoId'
+    object sqlBemgrupoId: TStringField
+      FieldName = 'grupoId'
+      Required = True
+      Size = 10
     end
-    object sqlBemsubLocalId: TIntegerField
+    object sqlBemlocalId: TStringField
+      FieldName = 'localId'
+      Required = True
+      Size = 10
+    end
+    object sqlBemsubgrupoId: TStringField
+      FieldName = 'subgrupoId'
+      Size = 10
+    end
+    object sqlBemsubLocalId: TStringField
       FieldName = 'subLocalId'
+      Size = 10
     end
   end
   object sqlGestao: TSQLQuery
@@ -1578,7 +1587,7 @@ object dm: Tdm
       'select *'
       'from gestao')
     SQLConnection = SQLConnection
-    Left = 264
+    Left = 313
     Top = 156
     object sqlGestaogestaoId: TIntegerField
       FieldName = 'gestaoId'
@@ -1604,7 +1613,7 @@ object dm: Tdm
       'select *'
       'from estado')
     SQLConnection = SQLConnection
-    Left = 316
+    Left = 365
     Top = 156
     object sqlEstadoestadoId: TIntegerField
       FieldName = 'estadoId'
@@ -1623,7 +1632,7 @@ object dm: Tdm
       'select *'
       'from bemAquisicao')
     SQLConnection = SQLConnection
-    Left = 208
+    Left = 257
     Top = 210
     object sqlBemAquisicaobemId: TIntegerField
       FieldName = 'bemId'
@@ -1655,7 +1664,7 @@ object dm: Tdm
       'select *'
       'from fornecedor')
     SQLConnection = SQLConnection
-    Left = 96
+    Left = 104
     Top = 267
     object sqlFornecedorfornecedorId: TIntegerField
       FieldName = 'fornecedorId'
@@ -1682,7 +1691,7 @@ object dm: Tdm
       'select *'
       'from usuario')
     SQLConnection = SQLConnection
-    Left = 96
+    Left = 104
     Top = 211
     object sqlUsuariousuarioId: TIntegerField
       AutoGenerateValue = arAutoInc
@@ -1716,20 +1725,12 @@ object dm: Tdm
       'select *'
       'from transferencia')
     SQLConnection = SQLConnection
-    Left = 384
+    Left = 433
     Top = 156
     object sqlTranferenciatransferenciaId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'transferenciaId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object sqlTranferenciaorigemId: TIntegerField
-      FieldName = 'origemId'
-      Required = True
-    end
-    object sqlTranferenciadestinoId: TIntegerField
-      FieldName = 'destinoId'
-      Required = True
     end
     object sqlTranferenciareceptorId: TIntegerField
       FieldName = 'receptorId'
@@ -1755,6 +1756,16 @@ object dm: Tdm
       AutoGenerateValue = arDefault
       FieldName = 'data'
     end
+    object sqlTranferenciaorigemId: TStringField
+      FieldName = 'origemId'
+      Required = True
+      Size = 10
+    end
+    object sqlTranferenciadestinoId: TStringField
+      FieldName = 'destinoId'
+      Required = True
+      Size = 10
+    end
   end
   object sqlTransferenciaBem: TSQLQuery
     MaxBlobSize = -1
@@ -1763,7 +1774,7 @@ object dm: Tdm
       'select *'
       'from transferenciaBem')
     SQLConnection = SQLConnection
-    Left = 384
+    Left = 433
     Top = 216
     object sqlTransferenciaBemtransferenciaId: TIntegerField
       FieldName = 'transferenciaId'
@@ -1779,5 +1790,63 @@ object dm: Tdm
   object Rvmovimentacao: TRvProject
     Left = 256
     Top = 48
+  end
+  object sqlSubLocal: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from local')
+    SQLConnection = SQLConnection
+    Left = 40
+    Top = 212
+    object StringField1: TStringField
+      FieldName = 'titulo'
+      Required = True
+      Size = 100
+    end
+    object IntegerField3: TIntegerField
+      FieldName = 'pessoaId'
+    end
+    object sqlSubLocallocalId: TStringField
+      FieldName = 'localId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
+    end
+    object sqlSubLocalvLocalId: TStringField
+      FieldName = 'vLocalId'
+      Size = 10
+    end
+  end
+  object sqlSubGrupo: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from grupo')
+    SQLConnection = SQLConnection
+    Left = 175
+    Top = 209
+    object StringField2: TStringField
+      FieldName = 'descricao'
+      Required = True
+      Size = 100
+    end
+    object IntegerField5: TIntegerField
+      FieldName = 'empresaId'
+      Required = True
+    end
+    object sqlSubGrupogrupoId: TStringField
+      FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
+    end
+    object sqlSubGrupovGrupoId: TStringField
+      FieldName = 'vGrupoId'
+      Required = True
+      Size = 10
+    end
   end
 end
