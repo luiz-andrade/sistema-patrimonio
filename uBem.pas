@@ -12,7 +12,6 @@ type
     pcGeral: TPageControl;
     tsPesquisa: TTabSheet;
     pnPesquisa: TPanel;
-    btnPesquisar: TSpeedButton;
     txtPesquisa: TEdit;
     cbPesquisar: TComboBox;
     DBGrid1: TDBGrid;
@@ -116,6 +115,11 @@ type
     cdsBemlocalId: TStringField;
     cdsBemsubgrupoId: TStringField;
     cdsBemsubLocalId: TStringField;
+    tipoAquisicao: TDBRadioGroup;
+    cdsBemtipoAquisicao: TIntegerField;
+    cdsBemquantidade: TFloatField;
+    Label15: TLabel;
+    quantidade: TDBEdit;
     procedure btnNovoClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -150,6 +154,7 @@ type
     procedure dspBemAfterUpdateRecord(Sender: TObject; SourceDS: TDataSet;
       DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
     procedure cdsBemAfterEdit(DataSet: TDataSet);
+    procedure txtPesquisaChange(Sender: TObject);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -273,7 +278,9 @@ end;
 procedure TfrmBem.cdsBemAfterInsert(DataSet: TDataSet);
 begin
 	cdsBemtipoIdentificacao.Value := 2;
-	cdsBemvalor.AsCurrency := 0;
+	cdsBemvalor.AsCurrency        := 0;
+	cdsBemtipoAquisicao.AsInteger := 1;
+	cdsBemquantidade.AsFloat      := 1;
 end;
 
 procedure TfrmBem.cdsBemAfterOpen(DataSet: TDataSet);
@@ -492,6 +499,20 @@ begin
 		Water.Blob(-1,-1, Random(1) + 1, Random(500) + 50);
 	Water.Render(bmp, imgLateral.Picture.Bitmap);
 	VerticalText(imgLateral,'Registro de bens',Application.Title,Self.Height - 50,30);
+end;
+
+procedure TfrmBem.txtPesquisaChange(Sender: TObject);
+begin
+	with cdsBem do
+	begin
+		if not(IsEmpty) then
+		begin
+			case cbPesquisar.ItemIndex of
+				0 : Locate('idenficacao', txtPesquisa.Text, [loPartialKey]);
+				1 : Locate('descricao', txtPesquisa.Text, [loPartialKey]);
+			end;
+		end;
+	end;
 end;
 
 end.

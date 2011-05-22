@@ -12,7 +12,6 @@ type
     pcGeral: TPageControl;
     tsPesquisa: TTabSheet;
     pnPesquisa: TPanel;
-    btnPesquisar: TSpeedButton;
     txtPesquisa: TEdit;
     cbPesquisar: TComboBox;
     DBGrid1: TDBGrid;
@@ -75,6 +74,9 @@ type
       var Action: TReconcileAction);
     procedure cdsAuxGrupoAfterDelete(DataSet: TDataSet);
     procedure cdsAuxGrupoAfterPost(DataSet: TDataSet);
+    procedure dbgSubGrupoDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure txtPesquisaChange(Sender: TObject);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -204,7 +206,30 @@ begin
 end;
 
 procedure TfrmGrupo.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
-  DataCol: Integer; Column: TColumn; State: TGridDrawState);
+	DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+	with TDBGrid(Sender) do
+	begin
+		with Canvas do
+		begin
+			if not(gdSelected in State) then
+			begin
+				with DataSource.DataSet do
+				begin
+					if not(Odd(RecNo)) then
+					begin
+						Brush.Color := corZebra;
+					end;
+				end;
+			end;
+		FillRect(Rect);
+		DefaultDrawDataCell(Rect, Column.Field, State);
+		end;
+	end;
+end;
+
+procedure TfrmGrupo.dbgSubGrupoDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
 	with TDBGrid(Sender) do
 	begin
@@ -316,6 +341,19 @@ begin
 		Water.Blob(-1,-1, Random(1) + 1, Random(500) + 50);
 	Water.Render(bmp, imgLateral.Picture.Bitmap);
 	VerticalText(imgLateral, 'Cadastro de grupos',Application.Title,Self.Height - 50,30);
+end;
+
+procedure TfrmGrupo.txtPesquisaChange(Sender: TObject);
+begin
+	with cdsGrupo do
+	begin
+		if not(IsEmpty) then
+		begin
+			case cbPesquisar.ItemIndex of
+				0 : Locate('descricao', txtPesquisa.Text, [loPartialKey]);
+			end;
+		end;
+	end;
 end;
 
 end.

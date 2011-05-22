@@ -166,6 +166,13 @@ object frmPrincipal: TfrmPrincipal
     object Relatrios1: TMenuItem
       Caption = 'Relat'#243'rios'
     end
+    object Manuteno1: TMenuItem
+      Caption = 'Manuten'#231#227'o'
+      object Importar1: TMenuItem
+        Caption = 'Importar dados'
+        OnClick = Importar1Click
+      end
+    end
     object N4: TMenuItem
       Caption = '?'
       object Informaessobreoprojeto1: TMenuItem

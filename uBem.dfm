@@ -35,14 +35,13 @@ object frmBem: TfrmBem
     ActivePage = tsInformacao
     Align = alClient
     HotTrack = True
-    Style = tsButtons
     TabOrder = 0
     OnChange = pcGeralChange
     object tsPesquisa: TTabSheet
       Caption = 'Perquisar'
       object pnPesquisa: TPanel
         Left = 0
-        Top = 415
+        Top = 418
         Width = 535
         Height = 41
         Align = alBottom
@@ -52,28 +51,11 @@ object frmBem: TfrmBem
         Caption = 'Pesquisa:'
         ParentBackground = False
         TabOrder = 0
-        object btnPesquisar: TSpeedButton
-          AlignWithMargins = True
-          Left = 435
-          Top = 10
-          Width = 90
-          Height = 24
-          Cursor = crHandPoint
-          Margins.Left = 5
-          Margins.Top = 5
-          Margins.Right = 5
-          Margins.Bottom = 2
-          Align = alRight
-          Caption = 'Pesquisar'
-          ExplicitLeft = 226
-          ExplicitTop = 6
-          ExplicitHeight = 29
-        end
         object txtPesquisa: TEdit
           AlignWithMargins = True
           Left = 55
           Top = 12
-          Width = 220
+          Width = 320
           Height = 21
           Margins.Left = 50
           Margins.Top = 7
@@ -81,19 +63,23 @@ object frmBem: TfrmBem
           Align = alClient
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
+          OnChange = txtPesquisaChange
+          ExplicitTop = 7
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
-          Left = 282
+          Left = 382
           Top = 12
           Width = 145
           Height = 21
           Margins.Top = 7
           Align = alRight
+          Style = csDropDownList
           ItemIndex = 0
           TabOrder = 1
-          Text = 'Descri'#231#227'o'
+          Text = 'Identifica'#231#227'o/Tombamento'
           Items.Strings = (
+            'Identifica'#231#227'o/Tombamento'
             'Descri'#231#227'o')
         end
       end
@@ -102,7 +88,7 @@ object frmBem: TfrmBem
         Left = 3
         Top = 3
         Width = 529
-        Height = 409
+        Height = 412
         Cursor = crHandPoint
         Align = alClient
         DataSource = dsBem
@@ -191,7 +177,7 @@ object frmBem: TfrmBem
         FocusControl = editGestao
       end
       object Label12: TLabel
-        Left = 395
+        Left = 435
         Top = 16
         Width = 28
         Height = 13
@@ -214,10 +200,18 @@ object frmBem: TfrmBem
         Caption = 'Local:'
         FocusControl = subLocalId
       end
+      object Label15: TLabel
+        Left = 369
+        Top = 16
+        Width = 60
+        Height = 13
+        Caption = 'Quantidade:'
+        FocusControl = quantidade
+      end
       object idenficacao: TDBEdit
         Left = 7
         Top = 32
-        Width = 382
+        Width = 158
         Height = 21
         DataField = 'idenficacao'
         DataSource = dsBem
@@ -230,7 +224,7 @@ object frmBem: TfrmBem
         Height = 21
         DataField = 'grupoId'
         DataSource = dsBem
-        TabOrder = 4
+        TabOrder = 6
       end
       object edtEstado: TDBEdit
         Left = 7
@@ -239,7 +233,7 @@ object frmBem: TfrmBem
         Height = 21
         DataField = 'estadoId'
         DataSource = dsBem
-        TabOrder = 8
+        TabOrder = 10
       end
       object edtLocalizacao: TDBEdit
         Left = 7
@@ -248,7 +242,7 @@ object frmBem: TfrmBem
         Height = 21
         DataField = 'localId'
         DataSource = dsBem
-        TabOrder = 10
+        TabOrder = 12
       end
       object editGestao: TDBEdit
         Left = 7
@@ -257,7 +251,7 @@ object frmBem: TfrmBem
         Height = 21
         DataField = 'gestaoId'
         DataSource = dsBem
-        TabOrder = 14
+        TabOrder = 16
       end
       object dbmDescricao: TDBMemo
         Left = 7
@@ -267,7 +261,7 @@ object frmBem: TfrmBem
         DataField = 'descricao'
         DataSource = dsBem
         ScrollBars = ssVertical
-        TabOrder = 2
+        TabOrder = 4
       end
       object dblGrupo: TDBLookupComboBox
         Left = 113
@@ -280,7 +274,7 @@ object frmBem: TfrmBem
         ListField = 'grupoId;descricao'
         ListFieldIndex = 1
         ListSource = dsGrupoPrincipal
-        TabOrder = 5
+        TabOrder = 7
       end
       object dblEstado: TDBLookupComboBox
         Left = 113
@@ -293,7 +287,7 @@ object frmBem: TfrmBem
         ListField = 'estadoId;descricao'
         ListFieldIndex = 1
         ListSource = dsEstado
-        TabOrder = 9
+        TabOrder = 11
       end
       object dblLocal: TDBLookupComboBox
         Left = 113
@@ -306,7 +300,7 @@ object frmBem: TfrmBem
         ListField = 'localId;titulo'
         ListFieldIndex = 1
         ListSource = dsUnidade
-        TabOrder = 11
+        TabOrder = 13
       end
       object dblGestao: TDBLookupComboBox
         Left = 113
@@ -316,19 +310,19 @@ object frmBem: TfrmBem
         DataField = 'gestaoId'
         DataSource = dsBem
         KeyField = 'gestaoId'
-        ListField = 'inicio;fim'
+        ListField = 'gestao'
         ListSource = dsGestao
         NullValueKey = 46
-        TabOrder = 15
+        TabOrder = 17
       end
       object valor: TDBEdit
-        Left = 395
+        Left = 435
         Top = 32
-        Width = 126
+        Width = 86
         Height = 21
         DataField = 'valor'
         DataSource = dsBem
-        TabOrder = 1
+        TabOrder = 3
       end
       object tipoIdentificacao: TDBRadioGroup
         Left = 319
@@ -343,7 +337,7 @@ object frmBem: TfrmBem
           '02 - Plaqueta c/ Cod. de Barras'
           '03 - Sem plaqueta')
         ParentBackground = True
-        TabOrder = 3
+        TabOrder = 5
         Values.Strings = (
           '1'
           '2'
@@ -356,7 +350,7 @@ object frmBem: TfrmBem
         Height = 21
         DataField = 'subgrupoId'
         DataSource = dsBem
-        TabOrder = 6
+        TabOrder = 8
       end
       object dblSubGrupo: TDBLookupComboBox
         Left = 113
@@ -369,7 +363,8 @@ object frmBem: TfrmBem
         ListField = 'grupoId;descricao'
         ListFieldIndex = 1
         ListSource = dsGrupo
-        TabOrder = 7
+        NullValueKey = 46
+        TabOrder = 9
       end
       object subLocalId: TDBEdit
         Left = 7
@@ -378,7 +373,7 @@ object frmBem: TfrmBem
         Height = 21
         DataField = 'subLocalId'
         DataSource = dsBem
-        TabOrder = 12
+        TabOrder = 14
       end
       object dblsubLocalId: TDBLookupComboBox
         Left = 113
@@ -391,7 +386,35 @@ object frmBem: TfrmBem
         ListField = 'localId;titulo'
         ListFieldIndex = 1
         ListSource = dsLocalizacao
-        TabOrder = 13
+        NullValueKey = 46
+        TabOrder = 15
+      end
+      object tipoAquisicao: TDBRadioGroup
+        Left = 171
+        Top = 16
+        Width = 192
+        Height = 37
+        Caption = 'Tipo de aquisi'#231#227'o:'
+        Columns = 2
+        DataField = 'tipoAquisicao'
+        DataSource = dsBem
+        Items.Strings = (
+          '01 - Pr'#243'pria'
+          '02 - Terceiros')
+        ParentBackground = True
+        TabOrder = 1
+        Values.Strings = (
+          '1'
+          '2')
+      end
+      object quantidade: TDBEdit
+        Left = 369
+        Top = 32
+        Width = 60
+        Height = 21
+        DataField = 'quantidade'
+        DataSource = dsBem
+        TabOrder = 2
       end
     end
     object tsAquisicao: TTabSheet
@@ -503,17 +526,19 @@ object frmBem: TfrmBem
   object pnAcoes: TPanel
     AlignWithMargins = True
     Left = 631
-    Top = 40
+    Top = 8
     Width = 107
-    Height = 453
+    Height = 485
     Margins.Left = 0
-    Margins.Top = 40
+    Margins.Top = 8
     Margins.Right = 0
     Margins.Bottom = 0
     Align = alRight
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 1
+    ExplicitTop = 40
+    ExplicitHeight = 453
     object btnNovo: TBitBtn
       AlignWithMargins = True
       Left = 8
@@ -2500,6 +2525,14 @@ object frmBem: TfrmBem
       FieldName = 'subLocalId'
       Required = True
       Size = 10
+    end
+    object cdsBemtipoAquisicao: TIntegerField
+      FieldName = 'tipoAquisicao'
+      Required = True
+    end
+    object cdsBemquantidade: TFloatField
+      FieldName = 'quantidade'
+      Required = True
     end
   end
   object dspBem: TDataSetProvider

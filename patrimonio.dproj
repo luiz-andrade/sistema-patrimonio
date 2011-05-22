@@ -4,7 +4,7 @@
 			<MainSource>patrimonio.dpr</MainSource>
 			<ProjectVersion>12.2</ProjectVersion>
 			<Base>True</Base>
-			<Config Condition="'$(Config)'==''">Release</Config>
+			<Config Condition="'$(Config)'==''">Debug</Config>
 			<Platform>Win32</Platform>
 			<AppType>Application</AppType>
 			<FrameworkType>VCL</FrameworkType>
@@ -87,7 +87,7 @@
 				<Form>frmEmpresa</Form>
 			</DCCReference>
 			<DCCReference Include="uTransferencia.pas">
-				<Form>frmTransferência</Form>
+				<Form>frmTransferencia</Form>
 			</DCCReference>
 			<DCCReference Include="uMovimentacao.pas">
 				<Form>frmMovimentacao</Form>

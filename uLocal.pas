@@ -15,7 +15,6 @@ type
     pnPesquisa: TPanel;
     txtPesquisa: TEdit;
     cbPesquisar: TComboBox;
-    btnPesquisar: TSpeedButton;
     dsLocal: TDataSource;
     DBGrid1: TDBGrid;
     Label2: TLabel;
@@ -84,6 +83,9 @@ type
       var Action: TReconcileAction);
     procedure cdsAuxLocalAfterDelete(DataSet: TDataSet);
     procedure cdsAuxLocalAfterPost(DataSet: TDataSet);
+    procedure dbgUnidadesDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure txtPesquisaChange(Sender: TObject);
   private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -229,6 +231,29 @@ begin
 	end;
 end;
 
+procedure TfrmLocal.dbgUnidadesDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+	with TDBGrid(Sender) do
+	begin
+		with Canvas do
+		begin
+			if not(gdSelected in State) then
+			begin
+				with DataSource.DataSet do
+				begin
+					if not(Odd(RecNo)) then
+					begin
+						Brush.Color := corZebra;
+					end;
+				end;
+			end;
+		FillRect(Rect);
+		DefaultDrawDataCell(Rect, Column.Field, State);
+		end;
+	end;
+end;
+
 procedure TfrmLocal.dsLocalDataChange(Sender: TObject; Field: TField);
 begin
 	if cdsLocal.IsEmpty then
@@ -326,6 +351,19 @@ begin
 		Water.Blob(-1,-1, Random(1) + 1, Random(500) + 50);
 	Water.Render(bmp, imgLateral.Picture.Bitmap);
 	VerticalText(imgLateral,'Cadastro de locais',Application.Title,Self.Height - 50,30);
+end;
+
+procedure TfrmLocal.txtPesquisaChange(Sender: TObject);
+begin
+	with cdsLocal do
+	begin
+		if not(IsEmpty) then
+		begin
+			case cbPesquisar.ItemIndex of
+				0 : Locate('titulo', txtPesquisa.Text, [loPartialKey]);
+			end;
+		end;
+	end;
 end;
 
 end.

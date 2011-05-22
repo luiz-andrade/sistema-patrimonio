@@ -32,9 +32,6 @@ type
     sqlEstadoestadoId: TIntegerField;
     sqlEstadodescricao: TStringField;
     sqlGestaogestaoId: TIntegerField;
-    sqlGestaoinicio: TSQLTimeStampField;
-    sqlGestaofim: TSQLTimeStampField;
-    sqlGestaopessoaId: TIntegerField;
     sqlBemAquisicao: TSQLQuery;
     sqlBemAquisicaobemId: TIntegerField;
     sqlBemAquisicaodata: TSQLTimeStampField;
@@ -99,6 +96,9 @@ type
     sqlBemsubLocalId: TStringField;
     sqlTranferenciaorigemId: TStringField;
     sqlTranferenciadestinoId: TStringField;
+    sqlBemtipoAquisicao: TIntegerField;
+    sqlBemquantidade: TFloatField;
+    sqlGestaogestao: TStringField;
     procedure SQLConnectionBeforeConnect(Sender: TObject);
   private
     { Private declarations }

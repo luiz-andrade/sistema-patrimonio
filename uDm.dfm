@@ -25,7 +25,6 @@ object dm: Tdm
       'Mars_Connection=False')
     VendorLib = 'sqlncli10.dll'
     BeforeConnect = SQLConnectionBeforeConnect
-    Connected = True
     Left = 40
     Top = 32
   end
@@ -101,7 +100,7 @@ object dm: Tdm
     Left = 518
     Top = 75
     Bitmap = {
-      494C010106009400940020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010106009800980020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1168,7 +1167,7 @@ object dm: Tdm
     Left = 517
     Top = 24
     Bitmap = {
-      494C010104007000700010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104007400740010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1579,6 +1578,14 @@ object dm: Tdm
       FieldName = 'subLocalId'
       Size = 10
     end
+    object sqlBemtipoAquisicao: TIntegerField
+      FieldName = 'tipoAquisicao'
+      Required = True
+    end
+    object sqlBemquantidade: TFloatField
+      FieldName = 'quantidade'
+      Required = True
+    end
   end
   object sqlGestao: TSQLQuery
     MaxBlobSize = -1
@@ -1593,17 +1600,10 @@ object dm: Tdm
       FieldName = 'gestaoId'
       Required = True
     end
-    object sqlGestaoinicio: TSQLTimeStampField
-      FieldName = 'inicio'
+    object sqlGestaogestao: TStringField
+      FieldName = 'gestao'
       Required = True
-    end
-    object sqlGestaofim: TSQLTimeStampField
-      FieldName = 'fim'
-      Required = True
-    end
-    object sqlGestaopessoaId: TIntegerField
-      FieldName = 'pessoaId'
-      Required = True
+      Size = 255
     end
   end
   object sqlEstado: TSQLQuery
