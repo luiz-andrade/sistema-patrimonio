@@ -32,16 +32,15 @@ object frmLocal: TfrmLocal
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsInformacao
+    ActivePage = tsPesquisa
     Align = alClient
     HotTrack = True
-    Style = tsButtons
     TabOrder = 0
     object tsPesquisa: TTabSheet
       Caption = 'Perquisar'
       object pnPesquisa: TPanel
         Left = 0
-        Top = 415
+        Top = 418
         Width = 535
         Height = 41
         Align = alBottom
@@ -51,28 +50,11 @@ object frmLocal: TfrmLocal
         Caption = 'Pesquisa:'
         ParentBackground = False
         TabOrder = 0
-        object btnPesquisar: TSpeedButton
-          AlignWithMargins = True
-          Left = 435
-          Top = 10
-          Width = 90
-          Height = 24
-          Cursor = crHandPoint
-          Margins.Left = 5
-          Margins.Top = 5
-          Margins.Right = 5
-          Margins.Bottom = 2
-          Align = alRight
-          Caption = 'Pesquisar'
-          ExplicitLeft = 226
-          ExplicitTop = 6
-          ExplicitHeight = 29
-        end
         object txtPesquisa: TEdit
           AlignWithMargins = True
           Left = 55
           Top = 12
-          Width = 220
+          Width = 320
           Height = 21
           Margins.Left = 50
           Margins.Top = 7
@@ -80,15 +62,18 @@ object frmLocal: TfrmLocal
           Align = alClient
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
+          OnChange = txtPesquisaChange
+          ExplicitWidth = 220
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
-          Left = 282
+          Left = 382
           Top = 12
           Width = 145
           Height = 21
           Margins.Top = 7
           Align = alRight
+          Style = csDropDownList
           ItemIndex = 0
           TabOrder = 1
           Text = 'Descri'#231#227'o'
@@ -101,7 +86,7 @@ object frmLocal: TfrmLocal
         Left = 3
         Top = 3
         Width = 529
-        Height = 409
+        Height = 412
         Cursor = crHandPoint
         Align = alClient
         DataSource = dsLocal
@@ -134,7 +119,6 @@ object frmLocal: TfrmLocal
     object tsInformacao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
-      ExplicitLeft = 8
       object Label2: TLabel
         Left = 88
         Top = 10
@@ -194,6 +178,7 @@ object frmLocal: TfrmLocal
         Width = 489
         Height = 302
         DataSource = dsAuxLocal
+        DrawingStyle = gdsGradient
         TabOrder = 2
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -201,6 +186,7 @@ object frmLocal: TfrmLocal
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         Visible = False
+        OnDrawColumnCell = dbgUnidadesDrawColumnCell
         Columns = <
           item
             Expanded = False
@@ -1937,11 +1923,11 @@ object frmLocal: TfrmLocal
   object pnAcoes: TPanel
     AlignWithMargins = True
     Left = 631
-    Top = 40
+    Top = 8
     Width = 107
-    Height = 453
+    Height = 485
     Margins.Left = 0
-    Margins.Top = 40
+    Margins.Top = 8
     Margins.Right = 0
     Margins.Bottom = 0
     Align = alRight
@@ -1949,6 +1935,7 @@ object frmLocal: TfrmLocal
     BorderWidth = 5
     TabOrder = 2
     ExplicitTop = 35
+    ExplicitHeight = 453
     object btnNovo: TBitBtn
       AlignWithMargins = True
       Left = 8

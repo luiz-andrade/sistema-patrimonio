@@ -47,6 +47,8 @@ type
     Movimentao1: TMenuItem;
     N5: TMenuItem;
     Impotardados1: TMenuItem;
+    Manuteno1: TMenuItem;
+    Importar1: TMenuItem;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
@@ -56,6 +58,7 @@ type
     procedure actInfoEmpresaExecute(Sender: TObject);
     procedure actMovimentacaoExecute(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure Importar1Click(Sender: TObject);
 	private
 		{ Private declarations }
 		procedure updateInfo;
@@ -69,7 +72,7 @@ var
 implementation
 
 uses uLocal, uAcesso, uDm, uPessoa, uGrupo, uBem, uFuncoes, uMd5, uSobre,
-  uEmpresa, uMovimentacao;
+  uEmpresa, uMovimentacao, uTransferencia;
 
 {$R *.dfm}
 
@@ -181,6 +184,14 @@ begin
 		end;
 	end;
 	updateInfo;
+end;
+
+procedure TfrmPrincipal.Importar1Click(Sender: TObject);
+begin
+	with TfrmTransferencia.Create(Application) do
+	begin
+		ShowModal;
+  end;
 end;
 
 end.

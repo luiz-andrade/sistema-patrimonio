@@ -12,7 +12,6 @@ type
 		pcGeral: TPageControl;
 		tsPesquisa: TTabSheet;
 		pnPesquisa: TPanel;
-		btnPesquisar: TSpeedButton;
 		txtPesquisa: TEdit;
 		cbPesquisar: TComboBox;
 		DBGrid1: TDBGrid;
@@ -118,6 +117,7 @@ type
 			var Action: TReconcileAction);
     procedure dsPessoaForncStateChange(Sender: TObject);
     procedure cdsPessoaAfterInsert(DataSet: TDataSet);
+    procedure txtPesquisaChange(Sender: TObject);
   private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -468,6 +468,19 @@ begin
 		Water.Blob(-1,-1, Random(1) + 1, Random(500) + 50);
 	Water.Render(bmp, imgLateral.Picture.Bitmap);
 	VerticalText(imgLateral,'Cadastro de locais',Application.Title,Self.Height - 50,30);
+end;
+
+procedure TfrmPessoa.txtPesquisaChange(Sender: TObject);
+begin
+	with cdsPessoa do
+	begin
+		if not(IsEmpty) then
+		begin
+			case cbPesquisar.ItemIndex of
+				0 : Locate('nome', txtPesquisa.Text, [loPartialKey]);
+			end;
+		end;
+	end;
 end;
 
 end.

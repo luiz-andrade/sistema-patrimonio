@@ -17,7 +17,7 @@ uses
   uControlsTunning in 'uControlsTunning.pas',
   uAlteracaoSenha in 'uAlteracaoSenha.pas' {frmAlteracaoSenha},
   uEmpresa in 'uEmpresa.pas' {frmEmpresa},
-  uTransferencia in 'uTransferencia.pas' {frmTransferência},
+  uTransferencia in 'uTransferencia.pas' {frmTransferencia},
   uMovimentacao in 'uMovimentacao.pas' {frmMovimentacao};
 
 {$R *.res}
