@@ -69,7 +69,6 @@ type
     sqlTransferenciaBembemId: TIntegerField;
     sqlTranferenciatipo: TSmallintField;
     sqlTranferenciadata: TSQLTimeStampField;
-    Rvmovimentacao: TRvProject;
     sqlPessoacnpjCpf: TStringField;
     sqlBemvalor: TFMTBCDField;
     sqlBemAquisicaonumeroNota: TStringField;

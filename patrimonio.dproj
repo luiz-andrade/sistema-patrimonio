@@ -92,6 +92,9 @@
 			<DCCReference Include="uMovimentacao.pas">
 				<Form>frmMovimentacao</Form>
 			</DCCReference>
+			<DCCReference Include="uRelatTransferenciaBem.pas">
+				<Form>frmRelatTranferenciaBem</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

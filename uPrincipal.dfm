@@ -165,6 +165,10 @@ object frmPrincipal: TfrmPrincipal
     end
     object Relatrios1: TMenuItem
       Caption = 'Relat'#243'rios'
+      object RTermodeResponsabilidade1: TMenuItem
+        Caption = 'TR - Termo de Responsabilidade'
+        OnClick = RTermodeResponsabilidade1Click
+      end
     end
     object Manuteno1: TMenuItem
       Caption = 'Manuten'#231#227'o'
