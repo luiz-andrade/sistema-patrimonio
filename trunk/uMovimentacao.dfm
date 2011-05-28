@@ -17,4 +17,24 @@ object frmMovimentacao: TfrmMovimentacao
   Position = poMainFormCenter
   PixelsPerInch = 96
   TextHeight = 13
+  object BitBtn1: TBitBtn
+    Left = 192
+    Top = 368
+    Width = 75
+    Height = 25
+    Caption = 'BitBtn1'
+    DoubleBuffered = True
+    ParentDoubleBuffered = False
+    TabOrder = 0
+  end
+  object BitBtn2: TBitBtn
+    Left = 368
+    Top = 368
+    Width = 75
+    Height = 25
+    Caption = 'BitBtn2'
+    DoubleBuffered = True
+    ParentDoubleBuffered = False
+    TabOrder = 1
+  end
 end
