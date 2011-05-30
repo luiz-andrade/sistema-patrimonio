@@ -93,7 +93,7 @@ type
 		bmp : TBitmap;
 		xImage : Integer;
 		_localId : String;
-  public
+	public
 		{ Public declarations }
 		constructor Create(AOwner : TComponent; empresaId : Integer);reintroduce;overload;
 	end;
@@ -190,7 +190,7 @@ begin
 end;
 
 procedure TfrmLocal.cdsAuxLocalReconcileError(DataSet: TCustomClientDataSet;
-  E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
+	E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
 begin
 	raise Exception.Create(E.Message);
 	Action := raAbort;
@@ -232,7 +232,7 @@ begin
 end;
 
 procedure TfrmLocal.dbgUnidadesDrawColumnCell(Sender: TObject;
-  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+	const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
 	with TDBGrid(Sender) do
 	begin
@@ -287,7 +287,7 @@ begin
 end;
 
 procedure TfrmLocal.dspLocalAfterUpdateRecord(Sender: TObject;
-  SourceDS: TDataSet; DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
+	SourceDS: TDataSet; DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
 begin
 	_localId := cdsLocallocalId.AsString;
 end;
@@ -312,6 +312,7 @@ end;
 
 procedure TfrmLocal.FormCreate(Sender: TObject);
 begin
+
 	bmp := TBitmap.Create;
 	bmp.Assign(imgLateral.Picture.Graphic);
 	imgLateral.Picture.Graphic := nil;

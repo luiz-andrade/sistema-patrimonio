@@ -169,6 +169,10 @@ object frmPrincipal: TfrmPrincipal
         Caption = 'TR - Termo de Responsabilidade'
         OnClick = RTermodeResponsabilidade1Click
       end
+      object Bensporgrupo1: TMenuItem
+        Caption = 'Bens por grupo'
+        OnClick = Bensporgrupo1Click
+      end
     end
     object Manuteno1: TMenuItem
       Caption = 'Manuten'#231#227'o'

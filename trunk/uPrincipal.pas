@@ -50,6 +50,7 @@ type
     Manuteno1: TMenuItem;
     Importar1: TMenuItem;
     RTermodeResponsabilidade1: TMenuItem;
+    Bensporgrupo1: TMenuItem;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
@@ -61,6 +62,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure Importar1Click(Sender: TObject);
     procedure RTermodeResponsabilidade1Click(Sender: TObject);
+    procedure Bensporgrupo1Click(Sender: TObject);
 	private
 		{ Private declarations }
 		procedure updateInfo;
@@ -75,7 +77,7 @@ implementation
 
 uses uLocal, uAcesso, uDm, uPessoa, uGrupo, uBem, uFuncoes, uMd5, uSobre,
   uEmpresa, uMovimentacao, uTransferencia, uAlteracaoSenha,
-  uRelatTransferenciaBem;
+  uRelatTransferenciaBem, uRelatGrupoBem;
 
 {$R *.dfm}
 
@@ -150,6 +152,18 @@ end;
 procedure TfrmPrincipal.actSobreExecute(Sender: TObject);
 begin
 	with TfrmSobre.Create(Application) do
+	begin
+		try
+			ShowModal;
+		finally
+			Free;
+		end;
+	end;
+end;
+
+procedure TfrmPrincipal.Bensporgrupo1Click(Sender: TObject);
+begin
+	with TfrmRelatGrupoBem.Create(Application) do
 	begin
 		try
 			ShowModal;

@@ -19,7 +19,8 @@ uses
   uEmpresa in 'uEmpresa.pas' {frmEmpresa},
   uTransferencia in 'uTransferencia.pas' {frmTransferencia},
   uMovimentacao in 'uMovimentacao.pas' {frmMovimentacao},
-  uRelatTransferenciaBem in 'uRelatTransferenciaBem.pas' {frmRelatTranferenciaBem};
+  uRelatTransferenciaBem in 'uRelatTransferenciaBem.pas' {frmRelatTranferenciaBem},
+  uRelatGrupoBem in 'uRelatGrupoBem.pas' {frmRelatGrupoBem};
 
 {$R *.res}
 
