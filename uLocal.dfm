@@ -63,7 +63,6 @@ object frmLocal: TfrmLocal
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
           OnChange = txtPesquisaChange
-          ExplicitWidth = 220
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
@@ -1934,8 +1933,6 @@ object frmLocal: TfrmLocal
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 2
-    ExplicitTop = 35
-    ExplicitHeight = 453
     object btnNovo: TBitBtn
       AlignWithMargins = True
       Left = 8

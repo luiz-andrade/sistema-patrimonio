@@ -70,14 +70,10 @@ type
     cdsPessoaForcrazaoSocial: TStringField;
     cdsPessoaForccnpj: TStringField;
     cdsPessoaForcpessoaId: TIntegerField;
-    Label9: TLabel;
-    DBEdit1: TDBEdit;
     Label10: TLabel;
     razaoSocial: TDBEdit;
     Label11: TLabel;
     cnpj: TDBEdit;
-    Label12: TLabel;
-    DBEdit4: TDBEdit;
     cdsPessoafornecedor: TBooleanField;
     cdsPessoausuario_: TBooleanField;
     fornecedor: TDBCheckBox;

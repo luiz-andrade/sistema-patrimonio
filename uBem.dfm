@@ -32,7 +32,7 @@ object frmBem: TfrmBem
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsInformacao
+    ActivePage = tsAquisicao
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -64,7 +64,6 @@ object frmBem: TfrmBem
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
           OnChange = txtPesquisaChange
-          ExplicitTop = 7
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
@@ -107,7 +106,7 @@ object frmBem: TfrmBem
             Expanded = False
             FieldName = 'bemId'
             Title.Caption = 'C'#243'digo'
-            Visible = True
+            Visible = False
           end
           item
             Expanded = False
@@ -120,7 +119,7 @@ object frmBem: TfrmBem
             Expanded = False
             FieldName = 'descricao'
             Title.Caption = 'Especifica'#231#227'o'
-            Width = 275
+            Width = 340
             Visible = True
           end>
       end
@@ -537,8 +536,6 @@ object frmBem: TfrmBem
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 1
-    ExplicitTop = 40
-    ExplicitHeight = 453
     object btnNovo: TBitBtn
       AlignWithMargins = True
       Left = 8

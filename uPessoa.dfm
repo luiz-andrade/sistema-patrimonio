@@ -33,7 +33,7 @@ object frmPessoa: TfrmPessoa
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsPesquisa
+    ActivePage = tsFornecedor
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -65,7 +65,6 @@ object frmPessoa: TfrmPessoa
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
           OnChange = txtPesquisaChange
-          ExplicitWidth = 220
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
@@ -136,9 +135,9 @@ object frmPessoa: TfrmPessoa
       object Label2: TLabel
         Left = 3
         Top = 11
-        Width = 31
+        Width = 95
         Height = 13
-        Caption = 'Nome:'
+        Caption = 'Nome/Raz'#227'o Social:'
         FocusControl = nome
       end
       object Label1: TLabel
@@ -430,21 +429,12 @@ object frmPessoa: TfrmPessoa
     object tsFornecedor: TTabSheet
       Caption = 'Informa'#231#245'es para fornecimento'
       ImageIndex = 3
-      object Label9: TLabel
-        Left = 8
-        Top = 240
-        Width = 63
-        Height = 13
-        Caption = 'fornecedorId'
-        FocusControl = DBEdit1
-        Visible = False
-      end
       object Label10: TLabel
         Left = 8
         Top = 10
-        Width = 63
+        Width = 76
         Height = 13
-        Caption = 'Raz'#227'o social:'
+        Caption = 'Raz'#227'o fantasia:'
         FocusControl = razaoSocial
       end
       object Label11: TLabel
@@ -455,27 +445,6 @@ object frmPessoa: TfrmPessoa
         Caption = 'CNPJ:'
         FocusControl = cnpj
       end
-      object Label12: TLabel
-        Left = 168
-        Top = 237
-        Width = 44
-        Height = 13
-        Caption = 'pessoaId'
-        FocusControl = DBEdit4
-        Visible = False
-      end
-      object DBEdit1: TDBEdit
-        Left = 8
-        Top = 253
-        Width = 134
-        Height = 21
-        DataField = 'fornecedorId'
-        DataSource = dsPessoaFornc
-        ParentColor = True
-        ReadOnly = True
-        TabOrder = 0
-        Visible = False
-      end
       object razaoSocial: TDBEdit
         Left = 8
         Top = 27
@@ -483,7 +452,7 @@ object frmPessoa: TfrmPessoa
         Height = 21
         DataField = 'razaoSocial'
         DataSource = dsPessoaFornc
-        TabOrder = 1
+        TabOrder = 0
       end
       object cnpj: TDBEdit
         Left = 8
@@ -492,19 +461,7 @@ object frmPessoa: TfrmPessoa
         Height = 21
         DataField = 'cnpj'
         DataSource = dsPessoaFornc
-        TabOrder = 2
-      end
-      object DBEdit4: TDBEdit
-        Left = 168
-        Top = 253
-        Width = 134
-        Height = 21
-        DataField = 'pessoaId'
-        DataSource = dsPessoaFornc
-        ParentColor = True
-        ReadOnly = True
-        TabOrder = 3
-        Visible = False
+        TabOrder = 1
       end
     end
   end
@@ -2199,8 +2156,6 @@ object frmPessoa: TfrmPessoa
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 2
-    ExplicitTop = 40
-    ExplicitHeight = 453
     object btnNovo: TBitBtn
       AlignWithMargins = True
       Left = 8

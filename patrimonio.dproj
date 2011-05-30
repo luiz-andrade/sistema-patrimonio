@@ -95,6 +95,9 @@
 			<DCCReference Include="uRelatTransferenciaBem.pas">
 				<Form>frmRelatTranferenciaBem</Form>
 			</DCCReference>
+			<DCCReference Include="uRelatGrupoBem.pas">
+				<Form>frmRelatGrupoBem</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

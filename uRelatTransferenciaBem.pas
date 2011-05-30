@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, RpDefine, RpRave, Provider, DB, DBClient, FMTBcd,
-  SqlExpr, RpCon, RpConDS, DBCtrls;
+  SqlExpr, RpCon, RpConDS, DBCtrls, ExtCtrls, ComCtrls;
 
 type
   TfrmRelatTranferenciaBem = class(TForm)
@@ -36,12 +36,36 @@ type
     sqlBenstipoAquisicao: TIntegerField;
     sqlBensquantidade: TFloatField;
     rvdEmpresa: TRvDataSetConnection;
-    CheckBox1: TCheckBox;
-    CheckBox2: TCheckBox;
-    DBLookupComboBox1: TDBLookupComboBox;
-    DBLookupComboBox2: TDBLookupComboBox;
+    cbOrgao: TCheckBox;
+    cbUnidade: TCheckBox;
+    dbLocal: TDBLookupComboBox;
+    dblSubLocal: TDBLookupComboBox;
     sqlSubLocalempresa_orgao: TStringField;
+    dpsLocalAux: TDataSetProvider;
+    dsAuxLocal: TDataSource;
+    cdsAuxLocal: TClientDataSet;
+    StringField1: TStringField;
+    IntegerField3: TIntegerField;
+    cdsAuxLocallocalId: TStringField;
+    cdsAuxLocalvLocalId: TStringField;
+    dspLocal: TDataSetProvider;
+    cdsLocal: TClientDataSet;
+    cdsLocaltitulo: TStringField;
+    cdsLocalpessoaId: TIntegerField;
+    cdsLocallocalId: TStringField;
+    cdsLocalvLocalId: TStringField;
+    dsLocal: TDataSource;
+    edtNome: TLabeledEdit;
+    edtMunicipio: TLabeledEdit;
+    edtMatricula: TLabeledEdit;
+    edtNTranferencia: TLabeledEdit;
+    edtData: TDateTimePicker;
+    Label1: TLabel;
     procedure btnVisualizarClick(Sender: TObject);
+    procedure btnFecharClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure cbOrgaoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -57,13 +81,67 @@ uses uDm;
 
 {$R *.dfm}
 
+procedure TfrmRelatTranferenciaBem.btnFecharClick(Sender: TObject);
+begin
+	Close;
+end;
+
 procedure TfrmRelatTranferenciaBem.btnVisualizarClick(Sender: TObject);
 begin
 	with rvpTR do
 	begin
-	  ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+		// Verifica se foi selecionado uma Unidade
+		with sqlSubLocal do
+		begin
+			Close;
+			if cbOrgao.Checked then
+			begin
+				if cbUnidade.Checked then
+				begin
+					CommandText := Concat('select local.*, unidade.Titulo as empresa_orgao ',
+																'from local inner join local as unidade on unidade.localId = local.vLocalId ',
+																'where local.vLocalId = :vLocalId and local.localId = :localId');
+					Params.ParamByName('localId').Value := dblSubLocal.KeyValue;
+					Params.ParamByName('vLocalId').Value := dbLocal.KeyValue;
+				end
+				else
+				begin
+					CommandText := Concat('select local.*, unidade.Titulo as empresa_orgao ',
+																'from local inner join local as unidade on unidade.localId = local.vLocalId ',
+																'where local.vLocalId = :vLocalId');
+					Params.ParamByName('vLocalId').Value := dbLocal.KeyValue;
+				end;
+			end
+			else
+			begin
+				CommandText := Concat('select local.*, unidade.Titulo as empresa_orgao ',
+															'from local inner join local as unidade on unidade.localId = local.vLocalId ');
+			end;
+		end;
+		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
 		ExecuteReport('TR');
 	end;
+end;
+
+procedure TfrmRelatTranferenciaBem.cbOrgaoClick(Sender: TObject);
+begin
+	cbUnidade.Enabled   := not(cbUnidade.Enabled);
+	dblSubLocal.Enabled := not(dblSubLocal.Enabled); 
+end;
+
+procedure TfrmRelatTranferenciaBem.FormCloseQuery(Sender: TObject;
+  var CanClose: Boolean);
+begin
+	dsLocal.DataSet.Close;
+	dsAuxLocal.DataSet.Close;
+end;
+
+procedure TfrmRelatTranferenciaBem.FormCreate(Sender: TObject);
+begin
+	cdsLocal.CommandText := 'select * from local where vLocalId = 0';
+	dsLocal.DataSet.Open;
+	dsAuxLocal.DataSet.Open;
+	edtData.DateTime := Now;
 end;
 
 end.
