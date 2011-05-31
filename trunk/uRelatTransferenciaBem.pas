@@ -61,6 +61,16 @@ type
     edtNTranferencia: TLabeledEdit;
     edtData: TDateTimePicker;
     Label1: TLabel;
+    dpsEmpresa: TDataSetProvider;
+    dsEmpresa: TDataSource;
+    cdsEmpresa: TClientDataSet;
+    cdsEmpresaempresaId: TIntegerField;
+    cdsEmpresarazaoSocial: TStringField;
+    cdsEmpresanomeFantasia: TStringField;
+    cdsEmpresachave: TMemoField;
+    cdsEmpresapessoaId: TIntegerField;
+    cdsEmpresalogotipo: TBlobField;
+    rvdPessoa: TRvDataSetConnection;
     procedure btnVisualizarClick(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -77,7 +87,7 @@ var
 
 implementation
 
-uses uDm;
+uses uDm, uGlobais;
 
 {$R *.dfm}
 
@@ -118,6 +128,18 @@ begin
 															'from local inner join local as unidade on unidade.localId = local.vLocalId ');
 			end;
 		end;
+		with cdsEmpresa do
+		begin
+			Close;
+			CommandText := 'select empresa.*, pessoa.nome from empresa left join pessoa on pessoa.pessoaId = empresa.pessoaId  where empresa.empresaId = :empresaId';
+			Params.ParamByName('empresaId').Value := gEmpresaId;
+			Open;
+		end;
+		SetParam('nomeReceptor',edtNome.Text);
+		SetParam('matriculaReceptor', edtMatricula.Text);
+		SetParam('municipioReceptor', edtMunicipio.Text);
+		SetParam('data', FormatDateTime('dd/MM/yyyy', edtData.Date));
+		SetParam('numeroTr',edtNTranferencia.Text);
 		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
 		ExecuteReport('TR');
 	end;
