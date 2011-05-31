@@ -38,13 +38,14 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     TabOrder = 1
     OnClick = btnVisualizarClick
   end
-  object CheckBox1: TCheckBox
-    Left = 48
-    Top = 24
+  object cbGrupo: TCheckBox
+    Left = 52
+    Top = 22
     Width = 97
     Height = 17
     Caption = 'Grupo:'
     TabOrder = 2
+    OnClick = cbGrupoClick
   end
   object dblGrupo: TDBLookupComboBox
     Left = 163
@@ -57,12 +58,13 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     ListSource = dsGrupos
     TabOrder = 3
   end
-  object CheckBox2: TCheckBox
-    Left = 48
+  object cbSubGrupo: TCheckBox
+    Left = 52
     Top = 56
     Width = 105
     Height = 17
     Caption = 'SubGrupo:'
+    Enabled = False
     TabOrder = 4
   end
   object dblSubGrupo: TDBLookupComboBox
@@ -70,19 +72,39 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     Top = 52
     Width = 305
     Height = 21
+    Enabled = False
     KeyField = 'grupoId'
     ListField = 'grupoId;descricao'
     ListFieldIndex = 1
     ListSource = dsAuxGrupos
     TabOrder = 5
   end
+  object cbGestao: TCheckBox
+    Left = 52
+    Top = 83
+    Width = 105
+    Height = 17
+    Caption = 'Gest'#227'o:'
+    TabOrder = 6
+  end
+  object dblGestaoId: TDBLookupComboBox
+    Left = 163
+    Top = 79
+    Width = 305
+    Height = 21
+    KeyField = 'gestaoId'
+    ListField = 'gestaoId;gestao'
+    ListFieldIndex = 1
+    ListSource = dsGestao
+    TabOrder = 7
+  end
   object rvdBensGrupo: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
     DisableDataSource = False
     RestoreDataSet = False
     DataSet = sqlBens
-    Left = 136
-    Top = 88
+    Left = 152
+    Top = 152
   end
   object sqlBens: TSQLDataSet
     SchemaName = 'sa'
@@ -91,8 +113,8 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dm.SQLConnection
-    Left = 64
-    Top = 88
+    Left = 239
+    Top = 152
     object sqlBensbemId: TIntegerField
       FieldName = 'bemId'
       Required = True
@@ -153,11 +175,11 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     end
   end
   object rvpTR: TRvProject
-    Left = 64
-    Top = 144
+    ProjectFile = 'C:\Projetos\sistema-patrimonio\reports\reportMovimentacao.rav'
+    Left = 56
+    Top = 152
   end
   object cdsAuxGrupo: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'vGrupoId'
     MasterFields = 'grupoId'
@@ -223,20 +245,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
       Size = 10
     end
   end
-  object rdvSubGrupos: TRvDataSetConnection
-    RuntimeVisibility = rtDeveloper
-    DisableDataSource = False
-    RestoreDataSet = False
-    Left = 339
-    Top = 105
-  end
-  object rdvGrupos: TRvDataSetConnection
-    RuntimeVisibility = rtDeveloper
-    DisableDataSource = False
-    RestoreDataSet = False
-    Left = 405
-    Top = 105
-  end
   object dsGrupos: TDataSource
     DataSet = cdsGrupo
     Left = 240
@@ -246,5 +254,48 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     DataSet = cdsAuxGrupo
     Left = 56
     Top = 200
+  end
+  object dspGestao: TDataSetProvider
+    DataSet = dm.sqlGestao
+    Options = [poReadOnly, poUseQuoteChar]
+    Left = 481
+    Top = 198
+  end
+  object cdsGestao: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspGestao'
+    Left = 401
+    Top = 198
+  end
+  object dsGestao: TDataSource
+    AutoEdit = False
+    DataSet = cdsGestao
+    Left = 321
+    Top = 198
+  end
+  object rvdGestao: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DisableDataSource = False
+    RestoreDataSet = False
+    DataSet = cdsGestao
+    Left = 320
+    Top = 152
+  end
+  object rvdGrupos: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DisableDataSource = False
+    RestoreDataSet = False
+    DataSet = dm.sqlGrupo
+    Left = 400
+    Top = 152
+  end
+  object rvdSubGrupos: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DisableDataSource = False
+    RestoreDataSet = False
+    DataSet = dm.sqlSubGrupo
+    Left = 480
+    Top = 152
   end
 end
