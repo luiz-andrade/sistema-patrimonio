@@ -2,8 +2,8 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   Left = 0
   Top = 0
   Caption = 'Relat'#243'rio de bens por grupo/SubGrupo'
-  ClientHeight = 304
-  ClientWidth = 545
+  ClientHeight = 429
+  ClientWidth = 651
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,8 +17,8 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   PixelsPerInch = 96
   TextHeight = 13
   object btnFechar: TBitBtn
-    Left = 440
-    Top = 248
+    Left = 552
+    Top = 384
     Width = 75
     Height = 25
     Caption = 'Fechar'
@@ -28,8 +28,8 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     OnClick = btnFecharClick
   end
   object btnVisualizar: TBitBtn
-    Left = 336
-    Top = 248
+    Left = 448
+    Top = 384
     Width = 75
     Height = 25
     Caption = 'Visualizar'
@@ -40,7 +40,7 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   end
   object cbGrupo: TCheckBox
     Left = 52
-    Top = 22
+    Top = 27
     Width = 97
     Height = 17
     Caption = 'Grupo:'
@@ -49,7 +49,7 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   end
   object dblGrupo: TDBLookupComboBox
     Left = 163
-    Top = 22
+    Top = 25
     Width = 305
     Height = 21
     KeyField = 'grupoId'
@@ -60,7 +60,7 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   end
   object cbSubGrupo: TCheckBox
     Left = 52
-    Top = 56
+    Top = 61
     Width = 105
     Height = 17
     Caption = 'SubGrupo:'
@@ -69,7 +69,7 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   end
   object dblSubGrupo: TDBLookupComboBox
     Left = 163
-    Top = 52
+    Top = 57
     Width = 305
     Height = 21
     Enabled = False
@@ -81,7 +81,7 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   end
   object cbGestao: TCheckBox
     Left = 52
-    Top = 83
+    Top = 88
     Width = 105
     Height = 17
     Caption = 'Gest'#227'o:'
@@ -89,7 +89,7 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   end
   object dblGestaoId: TDBLookupComboBox
     Left = 163
-    Top = 79
+    Top = 84
     Width = 305
     Height = 21
     KeyField = 'gestaoId'
@@ -98,13 +98,34 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     ListSource = dsGestao
     TabOrder = 7
   end
+  object cbFornecedor: TCheckBox
+    Left = 52
+    Top = 115
+    Width = 105
+    Height = 17
+    Caption = 'Fornecedor:'
+    TabOrder = 8
+    Visible = False
+  end
+  object dblFornecedor: TDBLookupComboBox
+    Left = 163
+    Top = 111
+    Width = 305
+    Height = 21
+    KeyField = 'fornecedorId'
+    ListField = 'fornecedorId;razaoSocial'
+    ListFieldIndex = 1
+    ListSource = dsFornecedor
+    TabOrder = 9
+    Visible = False
+  end
   object rvdBensGrupo: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
     DisableDataSource = False
     RestoreDataSet = False
     DataSet = sqlBens
     Left = 152
-    Top = 152
+    Top = 192
   end
   object sqlBens: TSQLDataSet
     SchemaName = 'sa'
@@ -114,7 +135,7 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     Params = <>
     SQLConnection = dm.SQLConnection
     Left = 239
-    Top = 152
+    Top = 192
     object sqlBensbemId: TIntegerField
       FieldName = 'bemId'
       Required = True
@@ -174,11 +195,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
       Required = True
     end
   end
-  object rvpTR: TRvProject
-    ProjectFile = 'C:\Projetos\sistema-patrimonio\reports\reportMovimentacao.rav'
-    Left = 56
-    Top = 152
-  end
   object cdsAuxGrupo: TClientDataSet
     Aggregates = <>
     IndexFieldNames = 'vGrupoId'
@@ -187,7 +203,7 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     Params = <>
     ProviderName = 'dspAuxGrupo'
     Left = 56
-    Top = 256
+    Top = 296
     object cdsAuxGrupogrupoId: TStringField
       FieldName = 'grupoId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -214,21 +230,21 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 152
-    Top = 200
+    Top = 240
   end
   object dspAuxGrupo: TDataSetProvider
     DataSet = dm.sqlSubGrupo
     Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 152
-    Top = 256
+    Top = 296
   end
   object cdsGrupo: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspGrupo'
     Left = 240
-    Top = 256
+    Top = 296
     object cdsGrupodescricao: TStringField
       FieldName = 'descricao'
       Required = True
@@ -248,31 +264,31 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   object dsGrupos: TDataSource
     DataSet = cdsGrupo
     Left = 240
-    Top = 196
+    Top = 236
   end
   object dsAuxGrupos: TDataSource
     DataSet = cdsAuxGrupo
     Left = 56
-    Top = 200
+    Top = 240
   end
   object dspGestao: TDataSetProvider
     DataSet = dm.sqlGestao
     Options = [poReadOnly, poUseQuoteChar]
     Left = 481
-    Top = 198
+    Top = 238
   end
   object cdsGestao: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspGestao'
     Left = 401
-    Top = 198
+    Top = 238
   end
   object dsGestao: TDataSource
     AutoEdit = False
     DataSet = cdsGestao
     Left = 321
-    Top = 198
+    Top = 238
   end
   object rvdGestao: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
@@ -280,22 +296,100 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     RestoreDataSet = False
     DataSet = cdsGestao
     Left = 320
-    Top = 152
+    Top = 192
   end
   object rvdGrupos: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
     DisableDataSource = False
     RestoreDataSet = False
-    DataSet = dm.sqlGrupo
+    DataSet = sqlGrupo
     Left = 400
-    Top = 152
+    Top = 192
   end
   object rvdSubGrupos: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
     DisableDataSource = False
     RestoreDataSet = False
-    DataSet = dm.sqlSubGrupo
+    DataSet = sqlSubGrupo
     Left = 480
-    Top = 152
+    Top = 192
+  end
+  object sqlGrupo: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from grupo')
+    SQLConnection = dm.SQLConnection
+    Left = 55
+    Top = 140
+    object sqlGrupodescricao: TStringField
+      FieldName = 'descricao'
+      Required = True
+      Size = 100
+    end
+    object sqlGrupoempresaId: TIntegerField
+      FieldName = 'empresaId'
+      Required = True
+    end
+    object sqlGrupogrupoId: TStringField
+      FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
+    end
+    object sqlGrupovGrupoId: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'vGrupoId'
+      Size = 10
+    end
+  end
+  object sqlSubGrupo: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from grupo')
+    SQLConnection = dm.SQLConnection
+    Left = 55
+    Top = 193
+    object StringField2: TStringField
+      FieldName = 'descricao'
+      Required = True
+      Size = 100
+    end
+    object IntegerField5: TIntegerField
+      FieldName = 'empresaId'
+      Required = True
+    end
+    object sqlSubGrupogrupoId: TStringField
+      FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
+    end
+    object sqlSubGrupovGrupoId: TStringField
+      FieldName = 'vGrupoId'
+      Required = True
+      Size = 10
+    end
+  end
+  object dsFornecedor: TDataSource
+    DataSet = cdsFornecedor
+    Left = 56
+    Top = 360
+  end
+  object cdsFornecedor: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspFornecedor'
+    Left = 152
+    Top = 360
+  end
+  object dspFornecedor: TDataSetProvider
+    DataSet = dm.sqlFornecedor
+    Options = [poReadOnly, poUseQuoteChar]
+    Left = 240
+    Top = 360
   end
 end

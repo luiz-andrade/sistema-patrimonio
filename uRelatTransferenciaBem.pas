@@ -11,7 +11,6 @@ type
   TfrmRelatTranferenciaBem = class(TForm)
     btnVisualizar: TBitBtn;
     btnFechar: TBitBtn;
-    rvpTR: TRvProject;
     sqlLocal: TSQLDataSet;
     rvdLocal: TRvDataSetConnection;
     sqlBens: TSQLDataSet;
@@ -98,7 +97,7 @@ end;
 
 procedure TfrmRelatTranferenciaBem.btnVisualizarClick(Sender: TObject);
 begin
-	with rvpTR do
+	with dm.rvpTR do
 	begin
 		// Verifica se foi selecionado uma Unidade
 		with sqlSubLocal do

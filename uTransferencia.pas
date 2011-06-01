@@ -165,7 +165,7 @@ begin
 										tbBenssubLocalId.Value,
 										tbBensgestaoId.Value,
 										0,
-										1,
+										tbBenstipoIdentificacao.Value,
 										1,
 										1);
 					pbBens.Position := RecNo;

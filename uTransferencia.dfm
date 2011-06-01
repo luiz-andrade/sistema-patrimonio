@@ -20,17 +20,12 @@ object frmTransferencia: TfrmTransferencia
     Top = 39
     Width = 773
     Height = 475
-    ActivePage = tsGrupos
+    ActivePage = tsBens
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 630
-    ExplicitHeight = 387
     object tsGrupos: TTabSheet
       Caption = 'Grupos'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitWidth = 604
-      ExplicitHeight = 363
       object DBGrid2: TDBGrid
         Left = 0
         Top = 0
@@ -54,9 +49,6 @@ object frmTransferencia: TfrmTransferencia
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitLeft = 360
-        ExplicitTop = 280
-        ExplicitWidth = 185
         DesignSize = (
           765
           41)
@@ -70,7 +62,6 @@ object frmTransferencia: TfrmTransferencia
           Caption = 'importar'
           TabOrder = 0
           OnClick = btnImportarGrupoClick
-          ExplicitLeft = 661
         end
         object pbGrupos: TProgressBar
           Left = 4
@@ -84,9 +75,6 @@ object frmTransferencia: TfrmTransferencia
     object tsSubGrupos: TTabSheet
       Caption = 'SubGrupos'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitWidth = 604
-      ExplicitHeight = 363
       object DBGrid3: TDBGrid
         Left = 0
         Top = 0
@@ -110,9 +98,6 @@ object frmTransferencia: TfrmTransferencia
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitLeft = 360
-        ExplicitTop = 280
-        ExplicitWidth = 185
         DesignSize = (
           765
           41)
@@ -139,8 +124,6 @@ object frmTransferencia: TfrmTransferencia
     object tsOrgao: TTabSheet
       Caption = 'Org'#227'o'
       ImageIndex = 3
-      ExplicitWidth = 604
-      ExplicitHeight = 363
       object DBGrid4: TDBGrid
         Left = 0
         Top = 0
@@ -164,7 +147,6 @@ object frmTransferencia: TfrmTransferencia
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitLeft = -1
         DesignSize = (
           765
           41)
@@ -178,7 +160,6 @@ object frmTransferencia: TfrmTransferencia
           Caption = 'importar'
           TabOrder = 0
           OnClick = btnImportarOrgaoClick
-          ExplicitLeft = 661
         end
         object pbOrgao: TProgressBar
           Left = 4
@@ -192,9 +173,6 @@ object frmTransferencia: TfrmTransferencia
     object tsUnidades: TTabSheet
       Caption = 'Unidades'
       ImageIndex = 4
-      ExplicitLeft = 0
-      ExplicitWidth = 604
-      ExplicitHeight = 363
       object DBGrid5: TDBGrid
         Left = 0
         Top = 0
@@ -218,8 +196,6 @@ object frmTransferencia: TfrmTransferencia
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitTop = 328
-        ExplicitWidth = 604
         DesignSize = (
           765
           41)
@@ -233,7 +209,6 @@ object frmTransferencia: TfrmTransferencia
           Caption = 'importar'
           TabOrder = 0
           OnClick = btnImportarUnidadeClick
-          ExplicitLeft = 661
         end
         object pbUnidades: TProgressBar
           Left = 4
@@ -246,9 +221,6 @@ object frmTransferencia: TfrmTransferencia
     end
     object tsBens: TTabSheet
       Caption = 'Bens'
-      ExplicitLeft = 0
-      ExplicitWidth = 604
-      ExplicitHeight = 363
       object DBGrid1: TDBGrid
         Left = 0
         Top = 0
@@ -272,8 +244,6 @@ object frmTransferencia: TfrmTransferencia
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitLeft = -1
-        ExplicitTop = 412
         DesignSize = (
           765
           41)
@@ -287,7 +257,6 @@ object frmTransferencia: TfrmTransferencia
           Caption = 'importar'
           TabOrder = 0
           OnClick = btnImportarbemClick
-          ExplicitLeft = 663
         end
         object pbBens: TProgressBar
           Left = 4
@@ -308,33 +277,28 @@ object frmTransferencia: TfrmTransferencia
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = -2
-    ExplicitTop = 0
-    ExplicitWidth = 614
     object Label1: TLabel
       Left = 0
       Top = 0
-      Width = 55
+      Width = 41
       Height = 33
       Align = alLeft
       Alignment = taCenter
       Caption = 'Arquivo:'
       Layout = tlCenter
+      ExplicitHeight = 13
     end
     object edtArquivo: TEdit
       AlignWithMargins = True
-      Left = 58
+      Left = 44
       Top = 5
-      Width = 594
+      Width = 608
       Height = 23
       Margins.Top = 5
       Margins.Bottom = 5
       Align = alClient
       ReadOnly = True
       TabOrder = 0
-      ExplicitLeft = 61
-      ExplicitTop = 9
-      ExplicitWidth = 396
       ExplicitHeight = 21
     end
     object btnSelecionar: TButton
@@ -350,9 +314,6 @@ object frmTransferencia: TfrmTransferencia
       Caption = '...'
       TabOrder = 1
       OnClick = btnSelecionarClick
-      ExplicitLeft = 463
-      ExplicitTop = 8
-      ExplicitHeight = 21
     end
     object btnConectar: TButton
       AlignWithMargins = True
@@ -367,11 +328,10 @@ object frmTransferencia: TfrmTransferencia
       Caption = 'Conectar'
       TabOrder = 2
       OnClick = btnConectarClick
-      ExplicitLeft = 541
-      ExplicitTop = 6
     end
   end
   object ADOConnection: TADOConnection
+    Connected = True
     ConnectionString = 
       'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\Fagner\Des' +
       'ktop\Importador - Vers'#227'o Access 2003.mdb;Persist Security Info=F' +

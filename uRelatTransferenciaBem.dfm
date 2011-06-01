@@ -137,11 +137,6 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     Time = 40691.646961932870000000
     TabOrder = 1
   end
-  object rvpTR: TRvProject
-    ProjectFile = 'C:\Projetos\sistema-patrimonio\reports\reportMovimentacao.rav'
-    Left = 632
-    Top = 32
-  end
   object sqlLocal: TSQLDataSet
     SchemaName = 'sa'
     CommandText = 'select *'#13#10'from local'#13#10'where vLocalId = 0'
