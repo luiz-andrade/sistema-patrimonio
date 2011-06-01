@@ -98,6 +98,7 @@ type
     sqlBemtipoAquisicao: TIntegerField;
     sqlBemquantidade: TFloatField;
     sqlGestaogestao: TStringField;
+    rvpTR: TRvProject;
     procedure SQLConnectionBeforeConnect(Sender: TObject);
   private
     { Private declarations }

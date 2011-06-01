@@ -125,6 +125,13 @@ object frmPrincipal: TfrmPrincipal
         ImageIndex = 5
         Style = tbsSeparator
       end
+      object ToolButton10: TToolButton
+        Left = 650
+        Top = 0
+        Caption = 'Relat'#243'rios'
+        DropdownMenu = PopupMenu
+        ImageIndex = 6
+      end
     end
   end
   object MainMenu: TMainMenu
@@ -172,6 +179,10 @@ object frmPrincipal: TfrmPrincipal
       object Bensporgrupo1: TMenuItem
         Caption = 'Bens por grupo'
         OnClick = Bensporgrupo1Click
+      end
+      object RelaodeUnidades2: TMenuItem
+        Caption = 'Rela'#231#227'o de Unidades'
+        OnClick = RelaodeUnidades2Click
       end
     end
     object Manuteno1: TMenuItem
@@ -263,6 +274,22 @@ object frmPrincipal: TfrmPrincipal
       Caption = 'Movimenta'#231#227'o'
       ImageIndex = 5
       OnExecute = actMovimentacaoExecute
+    end
+  end
+  object PopupMenu: TPopupMenu
+    Left = 184
+    Top = 112
+    object RTermodeResponsabilidade2: TMenuItem
+      Caption = 'TR - Termo de Responsabilidade'
+      OnClick = RTermodeResponsabilidade1Click
+    end
+    object Bensporgrupo2: TMenuItem
+      Caption = 'Bens por grupo'
+      OnClick = Bensporgrupo1Click
+    end
+    object RelaodeUnidades1: TMenuItem
+      Caption = 'Rela'#231#227'o de Unidades'
+      OnClick = RelaodeUnidades2Click
     end
   end
 end

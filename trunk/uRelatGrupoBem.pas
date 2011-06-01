@@ -26,7 +26,6 @@ type
     sqlBensquantidade: TFloatField;
     btnFechar: TBitBtn;
     btnVisualizar: TBitBtn;
-    rvpTR: TRvProject;
     cbGrupo: TCheckBox;
     dblGrupo: TDBLookupComboBox;
     cbSubGrupo: TCheckBox;
@@ -52,6 +51,21 @@ type
     rvdGestao: TRvDataSetConnection;
     rvdGrupos: TRvDataSetConnection;
     rvdSubGrupos: TRvDataSetConnection;
+    sqlGrupo: TSQLQuery;
+    sqlGrupodescricao: TStringField;
+    sqlGrupoempresaId: TIntegerField;
+    sqlGrupogrupoId: TStringField;
+    sqlGrupovGrupoId: TStringField;
+    sqlSubGrupo: TSQLQuery;
+    StringField2: TStringField;
+    IntegerField5: TIntegerField;
+    sqlSubGrupogrupoId: TStringField;
+    sqlSubGrupovGrupoId: TStringField;
+    cbFornecedor: TCheckBox;
+    dblFornecedor: TDBLookupComboBox;
+    dsFornecedor: TDataSource;
+    cdsFornecedor: TClientDataSet;
+    dspFornecedor: TDataSetProvider;
     procedure btnFecharClick(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -79,12 +93,13 @@ end;
 
 procedure TfrmRelatGrupoBem.btnVisualizarClick(Sender: TObject);
 begin
-	with rvpTR do
+	with dm.rvpTR do
 	begin
 		with sqlBens do
 		begin
 			Close;
 			CommandText := 'select * from bem where 1=1 ';
+			{
 			if cbGrupo.Checked then
 			begin
 				CommandText := Concat(CommandText, 'and grupoId = :grupoId ');
@@ -95,10 +110,46 @@ begin
 				CommandText := Concat(CommandText, 'and subGrupoId = :subGrupoId ');
 				Params.ParamByName('subGrupoId').Value := dblSubGrupo.KeyValue;
 			end;
+			}
 			if cbGestao.Checked then
 			begin
 				CommandText := Concat(CommandText, 'and gestaoId = :gestaoId ');
 				Params.ParamByName('gestaoId').Value := dblGestaoId.KeyValue;
+			end;
+			if cbFornecedor.Checked then
+			begin
+				
+			end;
+		end;
+		// Modifica conteudo da consulta de grupos.
+		with sqlGrupo do
+		begin
+			if cbGrupo.Checked then
+			begin
+				Close;
+				CommandText := 'select * from grupo where grupoId = :grupoId';
+				Params.ParamByName('grupoId').Value := dblGrupo.KeyValue;
+			end
+			else
+			begin
+				Close;
+				CommandText := 'select * from grupo where vGrupoId = 0';
+			end;
+		end;
+		//Modifica conteudo da consulta de sub-grupos.
+		with sqlSubGrupo do
+		begin
+			if cbSubGrupo.Checked then
+			begin
+				Close;
+				CommandText := 'select * from grupo where grupoId = :grupoId';
+				Params.ParamByName('grupoId').Value := dblSubGrupo.KeyValue;
+			end
+			else
+			begin
+				Close;
+				CommandText := 'select * from grupo where vGrupoId = :vGrupoId';
+				Params.ParamByName('vGrupoId').Value := dblGrupo.KeyValue;
 			end;
 		end;
 		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
@@ -118,6 +169,7 @@ begin
 	dsGrupos.DataSet.Close;
 	dsAuxGrupos.DataSet.Close;
 	dsGestao.DataSet.Close;
+	dsFornecedor.DataSet.Close;
 end;
 
 procedure TfrmRelatGrupoBem.FormCreate(Sender: TObject);
@@ -125,6 +177,7 @@ begin
 	dsGrupos.DataSet.Open;
 	dsAuxGrupos.DataSet.Open;
 	dsGestao.DataSet.Open;
+	dsFornecedor.DataSet.Open;
 end;
 
 end.

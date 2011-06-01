@@ -51,6 +51,12 @@ type
     Importar1: TMenuItem;
     RTermodeResponsabilidade1: TMenuItem;
     Bensporgrupo1: TMenuItem;
+    ToolButton10: TToolButton;
+    PopupMenu: TPopupMenu;
+    RTermodeResponsabilidade2: TMenuItem;
+    Bensporgrupo2: TMenuItem;
+    RelaodeUnidades1: TMenuItem;
+    RelaodeUnidades2: TMenuItem;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
@@ -63,6 +69,7 @@ type
     procedure Importar1Click(Sender: TObject);
     procedure RTermodeResponsabilidade1Click(Sender: TObject);
     procedure Bensporgrupo1Click(Sender: TObject);
+    procedure RelaodeUnidades2Click(Sender: TObject);
 	private
 		{ Private declarations }
 		procedure updateInfo;
@@ -209,6 +216,15 @@ begin
 	begin
 		ShowModal;
   end;
+end;
+
+procedure TfrmPrincipal.RelaodeUnidades2Click(Sender: TObject);
+begin
+	with dm.rvpTR do
+	begin
+		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+		ExecuteReport('LISTALOCAIS');
+	end;
 end;
 
 procedure TfrmPrincipal.RTermodeResponsabilidade1Click(Sender: TObject);
