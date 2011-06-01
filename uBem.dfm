@@ -32,7 +32,7 @@ object frmBem: TfrmBem
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsPesquisa
+    ActivePage = tsInformacao
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -127,10 +127,9 @@ object frmBem: TfrmBem
     object tsInformacao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitLeft = 8
+      ExplicitTop = 20
+      ExplicitHeight = 780
       object Label2: TLabel
         Left = 7
         Top = 16
@@ -149,7 +148,7 @@ object frmBem: TfrmBem
       end
       object Label4: TLabel
         Left = 7
-        Top = 167
+        Top = 239
         Width = 33
         Height = 13
         Caption = 'Grupo:'
@@ -157,7 +156,7 @@ object frmBem: TfrmBem
       end
       object Label5: TLabel
         Left = 7
-        Top = 250
+        Top = 322
         Width = 75
         Height = 13
         Caption = 'Estado do bem:'
@@ -165,19 +164,11 @@ object frmBem: TfrmBem
       end
       object Label6: TLabel
         Left = 7
-        Top = 292
-        Width = 43
+        Top = 163
+        Width = 79
         Height = 13
-        Caption = 'Unidade:'
+        Caption = 'Org'#227'o/Empresa:'
         FocusControl = edtLocalizacao
-      end
-      object Label7: TLabel
-        Left = 7
-        Top = 374
-        Width = 38
-        Height = 13
-        Caption = 'Gest'#227'o:'
-        FocusControl = editGestao
       end
       object Label12: TLabel
         Left = 435
@@ -189,7 +180,7 @@ object frmBem: TfrmBem
       end
       object Label14: TLabel
         Left = 7
-        Top = 208
+        Top = 280
         Width = 55
         Height = 13
         Caption = 'Sub-Grupo:'
@@ -197,10 +188,10 @@ object frmBem: TfrmBem
       end
       object Label1: TLabel
         Left = 7
-        Top = 332
-        Width = 28
+        Top = 203
+        Width = 43
         Height = 13
-        Caption = 'Local:'
+        Caption = 'Unidade:'
         FocusControl = subLocalId
       end
       object Label15: TLabel
@@ -210,6 +201,14 @@ object frmBem: TfrmBem
         Height = 13
         Caption = 'Quantidade:'
         FocusControl = quantidade
+      end
+      object Label7: TLabel
+        Left = 7
+        Top = 359
+        Width = 38
+        Height = 13
+        Caption = 'Gest'#227'o:'
+        FocusControl = editGestao
       end
       object idenficacao: TDBEdit
         Left = 7
@@ -222,39 +221,30 @@ object frmBem: TfrmBem
       end
       object edtGrupo: TDBEdit
         Left = 7
-        Top = 180
+        Top = 256
         Width = 100
         Height = 21
         DataField = 'grupoId'
         DataSource = dsBem
-        TabOrder = 6
+        TabOrder = 10
       end
       object edtEstado: TDBEdit
         Left = 7
-        Top = 266
+        Top = 338
         Width = 100
         Height = 21
         DataField = 'estadoId'
         DataSource = dsBem
-        TabOrder = 10
+        TabOrder = 14
       end
       object edtLocalizacao: TDBEdit
         Left = 7
-        Top = 308
+        Top = 179
         Width = 100
         Height = 21
         DataField = 'localId'
         DataSource = dsBem
-        TabOrder = 12
-      end
-      object editGestao: TDBEdit
-        Left = 7
-        Top = 390
-        Width = 100
-        Height = 21
-        DataField = 'gestaoId'
-        DataSource = dsBem
-        TabOrder = 16
+        TabOrder = 6
       end
       object dbmDescricao: TDBMemo
         Left = 7
@@ -268,7 +258,7 @@ object frmBem: TfrmBem
       end
       object dblGrupo: TDBLookupComboBox
         Left = 113
-        Top = 180
+        Top = 256
         Width = 408
         Height = 21
         DataField = 'grupoId'
@@ -277,11 +267,11 @@ object frmBem: TfrmBem
         ListField = 'grupoId;descricao'
         ListFieldIndex = 1
         ListSource = dsGrupoPrincipal
-        TabOrder = 7
+        TabOrder = 11
       end
       object dblEstado: TDBLookupComboBox
         Left = 113
-        Top = 266
+        Top = 338
         Width = 408
         Height = 21
         DataField = 'estadoId'
@@ -290,11 +280,11 @@ object frmBem: TfrmBem
         ListField = 'estadoId;descricao'
         ListFieldIndex = 1
         ListSource = dsEstado
-        TabOrder = 11
+        TabOrder = 15
       end
       object dblLocal: TDBLookupComboBox
         Left = 113
-        Top = 308
+        Top = 179
         Width = 408
         Height = 21
         DataField = 'localId'
@@ -303,20 +293,7 @@ object frmBem: TfrmBem
         ListField = 'localId;titulo'
         ListFieldIndex = 1
         ListSource = dsUnidade
-        TabOrder = 13
-      end
-      object dblGestao: TDBLookupComboBox
-        Left = 113
-        Top = 390
-        Width = 408
-        Height = 21
-        DataField = 'gestaoId'
-        DataSource = dsBem
-        KeyField = 'gestaoId'
-        ListField = 'gestao'
-        ListSource = dsGestao
-        NullValueKey = 46
-        TabOrder = 17
+        TabOrder = 7
       end
       object valor: TDBEdit
         Left = 435
@@ -348,16 +325,16 @@ object frmBem: TfrmBem
       end
       object subgrupoId: TDBEdit
         Left = 7
-        Top = 224
+        Top = 296
         Width = 99
         Height = 21
         DataField = 'subgrupoId'
         DataSource = dsBem
-        TabOrder = 8
+        TabOrder = 12
       end
       object dblSubGrupo: TDBLookupComboBox
-        Left = 113
-        Top = 224
+        Left = 112
+        Top = 296
         Width = 408
         Height = 21
         DataField = 'subgrupoId'
@@ -367,20 +344,20 @@ object frmBem: TfrmBem
         ListFieldIndex = 1
         ListSource = dsGrupo
         NullValueKey = 46
-        TabOrder = 9
+        TabOrder = 13
       end
       object subLocalId: TDBEdit
         Left = 7
-        Top = 348
+        Top = 219
         Width = 100
         Height = 21
         DataField = 'subLocalId'
         DataSource = dsBem
-        TabOrder = 14
+        TabOrder = 8
       end
       object dblsubLocalId: TDBLookupComboBox
         Left = 113
-        Top = 348
+        Top = 219
         Width = 408
         Height = 21
         DataField = 'subLocalId'
@@ -390,7 +367,7 @@ object frmBem: TfrmBem
         ListFieldIndex = 1
         ListSource = dsLocalizacao
         NullValueKey = 46
-        TabOrder = 15
+        TabOrder = 9
       end
       object tipoAquisicao: TDBRadioGroup
         Left = 171
@@ -418,6 +395,28 @@ object frmBem: TfrmBem
         DataField = 'quantidade'
         DataSource = dsBem
         TabOrder = 2
+      end
+      object editGestao: TDBEdit
+        Left = 7
+        Top = 375
+        Width = 100
+        Height = 21
+        DataField = 'gestaoId'
+        DataSource = dsBem
+        TabOrder = 16
+      end
+      object dblGestao: TDBLookupComboBox
+        Left = 113
+        Top = 375
+        Width = 408
+        Height = 21
+        DataField = 'gestaoId'
+        DataSource = dsBem
+        KeyField = 'gestaoId'
+        ListField = 'gestao'
+        ListSource = dsGestao
+        NullValueKey = 46
+        TabOrder = 17
       end
     end
     object tsAquisicao: TTabSheet
