@@ -32,14 +32,11 @@ type
     edtEstado: TDBEdit;
     Label6: TLabel;
     edtLocalizacao: TDBEdit;
-    Label7: TLabel;
-    editGestao: TDBEdit;
     dbmDescricao: TDBMemo;
     tsAquisicao: TTabSheet;
     dblGrupo: TDBLookupComboBox;
     dblEstado: TDBLookupComboBox;
     dblLocal: TDBLookupComboBox;
-    dblGestao: TDBLookupComboBox;
     dsGrupo: TDataSource;
     dsEstado: TDataSource;
     dsLocalizacao: TDataSource;
@@ -120,6 +117,9 @@ type
     cdsBemquantidade: TFloatField;
     Label15: TLabel;
     quantidade: TDBEdit;
+    Label7: TLabel;
+    editGestao: TDBEdit;
+    dblGestao: TDBLookupComboBox;
     procedure btnNovoClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
