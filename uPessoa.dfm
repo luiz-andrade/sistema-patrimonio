@@ -265,8 +265,6 @@ object frmPessoa: TfrmPessoa
     object tsUsuario: TTabSheet
       Caption = 'Acesso ao sistema'
       ImageIndex = 2
-      ExplicitLeft = 8
-      ExplicitTop = 20
       object Label5: TLabel
         Left = 235
         Top = 13
@@ -2263,7 +2261,6 @@ object frmPessoa: TfrmPessoa
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 2
-    ExplicitTop = 3
     object btnNovo: TBitBtn
       AlignWithMargins = True
       Left = 8
@@ -2675,6 +2672,7 @@ object frmPessoa: TfrmPessoa
   end
   object dsAcoes: TDataSource
     DataSet = cdsAcoes
+    OnStateChange = dsAcoesStateChange
     Left = 464
     Top = 336
   end
@@ -2705,6 +2703,7 @@ object frmPessoa: TfrmPessoa
   object dsUsuarioAcao: TDataSource
     AutoEdit = False
     DataSet = cdsUsuarioAcao
+    OnStateChange = dsUsuarioAcaoStateChange
     Left = 544
     Top = 336
   end

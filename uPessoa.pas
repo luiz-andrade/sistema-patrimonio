@@ -141,6 +141,8 @@ type
     procedure cdsUsuarioAcaoReconcileError(DataSet: TCustomClientDataSet;
 			E: EReconcileError; UpdateKind: TUpdateKind;
       var Action: TReconcileAction);
+    procedure dsAcoesStateChange(Sender: TObject);
+    procedure dsUsuarioAcaoStateChange(Sender: TObject);
   private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -452,6 +454,11 @@ begin
 	end;
 end;
 
+procedure TfrmPessoa.dsAcoesStateChange(Sender: TObject);
+begin
+  btnAdicionar.Visible:= not(cdsAcoes.IsEmpty);
+end;
+
 procedure TfrmPessoa.dsPessoaDataChange(Sender: TObject; Field: TField);
 begin
 	with cdsPessoa do
@@ -510,12 +517,19 @@ begin
 		btnCancelar.Enabled := (State in [dsInsert, dsEdit]);
 		btnApagar.Enabled   := not(State in [dsInsert, dsEdit]);
 		dbgAcoesDisp.Visible:= not(State in [dsEdit]) and not(IsEmpty);
-		dbgAcoesLib.Visible:= not(State in [dsEdit]) and not(IsEmpty);
+		dbgAcoesLib.Visible := not(State in [dsEdit]) and not(IsEmpty);
+    btnAdicionar.Visible:= not(State in [dsEdit]) and not(IsEmpty);
+    btnRemover.Visible  := not(State in [dsEdit]) and not(IsEmpty);
 		if State in [dsInsert] then
 		begin
 			Caption := 'Novo registro';
 		end;
 	end;
+end;
+
+procedure TfrmPessoa.dsUsuarioAcaoStateChange(Sender: TObject);
+begin
+  btnRemover.Visible  := not(cdsUsuarioAcao.IsEmpty);
 end;
 
 procedure TfrmPessoa.FormClose(Sender: TObject; var Action: TCloseAction);

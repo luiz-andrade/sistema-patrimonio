@@ -127,9 +127,6 @@ object frmBem: TfrmBem
     object tsInformacao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
-      ExplicitLeft = 8
-      ExplicitTop = 20
-      ExplicitHeight = 780
       object Label2: TLabel
         Left = 7
         Top = 16

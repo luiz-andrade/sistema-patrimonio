@@ -169,6 +169,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object Finalizarsistema1: TMenuItem
         Caption = 'Finalizar sistema'
+        OnClick = Finalizarsistema1Click
       end
     end
     object Relatrios1: TMenuItem
@@ -188,18 +189,18 @@ object frmPrincipal: TfrmPrincipal
       object Importar1: TMenuItem
         Action = actImportarDados
       end
+      object N5: TMenuItem
+        Caption = '-'
+      end
+      object Atualizarsistemas1: TMenuItem
+        Caption = 'Atualizar sistema'
+        OnClick = Atualizarsistemas1Click
+      end
     end
     object N4: TMenuItem
       Caption = '?'
       object Informaessobreoprojeto1: TMenuItem
         Action = actSobre
-      end
-      object N5: TMenuItem
-        Caption = '-'
-        Enabled = False
-      end
-      object Impotardados1: TMenuItem
-        Caption = 'Impotar dados'
       end
     end
     object rocardeusurio1: TMenuItem
@@ -218,6 +219,7 @@ object frmPrincipal: TfrmPrincipal
           end
           item
             Action = actPessoa
+            Caption = '&Registro de pessoas'
             ImageIndex = 3
           end
           item
