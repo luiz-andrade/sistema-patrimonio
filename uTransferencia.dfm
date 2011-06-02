@@ -364,11 +364,6 @@ object frmTransferencia: TfrmTransferencia
     end
   end
   object ADOConnection: TADOConnection
-    Connected = True
-    ConnectionString = 
-      'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\Fagner\Des' +
-      'ktop\Importador - Vers'#227'o Access 2003.mdb;Persist Security Info=F' +
-      'alse;'
     LoginPrompt = False
     Mode = cmShareDenyNone
     Provider = 'Microsoft.Jet.OLEDB.4.0'
@@ -511,8 +506,9 @@ object frmTransferencia: TfrmTransferencia
       FieldName = 'titulo'
       Size = 100
     end
-    object tbUnidadesvLocalId: TIntegerField
+    object tbUnidadesvLocalId: TWideStringField
       FieldName = 'vLocalId'
+      Size = 255
     end
   end
   object dsBens: TDataSource
