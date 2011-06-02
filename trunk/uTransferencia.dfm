@@ -20,11 +20,11 @@ object frmTransferencia: TfrmTransferencia
     Top = 39
     Width = 773
     Height = 475
-    ActivePage = tsBens
+    ActivePage = tsGrupos
     Align = alClient
     TabOrder = 0
     object tsGrupos: TTabSheet
-      Caption = 'Grupos'
+      Caption = '1 - Grupos'
       ImageIndex = 1
       object DBGrid2: TDBGrid
         Left = 0
@@ -53,9 +53,9 @@ object frmTransferencia: TfrmTransferencia
           765
           41)
         object btnImportarGrupo: TButton
-          Left = 687
+          Left = 674
           Top = 9
-          Width = 75
+          Width = 91
           Height = 25
           Cursor = crHandPoint
           Anchors = []
@@ -70,10 +70,21 @@ object frmTransferencia: TfrmTransferencia
           Height = 16
           TabOrder = 1
         end
+        object btLimparGrupo: TButton
+          Left = 514
+          Top = 9
+          Width = 149
+          Height = 25
+          Cursor = crHandPoint
+          Anchors = []
+          Caption = 'Apagar grupos e subgrupos'
+          TabOrder = 2
+          OnClick = btLimparGrupoClick
+        end
       end
     end
     object tsSubGrupos: TTabSheet
-      Caption = 'SubGrupos'
+      Caption = '2 - SubGrupos'
       ImageIndex = 2
       object DBGrid3: TDBGrid
         Left = 0
@@ -102,9 +113,9 @@ object frmTransferencia: TfrmTransferencia
           765
           41)
         object btnImportarSubGrupo: TButton
-          Left = 688
+          Left = 674
           Top = 9
-          Width = 75
+          Width = 91
           Height = 25
           Cursor = crHandPoint
           Anchors = []
@@ -122,7 +133,7 @@ object frmTransferencia: TfrmTransferencia
       end
     end
     object tsOrgao: TTabSheet
-      Caption = 'Org'#227'o'
+      Caption = '3 - Org'#227'o'
       ImageIndex = 3
       object DBGrid4: TDBGrid
         Left = 0
@@ -151,9 +162,9 @@ object frmTransferencia: TfrmTransferencia
           765
           41)
         object btnImportarOrgao: TButton
-          Left = 687
+          Left = 674
           Top = 9
-          Width = 75
+          Width = 91
           Height = 25
           Cursor = crHandPoint
           Anchors = []
@@ -168,10 +179,21 @@ object frmTransferencia: TfrmTransferencia
           Height = 16
           TabOrder = 1
         end
+        object btnLimparLocais: TButton
+          Left = 512
+          Top = 9
+          Width = 149
+          Height = 25
+          Cursor = crHandPoint
+          Anchors = []
+          Caption = 'Apagar grupos e subgrupos'
+          TabOrder = 2
+          OnClick = btnLimparLocaisClick
+        end
       end
     end
     object tsUnidades: TTabSheet
-      Caption = 'Unidades'
+      Caption = '4 - Unidades'
       ImageIndex = 4
       object DBGrid5: TDBGrid
         Left = 0
@@ -200,9 +222,9 @@ object frmTransferencia: TfrmTransferencia
           765
           41)
         object btnImportarUnidade: TButton
-          Left = 687
+          Left = 674
           Top = 9
-          Width = 75
+          Width = 91
           Height = 25
           Cursor = crHandPoint
           Anchors = []
@@ -220,7 +242,7 @@ object frmTransferencia: TfrmTransferencia
       end
     end
     object tsBens: TTabSheet
-      Caption = 'Bens'
+      Caption = '5 - Bens'
       object DBGrid1: TDBGrid
         Left = 0
         Top = 0
@@ -248,9 +270,9 @@ object frmTransferencia: TfrmTransferencia
           765
           41)
         object btnImportarbem: TButton
-          Left = 689
+          Left = 674
           Top = 9
-          Width = 75
+          Width = 91
           Height = 25
           Cursor = crHandPoint
           Anchors = []
@@ -264,6 +286,17 @@ object frmTransferencia: TfrmTransferencia
           Width = 257
           Height = 16
           TabOrder = 1
+        end
+        object btnLimparBens: TButton
+          Left = 512
+          Top = 9
+          Width = 149
+          Height = 25
+          Cursor = crHandPoint
+          Anchors = []
+          Caption = 'Apagar todos os bens'
+          TabOrder = 2
+          OnClick = btnLimparBensClick
         end
       end
     end

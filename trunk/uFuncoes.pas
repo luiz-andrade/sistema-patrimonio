@@ -15,6 +15,9 @@ function alteraSenhaUsuario(login, oldPws : String; nUser : Boolean) : WideStrin
 function GetLocalVersion: String;
 function getLastId() : Integer;
 function cript(str: WideString): WideString;
+procedure gravaUsuarioAcao(usuarioId : Integer; acaoId : Integer);
+procedure removeUsuarioAcao(usuarioId : Integer; acaoId : Integer);
+function verificaUsuarioAcao(usuarioId : Integer; acao : String) : Boolean;
 
 implementation
 
@@ -293,7 +296,80 @@ begin
 		finally
 			Free;
 		end;
-  end;
+	end;
+end;
+
+procedure gravaUsuarioAcao(usuarioId : Integer; acaoId : Integer);
+begin
+	with TSQLQuery.Create(nil) do
+	begin
+		try
+			try
+				Close;
+				SQLConnection := dm.SQLConnection;
+				CommandText := 'insert into usuarioAcao(usuarioId, acaoId) values(:usuarioId, :acaoId)';
+				with Params do
+				begin
+					ParamByName('usuarioId').Value := usuarioId;
+					ParamByName('acaoId').Value    := acaoId;
+				end;
+				ExecSQL();
+			except
+				raise;
+			end;
+		finally
+			Free;
+		end;
+	end;
+end;
+
+procedure removeUsuarioAcao(usuarioId : Integer; acaoId : Integer);
+begin
+	with TSQLQuery.Create(nil) do
+	begin
+		try
+			try
+				Close;
+				SQLConnection := dm.SQLConnection;
+				CommandText := 'delete usuarioAcao where usuarioId = :usuarioid and acaoId = :acaoId';
+				with Params do
+				begin
+					ParamByName('usuarioId').Value := usuarioId;
+					ParamByName('acaoId').Value    := acaoId;
+				end;
+				ExecSQL();
+			except
+				raise;
+			end;
+		finally
+			Free;
+		end;
+	end;
+end;
+
+function verificaUsuarioAcao(usuarioId : Integer; acao : String) : Boolean;
+begin
+	Result := False;
+	with TSQLQuery.Create(nil) do
+	begin
+		try
+			try
+				Close;
+				SQLConnection := dm.SQLConnection;
+				CommandText := 'select * from vUsuarioAcao where nomeAcao = :nomeAcao and usuarioId = :usuarioId';
+				with Params do
+				begin
+					ParamByName('usuarioId').Value := usuarioId;
+					ParamByName('nomeAcao').Value    := acao;
+				end;
+				Result := not IsEmpty;
+			except
+				raise;
+			end;
+		finally
+			Free;
+		end;
+	end;
 end;
 
 end.

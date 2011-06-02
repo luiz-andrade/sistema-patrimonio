@@ -159,6 +159,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object ransferencia1: TMenuItem
         Caption = 'Transferencia'
+        Visible = False
       end
       object Movimentao1: TMenuItem
         Action = actMovimentacao
@@ -173,23 +174,19 @@ object frmPrincipal: TfrmPrincipal
     object Relatrios1: TMenuItem
       Caption = 'Relat'#243'rios'
       object RTermodeResponsabilidade1: TMenuItem
-        Caption = 'TR - Termo de Responsabilidade'
-        OnClick = RTermodeResponsabilidade1Click
+        Action = actRelatTr
       end
       object Bensporgrupo1: TMenuItem
-        Caption = 'Bens por grupo'
-        OnClick = Bensporgrupo1Click
+        Action = actRelatGrupo
       end
       object RelaodeUnidades2: TMenuItem
-        Caption = 'Rela'#231#227'o de Unidades'
-        OnClick = RelaodeUnidades2Click
+        Action = actRelatUnidade
       end
     end
     object Manuteno1: TMenuItem
       Caption = 'Manuten'#231#227'o'
       object Importar1: TMenuItem
-        Caption = 'Importar dados'
-        OnClick = Importar1Click
+        Action = actImportarDados
       end
     end
     object N4: TMenuItem
@@ -238,6 +235,7 @@ object frmPrincipal: TfrmPrincipal
           end>
       end>
     Images = dm.ImageListAcoes
+    OnExecute = ActionManagerExecute
     Left = 112
     Top = 113
     StyleName = 'Platform Default'
@@ -275,21 +273,34 @@ object frmPrincipal: TfrmPrincipal
       ImageIndex = 5
       OnExecute = actMovimentacaoExecute
     end
+    object actRelatUnidade: TAction
+      Caption = 'Rela'#231#227'o de Unidades'
+      OnExecute = actRelatUnidadeExecute
+    end
+    object actRelatGrupo: TAction
+      Caption = 'Bens por grupo'
+      OnExecute = actRelatGrupoExecute
+    end
+    object actRelatTr: TAction
+      Caption = 'TR - Termo de Responsabilidade'
+      OnExecute = actRelatTrExecute
+    end
+    object actImportarDados: TAction
+      Caption = 'Importar dados'
+      OnExecute = actImportarDadosExecute
+    end
   end
   object PopupMenu: TPopupMenu
     Left = 184
     Top = 112
     object RTermodeResponsabilidade2: TMenuItem
-      Caption = 'TR - Termo de Responsabilidade'
-      OnClick = RTermodeResponsabilidade1Click
+      Action = actRelatTr
     end
     object Bensporgrupo2: TMenuItem
-      Caption = 'Bens por grupo'
-      OnClick = Bensporgrupo1Click
+      Action = actRelatGrupo
     end
     object RelaodeUnidades1: TMenuItem
-      Caption = 'Rela'#231#227'o de Unidades'
-      OnClick = RelaodeUnidades2Click
+      Action = actRelatUnidade
     end
   end
 end

@@ -81,6 +81,23 @@ type
     cdsPessoacnpjCpf: TStringField;
     Label13: TLabel;
     cnpjCpf: TDBEdit;
+    dsAcoes: TDataSource;
+    cdsAcoes: TClientDataSet;
+    dpsAcoes: TDataSetProvider;
+    cdsAcoesacaoId: TIntegerField;
+    cdsAcoesdescricao: TStringField;
+    dbgAcoesDisp: TDBGrid;
+    Label9: TLabel;
+    dsUsuarioAcao: TDataSource;
+    cdsUsuarioAcao: TClientDataSet;
+    dpsUsuarioAcao: TDataSetProvider;
+    cdsUsuarioAcaousuarioId: TIntegerField;
+    cdsUsuarioAcaoacaoid: TIntegerField;
+    dbgAcoesLib: TDBGrid;
+    Label12: TLabel;
+    cdsUsuarioAcaodescricao: TStringField;
+    btnAdicionar: TSpeedButton;
+    btnRemover: TSpeedButton;
 		procedure FormPaint(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnFecharClick(Sender: TObject);
@@ -114,6 +131,16 @@ type
     procedure dsPessoaForncStateChange(Sender: TObject);
     procedure cdsPessoaAfterInsert(DataSet: TDataSet);
     procedure txtPesquisaChange(Sender: TObject);
+    procedure dbgAcoesDispDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure dbgAcoesLibDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure btnAdicionarClick(Sender: TObject);
+    procedure cdsPessoaUsuarioAfterOpen(DataSet: TDataSet);
+    procedure btnRemoverClick(Sender: TObject);
+    procedure cdsUsuarioAcaoReconcileError(DataSet: TCustomClientDataSet;
+			E: EReconcileError; UpdateKind: TUpdateKind;
+      var Action: TReconcileAction);
   private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -133,6 +160,15 @@ implementation
 uses uFuncoes, uDm, uGlobais;
 
 {$R *.dfm}
+
+procedure TfrmPessoa.btnAdicionarClick(Sender: TObject);
+begin
+		gravaUsuarioAcao(cdsPessoaUsuariousuarioId.Value, cdsAcoesacaoId.Value);
+		cdsAcoes.Close;
+		cdsUsuarioAcao.Close;
+		cdsUsuarioAcao.Open;
+		cdsAcoes.Open;
+end;
 
 procedure TfrmPessoa.btnApagarClick(Sender: TObject);
 begin
@@ -234,6 +270,17 @@ begin
 			Open;
 		end;
 	end;
+	with cdsUsuarioAcao do
+	begin
+		if State in [dsInsert, dsEdit] then
+		begin
+			Post;
+			ApplyUpdates(-1);
+			Close;
+			Open;
+		end;
+	end;
+
 end;
 
 procedure TfrmPessoa.btnNovoClick(Sender: TObject);
@@ -243,6 +290,21 @@ begin
 		Append;
 		tsInformacao.Show;
 		nome.SetFocus;
+	end;
+end;
+
+procedure TfrmPessoa.btnRemoverClick(Sender: TObject);
+begin
+	with cdsUsuarioAcao do
+	begin
+		if not(IsEmpty) then
+		begin
+			removeUsuarioAcao(cdsUsuarioAcaousuarioId.Value, cdsUsuarioAcaoacaoid.Value);
+			Close;
+			cdsAcoes.Close;
+			Open;
+			cdsAcoes.Open;
+		end;
 	end;
 end;
 
@@ -264,10 +326,11 @@ begin
 	begin
 		Open;
 	end;
+
 end;
 
 procedure TfrmPessoa.cdsPessoaReconcileError(DataSet: TCustomClientDataSet;
-  E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
+	E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
 begin
 	raise Exception.Create(E.Message);
 	Action := raAbort;
@@ -278,9 +341,33 @@ begin
 	cdsPessoaUsuariodesativado.Value := True;
 end;
 
+procedure TfrmPessoa.cdsPessoaUsuarioAfterOpen(DataSet: TDataSet);
+begin
+	if not(cdsPessoaUsuario.IsEmpty) then
+	begin
+		with cdsAcoes do
+		begin
+			CommandText := 'select * from acoes where acaoId not in (select acaoId from usuarioAcao where usuarioId = :usuarioid)';
+			Params.ParamByName('usuarioid').Value := cdsPessoaUsuariousuarioId.Value;
+			Open;
+		end;
+	end;
+	with cdsUsuarioAcao do
+	begin
+		Open;
+	end;
+end;
+
 procedure TfrmPessoa.cdsPessoaUsuarioReconcileError(
   DataSet: TCustomClientDataSet; E: EReconcileError; UpdateKind: TUpdateKind;
   var Action: TReconcileAction);
+begin
+	raise Exception.Create(E.Message);
+	Action := raAbort;
+end;
+
+procedure TfrmPessoa.cdsUsuarioAcaoReconcileError(DataSet: TCustomClientDataSet;
+  E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
 begin
 	raise Exception.Create(E.Message);
 	Action := raAbort;
@@ -297,6 +384,52 @@ end;
 
 
 procedure TfrmPessoa.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+	DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+	with TDBGrid(Sender) do
+	begin
+		with Canvas do
+		begin
+			if not(gdSelected in State) then
+			begin
+				with DataSource.DataSet do
+				begin
+					if not(Odd(RecNo)) then
+					begin
+						Brush.Color := corZebra;
+					end;
+				end;
+			end;
+		FillRect(Rect);
+		DefaultDrawDataCell(Rect, Column.Field, State);
+		end;
+	end;
+end;
+
+procedure TfrmPessoa.dbgAcoesDispDrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+	with TDBGrid(Sender) do
+	begin
+		with Canvas do
+		begin
+			if not(gdSelected in State) then
+			begin
+				with DataSource.DataSet do
+				begin
+					if not(Odd(RecNo)) then
+					begin
+						Brush.Color := corZebra;
+					end;
+				end;
+			end;
+		FillRect(Rect);
+		DefaultDrawDataCell(Rect, Column.Field, State);
+		end;
+	end;
+end;
+
+procedure TfrmPessoa.dbgAcoesLibDrawColumnCell(Sender: TObject; const Rect: TRect;
   DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
 	with TDBGrid(Sender) do
@@ -376,6 +509,8 @@ begin
 		btnGravar.Enabled   := (State in [dsInsert, dsEdit]);
 		btnCancelar.Enabled := (State in [dsInsert, dsEdit]);
 		btnApagar.Enabled   := not(State in [dsInsert, dsEdit]);
+		dbgAcoesDisp.Visible:= not(State in [dsEdit]) and not(IsEmpty);
+		dbgAcoesLib.Visible:= not(State in [dsEdit]) and not(IsEmpty);
 		if State in [dsInsert] then
 		begin
 			Caption := 'Novo registro';
@@ -406,6 +541,10 @@ begin
 	begin
 		if State in [dsInsert, dsEdit] then
 			Cancel;
+		Close;
+	end;
+	with cdsAcoes do
+	begin
 		Close;
 	end;
 end;

@@ -98,19 +98,17 @@ begin
 		with sqlBens do
 		begin
 			Close;
-			CommandText := 'select * from bem where 1=1 ';
-			{
-			if cbGrupo.Checked then
+			if cbFornecedor.Checked then
 			begin
-				CommandText := Concat(CommandText, 'and grupoId = :grupoId ');
-				Params.ParamByName('grupoId').Value := dblGrupo.KeyValue;
-			end;
-			if cbSubGrupo.Checked then
+				CommandText := Concat('select * from bem ',
+															'inner join bemAquisicao.bemid = bem.bemId ',
+															'where bemAquisicao.fornecedorId = :fornecedorId ');
+				Params.ParamByName('fornecedorId').Value := dblFornecedor.KeyValue;
+			end
+			else
 			begin
-				CommandText := Concat(CommandText, 'and subGrupoId = :subGrupoId ');
-				Params.ParamByName('subGrupoId').Value := dblSubGrupo.KeyValue;
+				CommandText := 'select * from bem where 1=1 ';
 			end;
-			}
 			if cbGestao.Checked then
 			begin
 				CommandText := Concat(CommandText, 'and gestaoId = :gestaoId ');
@@ -152,7 +150,7 @@ begin
 				Params.ParamByName('vGrupoId').Value := dblGrupo.KeyValue;
 			end;
 		end;
-		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+		//ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
 		ExecuteReport('BENSGRUPOS');
 	end;
 end;

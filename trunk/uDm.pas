@@ -99,6 +99,17 @@ type
     sqlBemquantidade: TFloatField;
     sqlGestaogestao: TStringField;
     rvpTR: TRvProject;
+    sqlUsuarioAcao: TSQLQuery;
+    sqlUsuarioAcaousuarioId: TIntegerField;
+    sqlUsuarioAcaoacaoid: TIntegerField;
+    sqlAcoes: TSQLQuery;
+    sqlAcoesacaoId: TIntegerField;
+    sqlAcoesdescricao: TStringField;
+    sqlAcoesnomeAcao: TStringField;
+    sqlvAcoes: TSQLQuery;
+    IntegerField1: TIntegerField;
+    StringField3: TStringField;
+    StringField4: TStringField;
     procedure SQLConnectionBeforeConnect(Sender: TObject);
   private
     { Private declarations }
