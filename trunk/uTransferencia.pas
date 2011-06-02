@@ -34,7 +34,6 @@ type
     tbOrgaosempresaId: TIntegerField;
     tbUnidadeslocalId: TWideStringField;
     tbUnidadestitulo: TWideStringField;
-    tbUnidadesvLocalId: TIntegerField;
     tbBensbemId: TAutoIncField;
     tbBensidenficacao: TWideStringField;
     tbBensdescricao: TWideStringField;
@@ -79,6 +78,7 @@ type
     btLimparGrupo: TButton;
     btnLimparLocais: TButton;
     btnLimparBens: TButton;
+    tbUnidadesvLocalId: TWideStringField;
     procedure btnConectarClick(Sender: TObject);
     procedure btnImportarGrupoClick(Sender: TObject);
     procedure btnSelecionarClick(Sender: TObject);
