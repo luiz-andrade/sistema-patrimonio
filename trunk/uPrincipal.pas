@@ -45,8 +45,6 @@ type
     actMovimentacao: TAction;
     ToolButton9: TToolButton;
     Movimentao1: TMenuItem;
-    N5: TMenuItem;
-    Impotardados1: TMenuItem;
     Manuteno1: TMenuItem;
     Importar1: TMenuItem;
     RTermodeResponsabilidade1: TMenuItem;
@@ -61,6 +59,8 @@ type
     actRelatGrupo: TAction;
     actRelatTr: TAction;
     actImportarDados: TAction;
+    N5: TMenuItem;
+    Atualizarsistemas1: TMenuItem;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
@@ -75,6 +75,8 @@ type
     procedure actRelatUnidadeExecute(Sender: TObject);
     procedure actImportarDadosExecute(Sender: TObject);
     procedure ActionManagerExecute(Action: TBasicAction; var Handled: Boolean);
+    procedure Finalizarsistema1Click(Sender: TObject);
+    procedure Atualizarsistemas1Click(Sender: TObject);
 	private
 		{ Private declarations }
 		procedure updateInfo;
@@ -89,7 +91,7 @@ implementation
 
 uses uLocal, uAcesso, uDm, uPessoa, uGrupo, uBem, uFuncoes, uMd5, uSobre,
   uEmpresa, uMovimentacao, uTransferencia, uAlteracaoSenha,
-  uRelatTransferenciaBem, uRelatGrupoBem;
+  uRelatTransferenciaBem, uRelatGrupoBem, uUpdate;
 
 {$R *.dfm}
 
@@ -128,10 +130,12 @@ end;
 procedure TfrmPrincipal.ActionManagerExecute(Action: TBasicAction;
   var Handled: Boolean);
 begin
+{
 	if not verificaUsuarioAcao(gUsuarioId, Action.Name) then
 	begin
 		Application.MessageBox('Acesso restrito!', PChar(Application.Title), MB_ICONASTERISK);
 	end;
+}
 end;
 
 procedure TfrmPrincipal.actLocaisExecute(Sender: TObject);
@@ -223,11 +227,28 @@ begin
 	end;
 end;
 
+procedure TfrmPrincipal.Atualizarsistemas1Click(Sender: TObject);
+begin
+  with TfrmUpdate.Create(Application) do
+  begin
+    try
+      ShowModal;
+    finally
+      Free;
+    end;
+  end;
+end;
+
 procedure TfrmPrincipal.updateInfo;
 begin
 	Caption := Concat('Patrimonio - ', gEmpresaFantasia);
 	StatusBar.Panels[0].Text := 'Usuário:';
 	StatusBar.Panels[1].Text := gUsuarioNome;
+end;
+
+procedure TfrmPrincipal.Finalizarsistema1Click(Sender: TObject);
+begin
+  Application.Terminate;
 end;
 
 procedure TfrmPrincipal.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -247,7 +268,7 @@ begin
 	begin
 		for Index := 0 to ActionCount -1 do
 		begin
-			TAction(Actions[Index]).Enabled := _auth;
+			TAction(Actions[Index]).Enabled := (_auth and verificaUsuarioAcao(gUsuarioId, TAction(Actions[Index]).Name));
 		end;
 	end;
 	updateInfo;

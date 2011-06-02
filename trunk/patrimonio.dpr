@@ -20,7 +20,8 @@ uses
   uTransferencia in 'uTransferencia.pas' {frmTransferencia},
   uMovimentacao in 'uMovimentacao.pas' {frmMovimentacao},
   uRelatTransferenciaBem in 'uRelatTransferenciaBem.pas' {frmRelatTranferenciaBem},
-  uRelatGrupoBem in 'uRelatGrupoBem.pas' {frmRelatGrupoBem};
+  uRelatGrupoBem in 'uRelatGrupoBem.pas' {frmRelatGrupoBem},
+  uUpdate in 'uUpdate.pas' {frmUpdate};
 
 {$R *.res}
 
