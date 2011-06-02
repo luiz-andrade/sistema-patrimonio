@@ -28,8 +28,9 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
   object btnVisualizar: TBitBtn
     Left = 472
     Top = 448
-    Width = 75
+    Width = 91
     Height = 25
+    Cursor = crHandPoint
     Caption = 'Visualizar'
     DoubleBuffered = True
     ParentDoubleBuffered = False
@@ -39,8 +40,9 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
   object btnFechar: TBitBtn
     Left = 576
     Top = 448
-    Width = 75
+    Width = 91
     Height = 25
+    Cursor = crHandPoint
     Caption = 'Fechar'
     DoubleBuffered = True
     ParentDoubleBuffered = False

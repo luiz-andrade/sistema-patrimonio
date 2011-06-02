@@ -33,7 +33,7 @@ object frmPessoa: TfrmPessoa
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsFornecedor
+    ActivePage = tsUsuario
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -265,9 +265,11 @@ object frmPessoa: TfrmPessoa
     object tsUsuario: TTabSheet
       Caption = 'Acesso ao sistema'
       ImageIndex = 2
+      ExplicitLeft = 8
+      ExplicitTop = 20
       object Label5: TLabel
-        Left = 3
-        Top = 216
+        Left = 235
+        Top = 13
         Width = 45
         Height = 13
         Caption = 'usuarioId'
@@ -291,8 +293,8 @@ object frmPessoa: TfrmPessoa
         FocusControl = senha
       end
       object Label8: TLabel
-        Left = 192
-        Top = 216
+        Left = 375
+        Top = 11
         Width = 44
         Height = 13
         Caption = 'pessoaId'
@@ -369,9 +371,51 @@ object frmPessoa: TfrmPessoa
         ShowHint = True
         OnClick = btnDefinirSenhaClick
       end
-      object usuarioId: TDBEdit
+      object Label9: TLabel
         Left = 3
-        Top = 232
+        Top = 104
+        Width = 88
+        Height = 13
+        Caption = 'A'#231#245'es disponiveis:'
+      end
+      object Label12: TLabel
+        Left = 8
+        Top = 272
+        Width = 86
+        Height = 13
+        Caption = 'A'#231#245'es do usu'#225'rio:'
+      end
+      object btnAdicionar: TSpeedButton
+        AlignWithMargins = True
+        Left = 393
+        Top = 262
+        Width = 66
+        Height = 22
+        Cursor = crHandPoint
+        Hint = 'Definir senha de acesso'
+        Caption = 'Adicionar'
+        Flat = True
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = btnAdicionarClick
+      end
+      object btnRemover: TSpeedButton
+        AlignWithMargins = True
+        Left = 465
+        Top = 262
+        Width = 66
+        Height = 22
+        Cursor = crHandPoint
+        Hint = 'Definir senha de acesso'
+        Caption = 'Remover'
+        Flat = True
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = btnRemoverClick
+      end
+      object usuarioId: TDBEdit
+        Left = 235
+        Top = 29
         Width = 134
         Height = 21
         DataField = 'usuarioId'
@@ -391,8 +435,8 @@ object frmPessoa: TfrmPessoa
         TabOrder = 1
       end
       object pessoaId: TDBEdit
-        Left = 192
-        Top = 232
+        Left = 375
+        Top = 29
         Width = 134
         Height = 21
         DataField = 'pessoaId'
@@ -424,6 +468,69 @@ object frmPessoa: TfrmPessoa
         PasswordChar = '*'
         ReadOnly = True
         TabOrder = 4
+      end
+      object dbgAcoesDisp: TDBGrid
+        Left = 3
+        Top = 119
+        Width = 529
+        Height = 137
+        DataSource = dsAcoes
+        DrawingStyle = gdsGradient
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        ReadOnly = True
+        TabOrder = 5
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        OnDrawColumnCell = dbgAcoesDispDrawColumnCell
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'acaoId'
+            Title.Caption = 'C'#243'digo'
+            Width = 40
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'descricao'
+            Title.Caption = 'A'#231#227'o'
+            Width = 450
+            Visible = True
+          end>
+      end
+      object dbgAcoesLib: TDBGrid
+        Left = 3
+        Top = 290
+        Width = 529
+        Height = 137
+        DataSource = dsUsuarioAcao
+        DrawingStyle = gdsGradient
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        ReadOnly = True
+        TabOrder = 6
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        OnDrawColumnCell = dbgAcoesLibDrawColumnCell
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'acaoid'
+            Title.Caption = 'C'#243'digo'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'descricao'
+            Title.Caption = 'A'#231#227'o'
+            Width = 427
+            Visible = True
+          end>
       end
     end
     object tsFornecedor: TTabSheet
@@ -2156,6 +2263,7 @@ object frmPessoa: TfrmPessoa
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 2
+    ExplicitTop = 3
     object btnNovo: TBitBtn
       AlignWithMargins = True
       Left = 8
@@ -2409,8 +2517,8 @@ object frmPessoa: TfrmPessoa
     DataSet = cdsPessoa
     OnStateChange = dsPessoaStateChange
     OnDataChange = dsPessoaDataChange
-    Left = 384
-    Top = 272
+    Left = 376
+    Top = 336
   end
   object cdsPessoa: TClientDataSet
     Aggregates = <>
@@ -2419,8 +2527,8 @@ object frmPessoa: TfrmPessoa
     AfterOpen = cdsPessoaAfterOpen
     AfterInsert = cdsPessoaAfterInsert
     OnReconcileError = cdsPessoaReconcileError
-    Left = 384
-    Top = 320
+    Left = 376
+    Top = 384
     object cdsPessoapessoaId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'pessoaId'
@@ -2469,8 +2577,8 @@ object frmPessoa: TfrmPessoa
     DataSet = dm.sqlPessoa
     Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
-    Left = 384
-    Top = 368
+    Left = 376
+    Top = 432
   end
   object Timer: TTimer
     Interval = 50
@@ -2481,8 +2589,8 @@ object frmPessoa: TfrmPessoa
   object dsPessoaUsuario: TDataSource
     DataSet = cdsPessoaUsuario
     OnStateChange = dsPessoaUsuarioStateChange
-    Left = 264
-    Top = 272
+    Left = 256
+    Top = 336
   end
   object cdsPessoaUsuario: TClientDataSet
     Aggregates = <>
@@ -2491,10 +2599,11 @@ object frmPessoa: TfrmPessoa
     MasterSource = dsPessoa
     Params = <>
     ProviderName = 'dspPessoaUsuario'
+    AfterOpen = cdsPessoaUsuarioAfterOpen
     AfterInsert = cdsPessoaUsuarioAfterInsert
     OnReconcileError = cdsPessoaUsuarioReconcileError
-    Left = 264
-    Top = 320
+    Left = 256
+    Top = 384
     object cdsPessoaUsuariousuarioId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'usuarioId'
@@ -2522,14 +2631,14 @@ object frmPessoa: TfrmPessoa
   end
   object dspPessoaUsuario: TDataSetProvider
     DataSet = dm.sqlUsuario
-    Left = 264
-    Top = 368
+    Left = 256
+    Top = 432
   end
   object dsPessoaFornc: TDataSource
     DataSet = cdsPessoaForc
     OnStateChange = dsPessoaForncStateChange
-    Left = 128
-    Top = 272
+    Left = 120
+    Top = 336
   end
   object cdsPessoaForc: TClientDataSet
     Aggregates = <>
@@ -2538,8 +2647,8 @@ object frmPessoa: TfrmPessoa
     MasterSource = dsPessoa
     Params = <>
     ProviderName = 'dpsPessoaForc'
-    Left = 128
-    Top = 320
+    Left = 120
+    Top = 384
     object cdsPessoaForcfornecedorId: TIntegerField
       FieldName = 'fornecedorId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -2561,7 +2670,81 @@ object frmPessoa: TfrmPessoa
   end
   object dpsPessoaForc: TDataSetProvider
     DataSet = dm.sqlFornecedor
-    Left = 128
-    Top = 368
+    Left = 120
+    Top = 432
+  end
+  object dsAcoes: TDataSource
+    DataSet = cdsAcoes
+    Left = 464
+    Top = 336
+  end
+  object cdsAcoes: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dpsAcoes'
+    OnReconcileError = cdsPessoaReconcileError
+    Left = 464
+    Top = 384
+    object cdsAcoesacaoId: TIntegerField
+      FieldName = 'acaoId'
+      Required = True
+    end
+    object cdsAcoesdescricao: TStringField
+      FieldName = 'descricao'
+      Required = True
+      Size = 50
+    end
+  end
+  object dpsAcoes: TDataSetProvider
+    DataSet = dm.sqlAcoes
+    Options = [poReadOnly, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    UpdateMode = upWhereKeyOnly
+    Left = 464
+    Top = 432
+  end
+  object dsUsuarioAcao: TDataSource
+    AutoEdit = False
+    DataSet = cdsUsuarioAcao
+    Left = 544
+    Top = 336
+  end
+  object cdsUsuarioAcao: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'usuarioId'
+    MasterFields = 'usuarioId'
+    MasterSource = dsPessoaUsuario
+    Params = <>
+    ProviderName = 'dpsUsuarioAcao'
+    OnReconcileError = cdsUsuarioAcaoReconcileError
+    Left = 544
+    Top = 384
+    object cdsUsuarioAcaousuarioId: TIntegerField
+      FieldName = 'usuarioId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsUsuarioAcaoacaoid: TIntegerField
+      FieldName = 'acaoid'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsUsuarioAcaodescricao: TStringField
+      FieldKind = fkLookup
+      FieldName = 'descricao'
+      LookupDataSet = dm.sqlvAcoes
+      LookupKeyFields = 'acaoId'
+      LookupResultField = 'descricao'
+      KeyFields = 'acaoid'
+      ProviderFlags = []
+      Size = 255
+      Lookup = True
+    end
+  end
+  object dpsUsuarioAcao: TDataSetProvider
+    DataSet = dm.sqlUsuarioAcao
+    Options = [poReadOnly, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    UpdateMode = upWhereKeyOnly
+    Left = 544
+    Top = 432
   end
 end

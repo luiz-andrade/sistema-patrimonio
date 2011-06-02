@@ -1,6 +1,6 @@
 object dm: Tdm
   OldCreateOrder = False
-  Height = 334
+  Height = 507
   Width = 599
   object SQLConnection: TSQLConnection
     ConnectionName = 'MSSQLConnection'
@@ -102,7 +102,7 @@ object dm: Tdm
     Left = 518
     Top = 75
     Bitmap = {
-      494C01010700BC00BC0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010700C000C00020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1169,7 +1169,7 @@ object dm: Tdm
     Left = 517
     Top = 24
     Bitmap = {
-      494C010104008C008C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104009000900010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1635,7 +1635,7 @@ object dm: Tdm
       'from bemAquisicao')
     SQLConnection = SQLConnection
     Left = 257
-    Top = 210
+    Top = 216
     object sqlBemAquisicaobemId: TIntegerField
       FieldName = 'bemId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -1667,7 +1667,7 @@ object dm: Tdm
       'from fornecedor')
     SQLConnection = SQLConnection
     Left = 104
-    Top = 267
+    Top = 216
     object sqlFornecedorfornecedorId: TIntegerField
       FieldName = 'fornecedorId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -1694,7 +1694,7 @@ object dm: Tdm
       'from usuario')
     SQLConnection = SQLConnection
     Left = 104
-    Top = 211
+    Top = 275
     object sqlUsuariousuarioId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'usuarioId'
@@ -1798,7 +1798,7 @@ object dm: Tdm
       'where vLocalId <> 0')
     SQLConnection = SQLConnection
     Left = 40
-    Top = 212
+    Top = 216
     object StringField1: TStringField
       FieldName = 'titulo'
       Required = True
@@ -1826,7 +1826,7 @@ object dm: Tdm
       'from grupo')
     SQLConnection = SQLConnection
     Left = 175
-    Top = 209
+    Top = 216
     object StringField2: TStringField
       FieldName = 'descricao'
       Required = True
@@ -1852,5 +1852,73 @@ object dm: Tdm
     ProjectFile = 'C:\Projetos\sistema-patrimonio\reports\reportMovimentacao.rav'
     Left = 184
     Top = 88
+  end
+  object sqlUsuarioAcao: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select * '
+      'from usuarioAcao')
+    SQLConnection = SQLConnection
+    Left = 104
+    Top = 336
+    object sqlUsuarioAcaousuarioId: TIntegerField
+      FieldName = 'usuarioId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sqlUsuarioAcaoacaoid: TIntegerField
+      FieldName = 'acaoid'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+  end
+  object sqlAcoes: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from acoes')
+    SQLConnection = SQLConnection
+    Left = 104
+    Top = 400
+    object sqlAcoesacaoId: TIntegerField
+      FieldName = 'acaoId'
+      Required = True
+    end
+    object sqlAcoesdescricao: TStringField
+      FieldName = 'descricao'
+      Required = True
+      Size = 50
+    end
+    object sqlAcoesnomeAcao: TStringField
+      FieldName = 'nomeAcao'
+      Required = True
+      Size = 50
+    end
+  end
+  object sqlvAcoes: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from acoes')
+    SQLConnection = SQLConnection
+    Left = 104
+    Top = 456
+    object IntegerField1: TIntegerField
+      FieldName = 'acaoId'
+      Required = True
+    end
+    object StringField3: TStringField
+      FieldName = 'descricao'
+      Required = True
+      Size = 50
+    end
+    object StringField4: TStringField
+      FieldName = 'nomeAcao'
+      Required = True
+      Size = 50
+    end
   end
 end

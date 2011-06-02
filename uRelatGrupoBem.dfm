@@ -1,9 +1,11 @@
 object frmRelatGrupoBem: TfrmRelatGrupoBem
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'Relat'#243'rio de bens por grupo/SubGrupo'
-  ClientHeight = 429
-  ClientWidth = 651
+  ClientHeight = 502
+  ClientWidth = 704
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,10 +19,11 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   PixelsPerInch = 96
   TextHeight = 13
   object btnFechar: TBitBtn
-    Left = 552
-    Top = 384
-    Width = 75
+    Left = 576
+    Top = 448
+    Width = 91
     Height = 25
+    Cursor = crHandPoint
     Caption = 'Fechar'
     DoubleBuffered = True
     ParentDoubleBuffered = False
@@ -28,10 +31,11 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     OnClick = btnFecharClick
   end
   object btnVisualizar: TBitBtn
-    Left = 448
-    Top = 384
-    Width = 75
+    Left = 472
+    Top = 448
+    Width = 91
     Height = 25
+    Cursor = crHandPoint
     Caption = 'Visualizar'
     DoubleBuffered = True
     ParentDoubleBuffered = False
@@ -39,8 +43,8 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     OnClick = btnVisualizarClick
   end
   object cbGrupo: TCheckBox
-    Left = 52
-    Top = 27
+    Left = 57
+    Top = 45
     Width = 97
     Height = 17
     Caption = 'Grupo:'
@@ -48,9 +52,9 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     OnClick = cbGrupoClick
   end
   object dblGrupo: TDBLookupComboBox
-    Left = 163
-    Top = 25
-    Width = 305
+    Left = 168
+    Top = 43
+    Width = 400
     Height = 21
     KeyField = 'grupoId'
     ListField = 'grupoId;descricao'
@@ -59,8 +63,8 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     TabOrder = 3
   end
   object cbSubGrupo: TCheckBox
-    Left = 52
-    Top = 61
+    Left = 57
+    Top = 79
     Width = 105
     Height = 17
     Caption = 'SubGrupo:'
@@ -68,9 +72,9 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     TabOrder = 4
   end
   object dblSubGrupo: TDBLookupComboBox
-    Left = 163
-    Top = 57
-    Width = 305
+    Left = 168
+    Top = 75
+    Width = 400
     Height = 21
     Enabled = False
     KeyField = 'grupoId'
@@ -80,17 +84,17 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     TabOrder = 5
   end
   object cbGestao: TCheckBox
-    Left = 52
-    Top = 88
+    Left = 57
+    Top = 109
     Width = 105
     Height = 17
     Caption = 'Gest'#227'o:'
     TabOrder = 6
   end
   object dblGestaoId: TDBLookupComboBox
-    Left = 163
-    Top = 84
-    Width = 305
+    Left = 168
+    Top = 105
+    Width = 400
     Height = 21
     KeyField = 'gestaoId'
     ListField = 'gestaoId;gestao'
@@ -99,25 +103,23 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     TabOrder = 7
   end
   object cbFornecedor: TCheckBox
-    Left = 52
-    Top = 115
+    Left = 57
+    Top = 140
     Width = 105
     Height = 17
     Caption = 'Fornecedor:'
     TabOrder = 8
-    Visible = False
   end
   object dblFornecedor: TDBLookupComboBox
-    Left = 163
-    Top = 111
-    Width = 305
+    Left = 168
+    Top = 136
+    Width = 400
     Height = 21
     KeyField = 'fornecedorId'
     ListField = 'fornecedorId;razaoSocial'
     ListFieldIndex = 1
     ListSource = dsFornecedor
     TabOrder = 9
-    Visible = False
   end
   object rvdBensGrupo: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
@@ -322,7 +324,7 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
       'from grupo')
     SQLConnection = dm.SQLConnection
     Left = 55
-    Top = 140
+    Top = 143
     object sqlGrupodescricao: TStringField
       FieldName = 'descricao'
       Required = True

@@ -76,6 +76,9 @@ type
     pbOrgao: TProgressBar;
     pbUnidades: TProgressBar;
     pbBens: TProgressBar;
+    btLimparGrupo: TButton;
+    btnLimparLocais: TButton;
+    btnLimparBens: TButton;
     procedure btnConectarClick(Sender: TObject);
     procedure btnImportarGrupoClick(Sender: TObject);
     procedure btnSelecionarClick(Sender: TObject);
@@ -93,6 +96,9 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure btLimparGrupoClick(Sender: TObject);
+    procedure btnLimparLocaisClick(Sender: TObject);
+    procedure btnLimparBensClick(Sender: TObject);
   private
 		{ Private declarations }
 		procedure insertGrupo(grupoId : String; descricao : String; 
@@ -126,6 +132,24 @@ uses uDm, uGlobais;
 {$R *.dfm}
 
 { TfrmTransferência }
+
+procedure TfrmTransferencia.btLimparGrupoClick(Sender: TObject);
+begin
+	with TSQLQuery.Create(Self) do
+	begin
+		try
+			Close;
+			SQLConnection := dm.SQLConnection;
+			SQL.Add('delete grupo');
+			ExecSQL();
+			Application.MessageBox('Todos o grupos foram apagados com sucesso!', 
+															PChar(Application.Title),
+															MB_ICONASTERISK);
+		finally
+			Free;
+		end;
+	end;
+end;
 
 procedure TfrmTransferencia.btnConectarClick(Sender: TObject);
 begin
@@ -281,6 +305,42 @@ procedure TfrmTransferencia.btnSelecionarClick(Sender: TObject);
 begin
 	OpenDialog.Execute();
 	edtArquivo.Text := OpenDialog.FileName;
+end;
+
+procedure TfrmTransferencia.btnLimparBensClick(Sender: TObject);
+begin
+	with TSQLQuery.Create(Self) do
+	begin
+		try
+			Close;
+			SQLConnection := dm.SQLConnection;
+			CommandText := 'delete bem';
+			ExecSQL();
+			Application.MessageBox('Todos o bens foram apagados com sucesso!', 
+															PChar(Application.Title),
+															MB_ICONASTERISK);
+		finally
+			Free;
+		end;
+	end;
+end;
+
+procedure TfrmTransferencia.btnLimparLocaisClick(Sender: TObject);
+begin
+	with TSQLQuery.Create(Self) do
+	begin
+		try
+			Close;
+			SQLConnection := dm.SQLConnection;
+			CommandText := 'delete local';
+			ExecSQL();
+			Application.MessageBox('Todos o locais foram apagados com sucesso!', 
+															PChar(Application.Title),
+															MB_ICONASTERISK);
+		finally
+			Free;
+		end;
+	end;
 end;
 
 procedure TfrmTransferencia.DBGrid1DrawColumnCell(Sender: TObject;

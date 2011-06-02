@@ -57,6 +57,10 @@ type
     Bensporgrupo2: TMenuItem;
     RelaodeUnidades1: TMenuItem;
     RelaodeUnidades2: TMenuItem;
+    actRelatUnidade: TAction;
+    actRelatGrupo: TAction;
+    actRelatTr: TAction;
+    actImportarDados: TAction;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
@@ -66,10 +70,11 @@ type
     procedure actInfoEmpresaExecute(Sender: TObject);
     procedure actMovimentacaoExecute(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure Importar1Click(Sender: TObject);
-    procedure RTermodeResponsabilidade1Click(Sender: TObject);
-    procedure Bensporgrupo1Click(Sender: TObject);
-    procedure RelaodeUnidades2Click(Sender: TObject);
+    procedure actRelatTrExecute(Sender: TObject);
+    procedure actRelatGrupoExecute(Sender: TObject);
+    procedure actRelatUnidadeExecute(Sender: TObject);
+    procedure actImportarDadosExecute(Sender: TObject);
+    procedure ActionManagerExecute(Action: TBasicAction; var Handled: Boolean);
 	private
 		{ Private declarations }
 		procedure updateInfo;
@@ -100,6 +105,14 @@ begin
 	end;
 end;
 
+procedure TfrmPrincipal.actImportarDadosExecute(Sender: TObject);
+begin
+	with TfrmTransferencia.Create(Application) do
+	begin
+		ShowModal;
+	end;
+end;
+
 procedure TfrmPrincipal.actInfoEmpresaExecute(Sender: TObject);
 begin
 	with TfrmEmpresa.Create(Application, gEmpresaId) do
@@ -110,6 +123,15 @@ begin
 			//Free - Metodo configurado dentro do formulario;
 		end;
   end;
+end;
+
+procedure TfrmPrincipal.ActionManagerExecute(Action: TBasicAction;
+  var Handled: Boolean);
+begin
+	if not verificaUsuarioAcao(gUsuarioId, Action.Name) then
+	begin
+		Application.MessageBox('Acesso restrito!', PChar(Application.Title), MB_ICONASTERISK);
+	end;
 end;
 
 procedure TfrmPrincipal.actLocaisExecute(Sender: TObject);
@@ -156,9 +178,9 @@ begin
   end;
 end;
 
-procedure TfrmPrincipal.actSobreExecute(Sender: TObject);
+procedure TfrmPrincipal.actRelatGrupoExecute(Sender: TObject);
 begin
-	with TfrmSobre.Create(Application) do
+	with TfrmRelatGrupoBem.Create(Application) do
 	begin
 		try
 			ShowModal;
@@ -168,9 +190,30 @@ begin
 	end;
 end;
 
-procedure TfrmPrincipal.Bensporgrupo1Click(Sender: TObject);
+procedure TfrmPrincipal.actRelatTrExecute(Sender: TObject);
 begin
-	with TfrmRelatGrupoBem.Create(Application) do
+	with TfrmRelatTranferenciaBem.Create(Application) do
+	begin
+		try
+			ShowModal;
+		finally
+			Free;
+		end;
+	end;
+end;
+
+procedure TfrmPrincipal.actRelatUnidadeExecute(Sender: TObject);
+begin
+	with dm.rvpTR do
+	begin
+		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+		ExecuteReport('LISTALOCAIS');
+	end;
+end;
+
+procedure TfrmPrincipal.actSobreExecute(Sender: TObject);
+begin
+	with TfrmSobre.Create(Application) do
 	begin
 		try
 			ShowModal;
@@ -208,35 +251,6 @@ begin
 		end;
 	end;
 	updateInfo;
-end;
-
-procedure TfrmPrincipal.Importar1Click(Sender: TObject);
-begin
-	with TfrmTransferencia.Create(Application) do
-	begin
-		ShowModal;
-  end;
-end;
-
-procedure TfrmPrincipal.RelaodeUnidades2Click(Sender: TObject);
-begin
-	with dm.rvpTR do
-	begin
-		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
-		ExecuteReport('LISTALOCAIS');
-	end;
-end;
-
-procedure TfrmPrincipal.RTermodeResponsabilidade1Click(Sender: TObject);
-begin
-	with TfrmRelatTranferenciaBem.Create(Application) do
-	begin
-		try
-			ShowModal;
-		finally
-			Free;
-		end;
-	end;
 end;
 
 end.
