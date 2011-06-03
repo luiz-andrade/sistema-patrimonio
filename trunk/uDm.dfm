@@ -86,7 +86,7 @@ object dm: Tdm
     end
     object sqlLocallocalId: TStringField
       FieldName = 'localId'
-      ProviderFlags = [pfInWhere, pfInKey]
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
@@ -1467,19 +1467,16 @@ object dm: Tdm
     object sqlPessoalogradouro: TStringField
       FieldName = 'logradouro'
       ProviderFlags = [pfInUpdate]
-      Required = True
       Size = 100
     end
     object sqlPessoamunicipio: TStringField
       FieldName = 'municipio'
       ProviderFlags = [pfInUpdate]
-      Required = True
       Size = 10
     end
     object sqlPessoacep: TStringField
       FieldName = 'cep'
       ProviderFlags = [pfInUpdate]
-      Required = True
       Size = 10
     end
     object sqlPessoafornecedor: TBooleanField
@@ -1495,7 +1492,6 @@ object dm: Tdm
     object sqlPessoacnpjCpf: TStringField
       FieldName = 'cnpjCpf'
       ProviderFlags = [pfInUpdate]
-      Required = True
     end
   end
   object sqlGrupo: TSQLQuery
@@ -1520,7 +1516,7 @@ object dm: Tdm
     end
     object sqlGrupogrupoId: TStringField
       FieldName = 'grupoId'
-      ProviderFlags = [pfInWhere, pfInKey]
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
@@ -1838,7 +1834,7 @@ object dm: Tdm
     end
     object sqlSubLocallocalId: TStringField
       FieldName = 'localId'
-      ProviderFlags = [pfInWhere, pfInKey]
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
@@ -1869,7 +1865,7 @@ object dm: Tdm
     end
     object sqlSubGrupogrupoId: TStringField
       FieldName = 'grupoId'
-      ProviderFlags = [pfInWhere, pfInKey]
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
@@ -1966,5 +1962,13 @@ object dm: Tdm
     DataSet = sqlGestao
     Left = 314
     Top = 87
+  end
+  object rvdPessoa: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DisableDataSource = False
+    RestoreDataSet = False
+    DataSet = sqlPessoa
+    Left = 104
+    Top = 28
   end
 end

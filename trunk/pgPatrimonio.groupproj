@@ -1,12 +1,9 @@
 ﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
-			<ProjectGuid>{1163FAEB-1B12-492F-9E50-D47B1522DCDA}</ProjectGuid>
+			<ProjectGuid>{7FFE16D1-690C-4E56-B63C-8E8B5DBB678E}</ProjectGuid>
 		</PropertyGroup>
 		<ItemGroup>
 			<Projects Include="patrimonio.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="Config\Config.dproj">
 				<Dependencies/>
 			</Projects>
 		</ItemGroup>
@@ -26,23 +23,14 @@
 		<Target Name="patrimonio:Make">
 			<MSBuild Projects="patrimonio.dproj" Targets="Make"/>
 		</Target>
-		<Target Name="Config">
-			<MSBuild Projects="Config\Config.dproj"/>
-		</Target>
-		<Target Name="Config:Clean">
-			<MSBuild Projects="Config\Config.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="Config:Make">
-			<MSBuild Projects="Config\Config.dproj" Targets="Make"/>
-		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="patrimonio;Config"/>
+			<CallTarget Targets="patrimonio"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="patrimonio:Clean;Config:Clean"/>
+			<CallTarget Targets="patrimonio:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="patrimonio:Make;Config:Make"/>
+			<CallTarget Targets="patrimonio:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>

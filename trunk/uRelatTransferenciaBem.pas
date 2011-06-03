@@ -67,7 +67,6 @@ type
     cdsEmpresachave: TMemoField;
     cdsEmpresapessoaId: TIntegerField;
     cdsEmpresalogotipo: TBlobField;
-    rvdPessoa: TRvDataSetConnection;
     rvdEmpresa: TRvDataSetConnection;
     procedure btnVisualizarClick(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);

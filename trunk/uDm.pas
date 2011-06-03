@@ -111,6 +111,7 @@ type
     rvdLocal: TRvDataSetConnection;
     rvdSubLocal: TRvDataSetConnection;
     rvdGestao: TRvDataSetConnection;
+    rvdPessoa: TRvDataSetConnection;
     procedure SQLConnectionBeforeConnect(Sender: TObject);
   private
     { Private declarations }
