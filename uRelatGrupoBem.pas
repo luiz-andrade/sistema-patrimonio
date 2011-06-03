@@ -100,7 +100,7 @@ begin
 			if cbFornecedor.Checked then
 			begin
 				CommandText := Concat('select * from bem ',
-															'inner join bemAquisicao.bemid = bem.bemId ',
+															'inner join bemAquisicao on bemAquisicao.bemid = bem.bemId ',
 															'where bemAquisicao.fornecedorId = :fornecedorId ');
 				Params.ParamByName('fornecedorId').Value := dblFornecedor.KeyValue;
 			end
@@ -145,11 +145,11 @@ begin
 			else
 			begin
 				Close;
-				CommandText := 'select * from grupo where vGrupoId = :vGrupoId';
-				Params.ParamByName('vGrupoId').Value := dblGrupo.KeyValue;
+				CommandText := 'select * from grupo';
+				//Params.ParamByName('vGrupoId').Value := dblGrupo.KeyValue;
 			end;
 		end;
-		//ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
 		ExecuteReport('BENSGRUPOS');
 	end;
 end;

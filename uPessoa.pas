@@ -91,13 +91,13 @@ type
     dsUsuarioAcao: TDataSource;
     cdsUsuarioAcao: TClientDataSet;
     dpsUsuarioAcao: TDataSetProvider;
-    cdsUsuarioAcaousuarioId: TIntegerField;
-    cdsUsuarioAcaoacaoid: TIntegerField;
     dbgAcoesLib: TDBGrid;
     Label12: TLabel;
-    cdsUsuarioAcaodescricao: TStringField;
     btnAdicionar: TSpeedButton;
     btnRemover: TSpeedButton;
+    cdsUsuarioAcaoacaoId: TIntegerField;
+    cdsUsuarioAcaodescricao: TStringField;
+    cdsUsuarioAcaousuarioId: TIntegerField;
 		procedure FormPaint(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnFecharClick(Sender: TObject);
@@ -142,9 +142,14 @@ type
     procedure dsAcoesStateChange(Sender: TObject);
     procedure dsUsuarioAcaoStateChange(Sender: TObject);
     procedure dsPessoaUsuarioDataChange(Sender: TObject; Field: TField);
+    procedure cdsPessoaAfterEdit(DataSet: TDataSet);
+    procedure dspPessoaAfterUpdateRecord(Sender: TObject; SourceDS: TDataSet;
+      DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
+    procedure cdsPessoaForcAfterInsert(DataSet: TDataSet);
   private
 		{ Private declarations }
 		_empresaId : Integer;
+    _pessoaId : Integer;
 		Water : TWaterEffect;
 		bmp : TBitmap;
 		xImage : Integer;
@@ -249,6 +254,7 @@ begin
 			ApplyUpdates(-1);
 			Close;
 			Open;
+      Locate('pessoaId', _pessoaId, [loCaseInsensitive])
 		end;
 	end;
 	with cdsPessoaUsuario do
@@ -298,12 +304,23 @@ begin
 	end;
 end;
 
+procedure TfrmPessoa.cdsPessoaAfterEdit(DataSet: TDataSet);
+begin
+  _pessoaId := cdsPessoapessoaId.Value;
+end;
+
 procedure TfrmPessoa.cdsPessoaAfterInsert(DataSet: TDataSet);
 begin 
 	// Configura valores inicais para novos registros.
 	cdsPessoausuario_.Value   := False;
 	cdsPessoafornecedor.Value := False;
 	cdsPessoatipo.Value       := 1;
+end;
+
+procedure TfrmPessoa.cdsPessoaForcAfterInsert(DataSet: TDataSet);
+begin
+  cdsPessoaForcrazaoSocial.Value := cdsPessoanome.Value;
+  cdsPessoaForccnpj.Value        := cdsPessoacnpjCpf.Value;
 end;
 
 procedure TfrmPessoa.cdsPessoaReconcileError(DataSet: TCustomClientDataSet;
@@ -348,10 +365,12 @@ begin
 	begin
 		Open;
 	end;
+  {
 	with cdsUsuarioAcao do
 	begin
 		Open;
 	end;
+  }
 end;
 
 
@@ -490,6 +509,22 @@ begin
 			Open;
 		end;
 	end;
+	if not(cdsPessoaUsuario.IsEmpty) then
+	begin
+		with cdsUsuarioAcao do
+		begin
+			Close;
+			CommandText := Concat('SELECT usuarioAcao.acaoId, ',
+                                    'acoes.descricao, ',
+                                    'usuarioAcao.usuarioId ',
+                            'FROM usuarioAcao ',
+                                  'inner join acoes on acoes.acaoId = usuarioAcao.acaoId ',
+                            'WHERE usuarioAcao.usuarioId = :usuarioId');
+
+			Params.ParamByName('usuarioid').Value := cdsPessoaUsuariousuarioId.Value;
+			Open;
+		end;
+	end;
 end;
 
 procedure TfrmPessoa.dsPessoaUsuarioStateChange(Sender: TObject);
@@ -511,6 +546,13 @@ begin
 	end;
 end;
 
+procedure TfrmPessoa.dspPessoaAfterUpdateRecord(Sender: TObject;
+  SourceDS: TDataSet; DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
+begin
+	if cdsPessoapessoaId.IsNull then
+  _pessoaId := getLastId;
+end;
+
 procedure TfrmPessoa.dsUsuarioAcaoStateChange(Sender: TObject);
 begin
   btnRemover.Visible  := not(cdsUsuarioAcao.IsEmpty);
@@ -523,18 +565,6 @@ end;
 
 procedure TfrmPessoa.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-	with cdsPessoa do
-	begin
-		if State in [dsInsert, dsEdit] then
-			Cancel;
-		Close;
-	end;
-	with cdsPessoaUsuario do
-	begin
-		if State in [dsInsert, dsEdit] then
-			Cancel;
-		Close;
-	end;
 	with cdsPessoaForc do
 	begin
 		if State in [dsInsert, dsEdit] then
@@ -543,6 +573,18 @@ begin
 	end;
 	with cdsAcoes do
 	begin
+		Close;
+	end;
+	with cdsPessoaUsuario do
+	begin
+		if State in [dsInsert, dsEdit] then
+			Cancel;
+		Close;
+	end;
+	with cdsPessoa do
+	begin
+		if State in [dsInsert, dsEdit] then
+			Cancel;
 		Close;
 	end;
 end;

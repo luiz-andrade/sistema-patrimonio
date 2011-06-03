@@ -11,7 +11,7 @@ object dm: Tdm
     Params.Strings = (
       'SchemaOverride=sa.dbo'
       'DriverName=MSSQL'
-      'HostName=127.0.0.1'
+      'HostName=127.0.0.1\SQLEXPRESS'
       'DataBase=patrimonio'
       'User_Name=sa'
       'Password=098063'
@@ -25,7 +25,6 @@ object dm: Tdm
       'Mars_Connection=False')
     VendorLib = 'sqlncli10.dll'
     BeforeConnect = SQLConnectionBeforeConnect
-    Connected = True
     Left = 40
     Top = 32
   end
@@ -102,7 +101,7 @@ object dm: Tdm
     Left = 518
     Top = 75
     Bitmap = {
-      494C01010700C800C80020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900C80020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1169,7 +1168,7 @@ object dm: Tdm
     Left = 517
     Top = 24
     Bitmap = {
-      494C010104009800980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104000600980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1510,11 +1509,13 @@ object dm: Tdm
     Top = 156
     object sqlGrupodescricao: TStringField
       FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object sqlGrupoempresaId: TIntegerField
       FieldName = 'empresaId'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object sqlGrupogrupoId: TStringField
@@ -1526,6 +1527,7 @@ object dm: Tdm
     object sqlGrupovGrupoId: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'vGrupoId'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
   end
@@ -1694,18 +1696,18 @@ object dm: Tdm
     end
     object sqlFornecedorrazaoSocial: TStringField
       FieldName = 'razaoSocial'
-      ProviderFlags = []
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object sqlFornecedorcnpj: TStringField
       FieldName = 'cnpj'
-      ProviderFlags = []
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object sqlFornecedorpessoaId: TIntegerField
       FieldName = 'pessoaId'
-      ProviderFlags = []
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
   end
@@ -1725,25 +1727,25 @@ object dm: Tdm
     end
     object sqlUsuariologin: TStringField
       FieldName = 'login'
-      ProviderFlags = []
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
     object sqlUsuariosenha: TMemoField
       FieldName = 'senha'
-      ProviderFlags = []
+      ProviderFlags = [pfInUpdate]
       Required = True
       BlobType = ftMemo
       Size = 1
     end
     object sqlUsuariopessoaId: TIntegerField
       FieldName = 'pessoaId'
-      ProviderFlags = []
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object sqlUsuariodesativado: TBooleanField
       FieldName = 'desativado'
-      ProviderFlags = []
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
   end
@@ -1856,21 +1858,24 @@ object dm: Tdm
     Top = 216
     object StringField2: TStringField
       FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object IntegerField5: TIntegerField
       FieldName = 'empresaId'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object sqlSubGrupogrupoId: TStringField
       FieldName = 'grupoId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
     object sqlSubGrupovGrupoId: TStringField
       FieldName = 'vGrupoId'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
@@ -1889,16 +1894,6 @@ object dm: Tdm
     SQLConnection = SQLConnection
     Left = 104
     Top = 336
-    object sqlUsuarioAcaousuarioId: TIntegerField
-      FieldName = 'usuarioId'
-      ProviderFlags = [pfInWhere, pfInKey]
-      Required = True
-    end
-    object sqlUsuarioAcaoacaoid: TIntegerField
-      FieldName = 'acaoid'
-      ProviderFlags = [pfInWhere, pfInKey]
-      Required = True
-    end
   end
   object sqlAcoes: TSQLQuery
     MaxBlobSize = -1

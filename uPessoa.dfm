@@ -33,7 +33,7 @@ object frmPessoa: TfrmPessoa
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsUsuario
+    ActivePage = tsPesquisa
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -518,7 +518,7 @@ object frmPessoa: TfrmPessoa
         Columns = <
           item
             Expanded = False
-            FieldName = 'acaoid'
+            FieldName = 'acaoId'
             Title.Caption = 'C'#243'digo'
             Visible = True
           end
@@ -566,6 +566,8 @@ object frmPessoa: TfrmPessoa
         Height = 21
         DataField = 'cnpj'
         DataSource = dsPessoaFornc
+        Enabled = False
+        ParentColor = True
         TabOrder = 1
       end
     end
@@ -2522,6 +2524,7 @@ object frmPessoa: TfrmPessoa
     Params = <>
     ProviderName = 'dspPessoa'
     AfterInsert = cdsPessoaAfterInsert
+    AfterEdit = cdsPessoaAfterEdit
     OnReconcileError = cdsPessoaReconcileError
     Left = 376
     Top = 384
@@ -2573,6 +2576,7 @@ object frmPessoa: TfrmPessoa
     DataSet = dm.sqlPessoa
     Options = [poAutoRefresh, poRetainServerOrder, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
+    AfterUpdateRecord = dspPessoaAfterUpdateRecord
     Left = 376
     Top = 432
   end
@@ -2643,6 +2647,7 @@ object frmPessoa: TfrmPessoa
     MasterSource = dsPessoa
     Params = <>
     ProviderName = 'dpsPessoaForc'
+    AfterInsert = cdsPessoaForcAfterInsert
     Left = 120
     Top = 384
     object cdsPessoaForcfornecedorId: TIntegerField
@@ -2708,31 +2713,27 @@ object frmPessoa: TfrmPessoa
   end
   object cdsUsuarioAcao: TClientDataSet
     Aggregates = <>
+    CommandText = 
+      'select usuarioAcao.acaoId, acoes.descricao, usuarioAcao.usuarioI' +
+      'd from usuarioAcao  inner join acoes on acoes.acaoId = usuarioAc' +
+      'ao.acaoId '
     Params = <>
     ProviderName = 'dpsUsuarioAcao'
     OnReconcileError = cdsUsuarioAcaoReconcileError
     Left = 544
     Top = 384
-    object cdsUsuarioAcaousuarioId: TIntegerField
-      FieldName = 'usuarioId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsUsuarioAcaoacaoid: TIntegerField
-      FieldName = 'acaoid'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    object cdsUsuarioAcaoacaoId: TIntegerField
+      FieldName = 'acaoId'
       Required = True
     end
     object cdsUsuarioAcaodescricao: TStringField
-      FieldKind = fkLookup
       FieldName = 'descricao'
-      LookupDataSet = dm.sqlvAcoes
-      LookupKeyFields = 'acaoId'
-      LookupResultField = 'descricao'
-      KeyFields = 'acaoid'
-      ProviderFlags = []
-      Size = 255
-      Lookup = True
+      Required = True
+      Size = 50
+    end
+    object cdsUsuarioAcaousuarioId: TIntegerField
+      FieldName = 'usuarioId'
+      Required = True
     end
   end
   object dpsUsuarioAcao: TDataSetProvider
