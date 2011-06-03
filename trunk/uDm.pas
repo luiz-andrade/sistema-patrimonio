@@ -100,8 +100,6 @@ type
     sqlGestaogestao: TStringField;
     rvpTR: TRvProject;
     sqlUsuarioAcao: TSQLQuery;
-    sqlUsuarioAcaousuarioId: TIntegerField;
-    sqlUsuarioAcaoacaoid: TIntegerField;
     sqlAcoes: TSQLQuery;
     sqlAcoesacaoId: TIntegerField;
     sqlAcoesdescricao: TStringField;

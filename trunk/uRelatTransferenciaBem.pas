@@ -138,7 +138,7 @@ begin
 		SetParam('municipioReceptor', edtMunicipio.Text);
 		SetParam('data', FormatDateTime('dd/MM/yyyy', edtData.Date));
 		SetParam('numeroTr',edtNTranferencia.Text);
-		//ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
 		ExecuteReport('TR');
 	end;
 end;

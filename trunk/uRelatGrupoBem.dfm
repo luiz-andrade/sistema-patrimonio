@@ -229,14 +229,15 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   end
   object dspGrupo: TDataSetProvider
     DataSet = dm.sqlGrupo
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 152
     Top = 240
   end
   object dspAuxGrupo: TDataSetProvider
     DataSet = dm.sqlSubGrupo
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    ResolveToDataSet = True
+    Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 152
     Top = 296
@@ -276,6 +277,7 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   end
   object dspGestao: TDataSetProvider
     DataSet = dm.sqlGestao
+    ResolveToDataSet = True
     Options = [poReadOnly, poUseQuoteChar]
     Left = 481
     Top = 238
@@ -383,6 +385,7 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   end
   object dspFornecedor: TDataSetProvider
     DataSet = dm.sqlFornecedor
+    ResolveToDataSet = True
     Options = [poReadOnly, poUseQuoteChar]
     Left = 240
     Top = 360
