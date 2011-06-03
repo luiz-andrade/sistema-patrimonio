@@ -20,7 +20,7 @@ object frmTransferencia: TfrmTransferencia
     Top = 39
     Width = 773
     Height = 475
-    ActivePage = tsGrupos
+    ActivePage = tsOrgao
     Align = alClient
     TabOrder = 0
     object tsGrupos: TTabSheet
@@ -186,7 +186,7 @@ object frmTransferencia: TfrmTransferencia
           Height = 25
           Cursor = crHandPoint
           Anchors = []
-          Caption = 'Apagar grupos e subgrupos'
+          Caption = 'Apagar Orgaos e unidades'
           TabOrder = 2
           OnClick = btnLimparLocaisClick
         end

@@ -151,7 +151,7 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
   end
   object sqlBens: TSQLDataSet
     SchemaName = 'sa'
-    CommandText = 'select *'#13#10'from bem'
+    CommandText = 'select * from bem'
     DbxCommandType = 'Dbx.SQL'
     MaxBlobSize = -1
     Params = <>
@@ -363,7 +363,6 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     Top = 312
   end
   object cdsEmpresa: TClientDataSet
-    Active = True
     Aggregates = <>
     CommandText = 
       'select empresa.*, pessoa.nome from empresa left join pessoa on p' +
@@ -399,14 +398,6 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
       FieldName = 'logotipo'
       Size = 1
     end
-  end
-  object rvdPessoa: TRvDataSetConnection
-    RuntimeVisibility = rtDeveloper
-    DisableDataSource = False
-    RestoreDataSet = False
-    DataSet = dm.sqlPessoa
-    Left = 424
-    Top = 252
   end
   object rvdEmpresa: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper

@@ -33,7 +33,7 @@ object frmPessoa: TfrmPessoa
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsPesquisa
+    ActivePage = tsInformacao
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -167,9 +167,9 @@ object frmPessoa: TfrmPessoa
       object Label13: TLabel
         Left = 285
         Top = 60
-        Width = 52
+        Width = 99
         Height = 13
-        Caption = 'CPF/CNPJ:'
+        Caption = 'CPF/CNPJ/Matricula:'
         FocusControl = cnpjCpf
       end
       object nome: TDBEdit
@@ -2543,17 +2543,14 @@ object frmPessoa: TfrmPessoa
     end
     object cdsPessoalogradouro: TStringField
       FieldName = 'logradouro'
-      Required = True
       Size = 100
     end
     object cdsPessoamunicipio: TStringField
       FieldName = 'municipio'
-      Required = True
       Size = 10
     end
     object cdsPessoacep: TStringField
       FieldName = 'cep'
-      Required = True
       EditMask = '00000\-9999;0; '
       Size = 10
     end
@@ -2569,7 +2566,6 @@ object frmPessoa: TfrmPessoa
     end
     object cdsPessoacnpjCpf: TStringField
       FieldName = 'cnpjCpf'
-      Required = True
     end
   end
   object dspPessoa: TDataSetProvider
