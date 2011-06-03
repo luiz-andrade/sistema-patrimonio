@@ -32,7 +32,7 @@ object frmBem: TfrmBem
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsInformacao
+    ActivePage = tsPesquisa
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -55,7 +55,7 @@ object frmBem: TfrmBem
           AlignWithMargins = True
           Left = 55
           Top = 12
-          Width = 320
+          Width = 239
           Height = 21
           Margins.Left = 50
           Margins.Top = 7
@@ -63,11 +63,11 @@ object frmBem: TfrmBem
           Align = alClient
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
-          OnChange = txtPesquisaChange
+          ExplicitWidth = 320
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
-          Left = 382
+          Left = 301
           Top = 12
           Width = 145
           Height = 21
@@ -80,6 +80,21 @@ object frmBem: TfrmBem
           Items.Strings = (
             'Identifica'#231#227'o/Tombamento'
             'Descri'#231#227'o')
+          ExplicitLeft = 382
+        end
+        object Button1: TButton
+          AlignWithMargins = True
+          Left = 452
+          Top = 8
+          Width = 75
+          Height = 25
+          Align = alRight
+          Caption = 'Pesquisar'
+          TabOrder = 2
+          OnClick = Button1Click
+          ExplicitLeft = 464
+          ExplicitTop = 3
+          ExplicitHeight = 31
         end
       end
       object DBGrid1: TDBGrid
@@ -2534,7 +2549,7 @@ object frmBem: TfrmBem
   end
   object dspBem: TDataSetProvider
     DataSet = dm.sqlBem
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
+    Options = [poAutoRefresh, poAllowCommandText, poRetainServerOrder, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     AfterUpdateRecord = dspBemAfterUpdateRecord
     Left = 24
@@ -2654,32 +2669,36 @@ object frmBem: TfrmBem
     Top = 248
     object cdsAquisicaobemId: TIntegerField
       FieldName = 'bemId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
       Required = True
     end
     object cdsAquisicaodata: TSQLTimeStampField
       FieldName = 'data'
+      ProviderFlags = []
       Required = True
       EditMask = '!99/99/9999;1; '
     end
     object cdsAquisicaodataNota: TSQLTimeStampField
       FieldName = 'dataNota'
+      ProviderFlags = []
       Required = True
       EditMask = '!99/99/9999;1; '
     end
     object cdsAquisicaofornecedorId: TIntegerField
       FieldName = 'fornecedorId'
+      ProviderFlags = []
       Required = True
     end
     object cdsAquisicaonumeroNota: TStringField
       FieldName = 'numeroNota'
+      ProviderFlags = []
       Required = True
       Size = 100
     end
   end
   object dspAquisicao: TDataSetProvider
     DataSet = dm.sqlBemAquisicao
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
+    Options = [poAutoRefresh, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 24
     Top = 304

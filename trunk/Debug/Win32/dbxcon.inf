@@ -1,7 +1,7 @@
 SchemaOverride=sa.dbo
 DriverName=MSSQL
-HostName=127.0.0.1\SQLEXPRESS
-DataBase=teste
+HostName=127.0.0.1
+DataBase=patrimonio
 User_Name=sa
 Password=098063
 BlobSize=-1

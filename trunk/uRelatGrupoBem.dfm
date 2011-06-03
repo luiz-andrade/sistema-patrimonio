@@ -243,6 +243,7 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   end
   object cdsGrupo: TClientDataSet
     Aggregates = <>
+    CommandText = 'select * from grupo where vGrupoId = 0'
     Params = <>
     ProviderName = 'dspGrupo'
     Left = 240
@@ -291,14 +292,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     DataSet = cdsGestao
     Left = 321
     Top = 238
-  end
-  object rvdGestao: TRvDataSetConnection
-    RuntimeVisibility = rtDeveloper
-    DisableDataSource = False
-    RestoreDataSet = False
-    DataSet = cdsGestao
-    Left = 320
-    Top = 192
   end
   object rvdGrupos: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper

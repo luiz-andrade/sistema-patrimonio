@@ -362,7 +362,7 @@ begin
 					ParamByName('usuarioId').Value := usuarioId;
 					ParamByName('nomeAcao').Value    := acao;
 				end;
-        Open;
+				Open;
 				Result := not IsEmpty;
 			except
 				raise;

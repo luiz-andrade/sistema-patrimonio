@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, Classes, DB, SqlExpr, DBXMSSQL, FMTBcd, Provider, DBClient, ImgList,
-	Controls, Forms, Windows, RpDefine, RpRave;
+	Controls, Forms, Windows, RpDefine, RpRave, RpCon, RpConDS;
 
 type
   Tdm = class(TDataModule)
@@ -110,6 +110,9 @@ type
     IntegerField1: TIntegerField;
     StringField3: TStringField;
     StringField4: TStringField;
+    rvdLocal: TRvDataSetConnection;
+    rvdSubLocal: TRvDataSetConnection;
+    rvdGestao: TRvDataSetConnection;
     procedure SQLConnectionBeforeConnect(Sender: TObject);
   private
     { Private declarations }

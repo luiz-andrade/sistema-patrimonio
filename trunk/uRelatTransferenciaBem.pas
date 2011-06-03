@@ -12,11 +12,10 @@ type
     btnVisualizar: TBitBtn;
     btnFechar: TBitBtn;
     sqlLocal: TSQLDataSet;
-    rvdLocal: TRvDataSetConnection;
     sqlBens: TSQLDataSet;
-    rvdBens: TRvDataSetConnection;
+    rvdTrBens: TRvDataSetConnection;
     sqlSubLocal: TSQLDataSet;
-    rvdSubLocal: TRvDataSetConnection;
+    rvdTrSubLocal: TRvDataSetConnection;
     sqlSubLocallocalId: TStringField;
     sqlSubLocaltitulo: TStringField;
     sqlSubLocalvLocalId: TStringField;
@@ -34,7 +33,6 @@ type
     sqlBenssubLocalId: TStringField;
     sqlBenstipoAquisicao: TIntegerField;
     sqlBensquantidade: TFloatField;
-    rvdEmpresa: TRvDataSetConnection;
     cbOrgao: TCheckBox;
     cbUnidade: TCheckBox;
     dbLocal: TDBLookupComboBox;
@@ -70,6 +68,7 @@ type
     cdsEmpresapessoaId: TIntegerField;
     cdsEmpresalogotipo: TBlobField;
     rvdPessoa: TRvDataSetConnection;
+    rvdEmpresa: TRvDataSetConnection;
     procedure btnVisualizarClick(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -139,7 +138,7 @@ begin
 		SetParam('municipioReceptor', edtMunicipio.Text);
 		SetParam('data', FormatDateTime('dd/MM/yyyy', edtData.Date));
 		SetParam('numeroTr',edtNTranferencia.Text);
-		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+		//ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
 		ExecuteReport('TR');
 	end;
 end;

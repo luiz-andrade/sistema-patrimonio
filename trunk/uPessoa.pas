@@ -123,7 +123,6 @@ type
     procedure pcGeralChange(Sender: TObject);
     procedure dsPessoaUsuarioStateChange(Sender: TObject);
     procedure btnDefinirSenhaClick(Sender: TObject);
-    procedure cdsPessoaAfterOpen(DataSet: TDataSet);
     procedure cdsPessoaUsuarioAfterInsert(DataSet: TDataSet);
     procedure cdsPessoaUsuarioReconcileError(DataSet: TCustomClientDataSet;
       E: EReconcileError; UpdateKind: TUpdateKind;
@@ -136,13 +135,13 @@ type
     procedure dbgAcoesLibDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure btnAdicionarClick(Sender: TObject);
-    procedure cdsPessoaUsuarioAfterOpen(DataSet: TDataSet);
     procedure btnRemoverClick(Sender: TObject);
     procedure cdsUsuarioAcaoReconcileError(DataSet: TCustomClientDataSet;
 			E: EReconcileError; UpdateKind: TUpdateKind;
       var Action: TReconcileAction);
     procedure dsAcoesStateChange(Sender: TObject);
     procedure dsUsuarioAcaoStateChange(Sender: TObject);
+    procedure dsPessoaUsuarioDataChange(Sender: TObject; Field: TField);
   private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -272,17 +271,6 @@ begin
 			Open;
 		end;
 	end;
-	with cdsUsuarioAcao do
-	begin
-		if State in [dsInsert, dsEdit] then
-		begin
-			Post;
-			ApplyUpdates(-1);
-			Close;
-			Open;
-		end;
-	end;
-
 end;
 
 procedure TfrmPessoa.btnNovoClick(Sender: TObject);
@@ -318,19 +306,6 @@ begin
 	cdsPessoatipo.Value       := 1;
 end;
 
-procedure TfrmPessoa.cdsPessoaAfterOpen(DataSet: TDataSet);
-begin
-	with cdsPessoaUsuario do
-	begin
-		Open;
-	end;
-	with cdsPessoaForc do
-	begin
-		Open;
-	end;
-
-end;
-
 procedure TfrmPessoa.cdsPessoaReconcileError(DataSet: TCustomClientDataSet;
 	E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
 begin
@@ -341,23 +316,6 @@ end;
 procedure TfrmPessoa.cdsPessoaUsuarioAfterInsert(DataSet: TDataSet);
 begin
 	cdsPessoaUsuariodesativado.Value := True;
-end;
-
-procedure TfrmPessoa.cdsPessoaUsuarioAfterOpen(DataSet: TDataSet);
-begin
-	if not(cdsPessoaUsuario.IsEmpty) then
-	begin
-		with cdsAcoes do
-		begin
-			CommandText := 'select * from acoes where acaoId not in (select acaoId from usuarioAcao where usuarioId = :usuarioid)';
-			Params.ParamByName('usuarioid').Value := cdsPessoaUsuariousuarioId.Value;
-			Open;
-		end;
-	end;
-	with cdsUsuarioAcao do
-	begin
-		Open;
-	end;
 end;
 
 procedure TfrmPessoa.cdsPessoaUsuarioReconcileError(
@@ -382,6 +340,18 @@ begin
 	_empresaId := empresaId;
 	// Abre tabelas.
 	dsPessoa.DataSet.Open;
+	with cdsPessoaUsuario do
+	begin
+		Open;
+	end;
+	with cdsPessoaForc do
+	begin
+		Open;
+	end;
+	with cdsUsuarioAcao do
+	begin
+		Open;
+	end;
 end;
 
 
@@ -508,6 +478,20 @@ begin
 	end;
 end;
 
+procedure TfrmPessoa.dsPessoaUsuarioDataChange(Sender: TObject; Field: TField);
+begin
+	if not(cdsPessoaUsuario.IsEmpty) then
+	begin
+		with cdsAcoes do
+		begin
+			Close;
+			CommandText := 'select * from acoes where acaoId not in (select acaoId from usuarioAcao where usuarioId = :usuarioid)';
+			Params.ParamByName('usuarioid').Value := cdsPessoaUsuariousuarioId.Value;
+			Open;
+		end;
+	end;
+end;
+
 procedure TfrmPessoa.dsPessoaUsuarioStateChange(Sender: TObject);
 begin
 	with cdsPessoaUsuario do
@@ -516,10 +500,10 @@ begin
 		btnGravar.Enabled   := (State in [dsInsert, dsEdit]);
 		btnCancelar.Enabled := (State in [dsInsert, dsEdit]);
 		btnApagar.Enabled   := not(State in [dsInsert, dsEdit]);
-		dbgAcoesDisp.Visible:= not(State in [dsEdit]) and not(IsEmpty);
-		dbgAcoesLib.Visible := not(State in [dsEdit]) and not(IsEmpty);
-    btnAdicionar.Visible:= not(State in [dsEdit]) and not(IsEmpty);
-    btnRemover.Visible  := not(State in [dsEdit]) and not(IsEmpty);
+		dbgAcoesDisp.Visible:= not(State in [dsEdit]) or (IsEmpty);
+		dbgAcoesLib.Visible := not(State in [dsEdit]) or (IsEmpty);
+		btnAdicionar.Visible:= not(State in [dsEdit]) or (IsEmpty);
+		btnRemover.Visible  := not(State in [dsEdit]) or (IsEmpty);
 		if State in [dsInsert] then
 		begin
 			Caption := 'Novo registro';

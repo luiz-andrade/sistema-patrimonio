@@ -120,6 +120,7 @@ type
     Label7: TLabel;
     editGestao: TDBEdit;
     dblGestao: TDBLookupComboBox;
+    Button1: TButton;
     procedure btnNovoClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -154,7 +155,7 @@ type
     procedure dspBemAfterUpdateRecord(Sender: TObject; SourceDS: TDataSet;
       DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
     procedure cdsBemAfterEdit(DataSet: TDataSet);
-    procedure txtPesquisaChange(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -254,6 +255,26 @@ begin
 		Append;
 		tsInformacao.Show;
 		idenficacao.SetFocus;
+	end;
+end;
+
+procedure TfrmBem.Button1Click(Sender: TObject);
+begin
+	with cdsBem do
+	begin
+		if not(IsEmpty) then
+		begin
+			case cbPesquisar.ItemIndex of
+				0 : Locate('idenficacao', txtPesquisa.Text, [loPartialKey]);
+				1 : begin
+							Close;
+							CommandText := 'select * from bem where descricao like :descricao';
+							Params.ParamByName('descricao').Value := Concat('%', txtPesquisa.Text, '%');
+							//Locate('descricao', txtPesquisa.Text, [loPartialKey]);
+							Open;
+						end;
+			end;
+		end;
 	end;
 end;
 
@@ -499,20 +520,6 @@ begin
 		Water.Blob(-1,-1, Random(1) + 1, Random(500) + 50);
 	Water.Render(bmp, imgLateral.Picture.Bitmap);
 	VerticalText(imgLateral,'Registro de bens',Application.Title,Self.Height - 50,30);
-end;
-
-procedure TfrmBem.txtPesquisaChange(Sender: TObject);
-begin
-	with cdsBem do
-	begin
-		if not(IsEmpty) then
-		begin
-			case cbPesquisar.ItemIndex of
-				0 : Locate('idenficacao', txtPesquisa.Text, [loPartialKey]);
-				1 : Locate('descricao', txtPesquisa.Text, [loPartialKey]);
-			end;
-		end;
-	end;
 end;
 
 end.
