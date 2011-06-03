@@ -26,7 +26,7 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     Caption = 'Data:'
   end
   object btnVisualizar: TBitBtn
-    Left = 472
+    Left = 474
     Top = 448
     Width = 91
     Height = 25
@@ -149,14 +149,6 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     Left = 616
     Top = 312
   end
-  object rvdLocal: TRvDataSetConnection
-    RuntimeVisibility = rtDeveloper
-    DisableDataSource = False
-    RestoreDataSet = False
-    DataSet = sqlLocal
-    Left = 56
-    Top = 248
-  end
   object sqlBens: TSQLDataSet
     SchemaName = 'sa'
     CommandText = 'select *'#13#10'from bem'
@@ -225,7 +217,7 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
       Required = True
     end
   end
-  object rvdBens: TRvDataSetConnection
+  object rvdTrBens: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
     DisableDataSource = False
     RestoreDataSet = False
@@ -268,20 +260,12 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
       Size = 100
     end
   end
-  object rvdSubLocal: TRvDataSetConnection
+  object rvdTrSubLocal: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
     DisableDataSource = False
     RestoreDataSet = False
     DataSet = sqlSubLocal
     Left = 144
-    Top = 248
-  end
-  object rvdEmpresa: TRvDataSetConnection
-    RuntimeVisibility = rtDeveloper
-    DisableDataSource = False
-    RestoreDataSet = False
-    DataSet = cdsEmpresa
-    Left = 243
     Top = 248
   end
   object dpsLocalAux: TDataSetProvider
@@ -423,5 +407,13 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     DataSet = dm.sqlPessoa
     Left = 424
     Top = 252
+  end
+  object rvdEmpresa: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DisableDataSource = False
+    RestoreDataSet = False
+    DataSet = cdsEmpresa
+    Left = 243
+    Top = 248
   end
 end

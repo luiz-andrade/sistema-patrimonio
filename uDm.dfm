@@ -87,7 +87,7 @@ object dm: Tdm
     end
     object sqlLocallocalId: TStringField
       FieldName = 'localId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
@@ -102,7 +102,7 @@ object dm: Tdm
     Left = 518
     Top = 75
     Bitmap = {
-      494C01010700C000C00020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010700C800C80020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1169,7 +1169,7 @@ object dm: Tdm
     Left = 517
     Top = 24
     Bitmap = {
-      494C010104009000900010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104009800980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1452,42 +1452,50 @@ object dm: Tdm
     object sqlPessoapessoaId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'pessoaId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
     end
     object sqlPessoanome: TStringField
       FieldName = 'nome'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object sqlPessoatipo: TSmallintField
       FieldName = 'tipo'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object sqlPessoalogradouro: TStringField
       FieldName = 'logradouro'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object sqlPessoamunicipio: TStringField
       FieldName = 'municipio'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
     object sqlPessoacep: TStringField
       FieldName = 'cep'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
     object sqlPessoafornecedor: TBooleanField
       FieldName = 'fornecedor'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object sqlPessoausuario: TBooleanField
       FieldName = 'usuario'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object sqlPessoacnpjCpf: TStringField
       FieldName = 'cnpjCpf'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
   end
@@ -1511,7 +1519,7 @@ object dm: Tdm
     end
     object sqlGrupogrupoId: TStringField
       FieldName = 'grupoId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
@@ -1537,55 +1545,67 @@ object dm: Tdm
     end
     object sqlBemidenficacao: TStringField
       FieldName = 'idenficacao'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 50
     end
     object sqlBemdescricao: TStringField
       FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 255
     end
     object sqlBemestadoId: TIntegerField
       FieldName = 'estadoId'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object sqlBemgestaoId: TIntegerField
       FieldName = 'gestaoId'
+      ProviderFlags = [pfInUpdate]
     end
     object sqlBemvalor: TFMTBCDField
       FieldName = 'valor'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Precision = 19
       Size = 4
     end
     object sqlBemtipoIdentificacao: TIntegerField
       FieldName = 'tipoIdentificacao'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object sqlBemgrupoId: TStringField
       FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
     object sqlBemlocalId: TStringField
       FieldName = 'localId'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
     object sqlBemsubgrupoId: TStringField
       FieldName = 'subgrupoId'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
     object sqlBemsubLocalId: TStringField
       FieldName = 'subLocalId'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
     object sqlBemtipoAquisicao: TIntegerField
       FieldName = 'tipoAquisicao'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object sqlBemquantidade: TFloatField
       FieldName = 'quantidade'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
   end
@@ -1670,19 +1690,22 @@ object dm: Tdm
     Top = 216
     object sqlFornecedorfornecedorId: TIntegerField
       FieldName = 'fornecedorId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
     end
     object sqlFornecedorrazaoSocial: TStringField
       FieldName = 'razaoSocial'
+      ProviderFlags = []
       Required = True
       Size = 100
     end
     object sqlFornecedorcnpj: TStringField
       FieldName = 'cnpj'
+      ProviderFlags = []
       Required = True
     end
     object sqlFornecedorpessoaId: TIntegerField
       FieldName = 'pessoaId'
+      ProviderFlags = []
       Required = True
     end
   end
@@ -1698,25 +1721,29 @@ object dm: Tdm
     object sqlUsuariousuarioId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'usuarioId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
     end
     object sqlUsuariologin: TStringField
       FieldName = 'login'
+      ProviderFlags = []
       Required = True
       Size = 10
     end
     object sqlUsuariosenha: TMemoField
       FieldName = 'senha'
+      ProviderFlags = []
       Required = True
       BlobType = ftMemo
       Size = 1
     end
     object sqlUsuariopessoaId: TIntegerField
       FieldName = 'pessoaId'
+      ProviderFlags = []
       Required = True
     end
     object sqlUsuariodesativado: TBooleanField
       FieldName = 'desativado'
+      ProviderFlags = []
       Required = True
     end
   end
@@ -1809,7 +1836,7 @@ object dm: Tdm
     end
     object sqlSubLocallocalId: TStringField
       FieldName = 'localId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
@@ -1864,12 +1891,12 @@ object dm: Tdm
     Top = 336
     object sqlUsuarioAcaousuarioId: TIntegerField
       FieldName = 'usuarioId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
       Required = True
     end
     object sqlUsuarioAcaoacaoid: TIntegerField
       FieldName = 'acaoid'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
       Required = True
     end
   end
@@ -1920,5 +1947,29 @@ object dm: Tdm
       Required = True
       Size = 50
     end
+  end
+  object rvdLocal: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DisableDataSource = False
+    RestoreDataSet = False
+    DataSet = sqlLocal
+    Left = 40
+    Top = 88
+  end
+  object rvdSubLocal: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DisableDataSource = False
+    RestoreDataSet = False
+    DataSet = sqlSubLocal
+    Left = 40
+    Top = 272
+  end
+  object rvdGestao: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DisableDataSource = False
+    RestoreDataSet = False
+    DataSet = sqlGestao
+    Left = 314
+    Top = 87
   end
 end

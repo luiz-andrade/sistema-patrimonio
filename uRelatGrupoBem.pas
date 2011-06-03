@@ -48,7 +48,6 @@ type
     dsGestao: TDataSource;
     cbGestao: TCheckBox;
     dblGestaoId: TDBLookupComboBox;
-    rvdGestao: TRvDataSetConnection;
     rvdGrupos: TRvDataSetConnection;
     rvdSubGrupos: TRvDataSetConnection;
     sqlGrupo: TSQLQuery;

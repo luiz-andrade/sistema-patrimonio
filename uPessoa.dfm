@@ -2521,7 +2521,6 @@ object frmPessoa: TfrmPessoa
     Aggregates = <>
     Params = <>
     ProviderName = 'dspPessoa'
-    AfterOpen = cdsPessoaAfterOpen
     AfterInsert = cdsPessoaAfterInsert
     OnReconcileError = cdsPessoaReconcileError
     Left = 376
@@ -2572,7 +2571,7 @@ object frmPessoa: TfrmPessoa
   end
   object dspPessoa: TDataSetProvider
     DataSet = dm.sqlPessoa
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poUseQuoteChar]
+    Options = [poAutoRefresh, poRetainServerOrder, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 376
     Top = 432
@@ -2586,6 +2585,7 @@ object frmPessoa: TfrmPessoa
   object dsPessoaUsuario: TDataSource
     DataSet = cdsPessoaUsuario
     OnStateChange = dsPessoaUsuarioStateChange
+    OnDataChange = dsPessoaUsuarioDataChange
     Left = 256
     Top = 336
   end
@@ -2596,7 +2596,6 @@ object frmPessoa: TfrmPessoa
     MasterSource = dsPessoa
     Params = <>
     ProviderName = 'dspPessoaUsuario'
-    AfterOpen = cdsPessoaUsuarioAfterOpen
     AfterInsert = cdsPessoaUsuarioAfterInsert
     OnReconcileError = cdsPessoaUsuarioReconcileError
     Left = 256
@@ -2709,9 +2708,6 @@ object frmPessoa: TfrmPessoa
   end
   object cdsUsuarioAcao: TClientDataSet
     Aggregates = <>
-    IndexFieldNames = 'usuarioId'
-    MasterFields = 'usuarioId'
-    MasterSource = dsPessoaUsuario
     Params = <>
     ProviderName = 'dpsUsuarioAcao'
     OnReconcileError = cdsUsuarioAcaoReconcileError
@@ -2741,7 +2737,7 @@ object frmPessoa: TfrmPessoa
   end
   object dpsUsuarioAcao: TDataSetProvider
     DataSet = dm.sqlUsuarioAcao
-    Options = [poReadOnly, poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    Options = [poAutoRefresh, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 544
     Top = 432

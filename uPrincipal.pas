@@ -268,7 +268,7 @@ begin
 	begin
 		for Index := 0 to ActionCount -1 do
 		begin
-			TAction(Actions[Index]).Enabled := (_auth and verificaUsuarioAcao(gUsuarioId, TAction(Actions[Index]).Name));
+			//TAction(Actions[Index]).Enabled := (_auth and verificaUsuarioAcao(gUsuarioId, TAction(Actions[Index]).Name));
 		end;
 	end;
 	updateInfo;
