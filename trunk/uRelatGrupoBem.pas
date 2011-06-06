@@ -63,13 +63,39 @@ type
     cbFornecedor: TCheckBox;
     dblFornecedor: TDBLookupComboBox;
     dsFornecedor: TDataSource;
-    cdsFornecedor: TClientDataSet;
-    dspFornecedor: TDataSetProvider;
+    dsLocal: TDataSource;
+    cdsLocal: TClientDataSet;
+    cdsLocaltitulo: TStringField;
+    cdsLocalpessoaId: TIntegerField;
+    cdsLocallocalId: TStringField;
+    cdsLocalvLocalId: TStringField;
+    dspLocal: TDataSetProvider;
+    dsAuxLocal: TDataSource;
+    cdsAuxLocal: TClientDataSet;
+    StringField1: TStringField;
+    IntegerField3: TIntegerField;
+    cdsAuxLocallocalId: TStringField;
+    cdsAuxLocalvLocalId: TStringField;
+    dpsLocalAux: TDataSetProvider;
+    dblLocal: TDBLookupComboBox;
+    dblsubLocalId: TDBLookupComboBox;
+    cbLocal: TCheckBox;
+    cbSubLocal: TCheckBox;
+    cbDescricao: TCheckBox;
+    edtDescricao: TEdit;
+    cdsPessoaForc: TClientDataSet;
+    cdsPessoaForcfornecedorId: TIntegerField;
+    cdsPessoaForcrazaoSocial: TStringField;
+    cdsPessoaForccnpj: TStringField;
+    cdsPessoaForcpessoaId: TIntegerField;
+    dpsPessoaForc: TDataSetProvider;
     procedure btnFecharClick(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure cbGrupoClick(Sender: TObject);
+    procedure cbLocalClick(Sender: TObject);
+    procedure cbDescricaoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -102,21 +128,51 @@ begin
 				CommandText := Concat('select * from bem ',
 															'inner join bemAquisicao on bemAquisicao.bemid = bem.bemId ',
 															'where bemAquisicao.fornecedorId = :fornecedorId ');
-				Params.ParamByName('fornecedorId').Value := dblFornecedor.KeyValue;
 			end
 			else
 			begin
-				CommandText := 'select * from bem where 1=1 ';
+				CommandText := 'select * from bem where 1=1  ';
 			end;
 			if cbGestao.Checked then
 			begin
-				CommandText := Concat(CommandText, 'and gestaoId = :gestaoId ');
-				Params.ParamByName('gestaoId').Value := dblGestaoId.KeyValue;
+				CommandText := Concat(CommandText, ' and gestaoId = :gestaoId');
 			end;
-			if cbFornecedor.Checked then
+			if cbLocal.Checked then
 			begin
-				
+				CommandText := Concat(CommandText, ' and localId = :localId');
 			end;
+			if cbSubLocal.Checked then
+			begin
+				CommandText := Concat(CommandText, ' and subLocalId = :subLocalId');
+			end;
+      if cbDescricao.Checked then
+      begin
+        CommandText := Concat(CommandText, ' and descricao like :descricao');
+      end;
+      // Parametros
+      with Params do
+      begin
+        if cbGestao.Checked then
+        begin
+          ParamByName('gestaoId').Value := dblGestaoId.KeyValue;
+        end;
+        if cbLocal.Checked then
+        begin
+          ParamByName('localId').Value := dblLocal.KeyValue;
+        end;
+        if cbSubLocal.Checked then
+        begin
+          ParamByName('subLocalId').Value := dblsubLocalId.KeyValue;
+        end;
+        if cbFornecedor.Checked then
+        begin
+          ParamByName('fornecedorId').Value := dblFornecedor.KeyValue;
+        end;
+        if cbDescricao.Checked then
+        begin
+          ParamByName('descricao').Value := Concat('%', edtDescricao.Text, '%');
+        end;
+      end;
 		end;
 		// Modifica conteudo da consulta de grupos.
 		with sqlGrupo do
@@ -154,10 +210,21 @@ begin
 	end;
 end;
 
+procedure TfrmRelatGrupoBem.cbDescricaoClick(Sender: TObject);
+begin
+  edtDescricao.Enabled := not(edtDescricao.Enabled);
+end;
+
 procedure TfrmRelatGrupoBem.cbGrupoClick(Sender: TObject);
 begin
 	cbSubGrupo.Enabled  := not (cbSubGrupo.Enabled);
 	dblSubGrupo.Enabled :=not(dblSubGrupo.Enabled);
+end;
+
+procedure TfrmRelatGrupoBem.cbLocalClick(Sender: TObject);
+begin
+  dblsubLocalId.Enabled := not(dblsubLocalId.Enabled);
+  cbSubLocal.Enabled    := not(cbSubLocal.Enabled);
 end;
 
 procedure TfrmRelatGrupoBem.FormCloseQuery(Sender: TObject;
@@ -167,14 +234,18 @@ begin
 	dsAuxGrupos.DataSet.Close;
 	dsGestao.DataSet.Close;
 	dsFornecedor.DataSet.Close;
+  dsLocal.DataSet.Close;
+  dsAuxLocal.DataSet.Close;
 end;
 
 procedure TfrmRelatGrupoBem.FormCreate(Sender: TObject);
 begin
+	dsFornecedor.DataSet.Open;
 	dsGrupos.DataSet.Open;
 	dsAuxGrupos.DataSet.Open;
 	dsGestao.DataSet.Open;
-	dsFornecedor.DataSet.Open;
+  dsLocal.DataSet.Open;
+  dsAuxLocal.DataSet.Open;
 end;
 
 end.

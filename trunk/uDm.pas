@@ -65,8 +65,6 @@ type
     sqlTranferenciacedenteId: TIntegerField;
     sqlTranferenciausuarioId: TIntegerField;
     sqlTranferenciaconcluida: TBooleanField;
-    sqlTransferenciaBemtransferenciaId: TIntegerField;
-    sqlTransferenciaBembemId: TIntegerField;
     sqlTranferenciatipo: TSmallintField;
     sqlTranferenciadata: TSQLTimeStampField;
     sqlPessoacnpjCpf: TStringField;
@@ -112,6 +110,11 @@ type
     rvdSubLocal: TRvDataSetConnection;
     rvdGestao: TRvDataSetConnection;
     rvdPessoa: TRvDataSetConnection;
+    sqlTranferenciaorigemSubLocal: TStringField;
+    sqlTranferenciadestinoSubLocal: TStringField;
+    sqlTransferenciaBemtransferenciaId: TIntegerField;
+    sqlTransferenciaBembemId: TIntegerField;
+    sqlTransferenciaBembemEstadoId: TIntegerField;
     procedure SQLConnectionBeforeConnect(Sender: TObject);
   private
     { Private declarations }

@@ -10,6 +10,7 @@ procedure VerticalText(Form : TForm; Texto1, Texto2 : String; Top : Integer; Fon
 procedure VerticalText(img : TImage; Texto1, Texto2 : String; Top : Integer; FontSize : Integer);overload;
 function GetBemById(bemId : Integer) : TDataSet;overload;
 function GetBemById(bemId : Integer; locaId : String) : TDataSet;overload;
+function GetBemByIdentif(identificacao : String; locaId : String) : TDataSet;overload;
 function Autenticacao : Boolean;
 function alteraSenhaUsuario(login, oldPws : String; nUser : Boolean) : WideString;
 function GetLocalVersion: String;
@@ -254,6 +255,28 @@ begin
 	end;
 end;
 
+function GetBemByIdentif(identificacao : String; locaId : String) : TDataSet;overload;
+var
+	qryBem : TSQLQuery;
+begin
+	qryBem := TSQLQuery.Create(nil);
+	with qryBem do
+	begin
+		try
+			Close;
+			SQLConnection := dm.SQLConnection;
+			SQL.Clear;
+			SQL.Add('select * from bem where idenficacao = :idenficacao and SublocalId = :localId');
+			Params.ParamByName('idenficacao').Value   := identificacao;
+			Params.ParamByName('localId').Value := locaId;
+			Open;
+			Result := qryBem;
+		except
+			raise;
+		end;
+	end;
+end;
+
 function GetBemById(bemId : Integer; locaId : String) : TDataSet;
 var
 	qryBem : TSQLQuery;
@@ -265,7 +288,7 @@ begin
 			Close;
 			SQLConnection := dm.SQLConnection;
 			SQL.Clear;
-			SQL.Add('select * from bem where bemId = :bemId and localId = :localId');
+			SQL.Add('select * from bem where bemId = :bemId and SublocalId = :localId');
 			Params.ParamByName('bemId').Value   := bemId;
 			Params.ParamByName('localId').Value := locaId;
 			Open;
