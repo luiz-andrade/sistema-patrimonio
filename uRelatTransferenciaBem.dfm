@@ -270,7 +270,8 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
   end
   object dpsLocalAux: TDataSetProvider
     DataSet = dm.sqlSubLocal
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    ResolveToDataSet = True
+    Options = [poReadOnly, poAllowCommandText]
     UpdateMode = upWhereKeyOnly
     Left = 144
     Top = 432
@@ -282,6 +283,7 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
   end
   object cdsAuxLocal: TClientDataSet
     Aggregates = <>
+    CommandText = 'select * from local order by localid'
     IndexFieldNames = 'vLocalId'
     MasterFields = 'localId'
     MasterSource = dsLocal
@@ -289,32 +291,11 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     ProviderName = 'dpsLocalAux'
     Left = 144
     Top = 376
-    object StringField1: TStringField
-      FieldName = 'titulo'
-      Required = True
-      Size = 100
-    end
-    object IntegerField3: TIntegerField
-      FieldName = 'pessoaId'
-      LookupKeyFields = 'pessoaId'
-      LookupResultField = 'nome'
-      KeyFields = 'pessoaId'
-    end
-    object cdsAuxLocallocalId: TStringField
-      FieldName = 'localId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object cdsAuxLocalvLocalId: TStringField
-      FieldName = 'vLocalId'
-      Required = True
-      Size = 10
-    end
   end
   object dspLocal: TDataSetProvider
     DataSet = dm.sqlLocal
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    ResolveToDataSet = True
+    Options = [poReadOnly, poAllowCommandText]
     UpdateMode = upWhereKeyOnly
     Left = 56
     Top = 432
@@ -326,24 +307,6 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     ProviderName = 'dspLocal'
     Left = 56
     Top = 376
-    object cdsLocaltitulo: TStringField
-      FieldName = 'titulo'
-      Required = True
-      Size = 100
-    end
-    object cdsLocalpessoaId: TIntegerField
-      FieldName = 'pessoaId'
-    end
-    object cdsLocallocalId: TStringField
-      FieldName = 'localId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object cdsLocalvLocalId: TStringField
-      FieldName = 'vLocalId'
-      Size = 10
-    end
   end
   object dsLocal: TDataSource
     DataSet = cdsLocal
@@ -352,7 +315,8 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
   end
   object dpsEmpresa: TDataSetProvider
     DataSet = dm.sqlEmpresa
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    ResolveToDataSet = True
+    Options = [poReadOnly, poAllowCommandText]
     UpdateMode = upWhereKeyOnly
     Left = 240
     Top = 432
@@ -371,33 +335,6 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     ProviderName = 'dpsEmpresa'
     Left = 240
     Top = 376
-    object cdsEmpresaempresaId: TIntegerField
-      FieldName = 'empresaId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object cdsEmpresarazaoSocial: TStringField
-      FieldName = 'razaoSocial'
-      Required = True
-      Size = 100
-    end
-    object cdsEmpresanomeFantasia: TStringField
-      FieldName = 'nomeFantasia'
-      Required = True
-      Size = 100
-    end
-    object cdsEmpresachave: TMemoField
-      FieldName = 'chave'
-      Required = True
-      BlobType = ftMemo
-      Size = 1
-    end
-    object cdsEmpresapessoaId: TIntegerField
-      FieldName = 'pessoaId'
-    end
-    object cdsEmpresalogotipo: TBlobField
-      FieldName = 'logotipo'
-      Size = 1
-    end
   end
   object rvdEmpresa: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper

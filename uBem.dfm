@@ -32,7 +32,7 @@ object frmBem: TfrmBem
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsPesquisa
+    ActivePage = tsInformacao
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -63,7 +63,6 @@ object frmBem: TfrmBem
           Align = alClient
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
-          ExplicitWidth = 320
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
@@ -80,7 +79,6 @@ object frmBem: TfrmBem
           Items.Strings = (
             'Identifica'#231#227'o/Tombamento'
             'Descri'#231#227'o')
-          ExplicitLeft = 382
         end
         object Button1: TButton
           AlignWithMargins = True
@@ -92,9 +90,6 @@ object frmBem: TfrmBem
           Caption = 'Pesquisar'
           TabOrder = 2
           OnClick = Button1Click
-          ExplicitLeft = 464
-          ExplicitTop = 3
-          ExplicitHeight = 31
         end
       end
       object DBGrid1: TDBGrid

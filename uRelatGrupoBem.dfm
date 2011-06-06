@@ -121,13 +121,72 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     ListSource = dsFornecedor
     TabOrder = 9
   end
+  object dblLocal: TDBLookupComboBox
+    Left = 168
+    Top = 165
+    Width = 400
+    Height = 21
+    KeyField = 'localId'
+    ListField = 'localId;titulo'
+    ListFieldIndex = 1
+    ListSource = dsLocal
+    TabOrder = 10
+  end
+  object dblsubLocalId: TDBLookupComboBox
+    Left = 168
+    Top = 194
+    Width = 400
+    Height = 21
+    Enabled = False
+    KeyField = 'localId'
+    ListField = 'localId;titulo'
+    ListFieldIndex = 1
+    ListSource = dsAuxLocal
+    NullValueKey = 46
+    TabOrder = 11
+  end
+  object cbLocal: TCheckBox
+    Left = 57
+    Top = 166
+    Width = 105
+    Height = 17
+    Caption = 'Org'#227'o/Empresa:'
+    TabOrder = 12
+    OnClick = cbLocalClick
+  end
+  object cbSubLocal: TCheckBox
+    Left = 57
+    Top = 196
+    Width = 105
+    Height = 17
+    Caption = 'Unidade:'
+    Enabled = False
+    TabOrder = 13
+  end
+  object cbDescricao: TCheckBox
+    Left = 57
+    Top = 223
+    Width = 105
+    Height = 17
+    Caption = 'Descri'#231#227'o:'
+    TabOrder = 14
+    OnClick = cbDescricaoClick
+  end
+  object edtDescricao: TEdit
+    Left = 168
+    Top = 221
+    Width = 400
+    Height = 21
+    Enabled = False
+    TabOrder = 15
+  end
   object rvdBensGrupo: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
     DisableDataSource = False
     RestoreDataSet = False
     DataSet = sqlBens
-    Left = 152
-    Top = 192
+    Left = 96
+    Top = 288
   end
   object sqlBens: TSQLDataSet
     SchemaName = 'sa'
@@ -136,8 +195,8 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dm.SQLConnection
-    Left = 239
-    Top = 192
+    Left = 175
+    Top = 288
     object sqlBensbemId: TIntegerField
       FieldName = 'bemId'
       Required = True
@@ -204,8 +263,8 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     MasterSource = dsGrupos
     Params = <>
     ProviderName = 'dspAuxGrupo'
-    Left = 56
-    Top = 296
+    Left = 24
+    Top = 393
     object cdsAuxGrupogrupoId: TStringField
       FieldName = 'grupoId'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -231,24 +290,23 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     DataSet = dm.sqlGrupo
     Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
-    Left = 152
-    Top = 240
+    Left = 96
+    Top = 339
   end
   object dspAuxGrupo: TDataSetProvider
     DataSet = dm.sqlSubGrupo
-    ResolveToDataSet = True
     Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
-    Left = 152
-    Top = 296
+    Left = 96
+    Top = 393
   end
   object cdsGrupo: TClientDataSet
     Aggregates = <>
     CommandText = 'select * from grupo where vGrupoId = 0'
     Params = <>
     ProviderName = 'dspGrupo'
-    Left = 240
-    Top = 296
+    Left = 176
+    Top = 393
     object cdsGrupodescricao: TStringField
       FieldName = 'descricao'
       Required = True
@@ -267,49 +325,48 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   end
   object dsGrupos: TDataSource
     DataSet = cdsGrupo
-    Left = 240
-    Top = 236
+    Left = 176
+    Top = 339
   end
   object dsAuxGrupos: TDataSource
     DataSet = cdsAuxGrupo
-    Left = 56
-    Top = 240
+    Left = 24
+    Top = 339
   end
   object dspGestao: TDataSetProvider
     DataSet = dm.sqlGestao
     ResolveToDataSet = True
-    Options = [poReadOnly, poUseQuoteChar]
-    Left = 481
-    Top = 238
+    Left = 425
+    Top = 302
   end
   object cdsGestao: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspGestao'
-    Left = 401
-    Top = 238
+    Left = 345
+    Top = 302
   end
   object dsGestao: TDataSource
     AutoEdit = False
     DataSet = cdsGestao
-    Left = 321
-    Top = 238
+    Left = 265
+    Top = 302
   end
   object rvdGrupos: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
     DisableDataSource = False
     RestoreDataSet = False
     DataSet = sqlGrupo
-    Left = 400
-    Top = 192
+    Left = 344
+    Top = 256
   end
   object rvdSubGrupos: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
     DisableDataSource = False
     RestoreDataSet = False
     DataSet = sqlSubGrupo
-    Left = 480
-    Top = 192
+    Left = 424
+    Top = 256
   end
   object sqlGrupo: TSQLQuery
     MaxBlobSize = -1
@@ -318,8 +375,8 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
       'select *'
       'from grupo')
     SQLConnection = dm.SQLConnection
-    Left = 55
-    Top = 143
+    Left = 23
+    Top = 239
     object sqlGrupodescricao: TStringField
       FieldName = 'descricao'
       Required = True
@@ -348,8 +405,8 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
       'select *'
       'from grupo')
     SQLConnection = dm.SQLConnection
-    Left = 55
-    Top = 193
+    Left = 23
+    Top = 289
     object StringField2: TStringField
       FieldName = 'descricao'
       Required = True
@@ -372,22 +429,121 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     end
   end
   object dsFornecedor: TDataSource
-    DataSet = cdsFornecedor
-    Left = 56
-    Top = 360
+    DataSet = cdsPessoaForc
+    Left = 24
+    Top = 453
   end
-  object cdsFornecedor: TClientDataSet
+  object dsLocal: TDataSource
+    DataSet = cdsLocal
+    Left = 648
+    Top = 264
+  end
+  object cdsLocal: TClientDataSet
+    Aggregates = <>
+    CommandText = 'select * from local where vLocalId = 0'
+    Params = <>
+    ProviderName = 'dspLocal'
+    Left = 648
+    Top = 320
+    object cdsLocaltitulo: TStringField
+      FieldName = 'titulo'
+      Required = True
+      Size = 100
+    end
+    object cdsLocalpessoaId: TIntegerField
+      FieldName = 'pessoaId'
+    end
+    object cdsLocallocalId: TStringField
+      FieldName = 'localId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
+    end
+    object cdsLocalvLocalId: TStringField
+      FieldName = 'vLocalId'
+      Size = 10
+    end
+  end
+  object dspLocal: TDataSetProvider
+    DataSet = dm.sqlLocal
+    Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
+    UpdateMode = upWhereKeyOnly
+    Left = 648
+    Top = 376
+  end
+  object dsAuxLocal: TDataSource
+    DataSet = cdsAuxLocal
+    Left = 560
+    Top = 264
+  end
+  object cdsAuxLocal: TClientDataSet
+    Aggregates = <>
+    CommandText = 'select * from local'
+    IndexFieldNames = 'vLocalId'
+    MasterFields = 'localId'
+    MasterSource = dsLocal
+    Params = <>
+    ProviderName = 'dpsLocalAux'
+    Left = 560
+    Top = 320
+    object StringField1: TStringField
+      FieldName = 'titulo'
+      Required = True
+      Size = 100
+    end
+    object IntegerField3: TIntegerField
+      FieldName = 'pessoaId'
+      LookupKeyFields = 'pessoaId'
+      LookupResultField = 'nome'
+      KeyFields = 'pessoaId'
+    end
+    object cdsAuxLocallocalId: TStringField
+      FieldName = 'localId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 10
+    end
+    object cdsAuxLocalvLocalId: TStringField
+      FieldName = 'vLocalId'
+      Required = True
+      Size = 10
+    end
+  end
+  object dpsLocalAux: TDataSetProvider
+    DataSet = dm.sqlSubLocal
+    Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
+    UpdateMode = upWhereKeyOnly
+    Left = 560
+    Top = 376
+  end
+  object cdsPessoaForc: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'dspFornecedor'
-    Left = 152
-    Top = 360
+    ProviderName = 'dpsPessoaForc'
+    Left = 176
+    Top = 453
+    object cdsPessoaForcfornecedorId: TIntegerField
+      FieldName = 'fornecedorId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object cdsPessoaForcrazaoSocial: TStringField
+      FieldName = 'razaoSocial'
+      Required = True
+      Size = 100
+    end
+    object cdsPessoaForccnpj: TStringField
+      FieldName = 'cnpj'
+      Required = True
+      EditMask = '00\.000\.000\/0000\-00;0; '
+    end
+    object cdsPessoaForcpessoaId: TIntegerField
+      FieldName = 'pessoaId'
+      Required = True
+    end
   end
-  object dspFornecedor: TDataSetProvider
+  object dpsPessoaForc: TDataSetProvider
     DataSet = dm.sqlFornecedor
-    ResolveToDataSet = True
-    Options = [poReadOnly, poUseQuoteChar]
-    Left = 240
-    Top = 360
+    Left = 96
+    Top = 453
   end
 end
