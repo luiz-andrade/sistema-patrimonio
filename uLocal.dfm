@@ -32,7 +32,7 @@ object frmLocal: TfrmLocal
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsInformacao
+    ActivePage = tsPesquisa
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -222,12 +222,12 @@ object frmLocal: TfrmLocal
           end>
       end
       object DBNavigator1: TDBNavigator
-        Left = 429
+        Left = 409
         Top = 94
-        Width = 60
+        Width = 80
         Height = 25
         DataSource = dsAuxLocal
-        VisibleButtons = [nbDelete, nbPost, nbRefresh]
+        VisibleButtons = [nbInsert, nbDelete, nbPost, nbRefresh]
         Flat = True
         TabOrder = 3
       end
@@ -2192,7 +2192,9 @@ object frmLocal: TfrmLocal
     Top = 302
   end
   object cdsAuxLocal: TClientDataSet
+    Active = True
     Aggregates = <>
+    CommandText = 'select * from local where vLocalId <> 0'
     IndexFieldNames = 'vLocalId'
     MasterFields = 'localId'
     MasterSource = dsLocal
@@ -2205,6 +2207,7 @@ object frmLocal: TfrmLocal
     Top = 176
     object StringField1: TStringField
       FieldName = 'titulo'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
@@ -2214,6 +2217,7 @@ object frmLocal: TfrmLocal
       LookupKeyFields = 'pessoaId'
       LookupResultField = 'nome'
       KeyFields = 'pessoaId'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsAuxLocalpessoaNome: TStringField
       FieldKind = fkLookup
@@ -2233,11 +2237,13 @@ object frmLocal: TfrmLocal
     end
     object cdsAuxLocalvLocalId: TStringField
       FieldName = 'vLocalId'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
   end
   object cdsPessoa: TClientDataSet
+    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspPessoa'
@@ -2246,9 +2252,11 @@ object frmLocal: TfrmLocal
     Top = 352
     object cdsPessoapessoaId: TIntegerField
       FieldName = 'pessoaId'
+      ProviderFlags = [pfInWhere, pfInKey]
     end
     object cdsPessoanome: TStringField
       FieldName = 'nome'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
@@ -2259,7 +2267,9 @@ object frmLocal: TfrmLocal
     Top = 408
   end
   object cdsLocal: TClientDataSet
+    Active = True
     Aggregates = <>
+    CommandText = 'select * from local where vLocalId = 0'
     Params = <>
     ProviderName = 'dspLocal'
     AfterEdit = cdsLocalAfterEdit
@@ -2268,11 +2278,13 @@ object frmLocal: TfrmLocal
     Top = 72
     object cdsLocaltitulo: TStringField
       FieldName = 'titulo'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object cdsLocalpessoaId: TIntegerField
       FieldName = 'pessoaId'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsLocallocalId: TStringField
       FieldName = 'localId'
@@ -2282,6 +2294,7 @@ object frmLocal: TfrmLocal
     end
     object cdsLocalvLocalId: TStringField
       FieldName = 'vLocalId'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
   end

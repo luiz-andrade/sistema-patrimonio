@@ -300,6 +300,12 @@ end;
 procedure TfrmLocal.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
 	// Fecha tabelas
+  with 	dsAuxLocal.DataSet do
+  begin
+		if State in [dsInsert, dsEdit] then
+			Cancel;
+    Close;
+  end;
 	with dsLocal.DataSet do
 	begin
 		if State in [dsInsert, dsEdit] then
@@ -307,7 +313,6 @@ begin
 		Close;
 	end;
 	dsPessoa.DataSet.Close;
-	dsAuxLocal.DataSet.Close;
 end;
 
 procedure TfrmLocal.FormCreate(Sender: TObject);

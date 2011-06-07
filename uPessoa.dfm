@@ -33,7 +33,7 @@ object frmPessoa: TfrmPessoa
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsInformacao
+    ActivePage = tsPesquisa
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -206,6 +206,7 @@ object frmPessoa: TfrmPessoa
         Height = 21
         DataField = 'cep'
         DataSource = dsPessoa
+        MaxLength = 10
         TabOrder = 4
       end
       object tipo: TDBRadioGroup
@@ -567,6 +568,7 @@ object frmPessoa: TfrmPessoa
         DataField = 'cnpj'
         DataSource = dsPessoaFornc
         Enabled = False
+        MaxLength = 18
         ParentColor = True
         TabOrder = 1
       end
@@ -2520,7 +2522,9 @@ object frmPessoa: TfrmPessoa
     Top = 336
   end
   object cdsPessoa: TClientDataSet
+    Active = True
     Aggregates = <>
+    CommandText = 'select * from pessoa'
     Params = <>
     ProviderName = 'dspPessoa'
     AfterInsert = cdsPessoaAfterInsert
@@ -2531,46 +2535,55 @@ object frmPessoa: TfrmPessoa
     object cdsPessoapessoaId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'pessoaId'
+      ProviderFlags = [pfInWhere, pfInKey]
     end
     object cdsPessoanome: TStringField
       FieldName = 'nome'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object cdsPessoatipo: TSmallintField
       FieldName = 'tipo'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object cdsPessoalogradouro: TStringField
       FieldName = 'logradouro'
+      ProviderFlags = [pfInUpdate]
       Size = 100
     end
     object cdsPessoamunicipio: TStringField
       FieldName = 'municipio'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
     object cdsPessoacep: TStringField
       FieldName = 'cep'
+      ProviderFlags = [pfInUpdate]
       EditMask = '00000\-9999;0; '
       Size = 10
     end
     object cdsPessoafornecedor: TBooleanField
       FieldName = 'fornecedor'
+      ProviderFlags = [pfInUpdate]
       Required = True
       DisplayValues = 'Sim;N'#227'o'
     end
     object cdsPessoausuario_: TBooleanField
       FieldName = 'usuario'
+      ProviderFlags = [pfInUpdate]
       Required = True
       DisplayValues = 'Sim;N'#227'o'
     end
     object cdsPessoacnpjCpf: TStringField
       FieldName = 'cnpjCpf'
+      ProviderFlags = [pfInUpdate]
     end
   end
   object dspPessoa: TDataSetProvider
     DataSet = dm.sqlPessoa
-    Options = [poAutoRefresh, poRetainServerOrder, poUseQuoteChar]
+    Options = [poAutoRefresh, poAllowCommandText, poRetainServerOrder, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     AfterUpdateRecord = dspPessoaAfterUpdateRecord
     Left = 376
@@ -2590,7 +2603,9 @@ object frmPessoa: TfrmPessoa
     Top = 336
   end
   object cdsPessoaUsuario: TClientDataSet
+    Active = True
     Aggregates = <>
+    CommandText = 'select * from usuario'
     IndexFieldNames = 'pessoaId'
     MasterFields = 'pessoaId'
     MasterSource = dsPessoa
@@ -2603,30 +2618,34 @@ object frmPessoa: TfrmPessoa
     object cdsPessoaUsuariousuarioId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'usuarioId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
     end
     object cdsPessoaUsuariologin: TStringField
       FieldName = 'login'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
     object cdsPessoaUsuariosenha: TMemoField
       FieldName = 'senha'
+      ProviderFlags = [pfInUpdate]
       Required = True
       BlobType = ftMemo
-      Size = 1
     end
     object cdsPessoaUsuariopessoaId: TIntegerField
       FieldName = 'pessoaId'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object cdsPessoaUsuariodesativado: TBooleanField
       FieldName = 'desativado'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
   end
   object dspPessoaUsuario: TDataSetProvider
     DataSet = dm.sqlUsuario
+    Options = [poAllowCommandText, poUseQuoteChar]
     Left = 256
     Top = 432
   end
@@ -2637,7 +2656,9 @@ object frmPessoa: TfrmPessoa
     Top = 336
   end
   object cdsPessoaForc: TClientDataSet
+    Active = True
     Aggregates = <>
+    CommandText = 'select * from fornecedor'
     IndexFieldNames = 'pessoaId'
     MasterFields = 'pessoaId'
     MasterSource = dsPessoa
@@ -2652,21 +2673,25 @@ object frmPessoa: TfrmPessoa
     end
     object cdsPessoaForcrazaoSocial: TStringField
       FieldName = 'razaoSocial'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object cdsPessoaForccnpj: TStringField
       FieldName = 'cnpj'
+      ProviderFlags = [pfInUpdate]
       Required = True
       EditMask = '00\.000\.000\/0000\-00;0; '
     end
     object cdsPessoaForcpessoaId: TIntegerField
       FieldName = 'pessoaId'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
   end
   object dpsPessoaForc: TDataSetProvider
     DataSet = dm.sqlFornecedor
+    Options = [poAllowCommandText, poUseQuoteChar]
     Left = 120
     Top = 432
   end
@@ -2677,6 +2702,7 @@ object frmPessoa: TfrmPessoa
     Top = 336
   end
   object cdsAcoes: TClientDataSet
+    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dpsAcoes'
@@ -2685,10 +2711,12 @@ object frmPessoa: TfrmPessoa
     Top = 384
     object cdsAcoesacaoId: TIntegerField
       FieldName = 'acaoId'
+      ProviderFlags = [pfInWhere, pfInKey]
       Required = True
     end
     object cdsAcoesdescricao: TStringField
       FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 50
     end
@@ -2708,6 +2736,7 @@ object frmPessoa: TfrmPessoa
     Top = 336
   end
   object cdsUsuarioAcao: TClientDataSet
+    Active = True
     Aggregates = <>
     CommandText = 
       'select usuarioAcao.acaoId, acoes.descricao, usuarioAcao.usuarioI' +
@@ -2721,11 +2750,6 @@ object frmPessoa: TfrmPessoa
     object cdsUsuarioAcaoacaoId: TIntegerField
       FieldName = 'acaoId'
       Required = True
-    end
-    object cdsUsuarioAcaodescricao: TStringField
-      FieldName = 'descricao'
-      Required = True
-      Size = 50
     end
     object cdsUsuarioAcaousuarioId: TIntegerField
       FieldName = 'usuarioId'

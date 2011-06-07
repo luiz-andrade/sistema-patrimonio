@@ -2436,7 +2436,6 @@ object frmAcesso: TfrmAcesso
     Top = 24
   end
   object cdsEmpresa: TClientDataSet
-    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspEpresa'

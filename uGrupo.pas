@@ -77,6 +77,8 @@ type
     procedure dbgSubGrupoDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure txtPesquisaChange(Sender: TObject);
+    procedure dspGrupoAfterUpdateRecord(Sender: TObject; SourceDS: TDataSet;
+      DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -283,6 +285,12 @@ begin
 	end;
 end;
 
+procedure TfrmGrupo.dspGrupoAfterUpdateRecord(Sender: TObject;
+  SourceDS: TDataSet; DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
+begin
+  _grupoId :=cdsGrupogrupoId.Value;
+end;
+
 procedure TfrmGrupo.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 	Action := caFree; // Configura formulario para ser destruido ao fechar.
@@ -291,13 +299,18 @@ end;
 procedure TfrmGrupo.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
 	// Fecha tabelas.
+  with dsAuxGrupo.DataSet do
+  begin
+		if State in [dsInsert, dsEdit] then
+			Cancel;
+    Close;
+  end;
 	with dsGrupo.DataSet do
 	begin
 		if State in [dsInsert, dsEdit] then
 			Cancel;
 		Close;
   end;
-	dsAuxGrupo.DataSet.Close;
 end;
 
 procedure TfrmGrupo.FormCreate(Sender: TObject);

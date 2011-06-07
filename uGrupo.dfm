@@ -63,7 +63,6 @@ object frmGrupo: TfrmGrupo
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
           OnChange = txtPesquisaChange
-          ExplicitWidth = 220
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
@@ -146,7 +145,7 @@ object frmGrupo: TfrmGrupo
       object descricao: TDBEdit
         Left = 88
         Top = 32
-        Width = 425
+        Width = 424
         Height = 21
         DataField = 'descricao'
         DataSource = dsGrupo
@@ -182,12 +181,12 @@ object frmGrupo: TfrmGrupo
           end>
       end
       object DBNavigator1: TDBNavigator
-        Left = 453
+        Left = 432
         Top = 59
-        Width = 60
+        Width = 80
         Height = 25
         DataSource = dsAuxGrupo
-        VisibleButtons = [nbDelete, nbPost, nbRefresh]
+        VisibleButtons = [nbInsert, nbDelete, nbPost, nbRefresh]
         Flat = True
         TabOrder = 2
       end
@@ -1893,7 +1892,6 @@ object frmGrupo: TfrmGrupo
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 2
-    ExplicitTop = 43
     object btnNovo: TBitBtn
       AlignWithMargins = True
       Left = 8
@@ -2143,7 +2141,9 @@ object frmGrupo: TfrmGrupo
     Top = 296
   end
   object cdsGrupo: TClientDataSet
+    Active = True
     Aggregates = <>
+    CommandText = 'select * from grupo where vGrupoId = 0'
     Params = <>
     ProviderName = 'dspGrupo'
     AfterInsert = cdsGrupoAfterInsert
@@ -2153,30 +2153,34 @@ object frmGrupo: TfrmGrupo
     Top = 352
     object cdsGrupodescricao: TStringField
       FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object cdsGrupoempresaId: TIntegerField
       FieldName = 'empresaId'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object cdsGrupogrupoId: TStringField
       FieldName = 'grupoId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
   end
   object dspGrupo: TDataSetProvider
     DataSet = dm.sqlGrupo
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    Options = [poAutoRefresh, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
+    AfterUpdateRecord = dspGrupoAfterUpdateRecord
     Left = 288
     Top = 296
   end
   object cdsAuxGrupo: TClientDataSet
     Active = True
     Aggregates = <>
+    CommandText = 'select * from grupo where vGrupoId <> 0'
     IndexFieldNames = 'vGrupoId'
     MasterFields = 'grupoId'
     MasterSource = dsGrupo
@@ -2190,21 +2194,24 @@ object frmGrupo: TfrmGrupo
     Top = 352
     object cdsAuxGrupogrupoId: TStringField
       FieldName = 'grupoId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
     object cdsAuxGrupovGrupoId: TStringField
       FieldName = 'vGrupoId'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
     object cdsAuxGrupoempresaId: TIntegerField
       FieldName = 'empresaId'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object cdsAuxGrupodescricao: TStringField
       FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
@@ -2222,7 +2229,7 @@ object frmGrupo: TfrmGrupo
   end
   object dspAuxGrupo: TDataSetProvider
     DataSet = dm.sqlSubGrupo
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    Options = [poAutoRefresh, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 288
     Top = 352

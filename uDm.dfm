@@ -1,105 +1,12 @@
 object dm: Tdm
   OldCreateOrder = False
   Height = 507
-  Width = 599
-  object SQLConnection: TSQLConnection
-    ConnectionName = 'MSSQLConnection'
-    DriverName = 'MSSQL'
-    GetDriverFunc = 'getSQLDriverMSSQL'
-    LibraryName = 'dbxmss.dll'
-    LoginPrompt = False
-    Params.Strings = (
-      'SchemaOverride=sa.dbo'
-      'DriverName=MSSQL'
-      'HostName=127.0.0.1\SQLEXPRESS'
-      'DataBase=patrimonio'
-      'User_Name=sa'
-      'Password=098063'
-      'BlobSize=-1'
-      'ErrorResourceFile='
-      'LocaleCode=0000'
-      'IsolationLevel=ReadCommitted'
-      'OS Authentication=True'
-      'Prepare SQL=False'
-      'ConnectTimeout=60'
-      'Mars_Connection=False')
-    VendorLib = 'sqlncli10.dll'
-    BeforeConnect = SQLConnectionBeforeConnect
-    Left = 40
-    Top = 32
-  end
-  object sqlEmpresa: TSQLQuery
-    MaxBlobSize = 1
-    Params = <>
-    SQL.Strings = (
-      'select *'
-      'from empresa')
-    SQLConnection = SQLConnection
-    Left = 106
-    Top = 88
-    object sqlEmpresaempresaId: TIntegerField
-      AutoGenerateValue = arAutoInc
-      FieldName = 'empresaId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object sqlEmpresarazaoSocial: TStringField
-      FieldName = 'razaoSocial'
-      Required = True
-      Size = 100
-    end
-    object sqlEmpresanomeFantasia: TStringField
-      FieldName = 'nomeFantasia'
-      Required = True
-      Size = 100
-    end
-    object sqlEmpresachave: TMemoField
-      FieldName = 'chave'
-      Required = True
-      BlobType = ftMemo
-      Size = 1
-    end
-    object sqlEmpresapessoaId: TIntegerField
-      FieldName = 'pessoaId'
-    end
-    object sqlEmpresalogotipo: TBlobField
-      FieldName = 'logotipo'
-      Size = 1
-    end
-  end
-  object sqlLocal: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select *'
-      'from local'
-      'where vLocalId = 0')
-    SQLConnection = SQLConnection
-    Left = 40
-    Top = 156
-    object sqlLocaltitulo: TStringField
-      FieldName = 'titulo'
-      Required = True
-      Size = 100
-    end
-    object sqlLocalpessoaId: TIntegerField
-      FieldName = 'pessoaId'
-    end
-    object sqlLocallocalId: TStringField
-      FieldName = 'localId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object sqlLocalvLocalId: TStringField
-      FieldName = 'vLocalId'
-      Size = 10
-    end
-  end
+  Width = 788
   object ImageListAcoes: TImageList
     Height = 32
     Width = 32
-    Left = 518
-    Top = 75
+    Left = 422
+    Top = 24
     Bitmap = {
       494C010107000900C80020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
@@ -1439,30 +1346,415 @@ object dm: Tdm
       F01F8001E3E3F01FFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object sqlPessoa: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
+  object rvpTR: TRvProject
+    ProjectFile = 'C:\Projetos\sistema-patrimonio\reports\reportMovimentacao.rav'
+    Left = 600
+    Top = 16
+  end
+  object rvdLocal: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = sqlLocal
+    Left = 208
+    Top = 88
+  end
+  object rvdSubLocal: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = sqlSubLocal
+    Left = 208
+    Top = 256
+  end
+  object rvdGestao: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = sqlGestao
+    Left = 338
+    Top = 200
+  end
+  object rvdPessoa: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = sqlPessoa
+    Left = 136
+    Top = 88
+  end
+  object ADOConnection: TADOConnection
+    ConnectionString = 
+      'Provider=SQLNCLI10.1;Integrated Security=SSPI;Persist Security I' +
+      'nfo=False;User ID="";Initial Catalog=patrimonio;Data Source=DESE' +
+      'NVOLVIMENTO\SQLEXPRESS;Initial File Name="";Server SPN=""'
+    LoginPrompt = False
+    Provider = 'SQLNCLI10.1'
+    Left = 488
+    Top = 88
+  end
+  object sqlTranferencia: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
     SQL.Strings = (
-      'select *'
-      'from pessoa')
-    SQLConnection = SQLConnection
-    Left = 105
-    Top = 156
-    object sqlPessoapessoaId: TIntegerField
+      'select * from transferencia')
+    Left = 488
+    Top = 144
+    object sqlTranferenciatransferenciaId: TAutoIncField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'transferenciaId'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlTranferenciaorigemId: TStringField
+      FieldName = 'origemId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlTranferenciadestinoId: TStringField
+      FieldName = 'destinoId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlTranferenciadata: TDateTimeField
+      FieldName = 'data'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlTranferenciareceptorId: TIntegerField
+      FieldName = 'receptorId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlTranferenciacedenteId: TIntegerField
+      FieldName = 'cedenteId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlTranferenciausuarioId: TIntegerField
+      FieldName = 'usuarioId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlTranferenciaconcluida: TBooleanField
+      FieldName = 'concluida'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlTranferenciatipo: TSmallintField
+      FieldName = 'tipo'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlTranferenciaorigemSubLocal: TStringField
+      FieldName = 'origemSubLocal'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlTranferenciadestinoSubLocal: TStringField
+      FieldName = 'destinoSubLocal'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+  end
+  object sqlTransferenciaBem: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from transferenciaBem')
+    Left = 488
+    Top = 200
+    object sqlTransferenciaBemtransferenciaId: TIntegerField
+      FieldName = 'transferenciaId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object sqlTransferenciaBembemId: TIntegerField
+      FieldName = 'bemId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object sqlTransferenciaBembemEstadoId: TIntegerField
+      FieldName = 'bemEstadoId'
+      ProviderFlags = [pfInUpdate]
+    end
+  end
+  object sqlBem: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from bem')
+    Left = 584
+    Top = 144
+    object sqlBembemId: TAutoIncField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'bemId'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlBemidenficacao: TStringField
+      FieldName = 'idenficacao'
+      ProviderFlags = [pfInUpdate]
+      Size = 50
+    end
+    object sqlBemdescricao: TStringField
+      FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
+      Size = 255
+    end
+    object sqlBemgrupoId: TStringField
+      FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlBemestadoId: TIntegerField
+      FieldName = 'estadoId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlBemlocalId: TStringField
+      FieldName = 'localId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlBemgestaoId: TIntegerField
+      FieldName = 'gestaoId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlBemvalor: TBCDField
+      FieldName = 'valor'
+      ProviderFlags = [pfInUpdate]
+      Precision = 19
+    end
+    object sqlBemtipoIdentificacao: TIntegerField
+      FieldName = 'tipoIdentificacao'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlBemsubgrupoId: TStringField
+      FieldName = 'subgrupoId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlBemsubLocalId: TStringField
+      FieldName = 'subLocalId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlBemtipoAquisicao: TIntegerField
+      FieldName = 'tipoAquisicao'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlBemquantidade: TFloatField
+      FieldName = 'quantidade'
+      ProviderFlags = [pfInUpdate]
+    end
+  end
+  object sqlBemAquisicao: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from bemAquisicao')
+    Left = 584
+    Top = 200
+    object sqlBemAquisicaobemId: TIntegerField
+      FieldName = 'bemId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object sqlBemAquisicaodata: TDateTimeField
+      FieldName = 'data'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlBemAquisicaodataNota: TDateTimeField
+      FieldName = 'dataNota'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlBemAquisicaofornecedorId: TIntegerField
+      FieldName = 'fornecedorId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlBemAquisicaonumeroNota: TStringField
+      FieldName = 'numeroNota'
+      ProviderFlags = [pfInUpdate]
+      Size = 100
+    end
+  end
+  object sqlEstado: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from estado')
+    Left = 408
+    Top = 144
+  end
+  object sqlGestao: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from gestao')
+    Left = 336
+    Top = 144
+  end
+  object sqlGrupo: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from grupo where vGrupoId = 0')
+    Left = 272
+    Top = 144
+    object sqlGrupogrupoId: TStringField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Size = 10
+    end
+    object sqlGrupodescricao: TStringField
+      FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
+      Size = 100
+    end
+    object sqlGrupoempresaId: TIntegerField
+      FieldName = 'empresaId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlGrupovGrupoId: TStringField
+      FieldName = 'vGrupoId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+  end
+  object sqlSubGrupo: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from grupo where vGrupoId <> 0')
+    Left = 272
+    Top = 200
+    object sqlSubGrupogrupoId: TStringField
+      FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Size = 10
+    end
+    object sqlSubGrupodescricao: TStringField
+      FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
+      Size = 100
+    end
+    object sqlSubGrupoempresaId: TIntegerField
+      FieldName = 'empresaId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlSubGrupovGrupoId: TStringField
+      FieldName = 'vGrupoId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+  end
+  object sqlEmpresa: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from empresa')
+    Left = 336
+    Top = 88
+    object sqlEmpresaempresaId: TAutoIncField
+      FieldName = 'empresaId'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlEmpresarazaoSocial: TStringField
+      FieldName = 'razaoSocial'
+      ProviderFlags = [pfInUpdate]
+      Size = 100
+    end
+    object sqlEmpresanomeFantasia: TStringField
+      FieldName = 'nomeFantasia'
+      ProviderFlags = [pfInUpdate]
+      Size = 100
+    end
+    object sqlEmpresachave: TMemoField
+      FieldName = 'chave'
+      ProviderFlags = [pfInUpdate]
+      BlobType = ftMemo
+    end
+    object sqlEmpresapessoaId: TIntegerField
+      FieldName = 'pessoaId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlEmpresalogotipo: TBlobField
+      FieldName = 'logotipo'
+      ProviderFlags = [pfInUpdate]
+    end
+  end
+  object sqlLocal: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from local where vLocalId = 0')
+    Left = 208
+    Top = 144
+    object sqlLocallocalId: TStringField
+      FieldName = 'localId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Size = 10
+    end
+    object sqlLocaltitulo: TStringField
+      FieldName = 'titulo'
+      ProviderFlags = [pfInUpdate]
+      Size = 100
+    end
+    object sqlLocalvLocalId: TStringField
+      FieldName = 'vLocalId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlLocalpessoaId: TIntegerField
+      FieldName = 'pessoaId'
+      ProviderFlags = [pfInUpdate]
+    end
+  end
+  object sqlSubLocal: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from local where vLocalId  <> 0')
+    Left = 208
+    Top = 200
+    object sqlSubLocallocalId: TStringField
+      FieldName = 'localId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Size = 10
+    end
+    object sqlSubLocaltitulo: TStringField
+      FieldName = 'titulo'
+      ProviderFlags = [pfInUpdate]
+      Size = 100
+    end
+    object sqlSubLocalvLocalId: TStringField
+      FieldName = 'vLocalId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlSubLocalpessoaId: TIntegerField
+      FieldName = 'pessoaId'
+      ProviderFlags = [pfInUpdate]
+    end
+  end
+  object sqlPessoa: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from pessoa')
+    Left = 136
+    Top = 144
+    object sqlPessoapessoaId: TAutoIncField
       AutoGenerateValue = arAutoInc
       FieldName = 'pessoaId'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object sqlPessoanome: TStringField
       FieldName = 'nome'
       ProviderFlags = [pfInUpdate]
-      Required = True
       Size = 100
     end
     object sqlPessoatipo: TSmallintField
       FieldName = 'tipo'
       ProviderFlags = [pfInUpdate]
-      Required = True
     end
     object sqlPessoalogradouro: TStringField
       FieldName = 'logradouro'
@@ -1482,516 +1774,138 @@ object dm: Tdm
     object sqlPessoafornecedor: TBooleanField
       FieldName = 'fornecedor'
       ProviderFlags = [pfInUpdate]
-      Required = True
     end
     object sqlPessoausuario: TBooleanField
       FieldName = 'usuario'
       ProviderFlags = [pfInUpdate]
-      Required = True
     end
     object sqlPessoacnpjCpf: TStringField
       FieldName = 'cnpjCpf'
       ProviderFlags = [pfInUpdate]
     end
   end
-  object sqlGrupo: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
+  object sqlFornecedor: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
     SQL.Strings = (
-      'select *'
-      'from grupo')
-    SQLConnection = SQLConnection
-    Left = 175
-    Top = 156
-    object sqlGrupodescricao: TStringField
-      FieldName = 'descricao'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 100
-    end
-    object sqlGrupoempresaId: TIntegerField
-      FieldName = 'empresaId'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object sqlGrupogrupoId: TStringField
-      FieldName = 'grupoId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object sqlGrupovGrupoId: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'vGrupoId'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-  end
-  object sqlBem: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select *'
-      'from bem')
-    SQLConnection = SQLConnection
-    Left = 256
-    Top = 156
-    object sqlBembemId: TIntegerField
+      'select * from fornecedor')
+    Left = 136
+    Top = 200
+    object sqlFornecedorfornecedorId: TAutoIncField
       AutoGenerateValue = arAutoInc
-      FieldName = 'bemId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object sqlBemidenficacao: TStringField
-      FieldName = 'idenficacao'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 50
-    end
-    object sqlBemdescricao: TStringField
-      FieldName = 'descricao'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 255
-    end
-    object sqlBemestadoId: TIntegerField
-      FieldName = 'estadoId'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object sqlBemgestaoId: TIntegerField
-      FieldName = 'gestaoId'
-      ProviderFlags = [pfInUpdate]
-    end
-    object sqlBemvalor: TFMTBCDField
-      FieldName = 'valor'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Precision = 19
-      Size = 4
-    end
-    object sqlBemtipoIdentificacao: TIntegerField
-      FieldName = 'tipoIdentificacao'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object sqlBemgrupoId: TStringField
-      FieldName = 'grupoId'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 10
-    end
-    object sqlBemlocalId: TStringField
-      FieldName = 'localId'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 10
-    end
-    object sqlBemsubgrupoId: TStringField
-      FieldName = 'subgrupoId'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object sqlBemsubLocalId: TStringField
-      FieldName = 'subLocalId'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object sqlBemtipoAquisicao: TIntegerField
-      FieldName = 'tipoAquisicao'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object sqlBemquantidade: TFloatField
-      FieldName = 'quantidade'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-  end
-  object sqlGestao: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select *'
-      'from gestao')
-    SQLConnection = SQLConnection
-    Left = 313
-    Top = 156
-    object sqlGestaogestaoId: TIntegerField
-      FieldName = 'gestaoId'
-      Required = True
-    end
-    object sqlGestaogestao: TStringField
-      FieldName = 'gestao'
-      Required = True
-      Size = 255
-    end
-  end
-  object sqlEstado: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select *'
-      'from estado')
-    SQLConnection = SQLConnection
-    Left = 365
-    Top = 156
-    object sqlEstadoestadoId: TIntegerField
-      FieldName = 'estadoId'
-      Required = True
-    end
-    object sqlEstadodescricao: TStringField
-      FieldName = 'descricao'
-      Required = True
-      Size = 100
-    end
-  end
-  object sqlBemAquisicao: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select *'
-      'from bemAquisicao')
-    SQLConnection = SQLConnection
-    Left = 257
-    Top = 216
-    object sqlBemAquisicaobemId: TIntegerField
-      FieldName = 'bemId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object sqlBemAquisicaodata: TSQLTimeStampField
-      FieldName = 'data'
-      Required = True
-    end
-    object sqlBemAquisicaodataNota: TSQLTimeStampField
-      FieldName = 'dataNota'
-      Required = True
-    end
-    object sqlBemAquisicaofornecedorId: TIntegerField
       FieldName = 'fornecedorId'
-      Required = True
-    end
-    object sqlBemAquisicaonumeroNota: TStringField
-      FieldName = 'numeroNota'
-      Required = True
-      Size = 100
-    end
-  end
-  object sqlFornecedor: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select *'
-      'from fornecedor')
-    SQLConnection = SQLConnection
-    Left = 104
-    Top = 216
-    object sqlFornecedorfornecedorId: TIntegerField
-      FieldName = 'fornecedorId'
-      ProviderFlags = [pfInWhere, pfInKey]
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object sqlFornecedorrazaoSocial: TStringField
       FieldName = 'razaoSocial'
       ProviderFlags = [pfInUpdate]
-      Required = True
       Size = 100
     end
     object sqlFornecedorcnpj: TStringField
       FieldName = 'cnpj'
       ProviderFlags = [pfInUpdate]
-      Required = True
     end
     object sqlFornecedorpessoaId: TIntegerField
       FieldName = 'pessoaId'
       ProviderFlags = [pfInUpdate]
-      Required = True
     end
   end
-  object sqlUsuario: TSQLQuery
-    MaxBlobSize = 1
-    Params = <>
+  object sqlUsuario: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
     SQL.Strings = (
-      'select *'
-      'from usuario')
-    SQLConnection = SQLConnection
-    Left = 104
-    Top = 275
-    object sqlUsuariousuarioId: TIntegerField
-      AutoGenerateValue = arAutoInc
+      'select * from usuario')
+    Left = 136
+    Top = 256
+    object sqlUsuariousuarioId: TAutoIncField
       FieldName = 'usuarioId'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object sqlUsuariologin: TStringField
       FieldName = 'login'
       ProviderFlags = [pfInUpdate]
-      Required = True
       Size = 10
     end
     object sqlUsuariosenha: TMemoField
       FieldName = 'senha'
       ProviderFlags = [pfInUpdate]
-      Required = True
       BlobType = ftMemo
-      Size = 1
     end
     object sqlUsuariopessoaId: TIntegerField
       FieldName = 'pessoaId'
       ProviderFlags = [pfInUpdate]
-      Required = True
     end
     object sqlUsuariodesativado: TBooleanField
       FieldName = 'desativado'
       ProviderFlags = [pfInUpdate]
-      Required = True
     end
   end
-  object sqlTranferencia: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
+  object sqlUsuarioAcao: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
     SQL.Strings = (
-      'select *'
-      'from transferencia')
-    SQLConnection = SQLConnection
-    Left = 433
-    Top = 156
-    object sqlTranferenciatransferenciaId: TIntegerField
-      AutoGenerateValue = arAutoInc
-      FieldName = 'transferenciaId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object sqlTranferenciareceptorId: TIntegerField
-      FieldName = 'receptorId'
-      ProviderFlags = [pfInUpdate]
-    end
-    object sqlTranferenciacedenteId: TIntegerField
-      FieldName = 'cedenteId'
-      ProviderFlags = [pfInUpdate]
-    end
-    object sqlTranferenciausuarioId: TIntegerField
+      'select * from usuarioAcao')
+    Left = 136
+    Top = 312
+    object sqlUsuarioAcaousuarioId: TIntegerField
       FieldName = 'usuarioId'
-      ProviderFlags = [pfInUpdate]
-      Required = True
     end
-    object sqlTranferenciaconcluida: TBooleanField
-      FieldName = 'concluida'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object sqlTranferenciatipo: TSmallintField
-      FieldName = 'tipo'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object sqlTranferenciadata: TSQLTimeStampField
-      AutoGenerateValue = arDefault
-      FieldName = 'data'
-      ProviderFlags = [pfInUpdate]
-    end
-    object sqlTranferenciaorigemId: TStringField
-      FieldName = 'origemId'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 10
-    end
-    object sqlTranferenciadestinoId: TStringField
-      FieldName = 'destinoId'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 10
-    end
-    object sqlTranferenciaorigemSubLocal: TStringField
-      FieldName = 'origemSubLocal'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 10
-    end
-    object sqlTranferenciadestinoSubLocal: TStringField
-      FieldName = 'destinoSubLocal'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 10
-    end
-  end
-  object sqlTransferenciaBem: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select *'
-      'from transferenciaBem')
-    SQLConnection = SQLConnection
-    Left = 433
-    Top = 216
-    object sqlTransferenciaBemtransferenciaId: TIntegerField
-      FieldName = 'transferenciaId'
-      ProviderFlags = [pfInWhere, pfInKey]
-      Required = True
-    end
-    object sqlTransferenciaBembemId: TIntegerField
-      FieldName = 'bemId'
-      ProviderFlags = [pfInWhere, pfInKey]
-      Required = True
-    end
-    object sqlTransferenciaBembemEstadoId: TIntegerField
-      FieldName = 'bemEstadoId'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-  end
-  object sqlSubLocal: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select *'
-      'from local'
-      'where vLocalId <> 0')
-    SQLConnection = SQLConnection
-    Left = 40
-    Top = 216
-    object StringField1: TStringField
-      FieldName = 'titulo'
-      Required = True
-      Size = 100
-    end
-    object IntegerField3: TIntegerField
-      FieldName = 'pessoaId'
-    end
-    object sqlSubLocallocalId: TStringField
-      FieldName = 'localId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object sqlSubLocalvLocalId: TStringField
-      FieldName = 'vLocalId'
-      Size = 10
-    end
-  end
-  object sqlSubGrupo: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select *'
-      'from grupo')
-    SQLConnection = SQLConnection
-    Left = 175
-    Top = 216
-    object StringField2: TStringField
-      FieldName = 'descricao'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 100
-    end
-    object IntegerField5: TIntegerField
-      FieldName = 'empresaId'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object sqlSubGrupogrupoId: TStringField
-      FieldName = 'grupoId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object sqlSubGrupovGrupoId: TStringField
-      FieldName = 'vGrupoId'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 10
-    end
-  end
-  object rvpTR: TRvProject
-    ProjectFile = 'C:\Projetos\sistema-patrimonio\reports\reportMovimentacao.rav'
-    Left = 184
-    Top = 88
-  end
-  object sqlUsuarioAcao: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select * '
-      'from usuarioAcao')
-    SQLConnection = SQLConnection
-    Left = 104
-    Top = 336
-  end
-  object sqlAcoes: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select *'
-      'from acoes')
-    SQLConnection = SQLConnection
-    Left = 104
-    Top = 400
-    object sqlAcoesacaoId: TIntegerField
+    object sqlUsuarioAcaoacaoId: TIntegerField
       FieldName = 'acaoId'
-      Required = True
+    end
+  end
+  object sqlAcoes: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from acoes')
+    Left = 136
+    Top = 376
+    object sqlAcoesacaoId: TAutoIncField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'acaoId'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object sqlAcoesdescricao: TStringField
       FieldName = 'descricao'
-      Required = True
+      ProviderFlags = [pfInUpdate]
       Size = 50
     end
     object sqlAcoesnomeAcao: TStringField
       FieldName = 'nomeAcao'
-      Required = True
+      ProviderFlags = [pfInUpdate]
       Size = 50
     end
   end
-  object sqlvAcoes: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
+  object sqlvAcoes: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
     SQL.Strings = (
-      'select *'
-      'from acoes')
-    SQLConnection = SQLConnection
-    Left = 104
-    Top = 456
-    object IntegerField1: TIntegerField
+      'select * from acoes')
+    Left = 136
+    Top = 440
+    object sqlvAcoesacaoId: TAutoIncField
       FieldName = 'acaoId'
-      Required = True
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
-    object StringField3: TStringField
+    object sqlvAcoesdescricao: TStringField
       FieldName = 'descricao'
-      Required = True
+      ProviderFlags = [pfInUpdate]
       Size = 50
     end
-    object StringField4: TStringField
+    object sqlvAcoesnomeAcao: TStringField
       FieldName = 'nomeAcao'
-      Required = True
+      ProviderFlags = [pfInUpdate]
       Size = 50
     end
-  end
-  object rvdLocal: TRvDataSetConnection
-    RuntimeVisibility = rtDeveloper
-    DisableDataSource = False
-    RestoreDataSet = False
-    DataSet = sqlLocal
-    Left = 40
-    Top = 88
-  end
-  object rvdSubLocal: TRvDataSetConnection
-    RuntimeVisibility = rtDeveloper
-    DisableDataSource = False
-    RestoreDataSet = False
-    DataSet = sqlSubLocal
-    Left = 40
-    Top = 272
-  end
-  object rvdGestao: TRvDataSetConnection
-    RuntimeVisibility = rtDeveloper
-    DisableDataSource = False
-    RestoreDataSet = False
-    DataSet = sqlGestao
-    Left = 314
-    Top = 87
-  end
-  object rvdPessoa: TRvDataSetConnection
-    RuntimeVisibility = rtDeveloper
-    DisableDataSource = False
-    RestoreDataSet = False
-    DataSet = sqlPessoa
-    Left = 104
-    Top = 32
   end
 end

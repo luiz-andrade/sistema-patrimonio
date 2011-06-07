@@ -2026,30 +2026,33 @@ object frmEmpresa: TfrmEmpresa
     object cdsEmpresaempresaId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'empresaId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
     end
     object cdsEmpresarazaoSocial: TStringField
       FieldName = 'razaoSocial'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object cdsEmpresanomeFantasia: TStringField
       FieldName = 'nomeFantasia'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object cdsEmpresachave: TMemoField
       FieldName = 'chave'
+      ProviderFlags = [pfInUpdate]
       Required = True
       BlobType = ftMemo
-      Size = 1
     end
     object cdsEmpresapessoaId: TIntegerField
       FieldName = 'pessoaId'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsEmpresalogotipo: TBlobField
       FieldName = 'logotipo'
-      Size = 1
+      ProviderFlags = [pfInUpdate]
     end
   end
   object dpsEmpresa: TDataSetProvider

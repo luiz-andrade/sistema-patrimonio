@@ -4,8 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, DB, ADODB, ComCtrls, Grids, DBGrids, ExtCtrls, FMTBcd,
-  SqlExpr;
+  Dialogs, StdCtrls, DB, ADODB, ComCtrls, Grids, DBGrids, ExtCtrls, FMTBcd;
 
 type
   TfrmTransferencia = class(TForm)
@@ -135,13 +134,13 @@ uses uDm, uGlobais;
 
 procedure TfrmTransferencia.btLimparGrupoClick(Sender: TObject);
 begin
-	with TSQLQuery.Create(Self) do
+	with TADOCommand.Create(Self) do
 	begin
 		try
 			Close;
-			SQLConnection := dm.SQLConnection;
-			SQL.Add('delete grupo');
-			ExecSQL();
+			Connection := dm.ADOConnection;
+      CommandText :=  'delete grupo';
+			Execute;
 			Application.MessageBox('Todos o grupos foram apagados com sucesso!', 
 															PChar(Application.Title),
 															MB_ICONASTERISK);
@@ -309,13 +308,13 @@ end;
 
 procedure TfrmTransferencia.btnLimparBensClick(Sender: TObject);
 begin
-	with TSQLQuery.Create(Self) do
+	with TADOCommand.Create(Self) do
 	begin
 		try
 			Close;
-			SQLConnection := dm.SQLConnection;
+			Connection := dm.ADOConnection;
 			CommandText := 'delete bem';
-			ExecSQL();
+			Execute;
 			Application.MessageBox('Todos o bens foram apagados com sucesso!', 
 															PChar(Application.Title),
 															MB_ICONASTERISK);
@@ -327,13 +326,13 @@ end;
 
 procedure TfrmTransferencia.btnLimparLocaisClick(Sender: TObject);
 begin
-	with TSQLQuery.Create(Self) do
+	with TADOCommand.Create(Self) do
 	begin
 		try
 			Close;
-			SQLConnection := dm.SQLConnection;
+			Connection := dm.ADOConnection;
 			CommandText := 'delete local';
-			ExecSQL();
+			Execute();
 			Application.MessageBox('Todos o locais foram apagados com sucesso!', 
 															PChar(Application.Title),
 															MB_ICONASTERISK);
@@ -463,12 +462,12 @@ procedure TfrmTransferencia.InsertBem(idenficacao, descricao, grupoId,
   gestaoId: Integer; valor: Currency; tipoIdentificacao, tipoAquisicao: Integer;
   quantidade: Real);
 begin
-	with TSQLQuery.Create(Self) do
+	with TADOQuery.Create(Self) do
 	begin
 		try
 			try
 				Close;
-				SQLConnection := dm.SQLConnection;
+				Connection := dm.ADOConnection;
 				with SQL do
 				begin
 					Clear;
@@ -479,7 +478,7 @@ begin
 					Add(':gestaoId, :valor, :tipoIdentificacao, :subgrupoId, ');
 					Add(':subLocalId, :tipoAquisicao, :quantidade)');
 				end;
-				with Params do
+				with Parameters do
 				begin
 					ParamByName('idenficacao').Value        := idenficacao;
 					ParamByName('descricao').Value          := descricao;
@@ -507,16 +506,16 @@ end;
 procedure TfrmTransferencia.insertGrupo(grupoId, descricao: String;
 	empresaId: Integer; vGrupoId: String);
 begin
-	with TSQLQuery.Create(Self) do
+	with TADOQuery.Create(Self) do
 	begin
 		try
 			try
 				Close;
-				SQLConnection := dm.SQLConnection;
+				Connection := dm.ADOConnection;
 				SQL.Clear;
 				SQL.Add('insert into grupo (grupoId, descricao, empresaId, vGrupoId)');
 				SQL.Add('values (:grupoId, :descricao, :empresaId, :vGrupoId)');
-				with Params do
+				with Parameters do
 				begin
 					ParamByName('grupoId').Value    := grupoId;
 					ParamByName('descricao').Value  := descricao;
@@ -536,16 +535,16 @@ end;
 procedure TfrmTransferencia.insertLocal(localId, titulo, vLocalId: String;
 	pessoaId: Integer);
 begin
-	with TSQLQuery.Create(Self) do
+	with TADOQuery.Create(Self) do
 	begin
 		try
 			try
 				Close;
-				SQLConnection := dm.SQLConnection;
+				Connection := dm.ADOConnection;
 				SQL.Clear;
 				SQL.Add('insert into local (localId, titulo, vLocalId, pessoaId)');
 				SQL.Add('values (:localId, :titulo, :vLocalId, :pessoaId)');
-				with Params do
+				with Parameters do
 				begin
 					ParamByName('localId').Value    := localId;
 					ParamByName('titulo').Value  := titulo;

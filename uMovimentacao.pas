@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Provider, DB, DBClient, StdCtrls, DBCtrls, Mask, Buttons, ExtCtrls,
-  ComCtrls, Grids, DBGrids, FMTBcd, SqlExpr;
+  ComCtrls, Grids, DBGrids, FMTBcd, SqlExpr, ADODB;
 
 type
   TfrmMovimentacao = class(TForm)
@@ -83,13 +83,9 @@ type
     cdsMovimentacaoBembemId: TIntegerField;
     DBGrid2: TDBGrid;
     btnNovo: TBitBtn;
-    cdsMovimentacaodata: TSQLTimeStampField;
     cdsMovimentacaotipo: TSmallintField;
     tipo: TDBRadioGroup;
     btnCancelar: TBitBtn;
-    sp_finalizaTransferencia: TSQLStoredProc;
-    cdsMovimentacaoTituloOrigem: TStringField;
-    cdsMovimentacaoTituloDestino: TStringField;
     btnImprimir: TBitBtn;
     cdsMovimentacaoorigemId: TStringField;
     cdsMovimentacaodestinoId: TStringField;
@@ -127,13 +123,31 @@ type
     destinoId: TDBEdit;
     Label9: TLabel;
     dblDestinoId: TDBLookupComboBox;
-    cdsMovimentacaoBemidentificacao: TStringField;
     dpsCedente: TDataSetProvider;
     dpsReceptor: TDataSetProvider;
+    cdsMovimentacaodata: TDateTimeField;
+    sp_finalizaTransferencia: TADOStoredProc;
+    dsBem: TDataSource;
+    cdsBem: TClientDataSet;
+    cdsBembemId: TIntegerField;
+    cdsBemidenficacao: TStringField;
+    cdsBemdescricao: TStringField;
+    cdsBemestadoId: TIntegerField;
+    cdsBemtipoIdentificacao: TIntegerField;
+    cdsBemgestaoId: TIntegerField;
+    cdsBemgrupoId: TStringField;
+    cdsBemlocalId: TStringField;
+    cdsBemsubgrupoId: TStringField;
+    cdsBemsubLocalId: TStringField;
+    cdsBemtipoAquisicao: TIntegerField;
+    cdsBemquantidade: TFloatField;
+    cdsBemvalor: TBCDField;
+    dspBem: TDataSetProvider;
+    cdsMovimentacaoBemidenficacao: TStringField;
+    cdsMovimentacaoBemdescricao: TStringField;
     procedure btnFecharClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnGravarClick(Sender: TObject);
-    procedure cdsMovimentacaoAfterOpen(DataSet: TDataSet);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure btnNovoClick(Sender: TObject);
     procedure dsMovimentacaoStateChange(Sender: TObject);
@@ -154,6 +168,9 @@ type
     procedure btnRemoverClick(Sender: TObject);
     procedure btnConcluirClick(Sender: TObject);
     procedure tipoChange(Sender: TObject);
+    procedure cdsMovimentacaoAfterInsert(DataSet: TDataSet);
+    procedure ledtIdentificacaoKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -236,7 +253,7 @@ begin
 			if not(cdsMovimentacaotransferenciaId.IsNull) then
 			begin
 				_transferenciaId := cdsMovimentacaotransferenciaId.Value;
-				Params.ParamByName('@transferenciaId').Value := cdsMovimentacaotransferenciaId.Value;
+				Parameters.ParamByName('@transferenciaId').Value := cdsMovimentacaotransferenciaId.Value;
 				ExecProc;
 				with cdsMovimentacao do
 				begin
@@ -308,18 +325,13 @@ begin
 	end;
 end;
 
-procedure TfrmMovimentacao.cdsMovimentacaoAfterOpen(DataSet: TDataSet);
+procedure TfrmMovimentacao.cdsMovimentacaoAfterInsert(DataSet: TDataSet);
 begin
-	// Abre dependências.
-  cdsOrigemLocal.Open;
-	cdsOrigem.Open;
-
-	cdsMovimentacaoBem.Open;
-	cdsReceptor.Open;
-	cdsCedente.Open;
-
-  cdsDestinoLocal.Open;
-	cdsDestino.Open;
+{     cdsMovimentacaoorigemId.Value  := '01';
+     cdsMovimentacaoorigemSubLocal.Value  := '01.01';
+     cdsMovimentacaodestinoId.Value := '01';
+     cdsMovimentacaodestinoSubLocal.Value  := '01.01';
+     }
 end;
 
 procedure TfrmMovimentacao.cdsMovimentacaoBemReconcileError(
@@ -344,6 +356,14 @@ begin
 	_empresaId := empresaId;
 	// Abre tabela principal.
 	cdsMovimentacao.Open;
+	cdsMovimentacaoBem.Open;
+	// Abre dependências.
+  cdsOrigemLocal.Open;
+	cdsOrigem.Open;
+	cdsReceptor.Open;
+	cdsCedente.Open;
+  cdsDestinoLocal.Open;
+	cdsDestino.Open;
 	tsConsulta.Show;
 end;
 
@@ -431,6 +451,15 @@ procedure TfrmMovimentacao.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
 	if Key = VK_ESCAPE then btnFechar.Click;
+end;
+
+procedure TfrmMovimentacao.ledtIdentificacaoKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key = VK_RETURN) and not(Trim(TEdit(Sender).Text) = EmptyStr)then
+  begin
+   btnAddBem.Click;
+  end;
 end;
 
 procedure TfrmMovimentacao.tipoChange(Sender: TObject);

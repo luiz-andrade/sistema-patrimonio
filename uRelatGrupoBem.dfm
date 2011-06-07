@@ -180,84 +180,23 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     Enabled = False
     TabOrder = 15
   end
+  object cbRelaGrupos: TCheckBox
+    Left = 56
+    Top = 16
+    Width = 201
+    Height = 17
+    Caption = 'Imprimir somente rela'#231#227'o de grupos.'
+    TabOrder = 16
+  end
   object rvdBensGrupo: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
-    DisableDataSource = False
-    RestoreDataSet = False
-    DataSet = sqlBens
-    Left = 96
-    Top = 288
-  end
-  object sqlBens: TSQLDataSet
-    SchemaName = 'sa'
-    CommandText = 'select *'#13#10'from bem'
-    DbxCommandType = 'Dbx.SQL'
-    MaxBlobSize = -1
-    Params = <>
-    SQLConnection = dm.SQLConnection
-    Left = 175
-    Top = 288
-    object sqlBensbemId: TIntegerField
-      FieldName = 'bemId'
-      Required = True
-    end
-    object sqlBensidenficacao: TStringField
-      FieldName = 'idenficacao'
-      Required = True
-      Size = 50
-    end
-    object sqlBensdescricao: TStringField
-      FieldName = 'descricao'
-      Required = True
-      Size = 255
-    end
-    object sqlBensgrupoId: TStringField
-      FieldName = 'grupoId'
-      Required = True
-      Size = 10
-    end
-    object sqlBensestadoId: TIntegerField
-      FieldName = 'estadoId'
-      Required = True
-    end
-    object sqlBenslocalId: TStringField
-      FieldName = 'localId'
-      Required = True
-      Size = 10
-    end
-    object sqlBensgestaoId: TIntegerField
-      FieldName = 'gestaoId'
-    end
-    object sqlBensvalor: TFMTBCDField
-      FieldName = 'valor'
-      Required = True
-      currency = True
-      Precision = 19
-      Size = 4
-    end
-    object sqlBenstipoIdentificacao: TIntegerField
-      FieldName = 'tipoIdentificacao'
-      Required = True
-    end
-    object sqlBenssubgrupoId: TStringField
-      FieldName = 'subgrupoId'
-      Size = 10
-    end
-    object sqlBenssubLocalId: TStringField
-      FieldName = 'subLocalId'
-      Size = 10
-    end
-    object sqlBenstipoAquisicao: TIntegerField
-      FieldName = 'tipoAquisicao'
-      Required = True
-    end
-    object sqlBensquantidade: TFloatField
-      FieldName = 'quantidade'
-      Required = True
-    end
+    DataSet = sqlBem
+    Left = 384
+    Top = 328
   end
   object cdsAuxGrupo: TClientDataSet
     Aggregates = <>
+    CommandText = 'select * from grupo order by grupoId'
     IndexFieldNames = 'vGrupoId'
     MasterFields = 'grupoId'
     MasterSource = dsGrupos
@@ -265,26 +204,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     ProviderName = 'dspAuxGrupo'
     Left = 24
     Top = 393
-    object cdsAuxGrupogrupoId: TStringField
-      FieldName = 'grupoId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object cdsAuxGrupovGrupoId: TStringField
-      FieldName = 'vGrupoId'
-      Required = True
-      Size = 10
-    end
-    object cdsAuxGrupoempresaId: TIntegerField
-      FieldName = 'empresaId'
-      Required = True
-    end
-    object cdsAuxGrupodescricao: TStringField
-      FieldName = 'descricao'
-      Required = True
-      Size = 100
-    end
   end
   object dspGrupo: TDataSetProvider
     DataSet = dm.sqlGrupo
@@ -307,21 +226,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     ProviderName = 'dspGrupo'
     Left = 176
     Top = 393
-    object cdsGrupodescricao: TStringField
-      FieldName = 'descricao'
-      Required = True
-      Size = 100
-    end
-    object cdsGrupoempresaId: TIntegerField
-      FieldName = 'empresaId'
-      Required = True
-    end
-    object cdsGrupogrupoId: TStringField
-      FieldName = 'grupoId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
   end
   object dsGrupos: TDataSource
     DataSet = cdsGrupo
@@ -335,98 +239,36 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   end
   object dspGestao: TDataSetProvider
     DataSet = dm.sqlGestao
-    ResolveToDataSet = True
+    Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
     Left = 425
-    Top = 302
+    Top = 270
   end
   object cdsGestao: TClientDataSet
+    Active = True
     Aggregates = <>
+    CommandText = 'select * from gestao'
     Params = <>
     ProviderName = 'dspGestao'
     Left = 345
-    Top = 302
+    Top = 270
   end
   object dsGestao: TDataSource
     AutoEdit = False
     DataSet = cdsGestao
     Left = 265
-    Top = 302
+    Top = 270
   end
   object rvdGrupos: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
-    DisableDataSource = False
-    RestoreDataSet = False
     DataSet = sqlGrupo
-    Left = 344
-    Top = 256
+    Left = 384
+    Top = 384
   end
   object rvdSubGrupos: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
-    DisableDataSource = False
-    RestoreDataSet = False
     DataSet = sqlSubGrupo
-    Left = 424
-    Top = 256
-  end
-  object sqlGrupo: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select *'
-      'from grupo')
-    SQLConnection = dm.SQLConnection
-    Left = 23
-    Top = 239
-    object sqlGrupodescricao: TStringField
-      FieldName = 'descricao'
-      Required = True
-      Size = 100
-    end
-    object sqlGrupoempresaId: TIntegerField
-      FieldName = 'empresaId'
-      Required = True
-    end
-    object sqlGrupogrupoId: TStringField
-      FieldName = 'grupoId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object sqlGrupovGrupoId: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'vGrupoId'
-      Size = 10
-    end
-  end
-  object sqlSubGrupo: TSQLQuery
-    MaxBlobSize = -1
-    Params = <>
-    SQL.Strings = (
-      'select *'
-      'from grupo')
-    SQLConnection = dm.SQLConnection
-    Left = 23
-    Top = 289
-    object StringField2: TStringField
-      FieldName = 'descricao'
-      Required = True
-      Size = 100
-    end
-    object IntegerField5: TIntegerField
-      FieldName = 'empresaId'
-      Required = True
-    end
-    object sqlSubGrupogrupoId: TStringField
-      FieldName = 'grupoId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object sqlSubGrupovGrupoId: TStringField
-      FieldName = 'vGrupoId'
-      Required = True
-      Size = 10
-    end
+    Left = 384
+    Top = 440
   end
   object dsFornecedor: TDataSource
     DataSet = cdsPessoaForc
@@ -445,24 +287,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     ProviderName = 'dspLocal'
     Left = 648
     Top = 320
-    object cdsLocaltitulo: TStringField
-      FieldName = 'titulo'
-      Required = True
-      Size = 100
-    end
-    object cdsLocalpessoaId: TIntegerField
-      FieldName = 'pessoaId'
-    end
-    object cdsLocallocalId: TStringField
-      FieldName = 'localId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object cdsLocalvLocalId: TStringField
-      FieldName = 'vLocalId'
-      Size = 10
-    end
   end
   object dspLocal: TDataSetProvider
     DataSet = dm.sqlLocal
@@ -486,28 +310,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     ProviderName = 'dpsLocalAux'
     Left = 560
     Top = 320
-    object StringField1: TStringField
-      FieldName = 'titulo'
-      Required = True
-      Size = 100
-    end
-    object IntegerField3: TIntegerField
-      FieldName = 'pessoaId'
-      LookupKeyFields = 'pessoaId'
-      LookupResultField = 'nome'
-      KeyFields = 'pessoaId'
-    end
-    object cdsAuxLocallocalId: TStringField
-      FieldName = 'localId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object cdsAuxLocalvLocalId: TStringField
-      FieldName = 'vLocalId'
-      Required = True
-      Size = 10
-    end
   end
   object dpsLocalAux: TDataSetProvider
     DataSet = dm.sqlSubLocal
@@ -518,32 +320,144 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
   end
   object cdsPessoaForc: TClientDataSet
     Aggregates = <>
+    CommandText = 'select * from fornecedor'
     Params = <>
     ProviderName = 'dpsPessoaForc'
     Left = 176
     Top = 453
-    object cdsPessoaForcfornecedorId: TIntegerField
-      FieldName = 'fornecedorId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object cdsPessoaForcrazaoSocial: TStringField
-      FieldName = 'razaoSocial'
-      Required = True
-      Size = 100
-    end
-    object cdsPessoaForccnpj: TStringField
-      FieldName = 'cnpj'
-      Required = True
-      EditMask = '00\.000\.000\/0000\-00;0; '
-    end
-    object cdsPessoaForcpessoaId: TIntegerField
-      FieldName = 'pessoaId'
-      Required = True
-    end
   end
   object dpsPessoaForc: TDataSetProvider
     DataSet = dm.sqlFornecedor
+    Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
     Left = 96
     Top = 453
+  end
+  object sqlGrupo: TADOQuery
+    Connection = dm.ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from grupo where vGrupoId = 0')
+    Left = 312
+    Top = 384
+    object sqlGrupogrupoId: TStringField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Size = 10
+    end
+    object sqlGrupodescricao: TStringField
+      FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
+      Size = 100
+    end
+    object sqlGrupoempresaId: TIntegerField
+      FieldName = 'empresaId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlGrupovGrupoId: TStringField
+      FieldName = 'vGrupoId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+  end
+  object sqlSubGrupo: TADOQuery
+    Connection = dm.ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from grupo where vGrupoId <> 0')
+    Left = 312
+    Top = 440
+    object sqlSubGrupogrupoId: TStringField
+      FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Size = 10
+    end
+    object sqlSubGrupodescricao: TStringField
+      FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
+      Size = 100
+    end
+    object sqlSubGrupoempresaId: TIntegerField
+      FieldName = 'empresaId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlSubGrupovGrupoId: TStringField
+      FieldName = 'vGrupoId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+  end
+  object sqlBem: TADOQuery
+    Connection = dm.ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from bem')
+    Left = 312
+    Top = 328
+    object sqlBembemId: TAutoIncField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'bemId'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlBemidenficacao: TStringField
+      FieldName = 'idenficacao'
+      ProviderFlags = [pfInUpdate]
+      Size = 50
+    end
+    object sqlBemdescricao: TStringField
+      FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
+      Size = 255
+    end
+    object sqlBemgrupoId: TStringField
+      FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlBemestadoId: TIntegerField
+      FieldName = 'estadoId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlBemlocalId: TStringField
+      FieldName = 'localId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlBemgestaoId: TIntegerField
+      FieldName = 'gestaoId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlBemvalor: TBCDField
+      FieldName = 'valor'
+      ProviderFlags = [pfInUpdate]
+      currency = True
+      Precision = 19
+    end
+    object sqlBemtipoIdentificacao: TIntegerField
+      FieldName = 'tipoIdentificacao'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlBemsubgrupoId: TStringField
+      FieldName = 'subgrupoId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlBemsubLocalId: TStringField
+      FieldName = 'subLocalId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlBemtipoAquisicao: TIntegerField
+      FieldName = 'tipoAquisicao'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlBemquantidade: TFloatField
+      FieldName = 'quantidade'
+      ProviderFlags = [pfInUpdate]
+    end
   end
 end

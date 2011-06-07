@@ -5,39 +5,18 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, RpDefine, RpRave, Provider, DB, DBClient, FMTBcd,
-  SqlExpr, RpCon, RpConDS, DBCtrls, ExtCtrls, ComCtrls;
+  SqlExpr, RpCon, RpConDS, DBCtrls, ExtCtrls, ComCtrls, ADODB;
 
 type
   TfrmRelatTranferenciaBem = class(TForm)
     btnVisualizar: TBitBtn;
     btnFechar: TBitBtn;
-    sqlLocal: TSQLDataSet;
-    sqlBens: TSQLDataSet;
     rvdTrBens: TRvDataSetConnection;
-    sqlSubLocal: TSQLDataSet;
     rvdTrSubLocal: TRvDataSetConnection;
-    sqlSubLocallocalId: TStringField;
-    sqlSubLocaltitulo: TStringField;
-    sqlSubLocalvLocalId: TStringField;
-    sqlSubLocalpessoaId: TIntegerField;
-    sqlBensbemId: TIntegerField;
-    sqlBensidenficacao: TStringField;
-    sqlBensdescricao: TStringField;
-    sqlBensgrupoId: TStringField;
-    sqlBensestadoId: TIntegerField;
-    sqlBenslocalId: TStringField;
-    sqlBensgestaoId: TIntegerField;
-    sqlBensvalor: TFMTBCDField;
-    sqlBenstipoIdentificacao: TIntegerField;
-    sqlBenssubgrupoId: TStringField;
-    sqlBenssubLocalId: TStringField;
-    sqlBenstipoAquisicao: TIntegerField;
-    sqlBensquantidade: TFloatField;
     cbOrgao: TCheckBox;
     cbUnidade: TCheckBox;
     dbLocal: TDBLookupComboBox;
     dblSubLocal: TDBLookupComboBox;
-    sqlSubLocalempresa_orgao: TStringField;
     dpsLocalAux: TDataSetProvider;
     dsAuxLocal: TDataSource;
     cdsAuxLocal: TClientDataSet;
@@ -54,6 +33,18 @@ type
     dsEmpresa: TDataSource;
     cdsEmpresa: TClientDataSet;
     rvdEmpresa: TRvDataSetConnection;
+    cdsBens: TClientDataSet;
+    dpsBens: TDataSetProvider;
+    sqlLocal: TADOQuery;
+    sqlLocallocalId: TStringField;
+    sqlLocaltitulo: TStringField;
+    sqlLocalvLocalId: TStringField;
+    sqlLocalpessoaId: TIntegerField;
+    sqlSubLocal: TADOQuery;
+    sqlSubLocallocalId: TStringField;
+    sqlSubLocaltitulo: TStringField;
+    sqlSubLocalvLocalId: TStringField;
+    sqlSubLocalpessoaId: TIntegerField;
     procedure btnVisualizarClick(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -91,23 +82,23 @@ begin
 			begin
 				if cbUnidade.Checked then
 				begin
-					CommandText := Concat('select local.*, unidade.Titulo as empresa_orgao ',
+					SQL.Text := Concat('select local.*, unidade.Titulo as empresa_orgao ',
 																'from local inner join local as unidade on unidade.localId = local.vLocalId ',
 																'where local.vLocalId = :vLocalId and local.localId = :localId');
-					Params.ParamByName('localId').Value := dblSubLocal.KeyValue;
-					Params.ParamByName('vLocalId').Value := dbLocal.KeyValue;
+					Parameters.ParamByName('localId').Value := dblSubLocal.KeyValue;
+					Parameters.ParamByName('vLocalId').Value := dbLocal.KeyValue;
 				end
 				else
 				begin
-					CommandText := Concat('select local.*, unidade.Titulo as empresa_orgao ',
+					SQL.Text  := Concat('select local.*, unidade.Titulo as empresa_orgao ',
 																'from local inner join local as unidade on unidade.localId = local.vLocalId ',
 																'where local.vLocalId = :vLocalId');
-					Params.ParamByName('vLocalId').Value := dbLocal.KeyValue;
+					Parameters.ParamByName('vLocalId').Value := dbLocal.KeyValue;
 				end;
 			end
 			else
 			begin
-				CommandText := Concat('select local.*, unidade.Titulo as empresa_orgao ',
+				SQL.Text  := Concat('select local.*, unidade.Titulo as empresa_orgao ',
 															'from local inner join local as unidade on unidade.localId = local.vLocalId ');
 			end;
 		end;
@@ -143,7 +134,6 @@ end;
 
 procedure TfrmRelatTranferenciaBem.FormCreate(Sender: TObject);
 begin
-	cdsLocal.CommandText := 'select * from local where vLocalId = 0';
 	dsLocal.DataSet.Open;
 	dsAuxLocal.DataSet.Open;
 	edtData.DateTime := Now;

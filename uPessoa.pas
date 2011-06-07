@@ -96,7 +96,6 @@ type
     btnAdicionar: TSpeedButton;
     btnRemover: TSpeedButton;
     cdsUsuarioAcaoacaoId: TIntegerField;
-    cdsUsuarioAcaodescricao: TStringField;
     cdsUsuarioAcaousuarioId: TIntegerField;
 		procedure FormPaint(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
