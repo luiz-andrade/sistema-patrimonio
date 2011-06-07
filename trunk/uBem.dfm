@@ -32,7 +32,7 @@ object frmBem: TfrmBem
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsInformacao
+    ActivePage = tsPesquisa
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -460,7 +460,6 @@ object frmBem: TfrmBem
         Height = 13
         Caption = 'bemId'
         FocusControl = DBEdit1
-        Visible = False
       end
       object Label13: TLabel
         Left = 16
@@ -519,7 +518,6 @@ object frmBem: TfrmBem
         ParentColor = True
         ReadOnly = True
         TabOrder = 4
-        Visible = False
       end
       object numeroNota: TDBEdit
         Left = 16
@@ -529,6 +527,46 @@ object frmBem: TfrmBem
         DataField = 'numeroNota'
         DataSource = dsAquisicao
         TabOrder = 5
+      end
+      object btRemoverFornecedor: TBitBtn
+        AlignWithMargins = True
+        Left = 441
+        Top = 120
+        Width = 91
+        Height = 25
+        Cursor = crHandPoint
+        Caption = 'Remover'
+        DoubleBuffered = True
+        Glyph.Data = {
+          36030000424D3603000000000000360000002800000010000000100000000100
+          18000000000000030000C40E0000C40E00000000000000000000FFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2F2FC8488D5383CBA14
+          1BAF141AAC383AB28585CDF2F2FAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFB2B6F11324C40020D80023E00020D90019CC0011BD000BB01417A7B4B4
+          E8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB2B7F40420D6002FFF002AFB002DF800
+          2BF20029EE001FE50012CA000DB50409A4B4B4E7FFFFFFFFFFFFFFFFFFF5F5FD
+          1932D50035FF97A9E86888F40034FF002DFF0033FA95B1FD4570FB0019D4000D
+          B61316A7F2F2FBFFFFFFFFFFFF818BE4254EF80034FFCACDDCF5EFDEB1C0EF06
+          3DFFB1C4FAFFFFFBFFFFFF6187FD0012CA000CB28484CEFFFFFFFFFFFF3A51DF
+          3D6AFF083CFE97A3E2F4F1E1F6F3EAE4E8F3FFFFF8FFFFFFF3F7FF446DFD0022
+          E70012BE373BB6FFFFFFFFFFFF2341E34B76FF2255FF0D41FE5C7AF0EFEDEBF6
+          F6F3FFFFFBCDDAFE174AFF002AFC002CF30019CB121AB2FFFFFFFFFFFF2545E7
+          6489FF2E5FFF3364FF0639FCDADCEDFBF9F3FFFFFBADC0FE0033FF0236FF0030
+          FA0020DA121CB5FFFFFFFFFFFF3C58E983A2FF3D6CFF3C6CFF526DE9FFFBE9B2
+          BFF3D4DAF9FFFFFF6D8FFF0033FF0032FF0023E23941C2FFFFFFFFFFFF8492F1
+          688AFA7096FF2958F7BABEDEF5F3E71543F70E41FDE7ECFBFFFFFF2958FE0035
+          FF0021DA878DDAFFFFFFFFFFFFF3F4FF294EEF97B6FF4C75F95B6CD8546BE133
+          65FF2D5FFF1745FCC7D1FA4C73FF0135FF1629CBF4F4FDFFFFFFFFFFFFFFFFFF
+          B7C2FF2F53F396B3FF6F95FF3966FA396AFF2F60FF2153FE083CFF0C40FF0725
+          DCBABFF6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB8C3FF294DF26688FA88A9FF6A
+          8FFF4F7AFF3E6DFF204CF61E38DDBAC0F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFF4F5FE8C99F5405DED2C4CEC2A4AE94059E58D99ECF5F6FDFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+        ParentDoubleBuffered = False
+        TabOrder = 6
+        OnClick = btRemoverFornecedorClick
       end
     end
   end
@@ -2473,9 +2511,9 @@ object frmBem: TfrmBem
   end
   object cdsBem: TClientDataSet
     Aggregates = <>
+    CommandText = 'select * from bem'
     Params = <>
     ProviderName = 'dspBem'
-    AfterOpen = cdsBemAfterOpen
     AfterInsert = cdsBemAfterInsert
     AfterEdit = cdsBemAfterEdit
     OnReconcileError = cdsBemReconcileError
@@ -2499,13 +2537,6 @@ object frmBem: TfrmBem
     object cdsBemestadoId: TIntegerField
       FieldName = 'estadoId'
       Required = True
-    end
-    object cdsBemvalor: TFMTBCDField
-      FieldName = 'valor'
-      Required = True
-      currency = True
-      Precision = 19
-      Size = 4
     end
     object cdsBemtipoIdentificacao: TIntegerField
       FieldName = 'tipoIdentificacao'
@@ -2541,6 +2572,11 @@ object frmBem: TfrmBem
       FieldName = 'quantidade'
       Required = True
     end
+    object cdsBemvalor: TBCDField
+      FieldName = 'valor'
+      currency = True
+      Precision = 19
+    end
   end
   object dspBem: TDataSetProvider
     DataSet = dm.sqlBem
@@ -2575,6 +2611,7 @@ object frmBem: TfrmBem
     Top = 390
   end
   object cdsGrupo: TClientDataSet
+    Active = True
     Aggregates = <>
     CommandText = 'select * from grupo'
     Params = <>
@@ -2583,6 +2620,7 @@ object frmBem: TfrmBem
     Top = 222
   end
   object cdsEstado: TClientDataSet
+    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspEstado'
@@ -2615,6 +2653,7 @@ object frmBem: TfrmBem
     end
   end
   object cdsGestao: TClientDataSet
+    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspGestao'
@@ -2648,11 +2687,13 @@ object frmBem: TfrmBem
   object dsAquisicao: TDataSource
     DataSet = cdsAquisicao
     OnStateChange = dsAquisicaoStateChange
+    OnDataChange = dsAquisicaoDataChange
     Left = 24
     Top = 192
   end
   object cdsAquisicao: TClientDataSet
     Aggregates = <>
+    CommandText = 'select * from bemAquisicao'
     IndexFieldNames = 'bemId'
     MasterFields = 'bemId'
     MasterSource = dsBem
@@ -2667,18 +2708,6 @@ object frmBem: TfrmBem
       ProviderFlags = [pfInWhere, pfInKey]
       Required = True
     end
-    object cdsAquisicaodata: TSQLTimeStampField
-      FieldName = 'data'
-      ProviderFlags = []
-      Required = True
-      EditMask = '!99/99/9999;1; '
-    end
-    object cdsAquisicaodataNota: TSQLTimeStampField
-      FieldName = 'dataNota'
-      ProviderFlags = []
-      Required = True
-      EditMask = '!99/99/9999;1; '
-    end
     object cdsAquisicaofornecedorId: TIntegerField
       FieldName = 'fornecedorId'
       ProviderFlags = []
@@ -2690,10 +2719,18 @@ object frmBem: TfrmBem
       Required = True
       Size = 100
     end
+    object cdsAquisicaodata: TDateTimeField
+      FieldName = 'data'
+      EditMask = '!99/99/9999;1; '
+    end
+    object cdsAquisicaodataNota: TDateTimeField
+      FieldName = 'dataNota'
+      EditMask = '!99/99/9999;1; '
+    end
   end
   object dspAquisicao: TDataSetProvider
     DataSet = dm.sqlBemAquisicao
-    Options = [poAutoRefresh, poUseQuoteChar]
+    Options = [poAutoRefresh, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 24
     Top = 304
@@ -2723,6 +2760,7 @@ object frmBem: TfrmBem
     Top = 8
   end
   object cdsGrupoPrincipal: TClientDataSet
+    Active = True
     Aggregates = <>
     CommandText = 'select * from grupo'
     Params = <>
@@ -2731,20 +2769,24 @@ object frmBem: TfrmBem
     Top = 224
     object cdsGrupoPrincipaldescricao: TStringField
       FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object cdsGrupoPrincipalempresaId: TIntegerField
       FieldName = 'empresaId'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object cdsGrupoPrincipalgrupoId: TStringField
       FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
     object cdsGrupoPrincipalvGrupoId: TStringField
       FieldName = 'vGrupoId'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
   end

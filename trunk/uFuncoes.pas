@@ -2,8 +2,8 @@ unit uFuncoes;
 
 interface
 
-uses 	uMd5, DB, SqlExpr, uDm, SysUtils, Classes, Forms, Dialogs, Windows, 
-			Messages, Graphics, ExtCtrls;
+uses 	uMd5, DB, uDm, SysUtils, Classes, Forms, Dialogs, Windows,
+			Messages, Graphics, ExtCtrls, ADODB;
 
 function validaAcesso(login : String; pws : String) : TDataSet;
 procedure VerticalText(Form : TForm; Texto1, Texto2 : String; Top : Integer; FontSize : Integer);overload;
@@ -45,15 +45,15 @@ end;
 /// </summary>
 function validaAcesso(login : String; pws : String) : TDataSet;
 var
-	qryValidaAcesso : TSQLQuery;
+	qryValidaAcesso : TADOQuery;
 begin
 	Result := nil;
-	qryValidaAcesso := TSQLQuery.Create(nil);
+	qryValidaAcesso := TADOQuery.Create(nil);
 	with qryValidaAcesso do
 	begin
 		try
 			Close;
-			SQLConnection := dm.SQLConnection;
+			Connection := dm.ADOConnection;
 			with SQL do
 			begin
 				Add('select usuario.usuarioId, usuario.login, pessoa.nome, usuario.senha');
@@ -61,9 +61,12 @@ begin
 				Add('where usuario.login=:login and usuario.senha=:senha');
 				Add('and desativado = :desativado');
 			end;
-			ParamByName('login').AsString := login;
-			ParamByName('senha').AsString := MD5Print(MD5String(pws));
-			ParamByName('desativado').AsBoolean := False;
+      with Parameters do
+      begin
+        ParamByName('login').Value := login;
+        ParamByName('senha').Value := MD5Print(MD5String(pws));
+        ParamByName('desativado').Value := False;
+      end;
 			try
 				Open;
 				Result := qryValidaAcesso;
@@ -236,17 +239,17 @@ end;
 
 function GetBemById(bemId : Integer) : TDataSet;
 var
-	qryBem : TSQLQuery;
+	qryBem : TADOQuery;
 begin
-	qryBem := TSQLQuery.Create(nil);
+	qryBem := TADOQuery.Create(nil);
 	with qryBem do
 	begin
 		try
 			Close;
-			SQLConnection := dm.SQLConnection;
+			Connection := dm.ADOConnection;
 			SQL.Clear;
 			SQL.Add('select * from bem where bemId = :bemId');
-			Params.ParamByName('bemId').Value := bemId;
+			Parameters.ParamByName('bemId').Value := bemId;
 			Open;
 			Result := qryBem;
 		except
@@ -257,18 +260,18 @@ end;
 
 function GetBemByIdentif(identificacao : String; locaId : String) : TDataSet;overload;
 var
-	qryBem : TSQLQuery;
+	qryBem : TADOQuery;
 begin
-	qryBem := TSQLQuery.Create(nil);
+	qryBem := TADOQuery.Create(nil);
 	with qryBem do
 	begin
 		try
 			Close;
-			SQLConnection := dm.SQLConnection;
+			Connection := dm.ADOConnection;
 			SQL.Clear;
 			SQL.Add('select * from bem where idenficacao = :idenficacao and SublocalId = :localId');
-			Params.ParamByName('idenficacao').Value   := identificacao;
-			Params.ParamByName('localId').Value := locaId;
+			Parameters.ParamByName('idenficacao').Value   := identificacao;
+			Parameters.ParamByName('localId').Value := locaId;
 			Open;
 			Result := qryBem;
 		except
@@ -279,18 +282,18 @@ end;
 
 function GetBemById(bemId : Integer; locaId : String) : TDataSet;
 var
-	qryBem : TSQLQuery;
+	qryBem : TADOQuery;
 begin
-	qryBem := TSQLQuery.Create(nil);
+	qryBem := TADOQuery.Create(nil);
 	with qryBem do
 	begin
 		try
 			Close;
-			SQLConnection := dm.SQLConnection;
+			Connection := dm.ADOConnection;
 			SQL.Clear;
 			SQL.Add('select * from bem where bemId = :bemId and SublocalId = :localId');
-			Params.ParamByName('bemId').Value   := bemId;
-			Params.ParamByName('localId').Value := locaId;
+			Parameters.ParamByName('bemId').Value   := bemId;
+			Parameters.ParamByName('localId').Value := locaId;
 			Open;
 			Result := qryBem;
 		except
@@ -302,12 +305,12 @@ end;
 function GetLastId() : Integer;
 begin
 	Result := -1;
-	with TSQLQuery.Create(nil) do
+	with TADOQuery.Create(nil) do
 	begin
 		try
 			try
 				Close;
-				SQLConnection := dm.SQLConnection;
+				Connection := dm.ADOConnection;
 				SQL.Clear;
 				SQL.Add('select @@identity as newId');
 				Open;
@@ -324,19 +327,18 @@ end;
 
 procedure gravaUsuarioAcao(usuarioId : Integer; acaoId : Integer);
 begin
-	with TSQLQuery.Create(nil) do
+	with TADOCommand.Create(nil) do
 	begin
 		try
 			try
-				Close;
-				SQLConnection := dm.SQLConnection;
-				CommandText := 'insert into usuarioAcao(usuarioId, acaoId) values(:usuarioId, :acaoId)';
-				with Params do
+				Connection := dm.ADOConnection;
+        CommandText := 'insert into usuarioAcao(usuarioId, acaoId) values(:usuarioId, :acaoId)';
+				with Parameters do
 				begin
 					ParamByName('usuarioId').Value := usuarioId;
 					ParamByName('acaoId').Value    := acaoId;
 				end;
-				ExecSQL();
+				Execute;
 			except
 				raise;
 			end;
@@ -348,19 +350,18 @@ end;
 
 procedure removeUsuarioAcao(usuarioId : Integer; acaoId : Integer);
 begin
-	with TSQLQuery.Create(nil) do
+	with TADOCommand.Create(nil) do
 	begin
 		try
 			try
-				Close;
-				SQLConnection := dm.SQLConnection;
+				Connection := dm.ADOConnection;
 				CommandText := 'delete usuarioAcao where usuarioId = :usuarioid and acaoId = :acaoId';
-				with Params do
+				with Parameters do
 				begin
 					ParamByName('usuarioId').Value := usuarioId;
 					ParamByName('acaoId').Value    := acaoId;
 				end;
-				ExecSQL();
+				Execute();
 			except
 				raise;
 			end;
@@ -373,14 +374,14 @@ end;
 function verificaUsuarioAcao(usuarioId : Integer; acao : String) : Boolean;
 begin
 	Result := False;
-	with TSQLQuery.Create(nil) do
+	with TADOQuery.Create(nil) do
 	begin
 		try
 			try
 				Close;
-				SQLConnection := dm.SQLConnection;
-				CommandText := 'select * from vUsuarioAcao where nomeAcao = :nomeAcao and usuarioId = :usuarioId';
-				with Params do
+				Connection := dm.ADOConnection;
+				SQL.Add('select * from vUsuarioAcao where nomeAcao = :nomeAcao and usuarioId = :usuarioId');
+				with Parameters do
 				begin
 					ParamByName('usuarioId').Value := usuarioId;
 					ParamByName('nomeAcao').Value    := acao;

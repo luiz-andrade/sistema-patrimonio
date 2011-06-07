@@ -53,8 +53,6 @@ type
     cdsAquisicao: TClientDataSet;
     dspAquisicao: TDataSetProvider;
     cdsAquisicaobemId: TIntegerField;
-    cdsAquisicaodata: TSQLTimeStampField;
-		cdsAquisicaodataNota: TSQLTimeStampField;
     cdsAquisicaofornecedorId: TIntegerField;
     Label8: TLabel;
     DBEdit2: TDBEdit;
@@ -77,7 +75,6 @@ type
     Timer: TTimer;
     pnLateral: TPanel;
     imgLateral: TImage;
-    cdsBemvalor: TFMTBCDField;
     Label12: TLabel;
     valor: TDBEdit;
     cdsAquisicaonumeroNota: TStringField;
@@ -121,6 +118,10 @@ type
     editGestao: TDBEdit;
     dblGestao: TDBLookupComboBox;
     Button1: TButton;
+    btRemoverFornecedor: TBitBtn;
+    cdsBemvalor: TBCDField;
+    cdsAquisicaodata: TDateTimeField;
+    cdsAquisicaodataNota: TDateTimeField;
     procedure btnNovoClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -135,7 +136,6 @@ type
       var Action: TReconcileAction);
     procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
-    procedure cdsBemAfterOpen(DataSet: TDataSet);
 		procedure cdsAquisicaoReconcileError(DataSet: TCustomClientDataSet;
       E: EReconcileError; UpdateKind: TUpdateKind;
       var Action: TReconcileAction);
@@ -156,6 +156,8 @@ type
       DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
     procedure cdsBemAfterEdit(DataSet: TDataSet);
     procedure Button1Click(Sender: TObject);
+    procedure btRemoverFornecedorClick(Sender: TObject);
+    procedure dsAquisicaoDataChange(Sender: TObject; Field: TField);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -258,6 +260,18 @@ begin
 	end;
 end;
 
+procedure TfrmBem.btRemoverFornecedorClick(Sender: TObject);
+begin
+  with cdsAquisicao do
+  begin
+    if not(IsEmpty) then
+      Delete;
+    ApplyUpdates(-1);
+    Close;
+    Open;
+  end;
+end;
+
 procedure TfrmBem.Button1Click(Sender: TObject);
 begin
 	with cdsBem do
@@ -304,11 +318,6 @@ begin
 	cdsBemquantidade.AsFloat      := 1;
 end;
 
-procedure TfrmBem.cdsBemAfterOpen(DataSet: TDataSet);
-begin
-	cdsAquisicao.Open;
-end;
-
 procedure TfrmBem.cdsBemReconcileError(DataSet: TCustomClientDataSet;
   E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
 begin
@@ -323,6 +332,7 @@ begin
 	tsPesquisa.Show;
 	// Abre tabelas.
 	dsBem.DataSet.Open;
+	cdsAquisicao.Open;
 	dsGestao.DataSet.Open;
 	// Certifica que somente os grupos principais sejam exibidos.
 	cdsUnidade.CommandText := 'select * from local where vLocalId = 0';
@@ -357,6 +367,14 @@ begin
 		DefaultDrawDataCell(Rect, Column.Field, State);
 		end;
 	end;
+end;
+
+procedure TfrmBem.dsAquisicaoDataChange(Sender: TObject; Field: TField);
+begin
+  with cdsAquisicao do
+  begin
+    btRemoverFornecedor.Enabled := not(IsEmpty) and not(State in [dsInsert, dsEdit]);
+  end;
 end;
 
 procedure TfrmBem.dsAquisicaoStateChange(Sender: TObject);
@@ -450,13 +468,13 @@ end;
 
 procedure TfrmBem.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-	with dsBem.DataSet do
+	with dsAquisicao.DataSet do
 	begin
 		if State in [dsInsert, dsEdit] then
 			Cancel;
 		Close;
 	end;
-	with dsAquisicao.DataSet do
+	with dsBem.DataSet do
 	begin
 		if State in [dsInsert, dsEdit] then
 			Cancel;

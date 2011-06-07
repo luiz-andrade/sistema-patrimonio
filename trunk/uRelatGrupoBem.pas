@@ -5,25 +5,11 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, FMTBcd, DB, SqlExpr, RpDefine, RpCon, RpConDS, StdCtrls, Buttons,
-  RpRave, DBCtrls, Provider, DBClient;
+  RpRave, DBCtrls, Provider, DBClient, ADODB;
 
 type
   TfrmRelatGrupoBem = class(TForm)
     rvdBensGrupo: TRvDataSetConnection;
-    sqlBens: TSQLDataSet;
-    sqlBensbemId: TIntegerField;
-    sqlBensidenficacao: TStringField;
-    sqlBensdescricao: TStringField;
-    sqlBensgrupoId: TStringField;
-    sqlBensestadoId: TIntegerField;
-    sqlBenslocalId: TStringField;
-    sqlBensgestaoId: TIntegerField;
-    sqlBensvalor: TFMTBCDField;
-    sqlBenstipoIdentificacao: TIntegerField;
-    sqlBenssubgrupoId: TStringField;
-    sqlBenssubLocalId: TStringField;
-    sqlBenstipoAquisicao: TIntegerField;
-    sqlBensquantidade: TFloatField;
     btnFechar: TBitBtn;
     btnVisualizar: TBitBtn;
     cbGrupo: TCheckBox;
@@ -31,16 +17,9 @@ type
     cbSubGrupo: TCheckBox;
     dblSubGrupo: TDBLookupComboBox;
     cdsAuxGrupo: TClientDataSet;
-    cdsAuxGrupogrupoId: TStringField;
-    cdsAuxGrupovGrupoId: TStringField;
-    cdsAuxGrupoempresaId: TIntegerField;
-    cdsAuxGrupodescricao: TStringField;
     dspGrupo: TDataSetProvider;
     dspAuxGrupo: TDataSetProvider;
     cdsGrupo: TClientDataSet;
-    cdsGrupodescricao: TStringField;
-    cdsGrupoempresaId: TIntegerField;
-    cdsGrupogrupoId: TStringField;
     dsGrupos: TDataSource;
     dsAuxGrupos: TDataSource;
     dspGestao: TDataSetProvider;
@@ -50,32 +29,14 @@ type
     dblGestaoId: TDBLookupComboBox;
     rvdGrupos: TRvDataSetConnection;
     rvdSubGrupos: TRvDataSetConnection;
-    sqlGrupo: TSQLQuery;
-    sqlGrupodescricao: TStringField;
-    sqlGrupoempresaId: TIntegerField;
-    sqlGrupogrupoId: TStringField;
-    sqlGrupovGrupoId: TStringField;
-    sqlSubGrupo: TSQLQuery;
-    StringField2: TStringField;
-    IntegerField5: TIntegerField;
-    sqlSubGrupogrupoId: TStringField;
-    sqlSubGrupovGrupoId: TStringField;
     cbFornecedor: TCheckBox;
     dblFornecedor: TDBLookupComboBox;
     dsFornecedor: TDataSource;
     dsLocal: TDataSource;
     cdsLocal: TClientDataSet;
-    cdsLocaltitulo: TStringField;
-    cdsLocalpessoaId: TIntegerField;
-    cdsLocallocalId: TStringField;
-    cdsLocalvLocalId: TStringField;
     dspLocal: TDataSetProvider;
     dsAuxLocal: TDataSource;
     cdsAuxLocal: TClientDataSet;
-    StringField1: TStringField;
-    IntegerField3: TIntegerField;
-    cdsAuxLocallocalId: TStringField;
-    cdsAuxLocalvLocalId: TStringField;
     dpsLocalAux: TDataSetProvider;
     dblLocal: TDBLookupComboBox;
     dblsubLocalId: TDBLookupComboBox;
@@ -84,11 +45,32 @@ type
     cbDescricao: TCheckBox;
     edtDescricao: TEdit;
     cdsPessoaForc: TClientDataSet;
-    cdsPessoaForcfornecedorId: TIntegerField;
-    cdsPessoaForcrazaoSocial: TStringField;
-    cdsPessoaForccnpj: TStringField;
-    cdsPessoaForcpessoaId: TIntegerField;
     dpsPessoaForc: TDataSetProvider;
+    cbRelaGrupos: TCheckBox;
+    sqlGrupo: TADOQuery;
+    sqlGrupogrupoId: TStringField;
+    sqlGrupodescricao: TStringField;
+    sqlGrupoempresaId: TIntegerField;
+    sqlGrupovGrupoId: TStringField;
+    sqlSubGrupo: TADOQuery;
+    sqlSubGrupogrupoId: TStringField;
+    sqlSubGrupodescricao: TStringField;
+    sqlSubGrupoempresaId: TIntegerField;
+    sqlSubGrupovGrupoId: TStringField;
+    sqlBem: TADOQuery;
+    sqlBembemId: TAutoIncField;
+    sqlBemidenficacao: TStringField;
+    sqlBemdescricao: TStringField;
+    sqlBemgrupoId: TStringField;
+    sqlBemestadoId: TIntegerField;
+    sqlBemlocalId: TStringField;
+    sqlBemgestaoId: TIntegerField;
+    sqlBemvalor: TBCDField;
+    sqlBemtipoIdentificacao: TIntegerField;
+    sqlBemsubgrupoId: TStringField;
+    sqlBemsubLocalId: TStringField;
+    sqlBemtipoAquisicao: TIntegerField;
+    sqlBemquantidade: TFloatField;
     procedure btnFecharClick(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -120,93 +102,117 @@ procedure TfrmRelatGrupoBem.btnVisualizarClick(Sender: TObject);
 begin
 	with dm.rvpTR do
 	begin
-		with sqlBens do
-		begin
-			Close;
-			if cbFornecedor.Checked then
-			begin
-				CommandText := Concat('select * from bem ',
-															'inner join bemAquisicao on bemAquisicao.bemid = bem.bemId ',
-															'where bemAquisicao.fornecedorId = :fornecedorId ');
-			end
-			else
-			begin
-				CommandText := 'select * from bem where 1=1  ';
-			end;
-			if cbGestao.Checked then
-			begin
-				CommandText := Concat(CommandText, ' and gestaoId = :gestaoId');
-			end;
-			if cbLocal.Checked then
-			begin
-				CommandText := Concat(CommandText, ' and localId = :localId');
-			end;
-			if cbSubLocal.Checked then
-			begin
-				CommandText := Concat(CommandText, ' and subLocalId = :subLocalId');
-			end;
-      if cbDescricao.Checked then
+    if not(cbRelaGrupos.Checked) then
+    begin
+      with sqlBem do
       begin
-        CommandText := Concat(CommandText, ' and descricao like :descricao');
-      end;
-      // Parametros
-      with Params do
-      begin
+        Close;
+        SQL.Clear;
+        if cbFornecedor.Checked then
+        begin
+          SQL.Add( Concat('select * from bem ',
+                                'inner join bemAquisicao on bemAquisicao.bemid = bem.bemId ',
+                                'where bemAquisicao.fornecedorId = :fornecedorId'));
+        end
+        else
+        begin
+          SQL.Add('select * from bem where 1=1');
+        end;
         if cbGestao.Checked then
         begin
-          ParamByName('gestaoId').Value := dblGestaoId.KeyValue;
+          SQL.Add('and gestaoId = :gestaoId');
         end;
         if cbLocal.Checked then
         begin
-          ParamByName('localId').Value := dblLocal.KeyValue;
+          SQL.Add('and localId = :localId');
         end;
         if cbSubLocal.Checked then
         begin
-          ParamByName('subLocalId').Value := dblsubLocalId.KeyValue;
-        end;
-        if cbFornecedor.Checked then
-        begin
-          ParamByName('fornecedorId').Value := dblFornecedor.KeyValue;
+          SQL.Add(' and subLocalId = :subLocalId');
         end;
         if cbDescricao.Checked then
         begin
-          ParamByName('descricao').Value := Concat('%', edtDescricao.Text, '%');
+          SQL.Add(' and descricao like :descricao');
+        end;
+        // Parametros
+        with Parameters do
+        begin
+          if cbGestao.Checked then
+          begin
+            ParamByName('gestaoId').Value := dblGestaoId.KeyValue;
+          end;
+          if cbLocal.Checked then
+          begin
+            ParamByName('localId').Value := dblLocal.KeyValue;
+          end;
+          if cbSubLocal.Checked then
+          begin
+            ParamByName('subLocalId').Value := dblsubLocalId.KeyValue;
+          end;
+          if cbFornecedor.Checked then
+          begin
+            ParamByName('fornecedorId').Value := dblFornecedor.KeyValue;
+          end;
+          if cbDescricao.Checked then
+          begin
+            ParamByName('descricao').Value := Concat('%', edtDescricao.Text, '%');
+          end;
         end;
       end;
-		end;
-		// Modifica conteudo da consulta de grupos.
-		with sqlGrupo do
-		begin
-			if cbGrupo.Checked then
-			begin
-				Close;
-				CommandText := 'select * from grupo where grupoId = :grupoId';
-				Params.ParamByName('grupoId').Value := dblGrupo.KeyValue;
-			end
-			else
-			begin
-				Close;
-				CommandText := 'select * from grupo where vGrupoId = 0';
-			end;
-		end;
-		//Modifica conteudo da consulta de sub-grupos.
-		with sqlSubGrupo do
-		begin
-			if cbSubGrupo.Checked then
-			begin
-				Close;
-				CommandText := 'select * from grupo where grupoId = :grupoId';
-				Params.ParamByName('grupoId').Value := dblSubGrupo.KeyValue;
-			end
-			else
-			begin
-				Close;
-				CommandText := 'select * from grupo';
-				//Params.ParamByName('vGrupoId').Value := dblGrupo.KeyValue;
-			end;
-		end;
-		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
-		ExecuteReport('BENSGRUPOS');
+      // Modifica conteudo da consulta de grupos.
+      with sqlGrupo do
+      begin
+        if cbGrupo.Checked then
+        begin
+          Close;
+          SQL.Add('select * from grupo where grupoId = :grupoId');
+          Parameters.ParamByName('grupoId').Value := dblGrupo.KeyValue;
+        end
+        else
+        begin
+          Close;
+          SQL.Text := 'select * from grupo where vGrupoId = 0';
+        end;
+      end;
+      //Modifica conteudo da consulta de sub-grupos.
+      with sqlSubGrupo do
+      begin
+        if cbSubGrupo.Checked then
+        begin
+          Close;
+          SQL.Clear;
+          SQL.Add('select * from grupo where grupoId = :grupoId');
+          Parameters.ParamByName('grupoId').Value := dblSubGrupo.KeyValue;
+        end
+        else
+        begin
+          Close;
+          SQL.Clear;
+          SQL.Add('select * from grupo');
+        end;
+      end;
+      ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+      ExecuteReport('BENSGRUPOS');
+    end
+    else
+    begin
+      // Modifica conteudo da consulta de grupos.
+      with sqlGrupo do
+      begin
+        Close;
+        SQL.Clear;
+        SQL.Text := 'select * from grupo where vGrupoId = 0';
+      end;
+      //Modifica conteudo da consulta de sub-grupos.
+      with sqlSubGrupo do
+      begin
+        Close;
+        SQL.Clear;
+        SQL.Text := 'select * from grupo';
+      end;
+      ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+      ExecuteReport('GRUPOS');
+    end;
 	end;
 end;
 

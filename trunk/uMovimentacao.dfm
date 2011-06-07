@@ -340,7 +340,7 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 52
     Width = 914
     Height = 547
-    ActivePage = tsInformacao
+    ActivePage = tsBens
     Align = alClient
     TabOrder = 1
     object tsConsulta: TTabSheet
@@ -601,6 +601,8 @@ object frmMovimentacao: TfrmMovimentacao
         Height = 21
         DataField = 'origemSubLocal'
         DataSource = dsMovimentacao
+        DropDownRows = 50
+        DropDownWidth = 400
         KeyField = 'localId'
         ListField = 'localId;titulo'
         ListFieldIndex = 1
@@ -614,6 +616,8 @@ object frmMovimentacao: TfrmMovimentacao
         Height = 21
         DataField = 'destinoSubLocal'
         DataSource = dsMovimentacao
+        DropDownRows = 50
+        DropDownWidth = 400
         KeyField = 'localId'
         ListField = 'localId;titulo'
         ListFieldIndex = 1
@@ -693,6 +697,8 @@ object frmMovimentacao: TfrmMovimentacao
         Height = 21
         DataField = 'origemId'
         DataSource = dsMovimentacao
+        DropDownRows = 50
+        DropDownWidth = 400
         KeyField = 'localId'
         ListField = 'localId;titulo'
         ListFieldIndex = 1
@@ -724,6 +730,8 @@ object frmMovimentacao: TfrmMovimentacao
         Height = 21
         DataField = 'destinoId'
         DataSource = dsMovimentacao
+        DropDownRows = 50
+        DropDownWidth = 400
         KeyField = 'localId'
         ListField = 'localId;titulo'
         ListFieldIndex = 1
@@ -847,6 +855,7 @@ object frmMovimentacao: TfrmMovimentacao
           EditLabel.Caption = 'Identifica'#231#227'o do bem: '
           LabelPosition = lpLeft
           TabOrder = 2
+          OnKeyDown = ledtIdentificacaoKeyDown
         end
       end
       object DBGrid2: TDBGrid
@@ -870,9 +879,16 @@ object frmMovimentacao: TfrmMovimentacao
         Columns = <
           item
             Expanded = False
-            FieldName = 'identificacao'
+            FieldName = 'idenficacao'
             Title.Caption = 'Identifica'#231#227'o do Bem'
             Width = 120
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'descricao'
+            Title.Caption = 'Descri'#231#227'o'
+            Width = 740
             Visible = True
           end>
       end
@@ -883,90 +899,79 @@ object frmMovimentacao: TfrmMovimentacao
     OnStateChange = dsMovimentacaoStateChange
     OnDataChange = dsMovimentacaoDataChange
     Left = 194
-    Top = 408
+    Top = 406
   end
   object cdsMovimentacao: TClientDataSet
     Aggregates = <>
+    CommandText = 'select * from transferencia'
     Params = <>
     ProviderName = 'dpsMovimentacao'
-    AfterOpen = cdsMovimentacaoAfterOpen
+    AfterInsert = cdsMovimentacaoAfterInsert
     OnReconcileError = cdsMovimentacaoReconcileError
     Left = 194
     Top = 467
     object cdsMovimentacaotransferenciaId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'transferenciaId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ProviderFlags = [pfInWhere, pfInKey]
       DisplayFormat = '00000000'
     end
     object cdsMovimentacaoreceptorId: TIntegerField
       FieldName = 'receptorId'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsMovimentacaocedenteId: TIntegerField
       FieldName = 'cedenteId'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsMovimentacaousuarioId: TIntegerField
       FieldName = 'usuarioId'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object cdsMovimentacaoconcluida: TBooleanField
       FieldName = 'concluida'
+      ProviderFlags = [pfInUpdate]
       Required = True
       DisplayValues = 'Sim;N'#227'o'
     end
-    object cdsMovimentacaodata: TSQLTimeStampField
-      AutoGenerateValue = arDefault
-      FieldName = 'data'
-      DisplayFormat = 'dd/MM/yyyy hh:mm:ss'
-    end
     object cdsMovimentacaotipo: TSmallintField
       FieldName = 'tipo'
+      ProviderFlags = [pfInUpdate]
       Required = True
-    end
-    object cdsMovimentacaoTituloOrigem: TStringField
-      FieldKind = fkLookup
-      FieldName = 'TituloOrigem'
-      LookupDataSet = cdsOrigem
-      LookupKeyFields = 'localId'
-      LookupResultField = 'titulo'
-      KeyFields = 'origemId'
-      Size = 255
-      Lookup = True
-    end
-    object cdsMovimentacaoTituloDestino: TStringField
-      FieldKind = fkLookup
-      FieldName = 'TituloDestino'
-      LookupDataSet = cdsDestino
-      LookupKeyFields = 'localId'
-      LookupResultField = 'titulo'
-      KeyFields = 'destinoId'
-      Size = 255
-      Lookup = True
     end
     object cdsMovimentacaoorigemId: TStringField
       FieldName = 'origemId'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
     object cdsMovimentacaodestinoId: TStringField
       FieldName = 'destinoId'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
     object cdsMovimentacaoorigemSubLocal: TStringField
       FieldName = 'origemSubLocal'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
     object cdsMovimentacaodestinoSubLocal: TStringField
       FieldName = 'destinoSubLocal'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
+    end
+    object cdsMovimentacaodata: TDateTimeField
+      FieldName = 'data'
+      ProviderFlags = [pfInUpdate]
     end
   end
   object dpsMovimentacao: TDataSetProvider
     DataSet = dm.sqlTranferencia
-    Options = [poAllowMultiRecordUpdates, poUseQuoteChar]
+    Options = [poAllowCommandText, poRetainServerOrder, poUseQuoteChar]
     AfterUpdateRecord = dpsMovimentacaoAfterUpdateRecord
     Left = 192
     Top = 527
@@ -975,9 +980,10 @@ object frmMovimentacao: TfrmMovimentacao
     DataSet = cdsOrigem
     OnDataChange = dsOrigemDataChange
     Left = 785
-    Top = 408
+    Top = 406
   end
   object cdsOrigem: TClientDataSet
+    Active = True
     Aggregates = <>
     CommandText = 'select * from local order by localId'
     IndexFieldNames = 'vLocalId'
@@ -989,11 +995,13 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 467
     object cdsOrigemtitulo: TStringField
       FieldName = 'titulo'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object cdsOrigempessoaId: TIntegerField
       FieldName = 'pessoaId'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object cdsOrigemlocalId: TStringField
@@ -1004,6 +1012,7 @@ object frmMovimentacao: TfrmMovimentacao
     end
     object cdsOrigemvLocalId: TStringField
       FieldName = 'vLocalId'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
   end
@@ -1017,9 +1026,10 @@ object frmMovimentacao: TfrmMovimentacao
     DataSet = cdsDestino
     OnDataChange = dsDestinoDataChange
     Left = 524
-    Top = 408
+    Top = 406
   end
   object cdsDestino: TClientDataSet
+    Active = True
     Aggregates = <>
     CommandText = 'select * from local order by localId'
     IndexFieldNames = 'vLocalId'
@@ -1031,11 +1041,13 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 467
     object cdsDestinotitulo: TStringField
       FieldName = 'titulo'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object cdsDestinopessoaId: TIntegerField
       FieldName = 'pessoaId'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object cdsDestinolocalId: TStringField
@@ -1046,110 +1058,132 @@ object frmMovimentacao: TfrmMovimentacao
     end
     object cdsDestinovLocalId: TStringField
       FieldName = 'vLocalId'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
   end
   object dsCedente: TDataSource
     DataSet = cdsCedente
     Left = 286
-    Top = 407
+    Top = 406
   end
   object cdsCedente: TClientDataSet
+    Active = True
     Aggregates = <>
+    CommandText = 'select * from pessoa'
     Params = <>
     ProviderName = 'dpsCedente'
     Left = 286
     Top = 467
     object cdsCedentepessoaId: TIntegerField
       FieldName = 'pessoaId'
+      ProviderFlags = [pfInWhere, pfInKey]
     end
     object cdsCedentenome: TStringField
       FieldName = 'nome'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object cdsCedentetipo: TSmallintField
       FieldName = 'tipo'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object cdsCedentelogradouro: TStringField
       FieldName = 'logradouro'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object cdsCedentemunicipio: TStringField
       FieldName = 'municipio'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
     object cdsCedentecep: TStringField
       FieldName = 'cep'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
     object cdsCedentefornecedor: TBooleanField
       FieldName = 'fornecedor'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object cdsCedenteusuario: TBooleanField
       FieldName = 'usuario'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
   end
   object dsReceptor: TDataSource
     DataSet = cdsReceptor
     Left = 409
-    Top = 407
+    Top = 406
   end
   object cdsReceptor: TClientDataSet
+    Active = True
     Aggregates = <>
+    CommandText = 'select * from pessoa'
     Params = <>
     ProviderName = 'dpsReceptor'
     Left = 409
     Top = 467
     object cdsReceptorpessoaId: TIntegerField
       FieldName = 'pessoaId'
+      ProviderFlags = [pfInWhere, pfInKey]
     end
     object cdsReceptornome: TStringField
       FieldName = 'nome'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object cdsReceptortipo: TSmallintField
       FieldName = 'tipo'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object cdsReceptorlogradouro: TStringField
       FieldName = 'logradouro'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object cdsReceptormunicipio: TStringField
       FieldName = 'municipio'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
     object cdsReceptorcep: TStringField
       FieldName = 'cep'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
     end
     object cdsReceptorfornecedor: TBooleanField
       FieldName = 'fornecedor'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
     object cdsReceptorusuario: TBooleanField
       FieldName = 'usuario'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
   end
   object dsMovimentacaoBem: TDataSource
     DataSet = cdsMovimentacaoBem
     Left = 88
-    Top = 408
+    Top = 406
   end
   object cdsMovimentacaoBem: TClientDataSet
     Aggregates = <>
+    CommandText = 'select * from transferenciaBem'
     IndexFieldNames = 'transferenciaId'
     MasterFields = 'transferenciaId'
     MasterSource = dsMovimentacao
@@ -1171,14 +1205,25 @@ object frmMovimentacao: TfrmMovimentacao
     end
     object cdsMovimentacaoBembemEstadoId: TIntegerField
       FieldName = 'bemEstadoId'
+      ProviderFlags = [pfInUpdate]
       Required = True
     end
-    object cdsMovimentacaoBemidentificacao: TStringField
+    object cdsMovimentacaoBemidenficacao: TStringField
       FieldKind = fkLookup
-      FieldName = 'identificacao'
-      LookupDataSet = dm.sqlBem
+      FieldName = 'idenficacao'
+      LookupDataSet = cdsBem
       LookupKeyFields = 'bemId'
       LookupResultField = 'idenficacao'
+      KeyFields = 'bemId'
+      Size = 50
+      Lookup = True
+    end
+    object cdsMovimentacaoBemdescricao: TStringField
+      FieldKind = fkLookup
+      FieldName = 'descricao'
+      LookupDataSet = cdsBem
+      LookupKeyFields = 'bemId'
+      LookupResultField = 'descricao'
       KeyFields = 'bemId'
       Size = 255
       Lookup = True
@@ -1186,23 +1231,9 @@ object frmMovimentacao: TfrmMovimentacao
   end
   object dpsMovimentacaoBem: TDataSetProvider
     DataSet = dm.sqlTransferenciaBem
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poRetainServerOrder, poUseQuoteChar]
+    Options = [poAllowCommandText, poRetainServerOrder, poUseQuoteChar]
     Left = 88
     Top = 527
-  end
-  object sp_finalizaTransferencia: TSQLStoredProc
-    MaxBlobSize = -1
-    Params = <
-      item
-        DataType = ftInteger
-        Precision = 10
-        Name = '@transferenciaId'
-        ParamType = ptInput
-      end>
-    SQLConnection = dm.SQLConnection
-    StoredProcName = 'sp_finalizaTransferencia'
-    Left = 762
-    Top = 142
   end
   object dsOrigemLocal: TDataSource
     DataSet = cdsOrigemLocal
@@ -1210,6 +1241,7 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 406
   end
   object cdsOrigemLocal: TClientDataSet
+    Active = True
     Aggregates = <>
     CommandText = 'select * from local where vLocalId = 0 order by localId'
     Params = <>
@@ -1218,11 +1250,13 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 467
     object cdsOrigemLocaltitulo: TStringField
       FieldName = 'titulo'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object cdsOrigemLocalpessoaId: TIntegerField
       FieldName = 'pessoaId'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsOrigemLocallocalId: TStringField
       FieldName = 'localId'
@@ -1232,12 +1266,13 @@ object frmMovimentacao: TfrmMovimentacao
     end
     object cdsOrigemLocalvLocalId: TStringField
       FieldName = 'vLocalId'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
   end
   object dspOrigemLocal: TDataSetProvider
     DataSet = dm.sqlLocal
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 861
     Top = 527
@@ -1251,9 +1286,10 @@ object frmMovimentacao: TfrmMovimentacao
   object dsDestinoLocal: TDataSource
     DataSet = cdsDestinoLocal
     Left = 605
-    Top = 408
+    Top = 406
   end
   object cdsDestinoLocal: TClientDataSet
+    Active = True
     Aggregates = <>
     CommandText = 'select * from local where vLocalId = 0 order by localId'
     Params = <>
@@ -1262,11 +1298,13 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 467
     object StringField1: TStringField
       FieldName = 'titulo'
+      ProviderFlags = [pfInUpdate]
       Required = True
       Size = 100
     end
     object IntegerField1: TIntegerField
       FieldName = 'pessoaId'
+      ProviderFlags = [pfInUpdate]
     end
     object StringField2: TStringField
       FieldName = 'localId'
@@ -1276,28 +1314,127 @@ object frmMovimentacao: TfrmMovimentacao
     end
     object StringField3: TStringField
       FieldName = 'vLocalId'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
   end
   object dpsDestinoLocal: TDataSetProvider
     DataSet = dm.sqlLocal
-    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 605
     Top = 527
   end
   object dpsCedente: TDataSetProvider
     DataSet = dm.sqlPessoa
-    Options = [poAutoRefresh, poRetainServerOrder, poUseQuoteChar]
+    Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 285
-    Top = 528
+    Top = 527
   end
   object dpsReceptor: TDataSetProvider
     DataSet = dm.sqlPessoa
-    Options = [poAutoRefresh, poRetainServerOrder, poUseQuoteChar]
+    Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
     Left = 408
-    Top = 528
+    Top = 527
+  end
+  object sp_finalizaTransferencia: TADOStoredProc
+    Connection = dm.ADOConnection
+    ProcedureName = 'sp_finalizaTransferencia'
+    Parameters = <>
+    Left = 768
+    Top = 152
+  end
+  object dsBem: TDataSource
+    DataSet = cdsBem
+    Left = 696
+    Top = 406
+  end
+  object cdsBem: TClientDataSet
+    Active = True
+    Aggregates = <>
+    CommandText = 'select * from bem'
+    Params = <>
+    ProviderName = 'dspBem'
+    Left = 696
+    Top = 467
+    object cdsBembemId: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'bemId'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object cdsBemidenficacao: TStringField
+      FieldName = 'idenficacao'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      Size = 50
+    end
+    object cdsBemdescricao: TStringField
+      FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      Size = 255
+    end
+    object cdsBemestadoId: TIntegerField
+      FieldName = 'estadoId'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object cdsBemtipoIdentificacao: TIntegerField
+      FieldName = 'tipoIdentificacao'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object cdsBemgestaoId: TIntegerField
+      FieldName = 'gestaoId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsBemgrupoId: TStringField
+      FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      Size = 10
+    end
+    object cdsBemlocalId: TStringField
+      FieldName = 'localId'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      Size = 10
+    end
+    object cdsBemsubgrupoId: TStringField
+      FieldName = 'subgrupoId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object cdsBemsubLocalId: TStringField
+      FieldName = 'subLocalId'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      Size = 10
+    end
+    object cdsBemtipoAquisicao: TIntegerField
+      FieldName = 'tipoAquisicao'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object cdsBemquantidade: TFloatField
+      FieldName = 'quantidade'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object cdsBemvalor: TBCDField
+      FieldName = 'valor'
+      ProviderFlags = [pfInUpdate]
+      currency = True
+      Precision = 19
+    end
+  end
+  object dspBem: TDataSetProvider
+    DataSet = dm.sqlBem
+    Options = [poAutoRefresh, poAllowCommandText, poRetainServerOrder, poUseQuoteChar]
+    UpdateMode = upWhereKeyOnly
+    Left = 696
+    Top = 527
   end
 end
