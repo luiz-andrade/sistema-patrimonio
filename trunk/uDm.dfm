@@ -5,7 +5,7 @@ object dm: Tdm
   object ImageListAcoes: TImageList
     Height = 32
     Width = 32
-    Left = 422
+    Left = 390
     Top = 24
     Bitmap = {
       494C010107000900C80020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
@@ -1072,7 +1072,7 @@ object dm: Tdm
       000000000000}
   end
   object ImageListBotoes: TImageList
-    Left = 517
+    Left = 485
     Top = 24
     Bitmap = {
       494C010104000600980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
@@ -1348,41 +1348,39 @@ object dm: Tdm
   end
   object rvpTR: TRvProject
     ProjectFile = 'C:\Projetos\sistema-patrimonio\reports\reportMovimentacao.rav'
-    Left = 600
-    Top = 16
+    Left = 568
+    Top = 24
   end
   object rvdLocal: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
     DataSet = sqlLocal
-    Left = 208
+    Left = 176
     Top = 88
   end
   object rvdSubLocal: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
     DataSet = sqlSubLocal
-    Left = 208
+    Left = 176
     Top = 256
   end
   object rvdGestao: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
     DataSet = sqlGestao
-    Left = 338
+    Left = 306
     Top = 200
   end
   object rvdPessoa: TRvDataSetConnection
     RuntimeVisibility = rtDeveloper
     DataSet = sqlPessoa
-    Left = 136
+    Left = 104
     Top = 88
   end
   object ADOConnection: TADOConnection
-    ConnectionString = 
-      'Provider=SQLNCLI10.1;Integrated Security=SSPI;Persist Security I' +
-      'nfo=False;User ID="";Initial Catalog=patrimonio;Data Source=DESE' +
-      'NVOLVIMENTO\SQLEXPRESS;Initial File Name="";Server SPN=""'
+    ConnectionString = 'FILE NAME=C:\Projetos\sistema-patrimonio\dbxcon.udl'
     LoginPrompt = False
     Provider = 'SQLNCLI10.1'
-    Left = 488
+    BeforeConnect = ADOConnectionBeforeConnect
+    Left = 456
     Top = 88
   end
   object sqlTranferencia: TADOQuery
@@ -1391,7 +1389,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from transferencia')
-    Left = 488
+    Left = 456
     Top = 144
     object sqlTranferenciatransferenciaId: TAutoIncField
       AutoGenerateValue = arAutoInc
@@ -1450,7 +1448,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from transferenciaBem')
-    Left = 488
+    Left = 456
     Top = 200
     object sqlTransferenciaBemtransferenciaId: TIntegerField
       FieldName = 'transferenciaId'
@@ -1471,7 +1469,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from bem')
-    Left = 584
+    Left = 552
     Top = 144
     object sqlBembemId: TAutoIncField
       AutoGenerateValue = arAutoInc
@@ -1510,6 +1508,7 @@ object dm: Tdm
     object sqlBemvalor: TBCDField
       FieldName = 'valor'
       ProviderFlags = [pfInUpdate]
+      currency = True
       Precision = 19
     end
     object sqlBemtipoIdentificacao: TIntegerField
@@ -1541,7 +1540,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from bemAquisicao')
-    Left = 584
+    Left = 552
     Top = 200
     object sqlBemAquisicaobemId: TIntegerField
       FieldName = 'bemId'
@@ -1571,7 +1570,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from estado')
-    Left = 408
+    Left = 376
     Top = 144
   end
   object sqlGestao: TADOQuery
@@ -1580,7 +1579,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from gestao')
-    Left = 336
+    Left = 304
     Top = 144
   end
   object sqlGrupo: TADOQuery
@@ -1589,7 +1588,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from grupo where vGrupoId = 0')
-    Left = 272
+    Left = 240
     Top = 144
     object sqlGrupogrupoId: TStringField
       AutoGenerateValue = arAutoInc
@@ -1618,7 +1617,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from grupo where vGrupoId <> 0')
-    Left = 272
+    Left = 240
     Top = 200
     object sqlSubGrupogrupoId: TStringField
       FieldName = 'grupoId'
@@ -1646,7 +1645,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from empresa')
-    Left = 336
+    Left = 304
     Top = 88
     object sqlEmpresaempresaId: TAutoIncField
       FieldName = 'empresaId'
@@ -1683,7 +1682,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from local where vLocalId = 0')
-    Left = 208
+    Left = 176
     Top = 144
     object sqlLocallocalId: TStringField
       FieldName = 'localId'
@@ -1711,7 +1710,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from local where vLocalId  <> 0')
-    Left = 208
+    Left = 176
     Top = 200
     object sqlSubLocallocalId: TStringField
       FieldName = 'localId'
@@ -1739,7 +1738,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from pessoa')
-    Left = 136
+    Left = 104
     Top = 144
     object sqlPessoapessoaId: TAutoIncField
       AutoGenerateValue = arAutoInc
@@ -1790,7 +1789,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from fornecedor')
-    Left = 136
+    Left = 104
     Top = 200
     object sqlFornecedorfornecedorId: TAutoIncField
       AutoGenerateValue = arAutoInc
@@ -1818,7 +1817,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from usuario')
-    Left = 136
+    Left = 104
     Top = 256
     object sqlUsuariousuarioId: TAutoIncField
       FieldName = 'usuarioId'
@@ -1850,7 +1849,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from usuarioAcao')
-    Left = 136
+    Left = 104
     Top = 312
     object sqlUsuarioAcaousuarioId: TIntegerField
       FieldName = 'usuarioId'
@@ -1865,7 +1864,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from acoes')
-    Left = 136
+    Left = 104
     Top = 376
     object sqlAcoesacaoId: TAutoIncField
       AutoGenerateValue = arAutoInc
@@ -1890,7 +1889,7 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from acoes')
-    Left = 136
+    Left = 104
     Top = 440
     object sqlvAcoesacaoId: TAutoIncField
       FieldName = 'acaoId'
@@ -1907,5 +1906,10 @@ object dm: Tdm
       ProviderFlags = [pfInUpdate]
       Size = 50
     end
+  end
+  object ApplicationEvents: TApplicationEvents
+    OnException = ApplicationEventsException
+    Left = 456
+    Top = 264
   end
 end

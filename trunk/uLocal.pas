@@ -86,6 +86,7 @@ type
     procedure dbgUnidadesDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure txtPesquisaChange(Sender: TObject);
+    procedure pcGeralChange(Sender: TObject);
   private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -349,6 +350,11 @@ procedure TfrmLocal.imgLateralMouseMove(Sender: TObject; Shift: TShiftState; X,
   Y: Integer);
 begin
 	Water.Blob(X,Y,1,100);
+end;
+
+procedure TfrmLocal.pcGeralChange(Sender: TObject);
+begin
+	btnApagar.Visible := (tsPesquisa.Showing);
 end;
 
 procedure TfrmLocal.TimerTimer(Sender: TObject);

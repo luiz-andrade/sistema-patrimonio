@@ -260,6 +260,54 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     ProviderName = 'dpsBens'
     Left = 337
     Top = 314
+    object cdsBensbemId: TAutoIncField
+      FieldName = 'bemId'
+      ReadOnly = True
+    end
+    object cdsBensidenficacao: TStringField
+      FieldName = 'idenficacao'
+      Size = 50
+    end
+    object cdsBensdescricao: TStringField
+      FieldName = 'descricao'
+      Size = 255
+    end
+    object cdsBensgrupoId: TStringField
+      FieldName = 'grupoId'
+      Size = 10
+    end
+    object cdsBensestadoId: TIntegerField
+      FieldName = 'estadoId'
+    end
+    object cdsBenslocalId: TStringField
+      FieldName = 'localId'
+      Size = 10
+    end
+    object cdsBensgestaoId: TIntegerField
+      FieldName = 'gestaoId'
+    end
+    object cdsBensvalor: TBCDField
+      FieldName = 'valor'
+      currency = True
+      Precision = 19
+    end
+    object cdsBenstipoIdentificacao: TIntegerField
+      FieldName = 'tipoIdentificacao'
+    end
+    object cdsBenssubgrupoId: TStringField
+      FieldName = 'subgrupoId'
+      Size = 10
+    end
+    object cdsBenssubLocalId: TStringField
+      FieldName = 'subLocalId'
+      Size = 10
+    end
+    object cdsBenstipoAquisicao: TIntegerField
+      FieldName = 'tipoAquisicao'
+    end
+    object cdsBensquantidade: TFloatField
+      FieldName = 'quantidade'
+    end
   end
   object dpsBens: TDataSetProvider
     DataSet = dm.sqlBem

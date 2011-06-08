@@ -253,6 +253,7 @@ begin
 			if not(cdsMovimentacaotransferenciaId.IsNull) then
 			begin
 				_transferenciaId := cdsMovimentacaotransferenciaId.Value;
+        Parameters.Refresh;
 				Parameters.ParamByName('@transferenciaId').Value := cdsMovimentacaotransferenciaId.Value;
 				ExecProc;
 				with cdsMovimentacao do
@@ -391,9 +392,8 @@ procedure TfrmMovimentacao.dsMovimentacaoDataChange(Sender: TObject;
 begin
 	with cdsMovimentacao do
 	begin
-		btnConcluir.Enabled := 	not(State in [dsInsert, dsEdit]) 
-														and not(cdsMovimentacaoBem.IsEmpty) 
-														and not(cdsMovimentacaoconcluida.Value);
+		btnConcluir.Enabled := 	not(State in [dsInsert, dsEdit]);
+		tsBens.TabVisible   := not(State in [dsInsert]) and not(IsEmpty);
 	end;
 	btnAddBem.Enabled       := not(cdsMovimentacaoconcluida.Value);
 	btnRemover.Enabled      := not(cdsMovimentacaoconcluida.Value);
@@ -407,7 +407,6 @@ begin
 		btnGravar.Enabled   := (State in [dsInsert, dsEdit]);
 		btnCancelar.Enabled := (State in [dsInsert, dsEdit]);
 		btnNovo.Enabled     := not(State in [dsInsert, dsEdit]);
-		tsBens.TabVisible   := not(State in [dsInsert]) and not(IsEmpty);
 	end;
 end;
 
