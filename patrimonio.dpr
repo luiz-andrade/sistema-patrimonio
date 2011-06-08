@@ -21,7 +21,8 @@ uses
   uMovimentacao in 'uMovimentacao.pas' {frmMovimentacao},
   uRelatTransferenciaBem in 'uRelatTransferenciaBem.pas' {frmRelatTranferenciaBem},
   uRelatGrupoBem in 'uRelatGrupoBem.pas' {frmRelatGrupoBem},
-  uUpdate in 'uUpdate.pas' {frmUpdate};
+  uUpdate in 'uUpdate.pas' {frmUpdate},
+  uErro in 'uErro.pas' {frmErro};
 
 {$R *.res}
 

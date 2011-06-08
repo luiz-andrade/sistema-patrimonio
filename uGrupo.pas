@@ -79,6 +79,7 @@ type
     procedure txtPesquisaChange(Sender: TObject);
     procedure dspGrupoAfterUpdateRecord(Sender: TObject; SourceDS: TDataSet;
       DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
+    procedure pcGeralChange(Sender: TObject);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -288,7 +289,7 @@ end;
 procedure TfrmGrupo.dspGrupoAfterUpdateRecord(Sender: TObject;
   SourceDS: TDataSet; DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
 begin
-  _grupoId :=cdsGrupogrupoId.Value;
+  _grupoId :=cdsGrupogrupoId.AsString;
 end;
 
 procedure TfrmGrupo.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -346,6 +347,11 @@ procedure TfrmGrupo.imgLateralMouseMove(Sender: TObject; Shift: TShiftState; X,
   Y: Integer);
 begin
 	Water.Blob(X,Y,1,100);
+end;
+
+procedure TfrmGrupo.pcGeralChange(Sender: TObject);
+begin
+	btnApagar.Visible := (tsPesquisa.Showing);
 end;
 
 procedure TfrmGrupo.TimerTimer(Sender: TObject);

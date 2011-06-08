@@ -122,14 +122,14 @@ object frmBem: TfrmBem
             Expanded = False
             FieldName = 'idenficacao'
             Title.Caption = 'Identifica'#231#227'o'
-            Width = 150
+            Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'descricao'
             Title.Caption = 'Especifica'#231#227'o'
-            Width = 340
+            Width = 390
             Visible = True
           end>
       end

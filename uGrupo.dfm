@@ -36,6 +36,7 @@ object frmGrupo: TfrmGrupo
     Align = alClient
     HotTrack = True
     TabOrder = 0
+    OnChange = pcGeralChange
     object tsPesquisa: TTabSheet
       Caption = 'Perquisar'
       object pnPesquisa: TPanel
@@ -2164,7 +2165,7 @@ object frmGrupo: TfrmGrupo
     end
     object cdsGrupogrupoId: TStringField
       FieldName = 'grupoId'
-      ProviderFlags = [pfInWhere, pfInKey]
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
@@ -2194,7 +2195,7 @@ object frmGrupo: TfrmGrupo
     Top = 352
     object cdsAuxGrupogrupoId: TStringField
       FieldName = 'grupoId'
-      ProviderFlags = [pfInWhere, pfInKey]
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 10
     end

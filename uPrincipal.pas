@@ -210,6 +210,8 @@ procedure TfrmPrincipal.actRelatUnidadeExecute(Sender: TObject);
 begin
 	with dm.rvpTR do
 	begin
+  	dm.sqlLocal.SQL.Text    := 'select * from local where vLocalId = 0';
+    dm.sqlSubLocal.SQL.Text := 'select * from local where vLocalId <> 0';
 		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
 		ExecuteReport('LISTALOCAIS');
 	end;
