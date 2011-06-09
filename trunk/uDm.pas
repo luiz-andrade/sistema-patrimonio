@@ -132,6 +132,10 @@ uses uFuncoes, uErro;
 {$R *.dfm}
 
 procedure Tdm.ADOConnectionBeforeConnect(Sender: TObject);
+var
+	dataSource : String;
+  user : String;
+  Password : String;
 begin
   with ADOConnection do
   begin
