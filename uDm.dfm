@@ -1376,7 +1376,7 @@ object dm: Tdm
     Top = 88
   end
   object ADOConnection: TADOConnection
-    ConnectionString = 'FILE NAME=C:\Projetos\sistema-patrimonio\dbxcon.udl'
+    ConnectionString = 'FILE NAME=C:\Projetos\sistema-patrimonio\Debug\Win32\dbxcon.udl'
     LoginPrompt = False
     Provider = 'SQLNCLI10.1'
     BeforeConnect = ADOConnectionBeforeConnect
