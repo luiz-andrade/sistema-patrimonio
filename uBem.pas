@@ -415,6 +415,11 @@ begin
 		btnCancelar.Enabled := (State in [dsInsert, dsEdit]);
 		btnApagar.Enabled   := not(State in [dsInsert, dsEdit]);
 		tsAquisicao.TabVisible  := not(State in [dsInsert]) and not(IsEmpty);
+    // Inabilita movimentaçãod e bem atraves do cadastro.
+    edtLocalizacao.Enabled  := not(State in [dsEdit, dsBrowse]);
+    dblLocal.Enabled        := not(State in [dsEdit, dsBrowse]);
+  	subLocalId.Enabled      := not(State in [dsEdit, dsBrowse]);
+    dblsubLocalId.Enabled   := not(State in [dsEdit, dsBrowse]);
 		if State in [dsInsert] then
 		begin
 			Caption := 'Novo registro';
