@@ -22,7 +22,8 @@ uses
   uRelatTransferenciaBem in 'uRelatTransferenciaBem.pas' {frmRelatTranferenciaBem},
   uRelatGrupoBem in 'uRelatGrupoBem.pas' {frmRelatGrupoBem},
   uUpdate in 'uUpdate.pas' {frmUpdate},
-  uErro in 'uErro.pas' {frmErro};
+  uErro in 'uErro.pas' {frmErro},
+  uRelatGrupoTotais in 'uRelatGrupoTotais.pas' {Form1};
 
 {$R *.res}
 

@@ -114,6 +114,17 @@ type
     sqlvAcoesdescricao: TStringField;
     sqlvAcoesnomeAcao: TStringField;
     ApplicationEvents: TApplicationEvents;
+    totaisGrupos: TADOQuery;
+    totaisGruposgrupoId: TStringField;
+    totaisGruposdescricao: TStringField;
+    totaisGrupostotal: TBCDField;
+    totaisSubGrupos: TADOQuery;
+    totaisSubGruposgrupoId: TStringField;
+    totaisSubGruposdescricao: TStringField;
+    totaisSubGrupostotal: TBCDField;
+    rvdTotaisGrupos: TRvDataSetConnection;
+    rvdTotaisSubgrupos: TRvDataSetConnection;
+    totaisSubGruposvGrupoId: TStringField;
     procedure ADOConnectionBeforeConnect(Sender: TObject);
     procedure ApplicationEventsException(Sender: TObject; E: Exception);
   private

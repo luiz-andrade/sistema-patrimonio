@@ -1912,4 +1912,81 @@ object dm: Tdm
     Left = 456
     Top = 264
   end
+  object totaisGrupos: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select'#9'grupo.grupoId,'
+      #9#9'grupo.descricao,'
+      #9#9'coalesce(SUM(bem.valor),0) as total'
+      'from grupo inner join bem'
+      #9#9#9'on grupo.grupoId = bem.grupoId'
+      'where vGrupoId = 0'
+      'group by'#9'grupo.grupoId,'
+      #9#9#9'grupo.descricao')
+    Left = 456
+    Top = 336
+    object totaisGruposgrupoId: TStringField
+      FieldName = 'grupoId'
+      Size = 10
+    end
+    object totaisGruposdescricao: TStringField
+      FieldName = 'descricao'
+      Size = 100
+    end
+    object totaisGrupostotal: TBCDField
+      FieldName = 'total'
+      ReadOnly = True
+      currency = True
+      Precision = 19
+    end
+  end
+  object totaisSubGrupos: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select'#9'grupo.grupoId,'
+      #9'grupo.descricao,'
+      '                grupo.vGrupoId,'
+      #9'coalesce(SUM(bem.valor),0) as total'
+      'from grupo inner join bem'
+      #9#9#9'on grupo.grupoId = bem.subgrupoId'
+      'group by'#9'grupo.grupoId,'
+      #9'grupo.descricao,'
+      '                grupo.vGrupoId')
+    Left = 456
+    Top = 392
+    object totaisSubGruposgrupoId: TStringField
+      FieldName = 'grupoId'
+      Size = 10
+    end
+    object totaisSubGruposdescricao: TStringField
+      FieldName = 'descricao'
+      Size = 100
+    end
+    object totaisSubGrupostotal: TBCDField
+      FieldName = 'total'
+      ReadOnly = True
+      currency = True
+      Precision = 19
+    end
+    object totaisSubGruposvGrupoId: TStringField
+      FieldName = 'vGrupoId'
+      Size = 10
+    end
+  end
+  object rvdTotaisGrupos: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = totaisGrupos
+    Left = 560
+    Top = 336
+  end
+  object rvdTotaisSubgrupos: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = totaisSubGrupos
+    Left = 560
+    Top = 392
+  end
 end

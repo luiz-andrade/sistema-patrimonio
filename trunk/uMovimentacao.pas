@@ -228,7 +228,10 @@ end;
 
 procedure TfrmMovimentacao.btnAddBemClick(Sender: TObject);
 begin
-	AddBem(ledtIdentificacao.Text, cdsMovimentacaoorigemSubLocal.AsString);
+	if not(cdsMovimentacaoconcluida.Value) then
+  begin
+		AddBem(ledtIdentificacao.Text, cdsMovimentacaoorigemSubLocal.AsString);
+  end;
 end;
 
 procedure TfrmMovimentacao.btnCancelarClick(Sender: TObject);
@@ -398,6 +401,7 @@ begin
 	btnAddBem.Enabled       := not(cdsMovimentacaoconcluida.Value);
 	btnRemover.Enabled      := not(cdsMovimentacaoconcluida.Value);
 	dsMovimentacao.AutoEdit := not(cdsMovimentacaoconcluida.Value);
+  btnConcluir.Visible := not(cdsMovimentacaoconcluida.AsBoolean);
 end;
 
 procedure TfrmMovimentacao.dsMovimentacaoStateChange(Sender: TObject);
