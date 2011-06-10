@@ -280,7 +280,7 @@ object frmPrincipal: TfrmPrincipal
       OnExecute = actRelatUnidadeExecute
     end
     object actRelatGrupo: TAction
-      Caption = 'Bens por grupo'
+      Caption = 'Relat'#243'rio de Bens Patrimoniais'
       OnExecute = actRelatGrupoExecute
     end
     object actRelatTr: TAction
