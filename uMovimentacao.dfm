@@ -340,7 +340,7 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 52
     Width = 914
     Height = 547
-    ActivePage = tsBens
+    ActivePage = tsInformacao
     Align = alClient
     TabOrder = 1
     object tsConsulta: TTabSheet
@@ -460,6 +460,7 @@ object frmMovimentacao: TfrmMovimentacao
     object tsInformacao: TTabSheet
       Caption = 'Informa'#231#245'es sobre a transfer'#234'ncia'
       ImageIndex = 1
+      ExplicitLeft = 0
       object Label1: TLabel
         Left = 24
         Top = 24
@@ -470,15 +471,15 @@ object frmMovimentacao: TfrmMovimentacao
       end
       object Label2: TLabel
         Left = 23
-        Top = 138
+        Top = 140
         Width = 80
         Height = 13
         Caption = 'Unidade Origem:'
         FocusControl = origemSubLocal
       end
       object Label3: TLabel
-        Left = 23
-        Top = 258
+        Left = 432
+        Top = 140
         Width = 82
         Height = 13
         Caption = 'Unidade Destino:'
@@ -493,7 +494,7 @@ object frmMovimentacao: TfrmMovimentacao
         FocusControl = data
       end
       object Label7: TLabel
-        Left = 573
+        Left = 839
         Top = 24
         Width = 40
         Height = 13
@@ -502,16 +503,16 @@ object frmMovimentacao: TfrmMovimentacao
         FocusControl = usuarioId
       end
       object Label5: TLabel
-        Left = 431
-        Top = 258
+        Left = 433
+        Top = 176
         Width = 48
         Height = 13
         Caption = 'Receptor:'
         FocusControl = receptorId
       end
       object Label6: TLabel
-        Left = 431
-        Top = 138
+        Left = 24
+        Top = 176
         Width = 45
         Height = 13
         Caption = 'Cedente:'
@@ -526,8 +527,8 @@ object frmMovimentacao: TfrmMovimentacao
         FocusControl = origemId
       end
       object Label9: TLabel
-        Left = 23
-        Top = 207
+        Left = 432
+        Top = 93
         Width = 121
         Height = 13
         Caption = 'Org'#227'o/ Empresa Destino:'
@@ -546,7 +547,7 @@ object frmMovimentacao: TfrmMovimentacao
       end
       object origemSubLocal: TDBEdit
         Left = 23
-        Top = 154
+        Top = 152
         Width = 134
         Height = 21
         DataField = 'origemSubLocal'
@@ -554,8 +555,8 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 1
       end
       object destinoSubLocal: TDBEdit
-        Left = 23
-        Top = 274
+        Left = 432
+        Top = 152
         Width = 134
         Height = 21
         DataField = 'destinoSubLocal'
@@ -573,9 +574,9 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 3
       end
       object usuarioId: TDBEdit
-        Left = 573
+        Left = 839
         Top = 39
-        Width = 134
+        Width = 64
         Height = 21
         DataField = 'usuarioId'
         DataSource = dsMovimentacao
@@ -583,8 +584,8 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 4
       end
       object DBCheckBox1: TDBCheckBox
-        Left = 749
-        Top = 41
+        Left = 839
+        Top = 3
         Width = 64
         Height = 17
         Caption = 'Conclu'#237'da'
@@ -596,7 +597,7 @@ object frmMovimentacao: TfrmMovimentacao
       end
       object dblOrigemId: TDBLookupComboBox
         Left = 163
-        Top = 154
+        Top = 152
         Width = 240
         Height = 21
         DataField = 'origemSubLocal'
@@ -610,8 +611,8 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 6
       end
       object dblLdestinoSubLocal: TDBLookupComboBox
-        Left = 163
-        Top = 274
+        Left = 572
+        Top = 152
         Width = 240
         Height = 21
         DataField = 'destinoSubLocal'
@@ -633,20 +634,18 @@ object frmMovimentacao: TfrmMovimentacao
         Columns = 2
         DataField = 'tipo'
         DataSource = dsMovimentacao
-        Enabled = False
         Items.Strings = (
-          'Movimenta'#231#227'o'
-          'Transfer'#234'ncia')
+          'Movimenta'#231#227'o Interna'
+          'Movimenta'#231#227'o Externa')
         ParentBackground = True
         TabOrder = 8
         Values.Strings = (
           '1'
           '2')
-        OnChange = tipoChange
       end
       object receptorId: TDBEdit
-        Left = 431
-        Top = 274
+        Left = 433
+        Top = 192
         Width = 134
         Height = 21
         DataField = 'receptorId'
@@ -655,8 +654,8 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 9
       end
       object cedenteId: TDBEdit
-        Left = 431
-        Top = 154
+        Left = 24
+        Top = 192
         Width = 134
         Height = 21
         DataField = 'cedenteId'
@@ -666,9 +665,9 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 10
       end
       object dblCedenteId: TDBLookupComboBox
-        Left = 572
-        Top = 154
-        Width = 240
+        Left = 164
+        Top = 192
+        Width = 239
         Height = 21
         DataField = 'cedenteId'
         DataSource = dsMovimentacao
@@ -680,7 +679,7 @@ object frmMovimentacao: TfrmMovimentacao
       end
       object dblReceptorId: TDBLookupComboBox
         Left = 572
-        Top = 274
+        Top = 192
         Width = 240
         Height = 21
         DataField = 'receptorId'
@@ -715,8 +714,8 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 14
       end
       object destinoId: TDBEdit
-        Left = 23
-        Top = 223
+        Left = 432
+        Top = 109
         Width = 134
         Height = 21
         DataField = 'destinoId'
@@ -724,8 +723,8 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 15
       end
       object dblDestinoId: TDBLookupComboBox
-        Left = 163
-        Top = 223
+        Left = 572
+        Top = 109
         Width = 240
         Height = 21
         DataField = 'destinoId'

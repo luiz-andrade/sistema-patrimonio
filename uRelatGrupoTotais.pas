@@ -7,7 +7,7 @@ uses
   Dialogs, DB, DBClient, Provider, DBCtrls, StdCtrls, Buttons;
 
 type
-  TForm1 = class(TForm)
+  TfrmRelatTotaisGrupo = class(TForm)
     cbGrupo: TCheckBox;
     dblGrupo: TDBLookupComboBox;
     cbSubGrupo: TCheckBox;
@@ -26,6 +26,10 @@ type
     btnVisualizar: TBitBtn;
     btnFechar: TBitBtn;
     procedure btnFecharClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure cbGrupoClick(Sender: TObject);
+    procedure btnVisualizarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -33,15 +37,96 @@ type
   end;
 
 var
-  Form1: TForm1;
+  frmRelatTotaisGrupo: TfrmRelatTotaisGrupo;
 
 implementation
 
+uses uDm;
+
 {$R *.dfm}
 
-procedure TForm1.btnFecharClick(Sender: TObject);
+procedure TfrmRelatTotaisGrupo.btnFecharClick(Sender: TObject);
 begin
 	Close;
+end;
+
+procedure TfrmRelatTotaisGrupo.btnVisualizarClick(Sender: TObject);
+begin
+	with dm.rvpTR do
+	begin
+		// Filtro de grupos
+		with dm.totaisGrupos do
+		begin
+				Close;
+				SQL.Clear;
+				SQL.Add('select	grupo.grupoId,');
+				SQL.Add('		grupo.descricao,');
+				SQL.Add('		coalesce(SUM(bem.valor),0) as total');
+				SQL.Add('from grupo inner join bem');
+				SQL.Add('			on grupo.grupoId = bem.grupoId');
+				SQL.Add('where vGrupoId = 0');
+				if cbGrupo.Checked then
+				begin
+					SQL.Add('and grupo.grupoId = :grupoId');
+					Parameters.ParamByName('grupoId').Value := dblGrupo.KeyValue;
+				end;
+				if cbGestao.Checked then
+				begin
+					SQL.Add('and bem.gestaoId = :gestaoId');
+					Parameters.ParamByName('gestaoId').Value := dblGestaoId.KeyValue;
+				end;
+				SQL.Add('group by	grupo.grupoId,');
+				SQL.Add('			grupo.descricao');
+		end;
+		with dm.totaisSubGrupos do
+		begin
+			Close;
+			SQL.Clear;
+			SQL.Add('select	grupo.grupoId,');
+			SQL.Add('	grupo.descricao,');
+			SQL.Add('								grupo.vGrupoId,');
+			SQL.Add('	coalesce(SUM(bem.valor),0) as total');
+			SQL.Add('from grupo inner join bem');
+			SQL.Add('			on grupo.grupoId = bem.subgrupoId');
+			SQL.Add('where vGrupoId = :vGrupoId');
+			Parameters.ParamByName('vGrupoId').Value := dblGrupo.KeyValue;
+			if cbSubGrupo.Checked then
+			begin
+				SQL.Add('and grupo.grupoId = :grupoId');
+				Parameters.ParamByName('grupoId').Value := dblSubGrupo.KeyValue;
+			end;
+			if cbGestao.Checked then
+			begin
+				SQL.Add('and bem.gestaoId = :gestaoId');
+				Parameters.ParamByName('gestaoId').Value := dblGestaoId.KeyValue;
+			end;
+			SQL.Add('group by	grupo.grupoId,');
+			SQL.Add('	grupo.descricao,');
+			SQL.Add('			grupo.vGrupoId');
+		end;
+		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+		ExecuteReport('TOTAISGRUPO');
+	end;
+end;
+
+procedure TfrmRelatTotaisGrupo.cbGrupoClick(Sender: TObject);
+begin
+	dblSubGrupo.Enabled   := not(dblSubGrupo.Enabled);
+	cbSubGrupo.Enabled := not(cbSubGrupo.Enabled);
+end;
+
+procedure TfrmRelatTotaisGrupo.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+	cdsGrupo.Close;
+	cdsAuxGrupo.Close;
+	cdsGestao.Close;
+end;
+
+procedure TfrmRelatTotaisGrupo.FormCreate(Sender: TObject);
+begin
+	cdsGrupo.Open;
+	cdsAuxGrupo.Open;
+	cdsGestao.Open;
 end;
 
 end.

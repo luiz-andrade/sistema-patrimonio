@@ -1,8 +1,8 @@
-object Form1: TForm1
+object frmRelatTotaisGrupo: TfrmRelatTotaisGrupo
   Left = 0
   Top = 0
   BorderStyle = bsSingle
-  Caption = 'Relet'#243'rio de totais por grupo'
+  Caption = 'Relat'#243'rio de totais por grupo'
   ClientHeight = 462
   ClientWidth = 615
   Color = clBtnFace
@@ -13,6 +13,8 @@ object Form1: TForm1
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object cbGrupo: TCheckBox
@@ -22,6 +24,7 @@ object Form1: TForm1
     Height = 17
     Caption = 'Grupo:'
     TabOrder = 0
+    OnClick = cbGrupoClick
   end
   object dblGrupo: TDBLookupComboBox
     Left = 168
@@ -36,7 +39,7 @@ object Form1: TForm1
   end
   object cbSubGrupo: TCheckBox
     Left = 57
-    Top = 79
+    Top = 75
     Width = 105
     Height = 17
     Caption = 'SubGrupo:'
@@ -84,6 +87,7 @@ object Form1: TForm1
     DoubleBuffered = True
     ParentDoubleBuffered = False
     TabOrder = 6
+    OnClick = btnVisualizarClick
   end
   object btnFechar: TBitBtn
     Left = 508
