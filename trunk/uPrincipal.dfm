@@ -183,6 +183,9 @@ object frmPrincipal: TfrmPrincipal
       object RelaodeUnidades2: TMenuItem
         Action = actRelatUnidade
       end
+      object Relatriodetotaisporgrupo2: TMenuItem
+        Action = actRelatTotGrupo
+      end
     end
     object Manuteno1: TMenuItem
       Caption = 'Manuten'#231#227'o'
@@ -291,6 +294,10 @@ object frmPrincipal: TfrmPrincipal
       Caption = 'Importar dados'
       OnExecute = actImportarDadosExecute
     end
+    object actRelatTotGrupo: TAction
+      Caption = 'Relat'#243'rio de totais por grupo'
+      OnExecute = actRelatTotGrupoExecute
+    end
   end
   object PopupMenu: TPopupMenu
     Left = 184
@@ -303,6 +310,9 @@ object frmPrincipal: TfrmPrincipal
     end
     object RelaodeUnidades1: TMenuItem
       Action = actRelatUnidade
+    end
+    object Relatriodetotaisporgrupo1: TMenuItem
+      Action = actRelatTotGrupo
     end
   end
 end

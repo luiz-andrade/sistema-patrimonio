@@ -23,7 +23,7 @@ uses
   uRelatGrupoBem in 'uRelatGrupoBem.pas' {frmRelatGrupoBem},
   uUpdate in 'uUpdate.pas' {frmUpdate},
   uErro in 'uErro.pas' {frmErro},
-  uRelatGrupoTotais in 'uRelatGrupoTotais.pas' {Form1};
+  uRelatGrupoTotais in 'uRelatGrupoTotais.pas' {frmRelatTotaisGrupo};
 
 {$R *.res}
 

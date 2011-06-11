@@ -61,6 +61,9 @@ type
     actImportarDados: TAction;
     N5: TMenuItem;
     Atualizarsistemas1: TMenuItem;
+    actRelatTotGrupo: TAction;
+    Relatriodetotaisporgrupo1: TMenuItem;
+    Relatriodetotaisporgrupo2: TMenuItem;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
@@ -77,6 +80,7 @@ type
     procedure ActionManagerExecute(Action: TBasicAction; var Handled: Boolean);
     procedure Finalizarsistema1Click(Sender: TObject);
     procedure Atualizarsistemas1Click(Sender: TObject);
+    procedure actRelatTotGrupoExecute(Sender: TObject);
 	private
 		{ Private declarations }
 		procedure updateInfo;
@@ -91,7 +95,8 @@ implementation
 
 uses uLocal, uAcesso, uDm, uPessoa, uGrupo, uBem, uFuncoes, uMd5, uSobre,
   uEmpresa, uMovimentacao, uTransferencia, uAlteracaoSenha,
-  uRelatTransferenciaBem, uRelatGrupoBem, uUpdate;
+  uRelatTransferenciaBem, uRelatGrupoBem, uUpdate, uControlsTunning,
+  uRelatGrupoTotais;
 
 {$R *.dfm}
 
@@ -185,6 +190,18 @@ end;
 procedure TfrmPrincipal.actRelatGrupoExecute(Sender: TObject);
 begin
 	with TfrmRelatGrupoBem.Create(Application) do
+	begin
+		try
+			ShowModal;
+		finally
+			Free;
+		end;
+	end;
+end;
+
+procedure TfrmPrincipal.actRelatTotGrupoExecute(Sender: TObject);
+begin
+	with frmRelatTotaisGrupo.Create(Application) do
 	begin
 		try
 			ShowModal;

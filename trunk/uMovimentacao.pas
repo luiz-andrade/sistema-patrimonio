@@ -167,7 +167,6 @@ type
     procedure dsMovimentacaoDataChange(Sender: TObject; Field: TField);
     procedure btnRemoverClick(Sender: TObject);
     procedure btnConcluirClick(Sender: TObject);
-    procedure tipoChange(Sender: TObject);
     procedure cdsMovimentacaoAfterInsert(DataSet: TDataSet);
     procedure ledtIdentificacaoKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -401,7 +400,8 @@ begin
 	btnAddBem.Enabled       := not(cdsMovimentacaoconcluida.Value);
 	btnRemover.Enabled      := not(cdsMovimentacaoconcluida.Value);
 	dsMovimentacao.AutoEdit := not(cdsMovimentacaoconcluida.Value);
-  btnConcluir.Visible := not(cdsMovimentacaoconcluida.AsBoolean);
+	btnConcluir.Visible :=  not(cdsMovimentacaoconcluida.AsBoolean) 
+													and not(cdsMovimentacao.IsEmpty);
 end;
 
 procedure TfrmMovimentacao.dsMovimentacaoStateChange(Sender: TObject);
@@ -463,16 +463,6 @@ begin
   begin
    btnAddBem.Click;
   end;
-end;
-
-procedure TfrmMovimentacao.tipoChange(Sender: TObject);
-begin
-	receptorId.Enabled     := (cdsMovimentacaotipo.Value = 2);
-	dblReceptorId.Enabled  := (cdsMovimentacaotipo.Value = 2);
-	destinoId.Enabled      := not(cdsMovimentacaotipo.Value = 2);
-	dblDestinoId.Enabled   := not(cdsMovimentacaotipo.Value = 2);
-	if cdsMovimentacao.State in[dsInsert,dsEdit] then
-		cdsMovimentacaodestinoId.Value := cdsMovimentacaoorigemId.Value;
 end;
 
 end.

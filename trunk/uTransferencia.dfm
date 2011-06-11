@@ -20,7 +20,7 @@ object frmTransferencia: TfrmTransferencia
     Top = 39
     Width = 773
     Height = 475
-    ActivePage = tsOrgao
+    ActivePage = tsGrupos
     Align = alClient
     TabOrder = 0
     object tsGrupos: TTabSheet
@@ -86,6 +86,10 @@ object frmTransferencia: TfrmTransferencia
     object tsSubGrupos: TTabSheet
       Caption = '2 - SubGrupos'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object DBGrid3: TDBGrid
         Left = 0
         Top = 0
@@ -195,6 +199,10 @@ object frmTransferencia: TfrmTransferencia
     object tsUnidades: TTabSheet
       Caption = '4 - Unidades'
       ImageIndex = 4
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object DBGrid5: TDBGrid
         Left = 0
         Top = 0
@@ -243,6 +251,10 @@ object frmTransferencia: TfrmTransferencia
     end
     object tsBens: TTabSheet
       Caption = '5 - Bens'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object DBGrid1: TDBGrid
         Left = 0
         Top = 0
