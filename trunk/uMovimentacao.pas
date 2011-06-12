@@ -332,7 +332,7 @@ begin
 			Close;
 			Parameters.ParamByName('transferenciaId').Value := cdsMovimentacaotransferenciaId.Value;
 		end;
-		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+		//ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
 		ExecuteReport('MOVIMENTACAO');
 	end;
 end;
