@@ -38,7 +38,6 @@ type
     cep: TDBEdit;
     tipo: TDBRadioGroup;
     tsUsuario: TTabSheet;
-    tsFornecedor: TTabSheet;
     dsPessoaUsuario: TDataSource;
     cdsPessoaUsuario: TClientDataSet;
     dspPessoaUsuario: TDataSetProvider;
@@ -63,20 +62,7 @@ type
     desativado: TDBCheckBox;
     cdsPessoaUsuariodesativado: TBooleanField;
     senha: TDBEdit;
-    dsPessoaFornc: TDataSource;
-    cdsPessoaForc: TClientDataSet;
-    dpsPessoaForc: TDataSetProvider;
-    cdsPessoaForcfornecedorId: TIntegerField;
-    cdsPessoaForcrazaoSocial: TStringField;
-    cdsPessoaForccnpj: TStringField;
-    cdsPessoaForcpessoaId: TIntegerField;
-    Label10: TLabel;
-    razaoSocial: TDBEdit;
-    Label11: TLabel;
-    cnpj: TDBEdit;
-    cdsPessoafornecedor: TBooleanField;
     cdsPessoausuario_: TBooleanField;
-    fornecedor: TDBCheckBox;
     usuario: TDBCheckBox;
     cdsPessoacnpjCpf: TStringField;
     Label13: TLabel;
@@ -126,7 +112,6 @@ type
     procedure cdsPessoaUsuarioReconcileError(DataSet: TCustomClientDataSet;
       E: EReconcileError; UpdateKind: TUpdateKind;
 			var Action: TReconcileAction);
-    procedure dsPessoaForncStateChange(Sender: TObject);
     procedure cdsPessoaAfterInsert(DataSet: TDataSet);
     procedure txtPesquisaChange(Sender: TObject);
     procedure dbgAcoesDispDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -144,7 +129,6 @@ type
     procedure cdsPessoaAfterEdit(DataSet: TDataSet);
     procedure dspPessoaAfterUpdateRecord(Sender: TObject; SourceDS: TDataSet;
       DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
-    procedure cdsPessoaForcAfterInsert(DataSet: TDataSet);
   private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -189,14 +173,6 @@ begin
 					ApplyUpdates(-1);
 				end;
 			end;
-			with cdsPessoaForc do
-			begin
-				if not(IsEmpty) then
-				begin
-					Delete;
-					ApplyUpdates(-1);
-				end;
-			end;
 			Delete;
 			ApplyUpdates(-1);
 		end;
@@ -213,13 +189,6 @@ begin
 		end;
 	end;
 	with cdsPessoaUsuario do
-	begin
-		if State in [dsInsert, dsEdit] then
-		begin
-			Cancel;
-		end;
-	end;
-	with cdsPessoaForc do
 	begin
 		if State in [dsInsert, dsEdit] then
 		begin
@@ -266,16 +235,6 @@ begin
 			Open;
 		end;
 	end;
-	with cdsPessoaForc do
-	begin
-		if State in [dsInsert, dsEdit] then
-		begin
-			Post;
-			ApplyUpdates(-1);
-			Close;
-			Open;
-		end;
-	end;
 end;
 
 procedure TfrmPessoa.btnNovoClick(Sender: TObject);
@@ -312,14 +271,7 @@ procedure TfrmPessoa.cdsPessoaAfterInsert(DataSet: TDataSet);
 begin 
 	// Configura valores inicais para novos registros.
 	cdsPessoausuario_.Value   := False;
-	cdsPessoafornecedor.Value := False;
 	cdsPessoatipo.Value       := 1;
-end;
-
-procedure TfrmPessoa.cdsPessoaForcAfterInsert(DataSet: TDataSet);
-begin
-  cdsPessoaForcrazaoSocial.Value := cdsPessoanome.Value;
-  cdsPessoaForccnpj.Value        := cdsPessoacnpjCpf.Value;
 end;
 
 procedure TfrmPessoa.cdsPessoaReconcileError(DataSet: TCustomClientDataSet;
@@ -360,16 +312,6 @@ begin
 	begin
 		Open;
 	end;
-	with cdsPessoaForc do
-	begin
-		Open;
-	end;
-  {
-	with cdsUsuarioAcao do
-	begin
-		Open;
-	end;
-  }
 end;
 
 
@@ -462,22 +404,6 @@ begin
 			tsInformacao.Caption := Concat('Pessoa - ', cdsPessoanome.AsString);
 		end;
 			tsUsuario.TabVisible    := (not(State in [dsInsert]) and not(IsEmpty) and cdsPessoausuario_.Value);
-			tsFornecedor.TabVisible := (not(State in [dsInsert]) and not(IsEmpty) and cdsPessoafornecedor.Value);
-	end;
-end;
-
-procedure TfrmPessoa.dsPessoaForncStateChange(Sender: TObject);
-begin
-	with cdsPessoaForc do
-	begin
-		btnNovo.Enabled     := not(State in [dsInsert, dsEdit]);
-		btnGravar.Enabled   := (State in [dsInsert, dsEdit]);
-		btnCancelar.Enabled := (State in [dsInsert, dsEdit]);
-		btnApagar.Enabled   := not(State in [dsInsert, dsEdit]);
-		if State in [dsInsert] then
-		begin
-			Caption := 'Novo registro';
-		end;
 	end;
 end;
 
@@ -564,12 +490,6 @@ end;
 
 procedure TfrmPessoa.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-	with cdsPessoaForc do
-	begin
-		if State in [dsInsert, dsEdit] then
-			Cancel;
-		Close;
-	end;
 	with cdsAcoes do
 	begin
 		Close;

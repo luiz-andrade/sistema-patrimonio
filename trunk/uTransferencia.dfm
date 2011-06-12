@@ -20,7 +20,7 @@ object frmTransferencia: TfrmTransferencia
     Top = 39
     Width = 773
     Height = 475
-    ActivePage = tsGrupos
+    ActivePage = tsBens
     Align = alClient
     TabOrder = 0
     object tsGrupos: TTabSheet
@@ -86,10 +86,6 @@ object frmTransferencia: TfrmTransferencia
     object tsSubGrupos: TTabSheet
       Caption = '2 - SubGrupos'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object DBGrid3: TDBGrid
         Left = 0
         Top = 0
@@ -199,10 +195,6 @@ object frmTransferencia: TfrmTransferencia
     object tsUnidades: TTabSheet
       Caption = '4 - Unidades'
       ImageIndex = 4
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object DBGrid5: TDBGrid
         Left = 0
         Top = 0
@@ -249,12 +241,130 @@ object frmTransferencia: TfrmTransferencia
         end
       end
     end
+    object tsFornecedor: TTabSheet
+      Caption = '5 - Fornecedores'
+      ImageIndex = 5
+      ExplicitLeft = 5
+      object Panel7: TPanel
+        Left = 0
+        Top = 406
+        Width = 765
+        Height = 41
+        Align = alBottom
+        BevelOuter = bvNone
+        TabOrder = 0
+        DesignSize = (
+          765
+          41)
+        object btnImportaFornecedor: TButton
+          Left = 674
+          Top = 9
+          Width = 91
+          Height = 25
+          Cursor = crHandPoint
+          Anchors = []
+          Caption = 'importar'
+          TabOrder = 0
+          OnClick = btnImportaFornecedorClick
+        end
+        object pbFornecedor: TProgressBar
+          Left = 4
+          Top = 13
+          Width = 257
+          Height = 16
+          TabOrder = 1
+        end
+        object btnApagarFornecedor: TButton
+          Left = 512
+          Top = 9
+          Width = 149
+          Height = 25
+          Cursor = crHandPoint
+          Anchors = []
+          Caption = 'Apagar todos os Fonecedores'
+          TabOrder = 2
+          OnClick = btnApagarFornecedorClick
+        end
+      end
+      object DBGrid6: TDBGrid
+        Left = 0
+        Top = 0
+        Width = 765
+        Height = 406
+        Align = alClient
+        DataSource = dsFornecedor
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        OnDrawColumnCell = DBGrid6DrawColumnCell
+      end
+    end
+    object tsGestao: TTabSheet
+      Caption = '6 - Gest'#227'o'
+      ImageIndex = 6
+      ExplicitLeft = 3
+      object DBGrid7: TDBGrid
+        Left = 0
+        Top = 0
+        Width = 765
+        Height = 406
+        Align = alClient
+        DataSource = dsGestao
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        OnDrawColumnCell = DBGrid7DrawColumnCell
+      end
+      object Panel8: TPanel
+        Left = 0
+        Top = 406
+        Width = 765
+        Height = 41
+        Align = alBottom
+        BevelOuter = bvNone
+        TabOrder = 1
+        DesignSize = (
+          765
+          41)
+        object Button1: TButton
+          Left = 674
+          Top = 9
+          Width = 91
+          Height = 25
+          Cursor = crHandPoint
+          Anchors = []
+          Caption = 'importar'
+          TabOrder = 0
+          OnClick = Button1Click
+        end
+        object pbGestao: TProgressBar
+          Left = 4
+          Top = 13
+          Width = 257
+          Height = 16
+          TabOrder = 1
+        end
+        object Button2: TButton
+          Left = 519
+          Top = 9
+          Width = 149
+          Height = 25
+          Cursor = crHandPoint
+          Anchors = []
+          Caption = 'Apagar todos as gest'#227'o'
+          TabOrder = 2
+          OnClick = Button2Click
+        end
+      end
+    end
     object tsBens: TTabSheet
-      Caption = '5 - Bens'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      Caption = '7 - Bens'
       object DBGrid1: TDBGrid
         Left = 0
         Top = 0
@@ -376,15 +486,20 @@ object frmTransferencia: TfrmTransferencia
     end
   end
   object ADOConnection: TADOConnection
+    Connected = True
+    ConnectionString = 
+      'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\Fagner\Dow' +
+      'nloads\Importador - Vers'#227'o Accse 2003 - Pref. Munic. de Miranort' +
+      'e.mdb;Persist Security Info=False'
     LoginPrompt = False
     Mode = cmShareDenyNone
     Provider = 'Microsoft.Jet.OLEDB.4.0'
-    Left = 448
+    Left = 624
     Top = 104
   end
   object OpenDialog: TOpenDialog
     Filter = '.mdb Files|*.mdb'
-    Left = 368
+    Left = 544
     Top = 104
   end
   object tbBens: TADOTable
@@ -439,6 +554,15 @@ object frmTransferencia: TfrmTransferencia
       DisplayWidth = 10
       FieldName = 'subLocalId'
       Size = 255
+    end
+    object tbBensquantidade: TIntegerField
+      FieldName = 'quantidade'
+    end
+    object tbBenstipoAquisicao: TIntegerField
+      FieldName = 'tipoAquisicao'
+    end
+    object tbBensfornecedorId: TIntegerField
+      FieldName = 'fornecedorId'
     end
   end
   object tbGrupos: TADOTable
@@ -546,6 +670,52 @@ object frmTransferencia: TfrmTransferencia
   object dsUnidades: TDataSource
     DataSet = tbUnidades
     Left = 296
+    Top = 168
+  end
+  object dsFornecedor: TDataSource
+    DataSet = tbFornecedor
+    Left = 360
+    Top = 168
+  end
+  object tbFornecedor: TADOTable
+    Connection = ADOConnection
+    CursorType = ctStatic
+    TableName = 'fornecedor'
+    Left = 360
+    Top = 104
+    object tbFornecedorpessoaId: TAutoIncField
+      FieldName = 'pessoaId'
+      ReadOnly = True
+    end
+    object tbFornecedornome: TWideStringField
+      FieldName = 'nome'
+      Size = 100
+    end
+    object tbFornecedortipo: TSmallintField
+      FieldName = 'tipo'
+    end
+    object tbFornecedorcnpjCpf: TWideStringField
+      FieldName = 'cnpjCpf'
+    end
+  end
+  object tbGestao: TADOTable
+    Connection = ADOConnection
+    CursorType = ctStatic
+    TableName = 'gestao'
+    Left = 440
+    Top = 104
+    object tbGestaogestaoId: TWideStringField
+      FieldName = 'gestaoId'
+      Size = 50
+    end
+    object tbGestaonome: TWideStringField
+      FieldName = 'nome'
+      Size = 50
+    end
+  end
+  object dsGestao: TDataSource
+    DataSet = tbGestao
+    Left = 440
     Top = 168
   end
 end

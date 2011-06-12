@@ -29,10 +29,6 @@ type
     edtNTranferencia: TLabeledEdit;
     edtData: TDateTimePicker;
     Label1: TLabel;
-    dpsEmpresa: TDataSetProvider;
-    dsEmpresa: TDataSource;
-    cdsEmpresa: TClientDataSet;
-    rvdEmpresa: TRvDataSetConnection;
     cdsBens: TClientDataSet;
     dpsBens: TDataSetProvider;
     sqlLocal: TADOQuery;
@@ -114,13 +110,6 @@ begin
 				SQL.Text  := Concat('select local.*, unidade.Titulo as empresa_orgao ',
 															'from local inner join local as unidade on unidade.localId = local.vLocalId ');
 			end;
-		end;
-		with cdsEmpresa do
-		begin
-			Close;
-			CommandText := 'select empresa.*, pessoa.nome from empresa left join pessoa on pessoa.pessoaId = empresa.pessoaId  where empresa.empresaId = :empresaId';
-			Params.ParamByName('empresaId').Value := gEmpresaId;
-			Open;
 		end;
 		SetParam('nomeReceptor',edtNome.Text);
 		SetParam('matriculaReceptor', edtMatricula.Text);

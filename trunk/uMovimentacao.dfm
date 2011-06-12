@@ -332,6 +332,7 @@ object frmMovimentacao: TfrmMovimentacao
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       ParentDoubleBuffered = False
       TabOrder = 5
+      OnClick = btnImprimirClick
     end
   end
   object pgGeral: TPageControl
@@ -340,7 +341,7 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 52
     Width = 914
     Height = 547
-    ActivePage = tsInformacao
+    ActivePage = tsConsulta
     Align = alClient
     TabOrder = 1
     object tsConsulta: TTabSheet
@@ -370,20 +371,6 @@ object frmMovimentacao: TfrmMovimentacao
             Expanded = False
             FieldName = 'transferenciaId'
             Title.Caption = 'N'#250'mero da transfer'#234'ncia'
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'TituloOrigem'
-            Title.Caption = 'Origem'
-            Width = 240
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'TituloDestino'
-            Title.Caption = 'Destino'
-            Width = 240
             Visible = True
           end
           item
@@ -449,10 +436,10 @@ object frmMovimentacao: TfrmMovimentacao
           Height = 21
           Margins.Top = 7
           Align = alRight
-          ItemIndex = 0
           TabOrder = 1
           Text = 'Descri'#231#227'o'
           Items.Strings = (
+            'N'#250'mero'
             'Descri'#231#227'o')
         end
       end
@@ -460,7 +447,6 @@ object frmMovimentacao: TfrmMovimentacao
     object tsInformacao: TTabSheet
       Caption = 'Informa'#231#245'es sobre a transfer'#234'ncia'
       ImageIndex = 1
-      ExplicitLeft = 0
       object Label1: TLabel
         Left = 24
         Top = 24
@@ -982,7 +968,6 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 406
   end
   object cdsOrigem: TClientDataSet
-    Active = True
     Aggregates = <>
     CommandText = 'select * from local order by localId'
     IndexFieldNames = 'vLocalId'
@@ -1028,7 +1013,6 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 406
   end
   object cdsDestino: TClientDataSet
-    Active = True
     Aggregates = <>
     CommandText = 'select * from local order by localId'
     IndexFieldNames = 'vLocalId'
@@ -1067,7 +1051,6 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 406
   end
   object cdsCedente: TClientDataSet
-    Active = True
     Aggregates = <>
     CommandText = 'select * from pessoa'
     Params = <>
@@ -1107,11 +1090,6 @@ object frmMovimentacao: TfrmMovimentacao
       Required = True
       Size = 10
     end
-    object cdsCedentefornecedor: TBooleanField
-      FieldName = 'fornecedor'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
     object cdsCedenteusuario: TBooleanField
       FieldName = 'usuario'
       ProviderFlags = [pfInUpdate]
@@ -1124,7 +1102,6 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 406
   end
   object cdsReceptor: TClientDataSet
-    Active = True
     Aggregates = <>
     CommandText = 'select * from pessoa'
     Params = <>
@@ -1163,11 +1140,6 @@ object frmMovimentacao: TfrmMovimentacao
       ProviderFlags = [pfInUpdate]
       Required = True
       Size = 10
-    end
-    object cdsReceptorfornecedor: TBooleanField
-      FieldName = 'fornecedor'
-      ProviderFlags = [pfInUpdate]
-      Required = True
     end
     object cdsReceptorusuario: TBooleanField
       FieldName = 'usuario'
@@ -1224,7 +1196,7 @@ object frmMovimentacao: TfrmMovimentacao
       LookupKeyFields = 'bemId'
       LookupResultField = 'descricao'
       KeyFields = 'bemId'
-      Size = 255
+      Size = 1000
       Lookup = True
     end
   end
@@ -1240,7 +1212,6 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 406
   end
   object cdsOrigemLocal: TClientDataSet
-    Active = True
     Aggregates = <>
     CommandText = 'select * from local where vLocalId = 0 order by localId'
     Params = <>
@@ -1288,7 +1259,6 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 406
   end
   object cdsDestinoLocal: TClientDataSet
-    Active = True
     Aggregates = <>
     CommandText = 'select * from local where vLocalId = 0 order by localId'
     Params = <>
@@ -1343,7 +1313,7 @@ object frmMovimentacao: TfrmMovimentacao
     ProcedureName = 'sp_finalizaTransferencia'
     Parameters = <>
     Left = 768
-    Top = 152
+    Top = 80
   end
   object dsBem: TDataSource
     DataSet = cdsBem
@@ -1435,5 +1405,127 @@ object frmMovimentacao: TfrmMovimentacao
     UpdateMode = upWhereKeyOnly
     Left = 696
     Top = 527
+  end
+  object rvdMovimentacaoBem: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = sqlTransferenciaBem
+    Left = 88
+    Top = 344
+  end
+  object rvdMovimentacao: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = sqlTranferencia
+    Left = 192
+    Top = 344
+  end
+  object sqlTranferencia: TADOQuery
+    Connection = dm.ADOConnection
+    CursorType = ctStatic
+    Parameters = <
+      item
+        Name = 'transferenciaId'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end>
+    SQL.Strings = (
+      'select * from transferencia'
+      'where transferenciaId = :transferenciaId')
+    Left = 360
+    Top = 200
+    object sqlTranferenciatransferenciaId: TAutoIncField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'transferenciaId'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+      DisplayFormat = '00000000'
+    end
+    object sqlTranferenciaorigemId: TStringField
+      FieldName = 'origemId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlTranferenciadestinoId: TStringField
+      FieldName = 'destinoId'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlTranferenciadata: TDateTimeField
+      FieldName = 'data'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlTranferenciareceptorId: TIntegerField
+      FieldName = 'receptorId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlTranferenciacedenteId: TIntegerField
+      FieldName = 'cedenteId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlTranferenciausuarioId: TIntegerField
+      FieldName = 'usuarioId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlTranferenciaconcluida: TBooleanField
+      FieldName = 'concluida'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlTranferenciatipo: TSmallintField
+      FieldName = 'tipo'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlTranferenciaorigemSubLocal: TStringField
+      FieldName = 'origemSubLocal'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+    object sqlTranferenciadestinoSubLocal: TStringField
+      FieldName = 'destinoSubLocal'
+      ProviderFlags = [pfInUpdate]
+      Size = 10
+    end
+  end
+  object sqlTransferenciaBem: TADOQuery
+    Connection = dm.ADOConnection
+    CursorType = ctStatic
+    Parameters = <
+      item
+        Name = 'transferenciaId'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end>
+    SQL.Strings = (
+      'select transferenciaBem.*, bem.descricao, bem.idenficacao'
+      
+        ' from transferenciaBem inner join bem on transferenciaBem.bemid ' +
+        '= bem.bemid'
+      'where transferenciaId = :transferenciaId')
+    Left = 456
+    Top = 200
+    object sqlTransferenciaBemtransferenciaId: TIntegerField
+      FieldName = 'transferenciaId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object sqlTransferenciaBembemId: TIntegerField
+      FieldName = 'bemId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object sqlTransferenciaBembemEstadoId: TIntegerField
+      FieldName = 'bemEstadoId'
+      ProviderFlags = [pfInUpdate]
+    end
+    object sqlTransferenciaBemdescricao: TStringField
+      FieldName = 'descricao'
+      Size = 255
+    end
+    object sqlTransferenciaBemidenficacao: TStringField
+      FieldName = 'idenficacao'
+      Size = 50
+    end
   end
 end
