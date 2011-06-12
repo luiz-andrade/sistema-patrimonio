@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Provider, DB, DBClient, StdCtrls, DBCtrls, Mask, Buttons, ExtCtrls,
-  ComCtrls, Grids, DBGrids, FMTBcd, SqlExpr, ADODB;
+  ComCtrls, Grids, DBGrids, FMTBcd, SqlExpr, ADODB, RpDefine, RpCon, RpConDS;
 
 type
   TfrmMovimentacao = class(TForm)
@@ -55,7 +55,6 @@ type
     cdsCedentelogradouro: TStringField;
     cdsCedentemunicipio: TStringField;
     cdsCedentecep: TStringField;
-    cdsCedentefornecedor: TBooleanField;
     cdsCedenteusuario: TBooleanField;
     cdsReceptorpessoaId: TIntegerField;
     cdsReceptornome: TStringField;
@@ -63,7 +62,6 @@ type
     cdsReceptorlogradouro: TStringField;
     cdsReceptormunicipio: TStringField;
     cdsReceptorcep: TStringField;
-    cdsReceptorfornecedor: TBooleanField;
     cdsReceptorusuario: TBooleanField;
     DBGrid1: TDBGrid;
     pnPesquisa: TPanel;
@@ -145,6 +143,26 @@ type
     dspBem: TDataSetProvider;
     cdsMovimentacaoBemidenficacao: TStringField;
     cdsMovimentacaoBemdescricao: TStringField;
+    rvdMovimentacaoBem: TRvDataSetConnection;
+    rvdMovimentacao: TRvDataSetConnection;
+    sqlTranferencia: TADOQuery;
+    sqlTranferenciatransferenciaId: TAutoIncField;
+    sqlTranferenciaorigemId: TStringField;
+    sqlTranferenciadestinoId: TStringField;
+    sqlTranferenciadata: TDateTimeField;
+    sqlTranferenciareceptorId: TIntegerField;
+    sqlTranferenciacedenteId: TIntegerField;
+    sqlTranferenciausuarioId: TIntegerField;
+    sqlTranferenciaconcluida: TBooleanField;
+    sqlTranferenciatipo: TSmallintField;
+    sqlTranferenciaorigemSubLocal: TStringField;
+    sqlTranferenciadestinoSubLocal: TStringField;
+    sqlTransferenciaBem: TADOQuery;
+    sqlTransferenciaBemtransferenciaId: TIntegerField;
+    sqlTransferenciaBembemId: TIntegerField;
+    sqlTransferenciaBembemEstadoId: TIntegerField;
+    sqlTransferenciaBemdescricao: TStringField;
+    sqlTransferenciaBemidenficacao: TStringField;
     procedure btnFecharClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnGravarClick(Sender: TObject);
@@ -170,6 +188,7 @@ type
     procedure cdsMovimentacaoAfterInsert(DataSet: TDataSet);
     procedure ledtIdentificacaoKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure btnImprimirClick(Sender: TObject);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -299,6 +318,25 @@ begin
 	end;
 end;
 
+procedure TfrmMovimentacao.btnImprimirClick(Sender: TObject);
+begin
+	with dm.rvpTR do
+	begin
+		with sqlTranferencia do
+		begin
+			Close;
+			Parameters.ParamByName('transferenciaId').Value := cdsMovimentacaotransferenciaId.Value;
+		end;
+		with sqlTransferenciaBem do
+		begin
+			Close;
+			Parameters.ParamByName('transferenciaId').Value := cdsMovimentacaotransferenciaId.Value;
+		end;
+		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+		ExecuteReport('MOVIMENTACAO');
+	end;
+end;
+
 procedure TfrmMovimentacao.btnNovoClick(Sender: TObject);
 begin
 	with cdsMovimentacao do
@@ -402,6 +440,7 @@ begin
 	dsMovimentacao.AutoEdit := not(cdsMovimentacaoconcluida.Value);
 	btnConcluir.Visible :=  not(cdsMovimentacaoconcluida.AsBoolean) 
 													and not(cdsMovimentacao.IsEmpty);
+	btnImprimir.Visible := (cdsMovimentacaoconcluida.Value);
 end;
 
 procedure TfrmMovimentacao.dsMovimentacaoStateChange(Sender: TObject);

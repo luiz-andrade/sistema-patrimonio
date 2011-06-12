@@ -206,7 +206,6 @@ object frmPessoa: TfrmPessoa
         Height = 21
         DataField = 'cep'
         DataSource = dsPessoa
-        MaxLength = 10
         TabOrder = 4
       end
       object tipo: TDBRadioGroup
@@ -227,29 +226,16 @@ object frmPessoa: TfrmPessoa
           '1'
           '0')
       end
-      object fornecedor: TDBCheckBox
-        Left = 3
-        Top = 205
-        Width = 97
-        Height = 17
-        Cursor = crHandPoint
-        Caption = 'Fornecedor'
-        DataField = 'fornecedor'
-        DataSource = dsPessoa
-        TabOrder = 6
-        ValueChecked = 'True'
-        ValueUnchecked = 'False'
-      end
       object usuario: TDBCheckBox
-        Left = 106
-        Top = 205
+        Left = 3
+        Top = 187
         Width = 97
         Height = 17
         Cursor = crHandPoint
         Caption = 'Usu'#225'rio'
         DataField = 'usuario'
         DataSource = dsPessoa
-        TabOrder = 7
+        TabOrder = 6
         ValueChecked = 'True'
         ValueUnchecked = 'False'
       end
@@ -530,47 +516,6 @@ object frmPessoa: TfrmPessoa
             Width = 427
             Visible = True
           end>
-      end
-    end
-    object tsFornecedor: TTabSheet
-      Caption = 'Informa'#231#245'es para fornecimento'
-      ImageIndex = 3
-      object Label10: TLabel
-        Left = 8
-        Top = 10
-        Width = 76
-        Height = 13
-        Caption = 'Raz'#227'o fantasia:'
-        FocusControl = razaoSocial
-      end
-      object Label11: TLabel
-        Left = 8
-        Top = 52
-        Width = 29
-        Height = 13
-        Caption = 'CNPJ:'
-        FocusControl = cnpj
-      end
-      object razaoSocial: TDBEdit
-        Left = 8
-        Top = 27
-        Width = 486
-        Height = 21
-        DataField = 'razaoSocial'
-        DataSource = dsPessoaFornc
-        TabOrder = 0
-      end
-      object cnpj: TDBEdit
-        Left = 8
-        Top = 67
-        Width = 134
-        Height = 21
-        DataField = 'cnpj'
-        DataSource = dsPessoaFornc
-        Enabled = False
-        MaxLength = 18
-        ParentColor = True
-        TabOrder = 1
       end
     end
   end
@@ -2522,7 +2467,6 @@ object frmPessoa: TfrmPessoa
     Top = 336
   end
   object cdsPessoa: TClientDataSet
-    Active = True
     Aggregates = <>
     CommandText = 'select * from pessoa'
     Params = <>
@@ -2563,12 +2507,6 @@ object frmPessoa: TfrmPessoa
       ProviderFlags = [pfInUpdate]
       EditMask = '00000\-9999;0; '
       Size = 10
-    end
-    object cdsPessoafornecedor: TBooleanField
-      FieldName = 'fornecedor'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayValues = 'Sim;N'#227'o'
     end
     object cdsPessoausuario_: TBooleanField
       FieldName = 'usuario'
@@ -2647,52 +2585,6 @@ object frmPessoa: TfrmPessoa
     DataSet = dm.sqlUsuario
     Options = [poAllowCommandText, poUseQuoteChar]
     Left = 256
-    Top = 432
-  end
-  object dsPessoaFornc: TDataSource
-    DataSet = cdsPessoaForc
-    OnStateChange = dsPessoaForncStateChange
-    Left = 120
-    Top = 336
-  end
-  object cdsPessoaForc: TClientDataSet
-    Active = True
-    Aggregates = <>
-    CommandText = 'select * from fornecedor'
-    IndexFieldNames = 'pessoaId'
-    MasterFields = 'pessoaId'
-    MasterSource = dsPessoa
-    Params = <>
-    ProviderName = 'dpsPessoaForc'
-    AfterInsert = cdsPessoaForcAfterInsert
-    Left = 120
-    Top = 384
-    object cdsPessoaForcfornecedorId: TIntegerField
-      FieldName = 'fornecedorId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object cdsPessoaForcrazaoSocial: TStringField
-      FieldName = 'razaoSocial'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 100
-    end
-    object cdsPessoaForccnpj: TStringField
-      FieldName = 'cnpj'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      EditMask = '00\.000\.000\/0000\-00;0; '
-    end
-    object cdsPessoaForcpessoaId: TIntegerField
-      FieldName = 'pessoaId'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-  end
-  object dpsPessoaForc: TDataSetProvider
-    DataSet = dm.sqlFornecedor
-    Options = [poAllowCommandText, poUseQuoteChar]
-    Left = 120
     Top = 432
   end
   object dsAcoes: TDataSource

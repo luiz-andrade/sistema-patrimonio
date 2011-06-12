@@ -222,37 +222,6 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     Left = 56
     Top = 312
   end
-  object dpsEmpresa: TDataSetProvider
-    DataSet = dm.sqlEmpresa
-    ResolveToDataSet = True
-    Options = [poReadOnly, poAllowCommandText]
-    UpdateMode = upWhereKeyOnly
-    Left = 240
-    Top = 432
-  end
-  object dsEmpresa: TDataSource
-    DataSet = cdsEmpresa
-    Left = 242
-    Top = 312
-  end
-  object cdsEmpresa: TClientDataSet
-    Aggregates = <>
-    CommandText = 
-      'select empresa.*, pessoa.nome from empresa left join pessoa on p' +
-      'essoa.pessoaId = empresa.pessoaId  '
-    Params = <>
-    ProviderName = 'dpsEmpresa'
-    Left = 240
-    Top = 376
-  end
-  object rvdEmpresa: TRvDataSetConnection
-    RuntimeVisibility = rtDeveloper
-    DisableDataSource = False
-    RestoreDataSet = False
-    DataSet = cdsEmpresa
-    Left = 243
-    Top = 248
-  end
   object cdsBens: TClientDataSet
     Aggregates = <>
     CommandText = 'select * from bem'

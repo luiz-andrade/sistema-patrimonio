@@ -8,7 +8,7 @@ object dm: Tdm
     Left = 390
     Top = 24
     Bitmap = {
-      494C01010700CC00CC0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010700D400D40020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1075,7 +1075,7 @@ object dm: Tdm
     Left = 485
     Top = 24
     Bitmap = {
-      494C010104009C009C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010400A400A40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1770,10 +1770,6 @@ object dm: Tdm
       ProviderFlags = [pfInUpdate]
       Size = 10
     end
-    object sqlPessoafornecedor: TBooleanField
-      FieldName = 'fornecedor'
-      ProviderFlags = [pfInUpdate]
-    end
     object sqlPessoausuario: TBooleanField
       FieldName = 'usuario'
       ProviderFlags = [pfInUpdate]
@@ -1789,8 +1785,8 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'select * from fornecedor')
-    Left = 104
-    Top = 200
+    Left = 32
+    Top = 144
     object sqlFornecedorfornecedorId: TAutoIncField
       AutoGenerateValue = arAutoInc
       FieldName = 'fornecedorId'
@@ -1806,10 +1802,6 @@ object dm: Tdm
       FieldName = 'cnpj'
       ProviderFlags = [pfInUpdate]
     end
-    object sqlFornecedorpessoaId: TIntegerField
-      FieldName = 'pessoaId'
-      ProviderFlags = [pfInUpdate]
-    end
   end
   object sqlUsuario: TADOQuery
     Connection = ADOConnection
@@ -1818,7 +1810,7 @@ object dm: Tdm
     SQL.Strings = (
       'select * from usuario')
     Left = 104
-    Top = 256
+    Top = 200
     object sqlUsuariousuarioId: TAutoIncField
       FieldName = 'usuarioId'
       ProviderFlags = [pfInWhere, pfInKey]
@@ -1850,7 +1842,7 @@ object dm: Tdm
     SQL.Strings = (
       'select * from usuarioAcao')
     Left = 104
-    Top = 312
+    Top = 256
     object sqlUsuarioAcaousuarioId: TIntegerField
       FieldName = 'usuarioId'
     end
@@ -1865,7 +1857,7 @@ object dm: Tdm
     SQL.Strings = (
       'select * from acoes')
     Left = 104
-    Top = 376
+    Top = 320
     object sqlAcoesacaoId: TAutoIncField
       AutoGenerateValue = arAutoInc
       FieldName = 'acaoId'
@@ -1890,7 +1882,7 @@ object dm: Tdm
     SQL.Strings = (
       'select * from acoes')
     Left = 104
-    Top = 440
+    Top = 384
     object sqlvAcoesacaoId: TAutoIncField
       FieldName = 'acaoId'
       ProviderFlags = [pfInWhere, pfInKey]
@@ -1988,5 +1980,25 @@ object dm: Tdm
     DataSet = totaisSubGrupos
     Left = 560
     Top = 392
+  end
+  object rvdFornecedor: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = sqlFornecedor
+    Left = 32
+    Top = 200
+  end
+  object rvdEmpresa: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DisableDataSource = False
+    RestoreDataSet = False
+    DataSet = sqlEmpresa
+    Left = 303
+    Top = 32
+  end
+  object rvdBemGeral: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = sqlBem
+    Left = 552
+    Top = 88
   end
 end

@@ -88,14 +88,12 @@ type
     sqlPessoalogradouro: TStringField;
     sqlPessoamunicipio: TStringField;
     sqlPessoacep: TStringField;
-    sqlPessoafornecedor: TBooleanField;
     sqlPessoausuario: TBooleanField;
     sqlPessoacnpjCpf: TStringField;
     sqlFornecedor: TADOQuery;
     sqlFornecedorfornecedorId: TAutoIncField;
     sqlFornecedorrazaoSocial: TStringField;
     sqlFornecedorcnpj: TStringField;
-    sqlFornecedorpessoaId: TIntegerField;
     sqlUsuario: TADOQuery;
     sqlUsuariousuarioId: TAutoIncField;
     sqlUsuariologin: TStringField;
@@ -125,6 +123,9 @@ type
     rvdTotaisGrupos: TRvDataSetConnection;
     rvdTotaisSubgrupos: TRvDataSetConnection;
     totaisSubGruposvGrupoId: TStringField;
+    rvdFornecedor: TRvDataSetConnection;
+    rvdEmpresa: TRvDataSetConnection;
+    rvdBemGeral: TRvDataSetConnection;
     procedure ADOConnectionBeforeConnect(Sender: TObject);
     procedure ApplicationEventsException(Sender: TObject; E: Exception);
   private
@@ -143,19 +144,15 @@ uses uFuncoes, uErro;
 {$R *.dfm}
 
 procedure Tdm.ADOConnectionBeforeConnect(Sender: TObject);
-var
-	dataSource : String;
-  user : String;
-  Password : String;
 begin
-  with ADOConnection do
-  begin
-    Close;
-    if FileExists(Concat(ExtractFilePath(Application.ExeName), 'dbxcon.udl')) then
+	with ADOConnection do
+	begin
+		Close;
+		if FileExists(Concat(ExtractFilePath(Application.ExeName), 'dbxcon.udl')) then
 		begin
-      ConnectionString := Concat(	'FILE NAME=',
+			ConnectionString := Concat(	'FILE NAME=',
 																	ExtractFilePath(Application.ExeName)
-                                 ,'dbxcon.udl');
+																 ,'dbxcon.udl');
 		end
 		else
 		begin
@@ -164,20 +161,20 @@ begin
 															MB_ICONERROR);
 			Application.Terminate;
 		end;
-  end;
+	end;
 end;
 
 procedure Tdm.ApplicationEventsException(Sender: TObject; E: Exception);
 begin
 	with TfrmErro.Create(Application) do
-  begin
-  	try
-    	memErro.Text := E.Message;
-    	ShowModal;
-    finally
-    	Free;
-    end;
-  end;
+	begin
+		try
+			memErro.Text := E.Message;
+			ShowModal;
+		finally
+			Free;
+		end;
+	end;
 end;
 
 end.

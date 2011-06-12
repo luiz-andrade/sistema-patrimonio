@@ -19,7 +19,8 @@ function cript(str: WideString): WideString;
 procedure gravaUsuarioAcao(usuarioId : Integer; acaoId : Integer);
 procedure removeUsuarioAcao(usuarioId : Integer; acaoId : Integer);
 function verificaUsuarioAcao(usuarioId : Integer; acao : String) : Boolean;
-
+function GetFornecedorId(razaoSocial : String) : Integer;
+function getGestaoId(nome : String) : Integer;
 implementation
 
 uses uAcesso, uAlteracaoSenha;
@@ -388,6 +389,58 @@ begin
 				end;
 				Open;
 				Result := not IsEmpty;
+			except
+				raise;
+			end;
+		finally
+			Free;
+		end;
+	end;
+end;
+
+function GetFornecedorId(razaoSocial : String) : Integer;
+begin
+	Result := -1;
+	with TADOQuery.Create(nil) do
+	begin
+		try
+			try
+				Close;
+				Connection := dm.ADOConnection;
+				SQL.Clear;
+				SQL.Add('select fornecedorId from fornecedor where razaoSocial = :razaoSocial');
+				Parameters.ParamByName('razaoSocial').Value := razaoSocial;
+				Open;
+				if not(IsEmpty) then
+				begin
+					Result := FieldByName('fornecedorId').Value;
+				end;
+			except
+				raise;
+			end;
+		finally
+			Free;
+		end;
+	end;
+end;
+
+function getGestaoId(nome : String) : Integer;
+begin
+	Result := -1;
+	with TADOQuery.Create(nil) do
+	begin
+		try
+			try
+				Close;
+				Connection := dm.ADOConnection;
+				SQL.Clear;
+				SQL.Add('select * from gestao where gestao =:gestao');
+				Parameters.ParamByName('gestao').Value := nome;
+				Open;
+				if not(IsEmpty) then
+				begin
+					Result := FieldByName('gestaoId').Value;
+				end;
 			except
 				raise;
 			end;

@@ -201,7 +201,7 @@ end;
 
 procedure TfrmPrincipal.actRelatTotGrupoExecute(Sender: TObject);
 begin
-	with frmRelatTotaisGrupo.Create(Application) do
+	with TfrmRelatTotaisGrupo.Create(Application) do
 	begin
 		try
 			ShowModal;

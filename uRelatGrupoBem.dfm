@@ -31,7 +31,7 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     OnClick = btnFecharClick
   end
   object btnVisualizar: TBitBtn
-    Left = 472
+    Left = 474
     Top = 448
     Width = 91
     Height = 25
@@ -394,7 +394,10 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'select * from bem')
+      'select * from bem '
+      
+        '                                left join bemAquisicao on bemAqu' +
+        'isicao.bemid = bem.bemId')
     Left = 312
     Top = 328
     object sqlBembemId: TAutoIncField
@@ -458,6 +461,19 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     object sqlBemquantidade: TFloatField
       FieldName = 'quantidade'
       ProviderFlags = [pfInUpdate]
+    end
+    object sqlBemdata: TDateTimeField
+      FieldName = 'data'
+    end
+    object sqlBemdataNota: TDateTimeField
+      FieldName = 'dataNota'
+    end
+    object sqlBemfornecedorId: TIntegerField
+      FieldName = 'fornecedorId'
+    end
+    object sqlBemnumeroNota: TStringField
+      FieldName = 'numeroNota'
+      Size = 100
     end
   end
 end

@@ -71,6 +71,10 @@ type
     sqlBemsubLocalId: TStringField;
     sqlBemtipoAquisicao: TIntegerField;
     sqlBemquantidade: TFloatField;
+    sqlBemdata: TDateTimeField;
+    sqlBemdataNota: TDateTimeField;
+    sqlBemfornecedorId: TIntegerField;
+    sqlBemnumeroNota: TStringField;
     procedure btnFecharClick(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -111,12 +115,13 @@ begin
         if cbFornecedor.Checked then
         begin
           SQL.Add( Concat('select * from bem ',
-                                'inner join bemAquisicao on bemAquisicao.bemid = bem.bemId ',
+                                'left join bemAquisicao on bemAquisicao.bemid = bem.bemId ',
                                 'where bemAquisicao.fornecedorId = :fornecedorId'));
         end
         else
-        begin
-          SQL.Add('select * from bem where 1=1');
+				begin
+          SQL.Add( Concat('select * from bem ',
+                                'left join bemAquisicao on bemAquisicao.bemid = bem.bemId ', 'where 1=1 '));
         end;
         if cbGestao.Checked then
         begin
