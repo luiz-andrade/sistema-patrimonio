@@ -231,51 +231,64 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     Top = 314
     object cdsBensbemId: TAutoIncField
       FieldName = 'bemId'
+      ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
     end
     object cdsBensidenficacao: TStringField
       FieldName = 'idenficacao'
+      ProviderFlags = [pfInUpdate]
       Size = 50
     end
     object cdsBensdescricao: TStringField
       FieldName = 'descricao'
+      ProviderFlags = [pfInUpdate]
       Size = 255
     end
     object cdsBensgrupoId: TStringField
       FieldName = 'grupoId'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
     object cdsBensestadoId: TIntegerField
       FieldName = 'estadoId'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsBenslocalId: TStringField
       FieldName = 'localId'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
     object cdsBensgestaoId: TIntegerField
       FieldName = 'gestaoId'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsBensvalor: TBCDField
       FieldName = 'valor'
+      ProviderFlags = [pfInUpdate]
       currency = True
       Precision = 19
     end
     object cdsBenstipoIdentificacao: TIntegerField
       FieldName = 'tipoIdentificacao'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsBenssubgrupoId: TStringField
       FieldName = 'subgrupoId'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
     object cdsBenssubLocalId: TStringField
       FieldName = 'subLocalId'
+      ProviderFlags = [pfInUpdate]
       Size = 10
     end
     object cdsBenstipoAquisicao: TIntegerField
       FieldName = 'tipoAquisicao'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsBensquantidade: TFloatField
       FieldName = 'quantidade'
+      ProviderFlags = [pfInUpdate]
     end
   end
   object dpsBens: TDataSetProvider
