@@ -13,6 +13,7 @@ object frmTransferencia: TfrmTransferencia
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object PageControl1: TPageControl
@@ -244,7 +245,6 @@ object frmTransferencia: TfrmTransferencia
     object tsFornecedor: TTabSheet
       Caption = '5 - Fornecedores'
       ImageIndex = 5
-      ExplicitLeft = 5
       object Panel7: TPanel
         Left = 0
         Top = 406
@@ -305,7 +305,6 @@ object frmTransferencia: TfrmTransferencia
     object tsGestao: TTabSheet
       Caption = '6 - Gest'#227'o'
       ImageIndex = 6
-      ExplicitLeft = 3
       object DBGrid7: TDBGrid
         Left = 0
         Top = 0
@@ -486,11 +485,6 @@ object frmTransferencia: TfrmTransferencia
     end
   end
   object ADOConnection: TADOConnection
-    Connected = True
-    ConnectionString = 
-      'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\Fagner\Dow' +
-      'nloads\Importador - Vers'#227'o Accse 2003 - Pref. Munic. de Miranort' +
-      'e.mdb;Persist Security Info=False'
     LoginPrompt = False
     Mode = cmShareDenyNone
     Provider = 'Microsoft.Jet.OLEDB.4.0'

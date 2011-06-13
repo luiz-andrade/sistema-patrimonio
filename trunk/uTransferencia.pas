@@ -131,6 +131,7 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure Button2Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
 		{ Private declarations }
 		procedure insertGrupo(grupoId : String; descricao : String; 
@@ -443,7 +444,11 @@ begin
 		try
 			Close;
 			Connection := dm.ADOConnection;
-			CommandText := 'delete bemAquisicao delete bem';
+			CommandText := 'delete bem';
+			Execute;
+			Close;
+			Connection := dm.ADOConnection;
+			CommandText := 'delete bemAquisicao';
 			Execute;
 			Application.MessageBox('Todos o bens foram apagados com sucesso!', 
 															PChar(Application.Title),
@@ -631,6 +636,11 @@ begin
 		DefaultDrawDataCell(Rect, Column.Field, State);
 		end;
 	end;
+end;
+
+procedure TfrmTransferencia.FormShow(Sender: TObject);
+begin
+	tsGrupos.Show;
 end;
 
 procedure TfrmTransferencia.InsertAquisicaoBem(bemId: Integer; 

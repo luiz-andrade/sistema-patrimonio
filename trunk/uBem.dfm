@@ -32,7 +32,7 @@ object frmBem: TfrmBem
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsInformacao
+    ActivePage = tsPesquisa
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -460,6 +460,7 @@ object frmBem: TfrmBem
         Height = 13
         Caption = 'bemId'
         FocusControl = DBEdit1
+        Visible = False
       end
       object Label13: TLabel
         Left = 16
@@ -518,6 +519,7 @@ object frmBem: TfrmBem
         ParentColor = True
         ReadOnly = True
         TabOrder = 4
+        Visible = False
       end
       object numeroNota: TDBEdit
         Left = 16
@@ -2611,7 +2613,6 @@ object frmBem: TfrmBem
     Top = 390
   end
   object cdsGrupo: TClientDataSet
-    Active = True
     Aggregates = <>
     CommandText = 'select * from grupo'
     Params = <>
@@ -2620,7 +2621,6 @@ object frmBem: TfrmBem
     Top = 222
   end
   object cdsEstado: TClientDataSet
-    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspEstado'
@@ -2653,7 +2653,6 @@ object frmBem: TfrmBem
     end
   end
   object cdsGestao: TClientDataSet
-    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspGestao'
@@ -2760,7 +2759,6 @@ object frmBem: TfrmBem
     Top = 8
   end
   object cdsGrupoPrincipal: TClientDataSet
-    Active = True
     Aggregates = <>
     CommandText = 'select * from grupo'
     Params = <>

@@ -341,7 +341,7 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 52
     Width = 914
     Height = 547
-    ActivePage = tsConsulta
+    ActivePage = tsInformacao
     Align = alClient
     TabOrder = 1
     object tsConsulta: TTabSheet
@@ -487,6 +487,7 @@ object frmMovimentacao: TfrmMovimentacao
         Caption = 'Usuario:'
         Enabled = False
         FocusControl = usuarioId
+        Visible = False
       end
       object Label5: TLabel
         Left = 433
@@ -568,6 +569,7 @@ object frmMovimentacao: TfrmMovimentacao
         DataSource = dsMovimentacao
         Enabled = False
         TabOrder = 4
+        Visible = False
       end
       object DBCheckBox1: TDBCheckBox
         Left = 839
@@ -580,6 +582,7 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 5
         ValueChecked = 'True'
         ValueUnchecked = 'False'
+        Visible = False
       end
       object dblOrigemId: TDBLookupComboBox
         Left = 163
