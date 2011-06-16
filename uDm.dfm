@@ -8,7 +8,7 @@ object dm: Tdm
     Left = 390
     Top = 24
     Bitmap = {
-      494C01010700D800D80020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900D80020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1075,7 +1075,7 @@ object dm: Tdm
     Left = 485
     Top = 24
     Bitmap = {
-      494C01010400A800A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104000600A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1376,7 +1376,6 @@ object dm: Tdm
     Top = 88
   end
   object ADOConnection: TADOConnection
-    Connected = True
     ConnectionString = 'FILE NAME=C:\Projetos\sistema-patrimonio\Debug\Win32\dbxcon.udl'
     LoginPrompt = False
     Provider = 'SQLNCLI10.1'
@@ -1582,6 +1581,17 @@ object dm: Tdm
       'select * from gestao')
     Left = 304
     Top = 144
+    object sqlGestaogestaoId: TAutoIncField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'gestaoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlGestaogestao: TStringField
+      FieldName = 'gestao'
+      ProviderFlags = [pfInUpdate]
+      Size = 255
+    end
   end
   object sqlGrupo: TADOQuery
     Connection = ADOConnection

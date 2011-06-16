@@ -23,7 +23,9 @@ uses
   uRelatGrupoBem in 'uRelatGrupoBem.pas' {frmRelatGrupoBem},
   uUpdate in 'uUpdate.pas' {frmUpdate},
   uErro in 'uErro.pas' {frmErro},
-  uRelatGrupoTotais in 'uRelatGrupoTotais.pas' {frmRelatTotaisGrupo};
+  uRelatGrupoTotais in 'uRelatGrupoTotais.pas' {frmRelatTotaisGrupo},
+  uFornecedor in 'uFornecedor.pas' {frmFornecedor},
+  uGestao in 'uGestao.pas' {frmGestao};
 
 {$R *.res}
 

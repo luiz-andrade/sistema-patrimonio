@@ -107,6 +107,12 @@
 			<DCCReference Include="uRelatGrupoTotais.pas">
 				<Form>frmRelatTotaisGrupo</Form>
 			</DCCReference>
+			<DCCReference Include="uFornecedor.pas">
+				<Form>frmFornecedor</Form>
+			</DCCReference>
+			<DCCReference Include="uGestao.pas">
+				<Form>frmGestao</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

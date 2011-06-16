@@ -111,7 +111,7 @@ object frmGrupo: TfrmGrupo
             Expanded = False
             FieldName = 'descricao'
             Title.Caption = 'Nome'
-            Width = 525
+            Width = 430
             Visible = True
           end>
       end
@@ -119,6 +119,10 @@ object frmGrupo: TfrmGrupo
     object tsInformacao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label1: TLabel
         Left = 88
         Top = 16
@@ -2142,7 +2146,6 @@ object frmGrupo: TfrmGrupo
     Top = 296
   end
   object cdsGrupo: TClientDataSet
-    Active = True
     Aggregates = <>
     CommandText = 'select * from grupo where vGrupoId = 0'
     Params = <>
@@ -2179,7 +2182,6 @@ object frmGrupo: TfrmGrupo
     Top = 296
   end
   object cdsAuxGrupo: TClientDataSet
-    Active = True
     Aggregates = <>
     CommandText = 'select * from grupo where vGrupoId <> 0'
     IndexFieldNames = 'vGrupoId'
