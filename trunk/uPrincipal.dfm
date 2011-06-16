@@ -148,11 +148,20 @@ object frmPrincipal: TfrmPrincipal
       object Registrodepessoas1: TMenuItem
         Action = actPessoa
       end
+      object CadastrodeFornecedores1: TMenuItem
+        Action = actFornecedor
+      end
+      object N6: TMenuItem
+        Caption = '-'
+      end
       object Locais1: TMenuItem
         Action = actLocais
       end
       object Grupos1: TMenuItem
         Action = actGrupos
+      end
+      object CadastrodeGestes1: TMenuItem
+        Action = actGestao
       end
       object N2: TMenuItem
         Caption = '-'
@@ -297,6 +306,14 @@ object frmPrincipal: TfrmPrincipal
     object actRelatTotGrupo: TAction
       Caption = 'Relat'#243'rio de totais por grupo'
       OnExecute = actRelatTotGrupoExecute
+    end
+    object actFornecedor: TAction
+      Caption = 'Cadastro de Fornecedores'
+      OnExecute = actFornecedorExecute
+    end
+    object actGestao: TAction
+      Caption = 'Gest'#245'es'
+      OnExecute = actGestaoExecute
     end
   end
   object PopupMenu: TPopupMenu

@@ -126,6 +126,8 @@ type
     rvdFornecedor: TRvDataSetConnection;
     rvdEmpresa: TRvDataSetConnection;
     rvdBemGeral: TRvDataSetConnection;
+    sqlGestaogestaoId: TAutoIncField;
+    sqlGestaogestao: TStringField;
     procedure ADOConnectionBeforeConnect(Sender: TObject);
     procedure ApplicationEventsException(Sender: TObject; E: Exception);
   private

@@ -64,6 +64,11 @@ type
     actRelatTotGrupo: TAction;
     Relatriodetotaisporgrupo1: TMenuItem;
     Relatriodetotaisporgrupo2: TMenuItem;
+    actFornecedor: TAction;
+    N6: TMenuItem;
+    CadastrodeFornecedores1: TMenuItem;
+    actGestao: TAction;
+    CadastrodeGestes1: TMenuItem;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
@@ -81,6 +86,8 @@ type
     procedure Finalizarsistema1Click(Sender: TObject);
     procedure Atualizarsistemas1Click(Sender: TObject);
     procedure actRelatTotGrupoExecute(Sender: TObject);
+    procedure actFornecedorExecute(Sender: TObject);
+    procedure actGestaoExecute(Sender: TObject);
 	private
 		{ Private declarations }
 		procedure updateInfo;
@@ -96,9 +103,33 @@ implementation
 uses uLocal, uAcesso, uDm, uPessoa, uGrupo, uBem, uFuncoes, uMd5, uSobre,
   uEmpresa, uMovimentacao, uTransferencia, uAlteracaoSenha,
   uRelatTransferenciaBem, uRelatGrupoBem, uUpdate, uControlsTunning,
-  uRelatGrupoTotais;
+  uRelatGrupoTotais, uFornecedor, uGestao;
 
 {$R *.dfm}
+
+procedure TfrmPrincipal.actFornecedorExecute(Sender: TObject);
+begin
+	with TfrmFornecedor.Create(Application, gEmpresaId) do
+  begin
+    try
+      Show;
+    finally
+    	//Free - Metodo configurado dentro do formulario;
+    end;
+  end;
+end;
+
+procedure TfrmPrincipal.actGestaoExecute(Sender: TObject);
+begin
+	with TfrmGestao.Create(Application, gEmpresaId) do
+  begin
+    try
+    	Show;
+    finally
+			//Free - Metodo configurado dentro do formulario;
+    end;
+  end;
+end;
 
 procedure TfrmPrincipal.actGruposExecute(Sender: TObject);
 begin
