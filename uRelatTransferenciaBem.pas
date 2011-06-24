@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, RpDefine, RpRave, Provider, DB, DBClient, FMTBcd,
-  SqlExpr, RpCon, RpConDS, DBCtrls, ExtCtrls, ComCtrls, ADODB;
+  SqlExpr, RpCon, RpConDS, DBCtrls, ExtCtrls, ComCtrls, ADODB, StrUtils,
+  pngimage;
 
 type
   TfrmRelatTranferenciaBem = class(TForm)
@@ -54,13 +55,21 @@ type
     cdsBenssubLocalId: TStringField;
     cdsBenstipoAquisicao: TIntegerField;
     cdsBensquantidade: TFloatField;
+    lvBens: TListView;
+    cbBemIndividual: TCheckBox;
+    btnAdicionar: TButton;
+    pnLateral: TPanel;
+    imgLateral: TImage;
     procedure btnVisualizarClick(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure cbOrgaoClick(Sender: TObject);
+    procedure btnAdicionarClick(Sender: TObject);
+    procedure cbUnidadeClick(Sender: TObject);
   private
     { Private declarations }
+    function listBens(List : TListView) : WideString;
   public
     { Public declarations }
   end;
@@ -70,9 +79,46 @@ var
 
 implementation
 
-uses uDm, uGlobais;
+uses uDm, uGlobais, uFuncoes;
 
 {$R *.dfm}
+
+procedure TfrmRelatTranferenciaBem.btnAdicionarClick(Sender: TObject);
+var
+	local : String;
+  subLocal : String;
+begin
+	if dbLocal.KeyValue = null then
+  	local := EmptyStr
+  else
+  	local := dbLocal.KeyValue;
+
+	if dblSubLocal.KeyValue = null then
+  	subLocal := EmptyStr
+  else
+  	subLocal := dblSubLocal.KeyValue;
+
+
+	lvBens.Clear;
+	with GetBensByLocal(Local, subLocal) do
+  begin
+		if not(IsEmpty) then
+    begin
+    	First;
+      while not(Eof) do
+      begin
+      	with lvBens.Items.Add do
+        begin
+          Caption := FieldByName('bemId').Value;
+          SubItems.Add(FieldByName('idenficacao').Value);
+          SubItems.Add(FieldByName('descricao').Value);
+        end;
+        Next;
+      end;
+    end;
+    Free;
+  end;
+end;
 
 procedure TfrmRelatTranferenciaBem.btnFecharClick(Sender: TObject);
 begin
@@ -111,12 +157,26 @@ begin
 															'from local inner join local as unidade on unidade.localId = local.vLocalId ');
 			end;
 		end;
+    with cdsBens do
+    begin
+      if cbBemIndividual.Checked then
+      begin
+        Close;
+        CommandText :=Concat('select * from Bem where bemId in (', listBens(lvBens) ,')');
+      end
+      else
+      begin
+        Close;
+        CommandText :=Concat('select * from Bem');
+      end;
+    end;
+
 		SetParam('nomeReceptor',edtNome.Text);
 		SetParam('matriculaReceptor', edtMatricula.Text);
 		SetParam('municipioReceptor', edtMunicipio.Text);
 		SetParam('data', FormatDateTime('dd/MM/yyyy', edtData.Date));
 		SetParam('numeroTr',edtNTranferencia.Text);
-		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+		//ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
 		ExecuteReport('TR');
 	end;
 end;
@@ -125,6 +185,11 @@ procedure TfrmRelatTranferenciaBem.cbOrgaoClick(Sender: TObject);
 begin
 	cbUnidade.Enabled   := not(cbUnidade.Enabled);
 	dblSubLocal.Enabled := not(dblSubLocal.Enabled); 
+end;
+
+procedure TfrmRelatTranferenciaBem.cbUnidadeClick(Sender: TObject);
+begin
+	dblSubLocal.KeyValue := NULL;
 end;
 
 procedure TfrmRelatTranferenciaBem.FormCloseQuery(Sender: TObject;
@@ -139,6 +204,22 @@ begin
 	dsLocal.DataSet.Open;
 	dsAuxLocal.DataSet.Open;
 	edtData.DateTime := Now;
+end;
+
+function TfrmRelatTranferenciaBem.listBens(List: TListView): WideString;
+var
+	C : Integer;
+begin
+	Result := EmptyStr;
+	with List do
+  begin
+  	for C := 0 to Items.Count -1 do
+    begin
+    	if Items.Item[C].Checked then
+	    	Result := Concat(Result, QuotedStr(Items.Item[C].Caption), ',');
+    end;
+    Result := LeftStr(Result, Length(Result)-1);
+  end;
 end;
 
 end.

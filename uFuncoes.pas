@@ -11,6 +11,7 @@ procedure VerticalText(img : TImage; Texto1, Texto2 : String; Top : Integer; Fon
 function GetBemById(bemId : Integer) : TDataSet;overload;
 function GetBemById(bemId : Integer; locaId : String) : TDataSet;overload;
 function GetBemByIdentif(identificacao : String; locaId : String) : TDataSet;overload;
+function GetBensByLocal(locaId : String; subLocalId : String = '') : TDataSet;
 function Autenticacao : Boolean;
 function alteraSenhaUsuario(login, oldPws : String; nUser : Boolean) : WideString;
 function GetLocalVersion: String;
@@ -272,6 +273,32 @@ begin
 			SQL.Clear;
 			SQL.Add('select * from bem where idenficacao = :idenficacao and SublocalId = :localId');
 			Parameters.ParamByName('idenficacao').Value   := identificacao;
+			Parameters.ParamByName('localId').Value := locaId;
+			Open;
+			Result := qryBem;
+		except
+			raise;
+		end;
+	end;
+end;
+
+function GetBensByLocal(locaId : String; subLocalId : String = '') : TDataSet;
+var
+	qryBem : TADOQuery;
+begin
+	qryBem := TADOQuery.Create(nil);
+	with qryBem do
+	begin
+		try
+			Close;
+			Connection := dm.ADOConnection;
+			SQL.Clear;
+			SQL.Add('select * from bem where localId = :localId');
+      if Trim(subLocalId) <> '' then
+      begin
+      	SQL.Add('and SublocalId = :SublocalId');
+      	Parameters.ParamByName('SublocalId').Value := subLocalId;
+      end;
 			Parameters.ParamByName('localId').Value := locaId;
 			Open;
 			Result := qryBem;

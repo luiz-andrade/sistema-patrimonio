@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, DB, DBClient, Provider, DBCtrls, StdCtrls, Buttons;
+  Dialogs, DB, DBClient, Provider, DBCtrls, StdCtrls, Buttons, pngimage,
+  ExtCtrls;
 
 type
   TfrmRelatTotaisGrupo = class(TForm)
@@ -25,6 +26,8 @@ type
     dblGestaoId: TDBLookupComboBox;
     btnVisualizar: TBitBtn;
     btnFechar: TBitBtn;
+    pnLateral: TPanel;
+    imgLateral: TImage;
     procedure btnFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

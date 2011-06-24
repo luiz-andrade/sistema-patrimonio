@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, FMTBcd, DB, SqlExpr, RpDefine, RpCon, RpConDS, StdCtrls, Buttons,
-  RpRave, DBCtrls, Provider, DBClient, ADODB;
+  RpRave, DBCtrls, Provider, DBClient, ADODB, pngimage, ExtCtrls;
 
 type
   TfrmRelatGrupoBem = class(TForm)
@@ -75,6 +75,8 @@ type
     sqlBemdataNota: TDateTimeField;
     sqlBemfornecedorId: TIntegerField;
     sqlBemnumeroNota: TStringField;
+    pnLateral: TPanel;
+    imgLateral: TImage;
     procedure btnFecharClick(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
