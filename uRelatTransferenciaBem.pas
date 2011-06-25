@@ -60,6 +60,24 @@ type
     btnAdicionar: TButton;
     pnLateral: TPanel;
     imgLateral: TImage;
+    cdsAuxLocallocalId: TStringField;
+    cdsAuxLocaltitulo: TStringField;
+    cdsAuxLocalvLocalId: TStringField;
+    cdsAuxLocalpessoaId: TIntegerField;
+    cdsAuxLocalnomePessoa: TStringField;
+    cdsAuxLocalmatriculaPessoa: TStringField;
+    cdsAuxLocalmunicipioPessoa: TStringField;
+    dsPessoa: TDataSource;
+    cdsPessoa: TClientDataSet;
+    cdsPessoapessoaId: TIntegerField;
+    cdsPessoanome: TStringField;
+    cdsPessoatipo: TSmallintField;
+    cdsPessoalogradouro: TStringField;
+    cdsPessoacep: TStringField;
+    cdsPessoausuario_: TBooleanField;
+    cdsPessoacnpjCpf: TStringField;
+    dspPessoa: TDataSetProvider;
+    cdsPessoamunicipio: TStringField;
     procedure btnVisualizarClick(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -67,6 +85,7 @@ type
     procedure cbOrgaoClick(Sender: TObject);
     procedure btnAdicionarClick(Sender: TObject);
     procedure cbUnidadeClick(Sender: TObject);
+    procedure dsAuxLocalDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
     function listBens(List : TListView) : WideString;
@@ -170,13 +189,12 @@ begin
         CommandText :=Concat('select * from Bem');
       end;
     end;
-
 		SetParam('nomeReceptor',edtNome.Text);
 		SetParam('matriculaReceptor', edtMatricula.Text);
 		SetParam('municipioReceptor', edtMunicipio.Text);
 		SetParam('data', FormatDateTime('dd/MM/yyyy', edtData.Date));
 		SetParam('numeroTr',edtNTranferencia.Text);
-		//ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
 		ExecuteReport('TR');
 	end;
 end;
@@ -190,6 +208,17 @@ end;
 procedure TfrmRelatTranferenciaBem.cbUnidadeClick(Sender: TObject);
 begin
 	dblSubLocal.KeyValue := NULL;
+end;
+
+procedure TfrmRelatTranferenciaBem.dsAuxLocalDataChange(Sender: TObject;
+  Field: TField);
+begin
+	if cbUnidade.Checked then
+  begin
+    edtMatricula.Text := cdsAuxLocalmatriculaPessoa.Value;
+    edtNome.Text      := cdsAuxLocalnomePessoa.Value;
+    edtMunicipio.Text := cdsAuxLocalmunicipioPessoa.Value;
+  end;
 end;
 
 procedure TfrmRelatTranferenciaBem.FormCloseQuery(Sender: TObject;

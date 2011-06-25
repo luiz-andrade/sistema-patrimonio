@@ -156,8 +156,8 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
         Width = 90
       end
       item
-        AutoSize = True
         Caption = 'Descri'#231#227'o'
+        Width = 385
       end>
     GridLines = True
     ReadOnly = True
@@ -191,7 +191,6 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     BevelOuter = bvNone
     BorderStyle = bsSingle
     TabOrder = 14
-    ExplicitWidth = 715
     object imgLateral: TImage
       Left = 0
       Top = 0
@@ -2256,6 +2255,7 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
   end
   object dsAuxLocal: TDataSource
     DataSet = cdsAuxLocal
+    OnDataChange = dsAuxLocalDataChange
     Left = 101
     Top = 332
   end
@@ -2291,6 +2291,51 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     StoreDefs = True
     Left = 99
     Top = 396
+    object cdsAuxLocallocalId: TStringField
+      FieldName = 'localId'
+      Size = 10
+    end
+    object cdsAuxLocaltitulo: TStringField
+      FieldName = 'titulo'
+      Size = 100
+    end
+    object cdsAuxLocalvLocalId: TStringField
+      FieldName = 'vLocalId'
+      Size = 10
+    end
+    object cdsAuxLocalpessoaId: TIntegerField
+      FieldName = 'pessoaId'
+    end
+    object cdsAuxLocalnomePessoa: TStringField
+      FieldKind = fkLookup
+      FieldName = 'nomePessoa'
+      LookupDataSet = cdsPessoa
+      LookupKeyFields = 'pessoaId'
+      LookupResultField = 'nome'
+      KeyFields = 'pessoaId'
+      Size = 255
+      Lookup = True
+    end
+    object cdsAuxLocalmatriculaPessoa: TStringField
+      FieldKind = fkLookup
+      FieldName = 'matriculaPessoa'
+      LookupDataSet = cdsPessoa
+      LookupKeyFields = 'pessoaId'
+      LookupResultField = 'cnpjCpf'
+      KeyFields = 'pessoaId'
+      Size = 255
+      Lookup = True
+    end
+    object cdsAuxLocalmunicipioPessoa: TStringField
+      FieldKind = fkLookup
+      FieldName = 'municipioPessoa'
+      LookupDataSet = cdsPessoa
+      LookupKeyFields = 'pessoaId'
+      LookupResultField = 'municipio'
+      KeyFields = 'pessoaId'
+      Size = 255
+      Lookup = True
+    end
   end
   object dspLocal: TDataSetProvider
     DataSet = dm.sqlLocal
@@ -2444,5 +2489,68 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
       FieldName = 'pessoaId'
       ProviderFlags = [pfInUpdate]
     end
+  end
+  object dsPessoa: TDataSource
+    AutoEdit = False
+    DataSet = cdsPessoa
+    Enabled = False
+    Left = 224
+    Top = 320
+  end
+  object cdsPessoa: TClientDataSet
+    Aggregates = <>
+    CommandText = 'select * from pessoa'
+    Params = <>
+    ProviderName = 'dspPessoa'
+    Left = 224
+    Top = 368
+    object cdsPessoapessoaId: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'pessoaId'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object cdsPessoanome: TStringField
+      FieldName = 'nome'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      Size = 100
+    end
+    object cdsPessoatipo: TSmallintField
+      FieldName = 'tipo'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object cdsPessoalogradouro: TStringField
+      FieldName = 'logradouro'
+      ProviderFlags = [pfInUpdate]
+      Size = 100
+    end
+    object cdsPessoacep: TStringField
+      FieldName = 'cep'
+      ProviderFlags = [pfInUpdate]
+      EditMask = '00000\-9999;0; '
+      Size = 10
+    end
+    object cdsPessoausuario_: TBooleanField
+      FieldName = 'usuario'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      DisplayValues = 'Sim;N'#227'o'
+    end
+    object cdsPessoacnpjCpf: TStringField
+      FieldName = 'cnpjCpf'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsPessoamunicipio: TStringField
+      FieldName = 'municipio'
+      Size = 100
+    end
+  end
+  object dspPessoa: TDataSetProvider
+    DataSet = dm.sqlPessoa
+    Options = [poReadOnly, poAutoRefresh, poAllowCommandText, poRetainServerOrder, poUseQuoteChar]
+    UpdateMode = upWhereKeyOnly
+    Left = 224
+    Top = 416
   end
 end

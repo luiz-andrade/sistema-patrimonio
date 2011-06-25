@@ -119,6 +119,10 @@ object frmLocal: TfrmLocal
     object tsInformacao: TTabSheet
       Caption = 'Cadastro'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label2: TLabel
         Left = 88
         Top = 10

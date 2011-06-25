@@ -21,7 +21,7 @@ object frmTransferencia: TfrmTransferencia
     Top = 39
     Width = 773
     Height = 475
-    ActivePage = tsBens
+    ActivePage = tsGestao
     Align = alClient
     TabOrder = 0
     object tsGrupos: TTabSheet

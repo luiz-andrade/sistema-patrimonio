@@ -1771,11 +1771,6 @@ object dm: Tdm
       ProviderFlags = [pfInUpdate]
       Size = 100
     end
-    object sqlPessoamunicipio: TStringField
-      FieldName = 'municipio'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
     object sqlPessoacep: TStringField
       FieldName = 'cep'
       ProviderFlags = [pfInUpdate]
@@ -1788,6 +1783,10 @@ object dm: Tdm
     object sqlPessoacnpjCpf: TStringField
       FieldName = 'cnpjCpf'
       ProviderFlags = [pfInUpdate]
+    end
+    object sqlPessoamunicipio: TStringField
+      FieldName = 'municipio'
+      Size = 100
     end
   end
   object sqlFornecedor: TADOQuery
@@ -1851,7 +1850,10 @@ object dm: Tdm
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'select * from usuarioAcao')
+      
+        'select usuarioAcao.acaoId, acoes.descricao, usuarioAcao.usuarioI' +
+        'd from usuarioAcao  inner join acoes on acoes.acaoId = usuarioAc' +
+        'ao.acaoId ')
     Left = 104
     Top = 256
     object sqlUsuarioAcaousuarioId: TIntegerField
@@ -1859,6 +1861,10 @@ object dm: Tdm
     end
     object sqlUsuarioAcaoacaoId: TIntegerField
       FieldName = 'acaoId'
+    end
+    object sqlUsuarioAcaodescricao: TStringField
+      FieldName = 'descricao'
+      Size = 50
     end
   end
   object sqlAcoes: TADOQuery
