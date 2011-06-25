@@ -352,6 +352,7 @@ end;
 procedure TfrmGrupo.pcGeralChange(Sender: TObject);
 begin
 	btnApagar.Visible := (tsPesquisa.Showing);
+  btnNovo.Visible   := (tsPesquisa.Showing);
 end;
 
 procedure TfrmGrupo.TimerTimer(Sender: TObject);

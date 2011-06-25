@@ -28,7 +28,6 @@ type
     Timer: TTimer;
     cdsPessoatipo: TSmallintField;
     cdsPessoalogradouro: TStringField;
-    cdsPessoamunicipio: TStringField;
     cdsPessoacep: TStringField;
     Label1: TLabel;
     logradouro: TDBEdit;
@@ -81,8 +80,10 @@ type
     Label12: TLabel;
     btnAdicionar: TSpeedButton;
     btnRemover: TSpeedButton;
-    cdsUsuarioAcaoacaoId: TIntegerField;
     cdsUsuarioAcaousuarioId: TIntegerField;
+    cdsUsuarioAcaoacaoId: TIntegerField;
+    cdsUsuarioAcaodescricao: TStringField;
+    cdsPessoamunicipio: TStringField;
 		procedure FormPaint(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnFecharClick(Sender: TObject);

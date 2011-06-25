@@ -355,6 +355,7 @@ end;
 procedure TfrmLocal.pcGeralChange(Sender: TObject);
 begin
 	btnApagar.Visible := (tsPesquisa.Showing);
+  btnNovo.Visible   := (tsPesquisa.Showing);
 end;
 
 procedure TfrmLocal.TimerTimer(Sender: TObject);

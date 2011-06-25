@@ -33,7 +33,7 @@ object frmPessoa: TfrmPessoa
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsPesquisa
+    ActivePage = tsInformacao
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -2497,11 +2497,6 @@ object frmPessoa: TfrmPessoa
       ProviderFlags = [pfInUpdate]
       Size = 100
     end
-    object cdsPessoamunicipio: TStringField
-      FieldName = 'municipio'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
     object cdsPessoacep: TStringField
       FieldName = 'cep'
       ProviderFlags = [pfInUpdate]
@@ -2517,6 +2512,10 @@ object frmPessoa: TfrmPessoa
     object cdsPessoacnpjCpf: TStringField
       FieldName = 'cnpjCpf'
       ProviderFlags = [pfInUpdate]
+    end
+    object cdsPessoamunicipio: TStringField
+      FieldName = 'municipio'
+      Size = 100
     end
   end
   object dspPessoa: TDataSetProvider
@@ -2594,7 +2593,6 @@ object frmPessoa: TfrmPessoa
     Top = 336
   end
   object cdsAcoes: TClientDataSet
-    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dpsAcoes'
@@ -2628,7 +2626,6 @@ object frmPessoa: TfrmPessoa
     Top = 336
   end
   object cdsUsuarioAcao: TClientDataSet
-    Active = True
     Aggregates = <>
     CommandText = 
       'select usuarioAcao.acaoId, acoes.descricao, usuarioAcao.usuarioI' +
@@ -2639,13 +2636,15 @@ object frmPessoa: TfrmPessoa
     OnReconcileError = cdsUsuarioAcaoReconcileError
     Left = 544
     Top = 384
-    object cdsUsuarioAcaoacaoId: TIntegerField
-      FieldName = 'acaoId'
-      Required = True
-    end
     object cdsUsuarioAcaousuarioId: TIntegerField
       FieldName = 'usuarioId'
-      Required = True
+    end
+    object cdsUsuarioAcaoacaoId: TIntegerField
+      FieldName = 'acaoId'
+    end
+    object cdsUsuarioAcaodescricao: TStringField
+      FieldName = 'descricao'
+      Size = 50
     end
   end
   object dpsUsuarioAcao: TDataSetProvider

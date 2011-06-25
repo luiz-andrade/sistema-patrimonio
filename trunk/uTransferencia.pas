@@ -416,7 +416,7 @@ begin
 			end;
 		end;
 	end;
-	ShowMessage('Importação de Unidades conclúida!!');
+	ShowMessage('Importação de Gestão conclúida!!');
 end;
 
 procedure TfrmTransferencia.Button2Click(Sender: TObject);
@@ -442,13 +442,25 @@ begin
 	with TADOCommand.Create(Self) do
 	begin
 		try
+			// Remove Itens da transferencia.
 			Close;
 			Connection := dm.ADOConnection;
-			CommandText := 'delete bem';
+			CommandText := 'delete transferenciaBem';
 			Execute;
+			// Remove transferencia.
+			Close;
+			Connection := dm.ADOConnection;
+			CommandText := 'delete transferencia';
+			Execute;
+    	// Apagar informações de aquisição.
 			Close;
 			Connection := dm.ADOConnection;
 			CommandText := 'delete bemAquisicao';
+			Execute;
+    	// Apagar bens
+			Close;
+			Connection := dm.ADOConnection;
+			CommandText := 'delete bem';
 			Execute;
 			Application.MessageBox('Todos o bens foram apagados com sucesso!', 
 															PChar(Application.Title),

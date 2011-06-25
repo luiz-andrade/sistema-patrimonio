@@ -86,7 +86,6 @@ type
     sqlPessoanome: TStringField;
     sqlPessoatipo: TSmallintField;
     sqlPessoalogradouro: TStringField;
-    sqlPessoamunicipio: TStringField;
     sqlPessoacep: TStringField;
     sqlPessoausuario: TBooleanField;
     sqlPessoacnpjCpf: TStringField;
@@ -128,6 +127,8 @@ type
     rvdBemGeral: TRvDataSetConnection;
     sqlGestaogestaoId: TAutoIncField;
     sqlGestaogestao: TStringField;
+    sqlUsuarioAcaodescricao: TStringField;
+    sqlPessoamunicipio: TStringField;
     procedure ADOConnectionBeforeConnect(Sender: TObject);
     procedure ApplicationEventsException(Sender: TObject; E: Exception);
   private
