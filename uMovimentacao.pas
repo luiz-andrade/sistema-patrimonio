@@ -163,6 +163,15 @@ type
     sqlTransferenciaBembemEstadoId: TIntegerField;
     sqlTransferenciaBemdescricao: TStringField;
     sqlTransferenciaBemidenficacao: TStringField;
+    cdsMovimentacaonomeUsuario: TStringField;
+    dsPessoaUsuario: TDataSource;
+    cdsPessoaUsuario: TClientDataSet;
+    cdsPessoaUsuariousuarioId: TIntegerField;
+    cdsPessoaUsuariologin: TStringField;
+    cdsPessoaUsuariosenha: TMemoField;
+    cdsPessoaUsuariopessoaId: TIntegerField;
+    cdsPessoaUsuariodesativado: TBooleanField;
+    dspPessoaUsuario: TDataSetProvider;
     procedure btnFecharClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnGravarClick(Sender: TObject);
@@ -189,6 +198,10 @@ type
     procedure ledtIdentificacaoKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure btnImprimirClick(Sender: TObject);
+    procedure dsMovimentacaoBemDataChange(Sender: TObject; Field: TField);
+    procedure pgGeralChange(Sender: TObject);
+    procedure btnPesquisarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -332,7 +345,7 @@ begin
 			Close;
 			Parameters.ParamByName('transferenciaId').Value := cdsMovimentacaotransferenciaId.Value;
 		end;
-		//ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
 		ExecuteReport('MOVIMENTACAO');
 	end;
 end;
@@ -352,6 +365,14 @@ begin
 			raise;
 		end;
 	end;
+end;
+
+procedure TfrmMovimentacao.btnPesquisarClick(Sender: TObject);
+begin
+	with cdsMovimentacao do
+  begin
+    Locate('transferenciaId', txtPesquisa.Text, [loPartialKey]);
+  end;
 end;
 
 procedure TfrmMovimentacao.btnRemoverClick(Sender: TObject);
@@ -395,16 +416,6 @@ constructor TfrmMovimentacao.Create(AOwner: TComponent; empresaId: Integer);
 begin
 	inherited Create(AOwner);
 	_empresaId := empresaId;
-	// Abre tabela principal.
-	cdsMovimentacao.Open;
-	cdsMovimentacaoBem.Open;
-	// Abre dependências.
-  cdsOrigemLocal.Open;
-	cdsOrigem.Open;
-	cdsReceptor.Open;
-	cdsCedente.Open;
-  cdsDestinoLocal.Open;
-	cdsDestino.Open;
 	tsConsulta.Show;
 end;
 
@@ -427,19 +438,24 @@ begin
 	end;
 end;
 
+procedure TfrmMovimentacao.dsMovimentacaoBemDataChange(Sender: TObject;
+  Field: TField);
+begin
+	btnConcluir.Visible :=  not(cdsMovimentacaoconcluida.AsBoolean 
+  														or cdsMovimentacaoBem.IsEmpty
+                              or (tsConsulta.Showing));
+end;
+
 procedure TfrmMovimentacao.dsMovimentacaoDataChange(Sender: TObject;
   Field: TField);
 begin
 	with cdsMovimentacao do
 	begin
-		btnConcluir.Enabled := 	not(State in [dsInsert, dsEdit]);
 		tsBens.TabVisible   := not(State in [dsInsert]) and not(IsEmpty);
 	end;
 	btnAddBem.Enabled       := not(cdsMovimentacaoconcluida.Value);
 	btnRemover.Enabled      := not(cdsMovimentacaoconcluida.Value);
 	dsMovimentacao.AutoEdit := not(cdsMovimentacaoconcluida.Value);
-	btnConcluir.Visible :=  not(cdsMovimentacaoconcluida.AsBoolean) 
-													and not(cdsMovimentacao.IsEmpty);
 	btnImprimir.Visible := (cdsMovimentacaoconcluida.Value);
 end;
 
@@ -495,6 +511,20 @@ begin
 	if Key = VK_ESCAPE then btnFechar.Click;
 end;
 
+procedure TfrmMovimentacao.FormShow(Sender: TObject);
+begin
+	// Abre tabela principal.
+	cdsMovimentacao.Open;
+	cdsMovimentacaoBem.Open;
+	// Abre dependências.
+  cdsOrigemLocal.Open;
+	cdsOrigem.Open;
+	cdsReceptor.Open;
+	cdsCedente.Open;
+  cdsDestinoLocal.Open;
+	cdsDestino.Open;
+end;
+
 procedure TfrmMovimentacao.ledtIdentificacaoKeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
@@ -502,6 +532,13 @@ begin
   begin
    btnAddBem.Click;
   end;
+end;
+
+procedure TfrmMovimentacao.pgGeralChange(Sender: TObject);
+begin
+	btnConcluir.Visible :=  not(cdsMovimentacaoconcluida.AsBoolean 
+  														or cdsMovimentacaoBem.IsEmpty
+                              or (tsConsulta.Showing));
 end;
 
 end.

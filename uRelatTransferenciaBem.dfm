@@ -149,11 +149,11 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     Columns = <
       item
         Caption = 'C'#243'digo Interno'
-        Width = 100
+        Width = 0
       end
       item
         Caption = 'Patrim'#244'nio'
-        Width = 90
+        Width = 190
       end
       item
         Caption = 'Descri'#231#227'o'
@@ -2248,7 +2248,7 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
   object dpsLocalAux: TDataSetProvider
     DataSet = dm.sqlSubLocal
     ResolveToDataSet = True
-    Options = [poReadOnly, poAllowCommandText]
+    Options = [poReadOnly, poAllowCommandText, poRetainServerOrder]
     UpdateMode = upWhereKeyOnly
     Left = 99
     Top = 452
@@ -2340,7 +2340,7 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
   object dspLocal: TDataSetProvider
     DataSet = dm.sqlLocal
     ResolveToDataSet = True
-    Options = [poReadOnly, poAllowCommandText]
+    Options = [poReadOnly, poAllowCommandText, poRetainServerOrder]
     UpdateMode = upWhereKeyOnly
     Left = 11
     Top = 452
