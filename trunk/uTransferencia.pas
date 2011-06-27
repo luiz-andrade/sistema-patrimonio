@@ -175,7 +175,6 @@ begin
 	with TADOCommand.Create(Self) do
 	begin
 		try
-			Close;
 			Connection := dm.ADOConnection;
       CommandText :=  'delete grupo';
 			Execute;
@@ -193,7 +192,6 @@ begin
 	with TADOCommand.Create(Self) do
 	begin
 		try
-			Close;
 			Connection := dm.ADOConnection;
 			CommandText := 'delete fornecedor';
 			Execute();
@@ -424,7 +422,6 @@ begin
 	with TADOCommand.Create(Self) do
 	begin
 		try
-			Close;
 			Connection := dm.ADOConnection;
 			CommandText := 'delete gestao';
 			Execute;
@@ -443,22 +440,18 @@ begin
 	begin
 		try
 			// Remove Itens da transferencia.
-			Close;
 			Connection := dm.ADOConnection;
 			CommandText := 'delete transferenciaBem';
 			Execute;
 			// Remove transferencia.
-			Close;
 			Connection := dm.ADOConnection;
 			CommandText := 'delete transferencia';
 			Execute;
     	// Apagar informações de aquisição.
-			Close;
 			Connection := dm.ADOConnection;
 			CommandText := 'delete bemAquisicao';
 			Execute;
     	// Apagar bens
-			Close;
 			Connection := dm.ADOConnection;
 			CommandText := 'delete bem';
 			Execute;
@@ -476,7 +469,6 @@ begin
 	with TADOCommand.Create(Self) do
 	begin
 		try
-			Close;
 			Connection := dm.ADOConnection;
 			CommandText := 'delete local';
 			Execute();

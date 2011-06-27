@@ -17,6 +17,7 @@ object frmMovimentacao: TfrmMovimentacao
   Position = poOwnerFormCenter
   OnCloseQuery = FormCloseQuery
   OnKeyDown = FormKeyDown
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnTopo: TPanel
@@ -341,9 +342,10 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 52
     Width = 914
     Height = 547
-    ActivePage = tsInformacao
+    ActivePage = tsConsulta
     Align = alClient
     TabOrder = 1
+    OnChange = pgGeralChange
     object tsConsulta: TTabSheet
       Caption = 'Consulta'
       object DBGrid1: TDBGrid
@@ -384,6 +386,13 @@ object frmMovimentacao: TfrmMovimentacao
             FieldName = 'concluida'
             Title.Caption = 'Conclu'#237'da'
             Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'nomeUsuario'
+            Title.Caption = 'Usu'#225'rio'
+            Width = 100
+            Visible = True
           end>
       end
       object pnPesquisa: TPanel
@@ -411,6 +420,7 @@ object frmMovimentacao: TfrmMovimentacao
           Margins.Bottom = 2
           Align = alRight
           Caption = 'Pesquisar'
+          OnClick = btnPesquisarClick
           ExplicitLeft = 226
           ExplicitTop = 6
           ExplicitHeight = 29
@@ -436,11 +446,12 @@ object frmMovimentacao: TfrmMovimentacao
           Height = 21
           Margins.Top = 7
           Align = alRight
+          Style = csDropDownList
+          ItemIndex = 0
           TabOrder = 1
-          Text = 'Descri'#231#227'o'
+          Text = 'N'#250'mero'
           Items.Strings = (
-            'N'#250'mero'
-            'Descri'#231#227'o')
+            'N'#250'mero')
         end
       end
     end
@@ -480,14 +491,12 @@ object frmMovimentacao: TfrmMovimentacao
         FocusControl = data
       end
       object Label7: TLabel
-        Left = 839
+        Left = 572
         Top = 24
         Width = 40
         Height = 13
         Caption = 'Usuario:'
-        Enabled = False
         FocusControl = usuarioId
-        Visible = False
       end
       object Label5: TLabel
         Left = 433
@@ -561,15 +570,14 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 3
       end
       object usuarioId: TDBEdit
-        Left = 839
+        Left = 572
         Top = 39
-        Width = 64
+        Width = 240
         Height = 21
-        DataField = 'usuarioId'
+        DataField = 'nomeUsuario'
         DataSource = dsMovimentacao
         Enabled = False
         TabOrder = 4
-        Visible = False
       end
       object DBCheckBox1: TDBCheckBox
         Left = 839
@@ -891,7 +899,7 @@ object frmMovimentacao: TfrmMovimentacao
   end
   object cdsMovimentacao: TClientDataSet
     Aggregates = <>
-    CommandText = 'select * from transferencia'
+    CommandText = 'select * from transferencia order by transferenciaId desc'
     Params = <>
     ProviderName = 'dpsMovimentacao'
     AfterInsert = cdsMovimentacaoAfterInsert
@@ -955,6 +963,16 @@ object frmMovimentacao: TfrmMovimentacao
     object cdsMovimentacaodata: TDateTimeField
       FieldName = 'data'
       ProviderFlags = [pfInUpdate]
+    end
+    object cdsMovimentacaonomeUsuario: TStringField
+      FieldKind = fkLookup
+      FieldName = 'nomeUsuario'
+      LookupDataSet = cdsPessoaUsuario
+      LookupKeyFields = 'usuarioId'
+      LookupResultField = 'login'
+      KeyFields = 'usuarioId'
+      Size = 255
+      Lookup = True
     end
   end
   object dpsMovimentacao: TDataSetProvider
@@ -1101,7 +1119,7 @@ object frmMovimentacao: TfrmMovimentacao
   end
   object dsReceptor: TDataSource
     DataSet = cdsReceptor
-    Left = 409
+    Left = 361
     Top = 406
   end
   object cdsReceptor: TClientDataSet
@@ -1109,7 +1127,7 @@ object frmMovimentacao: TfrmMovimentacao
     CommandText = 'select * from pessoa'
     Params = <>
     ProviderName = 'dpsReceptor'
-    Left = 409
+    Left = 361
     Top = 467
     object cdsReceptorpessoaId: TIntegerField
       FieldName = 'pessoaId'
@@ -1152,6 +1170,7 @@ object frmMovimentacao: TfrmMovimentacao
   end
   object dsMovimentacaoBem: TDataSource
     DataSet = cdsMovimentacaoBem
+    OnDataChange = dsMovimentacaoBemDataChange
     Left = 88
     Top = 406
   end
@@ -1308,7 +1327,7 @@ object frmMovimentacao: TfrmMovimentacao
     DataSet = dm.sqlPessoa
     Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
     UpdateMode = upWhereKeyOnly
-    Left = 408
+    Left = 360
     Top = 527
   end
   object sp_finalizaTransferencia: TADOStoredProc
@@ -1530,5 +1549,54 @@ object frmMovimentacao: TfrmMovimentacao
       FieldName = 'idenficacao'
       Size = 50
     end
+  end
+  object dsPessoaUsuario: TDataSource
+    DataSet = cdsPessoaUsuario
+    Left = 448
+    Top = 408
+  end
+  object cdsPessoaUsuario: TClientDataSet
+    Active = True
+    Aggregates = <>
+    CommandText = 'select * from usuario'
+    IndexFieldNames = 'pessoaId'
+    MasterFields = 'pessoaId'
+    Params = <>
+    ProviderName = 'dspPessoaUsuario'
+    Left = 448
+    Top = 467
+    object cdsPessoaUsuariousuarioId: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'usuarioId'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object cdsPessoaUsuariologin: TStringField
+      FieldName = 'login'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      Size = 10
+    end
+    object cdsPessoaUsuariosenha: TMemoField
+      FieldName = 'senha'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+      BlobType = ftMemo
+    end
+    object cdsPessoaUsuariopessoaId: TIntegerField
+      FieldName = 'pessoaId'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+    object cdsPessoaUsuariodesativado: TBooleanField
+      FieldName = 'desativado'
+      ProviderFlags = [pfInUpdate]
+      Required = True
+    end
+  end
+  object dspPessoaUsuario: TDataSetProvider
+    DataSet = dm.sqlUsuario
+    Options = [poReadOnly, poAllowCommandText, poUseQuoteChar]
+    Left = 448
+    Top = 528
   end
 end
