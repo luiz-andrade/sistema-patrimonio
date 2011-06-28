@@ -105,6 +105,7 @@ object frmRelatBens: TfrmRelatBens
     Height = 17
     Caption = 'Descri'#231#227'o:'
     TabOrder = 8
+    OnClick = cbDescricaoClick
   end
   object edtDescricao: TEdit
     Left = 165
@@ -123,7 +124,6 @@ object frmRelatBens: TfrmRelatBens
     BevelOuter = bvNone
     BorderStyle = bsSingle
     TabOrder = 10
-    ExplicitWidth = 623
     object imgLateral: TImage
       Left = 0
       Top = 0

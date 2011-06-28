@@ -59,6 +59,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure btnFecharClick(Sender: TObject);
     procedure cbLocalClick(Sender: TObject);
+    procedure cbDescricaoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -142,6 +143,11 @@ begin
 			ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
 		ExecuteReport('BENS');
 	end;
+end;
+
+procedure TfrmRelatBens.cbDescricaoClick(Sender: TObject);
+begin
+	edtDescricao.Enabled := not (edtDescricao.Enabled);
 end;
 
 procedure TfrmRelatBens.cbLocalClick(Sender: TObject);
