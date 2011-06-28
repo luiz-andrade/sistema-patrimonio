@@ -108,124 +108,126 @@ procedure TfrmRelatGrupoBem.btnVisualizarClick(Sender: TObject);
 begin
 	with dm.rvpTR do
 	begin
-    if not(cbRelaGrupos.Checked) then
-    begin
-      with sqlBem do
-      begin
-        Close;
-        SQL.Clear;
-        if cbFornecedor.Checked then
-        begin
-          SQL.Add( Concat('select * from bem ',
-                                'left join bemAquisicao on bemAquisicao.bemid = bem.bemId ',
-                                'where bemAquisicao.fornecedorId = :fornecedorId'));
-        end
-        else
+		if not(cbRelaGrupos.Checked) then
+		begin
+			with sqlBem do
+			begin
+				Close;
+				SQL.Clear;
+				if cbFornecedor.Checked then
 				begin
-          SQL.Add( Concat('select * from bem ',
-                                'left join bemAquisicao on bemAquisicao.bemid = bem.bemId ', 'where 1=1 '));
-        end;
-        if cbGestao.Checked then
-        begin
-          SQL.Add('and gestaoId = :gestaoId');
-        end;
-        if cbLocal.Checked then
-        begin
-          SQL.Add('and localId = :localId');
-        end;
-        if cbSubLocal.Checked then
-        begin
-          SQL.Add(' and subLocalId = :subLocalId');
-        end;
-        if cbDescricao.Checked then
-        begin
-          SQL.Add(' and descricao like :descricao');
-        end;
-        // Parametros
-        with Parameters do
-        begin
-          if cbGestao.Checked then
-          begin
-            ParamByName('gestaoId').Value := dblGestaoId.KeyValue;
-          end;
-          if cbLocal.Checked then
-          begin
-            ParamByName('localId').Value := dblLocal.KeyValue;
-          end;
-          if cbSubLocal.Checked then
-          begin
-            ParamByName('subLocalId').Value := dblsubLocalId.KeyValue;
-          end;
-          if cbFornecedor.Checked then
-          begin
-            ParamByName('fornecedorId').Value := dblFornecedor.KeyValue;
-          end;
-          if cbDescricao.Checked then
-          begin
-            ParamByName('descricao').Value := Concat('%', edtDescricao.Text, '%');
-          end;
-        end;
-      end;
-      // Modifica conteudo da consulta de grupos.
-      with sqlGrupo do
-      begin
-        if cbGrupo.Checked then
-        begin
-          Close;
-          SQL.Add('select * from grupo where grupoId = :grupoId');
-          Parameters.ParamByName('grupoId').Value := dblGrupo.KeyValue;
-        end
-        else
-        begin
-          Close;
-          SQL.Text := 'select * from grupo where vGrupoId = 0';
-        end;
-      end;
-      //Modifica conteudo da consulta de sub-grupos.
-      with sqlSubGrupo do
-      begin
-        if cbSubGrupo.Checked then
-        begin
-          Close;
-          SQL.Clear;
-          SQL.Add('select * from grupo where grupoId = :grupoId');
-          Parameters.ParamByName('grupoId').Value := dblSubGrupo.KeyValue;
-        end
-        else
-        begin
-          Close;
-          SQL.Clear;
-          SQL.Add('select * from grupo');
-        end;
-      end;
-      ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
-      ExecuteReport('BENSGRUPOS');
-    end
-    else
-    begin
-      // Modifica conteudo da consulta de grupos.
-      with sqlGrupo do
-      begin
-        Close;
-        SQL.Clear;
-        SQL.Text := 'select * from grupo where vGrupoId = 0';
-      end;
-      //Modifica conteudo da consulta de sub-grupos.
-      with sqlSubGrupo do
-      begin
-        Close;
-        SQL.Clear;
-        SQL.Text := 'select * from grupo';
-      end;
-      ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
-      ExecuteReport('GRUPOS');
-    end;
+					SQL.Add( Concat('select * from bem ',
+																'left join bemAquisicao on bemAquisicao.bemid = bem.bemId ',
+																'where bemAquisicao.fornecedorId = :fornecedorId'));
+				end
+				else
+				begin
+					SQL.Add( Concat('select * from bem ',
+																'left join bemAquisicao on bemAquisicao.bemid = bem.bemId ', 'where 1=1 '));
+				end;
+				if cbGestao.Checked then
+				begin
+					SQL.Add('and gestaoId = :gestaoId');
+				end;
+				if cbLocal.Checked then
+				begin
+					SQL.Add('and localId = :localId');
+				end;
+				if cbSubLocal.Checked then
+				begin
+					SQL.Add(' and subLocalId = :subLocalId');
+				end;
+				if cbDescricao.Checked then
+				begin
+					SQL.Add(' and descricao like :descricao');
+				end;
+				// Parametros
+				with Parameters do
+				begin
+					if cbGestao.Checked then
+					begin
+						ParamByName('gestaoId').Value := dblGestaoId.KeyValue;
+					end;
+					if cbLocal.Checked then
+					begin
+						ParamByName('localId').Value := dblLocal.KeyValue;
+					end;
+					if cbSubLocal.Checked then
+					begin
+						ParamByName('subLocalId').Value := dblsubLocalId.KeyValue;
+					end;
+					if cbFornecedor.Checked then
+					begin
+						ParamByName('fornecedorId').Value := dblFornecedor.KeyValue;
+					end;
+					if cbDescricao.Checked then
+					begin
+						ParamByName('descricao').Value := Concat('%', edtDescricao.Text, '%');
+					end;
+				end;
+			end;
+			//Modifica conteudo da consulta de sub-grupos.
+			with sqlSubGrupo do
+			begin
+				if cbSubGrupo.Checked then
+				begin
+					Close;
+					SQL.Clear;
+					SQL.Add('select * from grupo where grupoId = :grupoId');
+					Parameters.ParamByName('grupoId').Value := dblSubGrupo.KeyValue;
+				end
+				else
+				begin
+					Close;
+					SQL.Clear;
+					SQL.Add('select * from grupo');
+				end;
+			end;
+			// Modifica conteudo da consulta de grupos.
+			with sqlGrupo do
+			begin
+				if cbGrupo.Checked then
+				begin
+					Close;
+					SQL.Clear;
+					SQL.Add('select * from grupo where grupoId = :grupoId');
+					Parameters.ParamByName('grupoId').Value := dblGrupo.KeyValue;
+				end
+				else
+				begin
+					Close;
+					SQL.Clear;
+					SQL.Text := 'select * from grupo where vGrupoId = 0';
+				end;
+			end;
+			ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+			ExecuteReport('BENSGRUPOS');
+		end
+		else
+		begin
+			// Modifica conteudo da consulta de grupos.
+			with sqlGrupo do
+			begin
+				Close;
+				SQL.Clear;
+				SQL.Text := 'select * from grupo where vGrupoId = 0';
+			end;
+			//Modifica conteudo da consulta de sub-grupos.
+			with sqlSubGrupo do
+			begin
+				Close;
+				SQL.Clear;
+				SQL.Text := 'select * from grupo';
+			end;
+			ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
+			ExecuteReport('GRUPOS');
+		end;
 	end;
 end;
 
 procedure TfrmRelatGrupoBem.cbDescricaoClick(Sender: TObject);
 begin
-  edtDescricao.Enabled := not(edtDescricao.Enabled);
+	edtDescricao.Enabled := not(edtDescricao.Enabled);
 end;
 
 procedure TfrmRelatGrupoBem.cbGrupoClick(Sender: TObject);
@@ -256,6 +258,7 @@ begin
 	dsFornecedor.DataSet.Open;
 	dsGrupos.DataSet.Open;
 	dsAuxGrupos.DataSet.Open;
+	cdsAuxGrupo.Refresh;
 	dsGestao.DataSet.Open;
   dsLocal.DataSet.Open;
   dsAuxLocal.DataSet.Open;

@@ -69,6 +69,9 @@ type
     CadastrodeFornecedores1: TMenuItem;
     actGestao: TAction;
     CadastrodeGestes1: TMenuItem;
+    actBenPatrimonial: TAction;
+    RelatriodeBensPatrimoniais1: TMenuItem;
+    RelatriodeBensPatrimoniais2: TMenuItem;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
@@ -88,6 +91,7 @@ type
     procedure actRelatTotGrupoExecute(Sender: TObject);
     procedure actFornecedorExecute(Sender: TObject);
     procedure actGestaoExecute(Sender: TObject);
+    procedure actBenPatrimonialExecute(Sender: TObject);
 	private
 		{ Private declarations }
 		procedure updateInfo;
@@ -103,7 +107,7 @@ implementation
 uses uLocal, uAcesso, uDm, uPessoa, uGrupo, uBem, uFuncoes, uMd5, uSobre,
   uEmpresa, uMovimentacao, uTransferencia, uAlteracaoSenha,
   uRelatTransferenciaBem, uRelatGrupoBem, uUpdate, uControlsTunning,
-  uRelatGrupoTotais, uFornecedor, uGestao;
+  uRelatGrupoTotais, uFornecedor, uGestao, uRelatBens;
 
 {$R *.dfm}
 
@@ -161,6 +165,18 @@ begin
 			//Free - Metodo configurado dentro do formulario;
 		end;
   end;
+end;
+
+procedure TfrmPrincipal.actBenPatrimonialExecute(Sender: TObject);
+begin
+	with TfrmRelatBens.Create(Application) do
+	begin
+		try
+			ShowModal;
+		finally
+			Free;
+		end;
+	end;
 end;
 
 procedure TfrmPrincipal.ActionManagerExecute(Action: TBasicAction;

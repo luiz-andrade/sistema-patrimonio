@@ -2292,6 +2292,7 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     Top = 396
     object cdsAuxLocallocalId: TStringField
       FieldName = 'localId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Size = 10
     end
     object cdsAuxLocaltitulo: TStringField

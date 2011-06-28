@@ -129,6 +129,7 @@ procedure TfrmRelatTotaisGrupo.FormCreate(Sender: TObject);
 begin
 	cdsGrupo.Open;
 	cdsAuxGrupo.Open;
+	cdsAuxGrupo.Refresh;
 	cdsGestao.Open;
 end;
 
