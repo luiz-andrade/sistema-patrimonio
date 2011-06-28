@@ -129,6 +129,8 @@ type
     sqlGestaogestao: TStringField;
     sqlUsuarioAcaodescricao: TStringField;
     sqlPessoamunicipio: TStringField;
+    rvdlSubGrupoDM: TRvDataSetConnection;
+    rvdGrupoDM: TRvDataSetConnection;
     procedure ADOConnectionBeforeConnect(Sender: TObject);
     procedure ApplicationEventsException(Sender: TObject; E: Exception);
   private
