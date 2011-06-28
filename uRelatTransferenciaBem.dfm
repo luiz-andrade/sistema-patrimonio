@@ -141,15 +141,14 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
     TabOrder = 1
   end
   object lvBens: TListView
-    Left = 11
+    Left = 8
     Top = 268
     Width = 600
     Height = 257
     Checkboxes = True
     Columns = <
       item
-        Caption = 'C'#243'digo Interno'
-        Width = 0
+        Width = 25
       end
       item
         Caption = 'Patrim'#244'nio'

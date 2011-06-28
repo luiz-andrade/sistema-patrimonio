@@ -197,7 +197,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     BevelOuter = bvNone
     BorderStyle = bsSingle
     TabOrder = 17
-    ExplicitLeft = -8
     object imgLateral: TImage
       Left = 0
       Top = 0
