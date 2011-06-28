@@ -90,7 +90,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     Height = 17
     Caption = 'Gest'#227'o:'
     TabOrder = 6
-    Visible = False
   end
   object dblGestaoId: TDBLookupComboBox
     Left = 149
@@ -102,7 +101,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     ListFieldIndex = 1
     ListSource = dsGestao
     TabOrder = 7
-    Visible = False
   end
   object cbFornecedor: TCheckBox
     Left = 38
@@ -111,7 +109,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     Height = 17
     Caption = 'Fornecedor:'
     TabOrder = 8
-    Visible = False
   end
   object dblFornecedor: TDBLookupComboBox
     Left = 149
@@ -123,7 +120,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     ListFieldIndex = 1
     ListSource = dsFornecedor
     TabOrder = 9
-    Visible = False
   end
   object dblLocal: TDBLookupComboBox
     Left = 149
@@ -135,7 +131,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     ListFieldIndex = 1
     ListSource = dsLocal
     TabOrder = 10
-    Visible = False
   end
   object dblsubLocalId: TDBLookupComboBox
     Left = 149
@@ -149,7 +144,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     ListSource = dsAuxLocal
     NullValueKey = 46
     TabOrder = 11
-    Visible = False
   end
   object cbLocal: TCheckBox
     Left = 38
@@ -158,7 +152,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     Height = 17
     Caption = 'Org'#227'o/Empresa:'
     TabOrder = 12
-    Visible = False
     OnClick = cbLocalClick
   end
   object cbSubLocal: TCheckBox
@@ -169,7 +162,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     Caption = 'Unidade:'
     Enabled = False
     TabOrder = 13
-    Visible = False
   end
   object cbDescricao: TCheckBox
     Left = 38
@@ -178,7 +170,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     Height = 17
     Caption = 'Descri'#231#227'o:'
     TabOrder = 14
-    Visible = False
     OnClick = cbDescricaoClick
   end
   object edtDescricao: TEdit
@@ -188,7 +179,6 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     Height = 21
     Enabled = False
     TabOrder = 15
-    Visible = False
   end
   object cbRelaGrupos: TCheckBox
     Left = 37
