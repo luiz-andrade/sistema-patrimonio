@@ -232,6 +232,7 @@ procedure TfrmRelatTranferenciaBem.FormCreate(Sender: TObject);
 begin
 	dsLocal.DataSet.Open;
 	dsAuxLocal.DataSet.Open;
+	cdsAuxLocal.Refresh;
 	edtData.DateTime := Now;
 end;
 

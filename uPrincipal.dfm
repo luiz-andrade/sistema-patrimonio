@@ -195,6 +195,9 @@ object frmPrincipal: TfrmPrincipal
       object Relatriodetotaisporgrupo2: TMenuItem
         Action = actRelatTotGrupo
       end
+      object RelatriodeBensPatrimoniais2: TMenuItem
+        Action = actBenPatrimonial
+      end
     end
     object Manuteno1: TMenuItem
       Caption = 'Manuten'#231#227'o'
@@ -292,7 +295,7 @@ object frmPrincipal: TfrmPrincipal
       OnExecute = actRelatUnidadeExecute
     end
     object actRelatGrupo: TAction
-      Caption = 'Relat'#243'rio de Bens Patrimoniais'
+      Caption = 'Relat'#243'rio de Bens Por Grupo'
       OnExecute = actRelatGrupoExecute
     end
     object actRelatTr: TAction
@@ -315,6 +318,10 @@ object frmPrincipal: TfrmPrincipal
       Caption = 'Gest'#245'es'
       OnExecute = actGestaoExecute
     end
+    object actBenPatrimonial: TAction
+      Caption = 'Relat'#243'rio de Bens Patrimoniais'
+      OnExecute = actBenPatrimonialExecute
+    end
   end
   object PopupMenu: TPopupMenu
     Left = 184
@@ -330,6 +337,9 @@ object frmPrincipal: TfrmPrincipal
     end
     object Relatriodetotaisporgrupo1: TMenuItem
       Action = actRelatTotGrupo
+    end
+    object RelatriodeBensPatrimoniais1: TMenuItem
+      Action = actBenPatrimonial
     end
   end
 end

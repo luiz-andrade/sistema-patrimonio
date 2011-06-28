@@ -1,6 +1,7 @@
 object frmRelatTotaisGrupo: TfrmRelatTotaisGrupo
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Relat'#243'rio de totais por grupo'
   ClientHeight = 462
@@ -110,7 +111,6 @@ object frmRelatTotaisGrupo: TfrmRelatTotaisGrupo
     BevelOuter = bvNone
     BorderStyle = bsSingle
     TabOrder = 8
-    ExplicitLeft = -8
     object imgLateral: TImage
       Left = 0
       Top = 0

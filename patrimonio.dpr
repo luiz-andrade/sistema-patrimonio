@@ -25,7 +25,8 @@ uses
   uErro in 'uErro.pas' {frmErro},
   uRelatGrupoTotais in 'uRelatGrupoTotais.pas' {frmRelatTotaisGrupo},
   uFornecedor in 'uFornecedor.pas' {frmFornecedor},
-  uGestao in 'uGestao.pas' {frmGestao};
+  uGestao in 'uGestao.pas' {frmGestao},
+  uRelatBens in 'uRelatBens.pas' {frmRelatBens};
 
 {$R *.res}
 
