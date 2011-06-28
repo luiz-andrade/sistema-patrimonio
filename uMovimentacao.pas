@@ -53,14 +53,12 @@ type
     cdsCedentenome: TStringField;
     cdsCedentetipo: TSmallintField;
     cdsCedentelogradouro: TStringField;
-    cdsCedentemunicipio: TStringField;
     cdsCedentecep: TStringField;
     cdsCedenteusuario: TBooleanField;
     cdsReceptorpessoaId: TIntegerField;
     cdsReceptornome: TStringField;
     cdsReceptortipo: TSmallintField;
     cdsReceptorlogradouro: TStringField;
-    cdsReceptormunicipio: TStringField;
     cdsReceptorcep: TStringField;
     cdsReceptorusuario: TBooleanField;
     DBGrid1: TDBGrid;
@@ -172,6 +170,9 @@ type
     cdsPessoaUsuariopessoaId: TIntegerField;
     cdsPessoaUsuariodesativado: TBooleanField;
     dspPessoaUsuario: TDataSetProvider;
+    cdsReceptormunicipio: TStringField;
+    cdsCedentemunicipio: TStringField;
+    Panel1: TPanel;
     procedure btnFecharClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnGravarClick(Sender: TObject);
@@ -519,10 +520,12 @@ begin
 	// Abre dependências.
   cdsOrigemLocal.Open;
 	cdsOrigem.Open;
+	cdsOrigem.Refresh;
 	cdsReceptor.Open;
 	cdsCedente.Open;
-  cdsDestinoLocal.Open;
+	cdsDestinoLocal.Open;
 	cdsDestino.Open;
+	cdsDestino.Refresh;
 end;
 
 procedure TfrmMovimentacao.ledtIdentificacaoKeyDown(Sender: TObject;

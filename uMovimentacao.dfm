@@ -351,9 +351,9 @@ object frmMovimentacao: TfrmMovimentacao
       object DBGrid1: TDBGrid
         AlignWithMargins = True
         Left = 3
-        Top = 3
+        Top = 60
         Width = 900
-        Height = 472
+        Height = 415
         Cursor = crHandPoint
         Align = alClient
         DataSource = dsMovimentacao
@@ -453,6 +453,15 @@ object frmMovimentacao: TfrmMovimentacao
           Items.Strings = (
             'N'#250'mero')
         end
+      end
+      object Panel1: TPanel
+        Left = 0
+        Top = 0
+        Width = 906
+        Height = 57
+        Align = alTop
+        BevelOuter = bvNone
+        TabOrder = 2
       end
     end
     object tsInformacao: TTabSheet
@@ -1099,12 +1108,6 @@ object frmMovimentacao: TfrmMovimentacao
       Required = True
       Size = 100
     end
-    object cdsCedentemunicipio: TStringField
-      FieldName = 'municipio'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 10
-    end
     object cdsCedentecep: TStringField
       FieldName = 'cep'
       ProviderFlags = [pfInUpdate]
@@ -1115,6 +1118,10 @@ object frmMovimentacao: TfrmMovimentacao
       FieldName = 'usuario'
       ProviderFlags = [pfInUpdate]
       Required = True
+    end
+    object cdsCedentemunicipio: TStringField
+      FieldName = 'municipio'
+      Size = 100
     end
   end
   object dsReceptor: TDataSource
@@ -1150,12 +1157,6 @@ object frmMovimentacao: TfrmMovimentacao
       Required = True
       Size = 100
     end
-    object cdsReceptormunicipio: TStringField
-      FieldName = 'municipio'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 10
-    end
     object cdsReceptorcep: TStringField
       FieldName = 'cep'
       ProviderFlags = [pfInUpdate]
@@ -1166,6 +1167,10 @@ object frmMovimentacao: TfrmMovimentacao
       FieldName = 'usuario'
       ProviderFlags = [pfInUpdate]
       Required = True
+    end
+    object cdsReceptormunicipio: TStringField
+      FieldName = 'municipio'
+      Size = 100
     end
   end
   object dsMovimentacaoBem: TDataSource
