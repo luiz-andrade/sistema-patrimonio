@@ -58,6 +58,37 @@ begin
 	with dm.rvpTR do
 	begin
 		// Filtro de grupos
+		with dm.totaisSubGrupos do
+		begin
+			Close;
+			SQL.Clear;
+			SQL.Add('select	grupo.grupoId,');
+			SQL.Add('	grupo.descricao,');
+			SQL.Add('								grupo.vGrupoId,');
+			SQL.Add('	coalesce(SUM(bem.valor),0) as total');
+			SQL.Add('from grupo inner join bem');
+			SQL.Add('			on grupo.grupoId = bem.subgrupoId');
+      if cbGrupo.Checked then
+      begin
+				SQL.Add('where vGrupoId = :vGrupoId');
+ 				Parameters.ParamByName('vGrupoId').Value := dblGrupo.KeyValue;
+			end;
+			if cbSubGrupo.Checked then
+			begin
+				SQL.Add('and grupo.grupoId = :grupoId');
+				Parameters.ParamByName('grupoId').Value := dblSubGrupo.KeyValue;
+			end;
+			if cbGestao.Checked then
+			begin
+				SQL.Add('and bem.gestaoId = :gestaoId');
+				Parameters.ParamByName('gestaoId').Value := dblGestaoId.KeyValue;
+			end;
+			SQL.Add('group by	grupo.grupoId,');
+			SQL.Add('	grupo.descricao,');
+			SQL.Add('			grupo.vGrupoId');
+    	SQL.Add('order by grupo.grupoId')
+		end;
+		// Filtro de grupos
 		with dm.totaisGrupos do
 		begin
 				Close;
@@ -80,32 +111,7 @@ begin
 				end;
 				SQL.Add('group by	grupo.grupoId,');
 				SQL.Add('			grupo.descricao');
-		end;
-		with dm.totaisSubGrupos do
-		begin
-			Close;
-			SQL.Clear;
-			SQL.Add('select	grupo.grupoId,');
-			SQL.Add('	grupo.descricao,');
-			SQL.Add('								grupo.vGrupoId,');
-			SQL.Add('	coalesce(SUM(bem.valor),0) as total');
-			SQL.Add('from grupo inner join bem');
-			SQL.Add('			on grupo.grupoId = bem.subgrupoId');
-			SQL.Add('where vGrupoId = :vGrupoId');
-			Parameters.ParamByName('vGrupoId').Value := dblGrupo.KeyValue;
-			if cbSubGrupo.Checked then
-			begin
-				SQL.Add('and grupo.grupoId = :grupoId');
-				Parameters.ParamByName('grupoId').Value := dblSubGrupo.KeyValue;
-			end;
-			if cbGestao.Checked then
-			begin
-				SQL.Add('and bem.gestaoId = :gestaoId');
-				Parameters.ParamByName('gestaoId').Value := dblGestaoId.KeyValue;
-			end;
-			SQL.Add('group by	grupo.grupoId,');
-			SQL.Add('	grupo.descricao,');
-			SQL.Add('			grupo.vGrupoId');
+        SQL.Add('order by grupo.grupoId')
 		end;
 		ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
 		ExecuteReport('TOTAISGRUPO');

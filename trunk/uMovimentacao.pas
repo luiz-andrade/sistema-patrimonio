@@ -173,6 +173,7 @@ type
     cdsReceptormunicipio: TStringField;
     cdsCedentemunicipio: TStringField;
     Panel1: TPanel;
+    btnApagar: TBitBtn;
     procedure btnFecharClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnGravarClick(Sender: TObject);
@@ -203,6 +204,7 @@ type
     procedure pgGeralChange(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btnApagarClick(Sender: TObject);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -263,6 +265,50 @@ begin
 	if not(cdsMovimentacaoconcluida.Value) then
   begin
 		AddBem(ledtIdentificacao.Text, cdsMovimentacaoorigemSubLocal.AsString);
+  end;
+end;
+
+procedure TfrmMovimentacao.btnApagarClick(Sender: TObject);
+var
+	msg : PWideChar;
+begin
+	if gUsuarioId = 1 then
+  begin
+    msg := PWideChar('Confirma a exclusão da movimentação?');
+    if Application.MessageBox(msg,PChar(Application.Title),MB_ICONQUESTION or MB_YESNO) = IDYES then
+    begin
+      // Delete movimentação de bens.
+      with cdsMovimentacaoBem do
+      begin
+        if not(IsEmpty) then
+        begin
+          First;
+          while not(Eof) do
+          begin
+            Delete;
+          end;
+          ApplyUpdates(-1);
+          Close;
+          Open;
+        end;
+      end;
+      // Deleta movimentação.
+      with cdsMovimentacao do
+      begin
+        if not(IsEmpty) then
+        begin
+          Delete;
+          ApplyUpdates(-1);
+          Close;
+          Open;
+        end;
+      end;
+    end;
+  end
+  else
+  begin
+  	msg := PWideChar('Somente usuário "admin" pode realizar esse procedimento!!');
+  	Application.MessageBox(msg,PChar(Application.Title),MB_ICONQUESTION)
   end;
 end;
 
@@ -453,6 +499,7 @@ begin
 	with cdsMovimentacao do
 	begin
 		tsBens.TabVisible   := not(State in [dsInsert]) and not(IsEmpty);
+    btnApagar.Enabled   := not (IsEmpty) and not(State in [dsInsert]) and not(IsEmpty);
 	end;
 	btnAddBem.Enabled       := not(cdsMovimentacaoconcluida.Value);
 	btnRemover.Enabled      := not(cdsMovimentacaoconcluida.Value);
