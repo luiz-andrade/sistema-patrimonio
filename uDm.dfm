@@ -8,7 +8,7 @@ object dm: Tdm
     Left = 390
     Top = 24
     Bitmap = {
-      494C01010700E400E40020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900E40020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1075,7 +1075,7 @@ object dm: Tdm
     Left = 485
     Top = 24
     Bitmap = {
-      494C01010400B400B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104000600B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1933,7 +1933,8 @@ object dm: Tdm
       #9#9#9'on grupo.grupoId = bem.grupoId'
       'where vGrupoId = 0'
       'group by'#9'grupo.grupoId,'
-      #9#9#9'grupo.descricao')
+      #9#9#9'grupo.descricao'
+      'order by grupo.grupoId')
     Left = 456
     Top = 336
     object totaisGruposgrupoId: TStringField
@@ -1964,7 +1965,8 @@ object dm: Tdm
       #9#9#9'on grupo.grupoId = bem.subgrupoId'
       'group by'#9'grupo.grupoId,'
       #9'grupo.descricao,'
-      '                grupo.vGrupoId')
+      '                grupo.vGrupoId'
+      'order by grupo.grupoId')
     Left = 456
     Top = 392
     object totaisSubGruposgrupoId: TStringField

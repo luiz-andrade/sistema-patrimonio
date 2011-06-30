@@ -141,7 +141,7 @@ object frmMovimentacao: TfrmMovimentacao
     end
     object btnConcluir: TBitBtn
       AlignWithMargins = True
-      Left = 413
+      Left = 313
       Top = 12
       Width = 95
       Height = 25
@@ -183,10 +183,11 @@ object frmMovimentacao: TfrmMovimentacao
       ParentDoubleBuffered = False
       TabOrder = 2
       OnClick = btnConcluirClick
+      ExplicitLeft = 413
     end
     object btnNovo: TBitBtn
       AlignWithMargins = True
-      Left = 513
+      Left = 413
       Top = 12
       Width = 95
       Height = 25
@@ -228,6 +229,7 @@ object frmMovimentacao: TfrmMovimentacao
       ParentDoubleBuffered = False
       TabOrder = 3
       OnClick = btnNovoClick
+      ExplicitLeft = 513
     end
     object btnCancelar: TBitBtn
       AlignWithMargins = True
@@ -292,7 +294,7 @@ object frmMovimentacao: TfrmMovimentacao
     end
     object btnImprimir: TBitBtn
       AlignWithMargins = True
-      Left = 313
+      Left = 213
       Top = 12
       Width = 95
       Height = 25
@@ -334,6 +336,53 @@ object frmMovimentacao: TfrmMovimentacao
       ParentDoubleBuffered = False
       TabOrder = 5
       OnClick = btnImprimirClick
+      ExplicitLeft = 313
+    end
+    object btnApagar: TBitBtn
+      AlignWithMargins = True
+      Left = 513
+      Top = 12
+      Width = 95
+      Height = 25
+      Cursor = crHandPoint
+      Margins.Left = 0
+      Margins.Top = 0
+      Margins.Right = 5
+      Margins.Bottom = 0
+      Align = alRight
+      Caption = 'Apagar'
+      DoubleBuffered = True
+      Glyph.Data = {
+        36030000424D3603000000000000360000002800000010000000100000000100
+        18000000000000030000C40E0000C40E00000000000000000000FFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2F2FC8488D5383CBA14
+        1BAF141AAC383AB28585CDF2F2FAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFB2B6F11324C40020D80023E00020D90019CC0011BD000BB01417A7B4B4
+        E8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB2B7F40420D6002FFF002AFB002DF800
+        2BF20029EE001FE50012CA000DB50409A4B4B4E7FFFFFFFFFFFFFFFFFFF5F5FD
+        1932D50035FF97A9E86888F40034FF002DFF0033FA95B1FD4570FB0019D4000D
+        B61316A7F2F2FBFFFFFFFFFFFF818BE4254EF80034FFCACDDCF5EFDEB1C0EF06
+        3DFFB1C4FAFFFFFBFFFFFF6187FD0012CA000CB28484CEFFFFFFFFFFFF3A51DF
+        3D6AFF083CFE97A3E2F4F1E1F6F3EAE4E8F3FFFFF8FFFFFFF3F7FF446DFD0022
+        E70012BE373BB6FFFFFFFFFFFF2341E34B76FF2255FF0D41FE5C7AF0EFEDEBF6
+        F6F3FFFFFBCDDAFE174AFF002AFC002CF30019CB121AB2FFFFFFFFFFFF2545E7
+        6489FF2E5FFF3364FF0639FCDADCEDFBF9F3FFFFFBADC0FE0033FF0236FF0030
+        FA0020DA121CB5FFFFFFFFFFFF3C58E983A2FF3D6CFF3C6CFF526DE9FFFBE9B2
+        BFF3D4DAF9FFFFFF6D8FFF0033FF0032FF0023E23941C2FFFFFFFFFFFF8492F1
+        688AFA7096FF2958F7BABEDEF5F3E71543F70E41FDE7ECFBFFFFFF2958FE0035
+        FF0021DA878DDAFFFFFFFFFFFFF3F4FF294EEF97B6FF4C75F95B6CD8546BE133
+        65FF2D5FFF1745FCC7D1FA4C73FF0135FF1629CBF4F4FDFFFFFFFFFFFFFFFFFF
+        B7C2FF2F53F396B3FF6F95FF3966FA396AFF2F60FF2153FE083CFF0C40FF0725
+        DCBABFF6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB8C3FF294DF26688FA88A9FF6A
+        8FFF4F7AFF3E6DFF204CF61E38DDBAC0F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFF4F5FE8C99F5405DED2C4CEC2A4AE94059E58D99ECF5F6FDFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+      ParentDoubleBuffered = False
+      TabOrder = 6
+      OnClick = btnApagarClick
+      ExplicitLeft = 597
     end
   end
   object pgGeral: TPageControl
@@ -351,9 +400,9 @@ object frmMovimentacao: TfrmMovimentacao
       object DBGrid1: TDBGrid
         AlignWithMargins = True
         Left = 3
-        Top = 60
+        Top = 44
         Width = 900
-        Height = 415
+        Height = 431
         Cursor = crHandPoint
         Align = alClient
         DataSource = dsMovimentacao
@@ -458,10 +507,11 @@ object frmMovimentacao: TfrmMovimentacao
         Left = 0
         Top = 0
         Width = 906
-        Height = 57
+        Height = 41
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 2
+        Visible = False
       end
     end
     object tsInformacao: TTabSheet
