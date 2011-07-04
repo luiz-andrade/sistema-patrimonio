@@ -403,9 +403,6 @@ begin
 	begin
 		try
 			Append;
-			cdsMovimentacaousuarioId.Value := gUsuarioId;
-			cdsMovimentacaoconcluida.Value := False;
-			cdsMovimentacaotipo.Value      := 1;
 			tsInformacao.Show;
 		except
 			Cancel;
@@ -436,6 +433,9 @@ end;
 
 procedure TfrmMovimentacao.cdsMovimentacaoAfterInsert(DataSet: TDataSet);
 begin
+  cdsMovimentacaousuarioId.Value := gUsuarioId;
+  cdsMovimentacaoconcluida.Value := False;
+  cdsMovimentacaotipo.Value      := 1;
 {     cdsMovimentacaoorigemId.Value  := '01';
      cdsMovimentacaoorigemSubLocal.Value  := '01.01';
      cdsMovimentacaodestinoId.Value := '01';
