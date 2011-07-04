@@ -183,7 +183,6 @@ object frmMovimentacao: TfrmMovimentacao
       ParentDoubleBuffered = False
       TabOrder = 2
       OnClick = btnConcluirClick
-      ExplicitLeft = 413
     end
     object btnNovo: TBitBtn
       AlignWithMargins = True
@@ -229,7 +228,6 @@ object frmMovimentacao: TfrmMovimentacao
       ParentDoubleBuffered = False
       TabOrder = 3
       OnClick = btnNovoClick
-      ExplicitLeft = 513
     end
     object btnCancelar: TBitBtn
       AlignWithMargins = True
@@ -336,7 +334,6 @@ object frmMovimentacao: TfrmMovimentacao
       ParentDoubleBuffered = False
       TabOrder = 5
       OnClick = btnImprimirClick
-      ExplicitLeft = 313
     end
     object btnApagar: TBitBtn
       AlignWithMargins = True
@@ -382,7 +379,6 @@ object frmMovimentacao: TfrmMovimentacao
       ParentDoubleBuffered = False
       TabOrder = 6
       OnClick = btnApagarClick
-      ExplicitLeft = 597
     end
   end
   object pgGeral: TPageControl
@@ -391,7 +387,7 @@ object frmMovimentacao: TfrmMovimentacao
     Top = 52
     Width = 914
     Height = 547
-    ActivePage = tsConsulta
+    ActivePage = tsInformacao
     Align = alClient
     TabOrder = 1
     OnChange = pgGeralChange
@@ -716,7 +712,6 @@ object frmMovimentacao: TfrmMovimentacao
         Height = 21
         DataField = 'cedenteId'
         DataSource = dsMovimentacao
-        Enabled = False
         ReadOnly = True
         TabOrder = 10
       end
@@ -727,7 +722,6 @@ object frmMovimentacao: TfrmMovimentacao
         Height = 21
         DataField = 'cedenteId'
         DataSource = dsMovimentacao
-        Enabled = False
         KeyField = 'pessoaId'
         ListField = 'nome'
         ListSource = dsCedente
