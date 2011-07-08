@@ -26,7 +26,8 @@ uses
   uRelatGrupoTotais in 'uRelatGrupoTotais.pas' {frmRelatTotaisGrupo},
   uFornecedor in 'uFornecedor.pas' {frmFornecedor},
   uGestao in 'uGestao.pas' {frmGestao},
-  uRelatBens in 'uRelatBens.pas' {frmRelatBens};
+  uRelatBens in 'uRelatBens.pas' {frmRelatBens},
+  uDepreciacao in 'uDepreciacao.pas' {frmDepreciacao};
 
 {$R *.res}
 

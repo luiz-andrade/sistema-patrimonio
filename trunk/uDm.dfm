@@ -1533,6 +1533,12 @@ object dm: Tdm
       FieldName = 'quantidade'
       ProviderFlags = [pfInUpdate]
     end
+    object sqlBemvalorAquisicao: TBCDField
+      FieldName = 'valorAquisicao'
+      ProviderFlags = [pfInUpdate]
+      currency = True
+      Precision = 19
+    end
   end
   object sqlBemAquisicao: TADOQuery
     Connection = ADOConnection

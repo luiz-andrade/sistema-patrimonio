@@ -215,9 +215,9 @@ procedure TfrmRelatTranferenciaBem.dsAuxLocalDataChange(Sender: TObject;
 begin
 	if cbUnidade.Checked then
   begin
-    edtMatricula.Text := cdsAuxLocalmatriculaPessoa.Value;
-    edtNome.Text      := cdsAuxLocalnomePessoa.Value;
-    edtMunicipio.Text := cdsAuxLocalmunicipioPessoa.Value;
+    edtMatricula.Text := cdsAuxLocalmatriculaPessoa.AsString;
+    edtNome.Text      := cdsAuxLocalnomePessoa.AsString;
+    edtMunicipio.Text := cdsAuxLocalmunicipioPessoa.AsString;
   end;
 end;
 

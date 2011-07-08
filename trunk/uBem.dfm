@@ -32,7 +32,7 @@ object frmBem: TfrmBem
     Height = 487
     Cursor = crHandPoint
     Margins.Left = 85
-    ActivePage = tsPesquisa
+    ActivePage = tsInformacao
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -180,9 +180,9 @@ object frmBem: TfrmBem
       object Label12: TLabel
         Left = 435
         Top = 16
-        Width = 28
+        Width = 55
         Height = 13
-        Caption = 'Valor:'
+        Caption = 'Valor atual:'
         FocusControl = valor
       end
       object Label14: TLabel
@@ -216,6 +216,14 @@ object frmBem: TfrmBem
         Height = 13
         Caption = 'Gest'#227'o:'
         FocusControl = editGestao
+      end
+      object Label16: TLabel
+        Left = 7
+        Top = 400
+        Width = 91
+        Height = 13
+        Caption = 'Valor de Aquisi'#231#227'o:'
+        FocusControl = valorAquisicao
       end
       object idenficacao: TDBEdit
         Left = 7
@@ -424,6 +432,15 @@ object frmBem: TfrmBem
         ListSource = dsGestao
         NullValueKey = 46
         TabOrder = 17
+      end
+      object valorAquisicao: TDBEdit
+        Left = 7
+        Top = 416
+        Width = 100
+        Height = 21
+        DataField = 'valorAquisicao'
+        DataSource = dsBem
+        TabOrder = 18
       end
     end
     object tsAquisicao: TTabSheet
@@ -2576,6 +2593,12 @@ object frmBem: TfrmBem
     end
     object cdsBemvalor: TBCDField
       FieldName = 'valor'
+      currency = True
+      Precision = 19
+    end
+    object cdsBemvalorAquisicao: TBCDField
+      FieldName = 'valorAquisicao'
+      ProviderFlags = [pfInUpdate]
       currency = True
       Precision = 19
     end

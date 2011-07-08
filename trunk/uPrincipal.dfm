@@ -176,6 +176,12 @@ object frmPrincipal: TfrmPrincipal
       object N3: TMenuItem
         Caption = '-'
       end
+      object DepreciaodeBens1: TMenuItem
+        Action = actDepreciacao
+      end
+      object N7: TMenuItem
+        Caption = '-'
+      end
       object Finalizarsistema1: TMenuItem
         Caption = 'Finalizar sistema'
         OnClick = Finalizarsistema1Click
@@ -321,6 +327,10 @@ object frmPrincipal: TfrmPrincipal
     object actBenPatrimonial: TAction
       Caption = 'Relat'#243'rio de Bens Patrimoniais'
       OnExecute = actBenPatrimonialExecute
+    end
+    object actDepreciacao: TAction
+      Caption = 'Deprecia'#231#227'o de Bens'
+      OnExecute = actDepreciacaoExecute
     end
   end
   object PopupMenu: TPopupMenu

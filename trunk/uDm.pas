@@ -131,6 +131,7 @@ type
     sqlPessoamunicipio: TStringField;
     rvdlSubGrupoDM: TRvDataSetConnection;
     rvdGrupoDM: TRvDataSetConnection;
+    sqlBemvalorAquisicao: TBCDField;
     procedure ADOConnectionBeforeConnect(Sender: TObject);
     procedure ApplicationEventsException(Sender: TObject; E: Exception);
   private
