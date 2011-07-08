@@ -72,6 +72,9 @@ type
     actBenPatrimonial: TAction;
     RelatriodeBensPatrimoniais1: TMenuItem;
     RelatriodeBensPatrimoniais2: TMenuItem;
+    actDepreciacao: TAction;
+    N7: TMenuItem;
+    DepreciaodeBens1: TMenuItem;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
@@ -92,6 +95,7 @@ type
     procedure actFornecedorExecute(Sender: TObject);
     procedure actGestaoExecute(Sender: TObject);
     procedure actBenPatrimonialExecute(Sender: TObject);
+    procedure actDepreciacaoExecute(Sender: TObject);
 	private
 		{ Private declarations }
 		procedure updateInfo;
@@ -107,9 +111,21 @@ implementation
 uses uLocal, uAcesso, uDm, uPessoa, uGrupo, uBem, uFuncoes, uMd5, uSobre,
   uEmpresa, uMovimentacao, uTransferencia, uAlteracaoSenha,
   uRelatTransferenciaBem, uRelatGrupoBem, uUpdate, uControlsTunning,
-  uRelatGrupoTotais, uFornecedor, uGestao, uRelatBens;
+  uRelatGrupoTotais, uFornecedor, uGestao, uRelatBens, uDepreciacao;
 
 {$R *.dfm}
+
+procedure TfrmPrincipal.actDepreciacaoExecute(Sender: TObject);
+begin
+	with TfrmDepreciacao.Create(Application) do
+  begin
+    try
+    	ShowModal;
+    finally
+      Free;
+    end;
+  end;
+end;
 
 procedure TfrmPrincipal.actFornecedorExecute(Sender: TObject);
 begin

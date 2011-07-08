@@ -122,6 +122,9 @@ type
     cdsBemvalor: TBCDField;
     cdsAquisicaodata: TDateTimeField;
     cdsAquisicaodataNota: TDateTimeField;
+    cdsBemvalorAquisicao: TBCDField;
+    Label16: TLabel;
+    valorAquisicao: TDBEdit;
     procedure btnNovoClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -312,10 +315,11 @@ end;
 
 procedure TfrmBem.cdsBemAfterInsert(DataSet: TDataSet);
 begin
-	cdsBemtipoIdentificacao.Value := 2;
-	cdsBemvalor.AsCurrency        := 0;
-	cdsBemtipoAquisicao.AsInteger := 1;
-	cdsBemquantidade.AsFloat      := 1;
+	cdsBemtipoIdentificacao.Value   := 2;
+	cdsBemvalor.AsCurrency          := 0;
+	cdsBemtipoAquisicao.AsInteger   := 1;
+	cdsBemquantidade.AsFloat        := 1;
+  cdsBemvalorAquisicao.AsCurrency := 0;
 end;
 
 procedure TfrmBem.cdsBemReconcileError(DataSet: TCustomClientDataSet;
