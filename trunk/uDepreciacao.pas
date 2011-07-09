@@ -69,6 +69,9 @@ begin
       end;
       try
       Execute();
+      Application.MessageBox(	'Percentual de depreciação aplicado com sucesso!',
+      											 	PChar(Application.Title),
+                              MB_ICONINFORMATION);
       except
         Raise;
       end;

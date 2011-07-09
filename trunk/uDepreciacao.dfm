@@ -3,7 +3,7 @@ object frmDepreciacao: TfrmDepreciacao
   Top = 0
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  Caption = 'Aplica'#231#227'o de percentual de deprecia'#231#227'o'
+  Caption = 'Aplica'#231#227'o do percentual de deprecia'#231#227'o'
   ClientHeight = 453
   ClientWidth = 627
   Color = clBtnFace
@@ -101,7 +101,6 @@ object frmDepreciacao: TfrmDepreciacao
     BevelOuter = bvNone
     BorderStyle = bsSingle
     TabOrder = 6
-    ExplicitWidth = 623
     object imgLateral: TImage
       Left = 0
       Top = 0
@@ -2143,7 +2142,7 @@ object frmDepreciacao: TfrmDepreciacao
   object edtPercentual: TEdit
     Left = 200
     Top = 175
-    Width = 121
+    Width = 65
     Height = 21
     TabOrder = 7
     Text = '0,00'
