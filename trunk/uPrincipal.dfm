@@ -217,6 +217,13 @@ object frmPrincipal: TfrmPrincipal
         Caption = 'Atualizar sistema'
         OnClick = Atualizarsistemas1Click
       end
+      object N8: TMenuItem
+        Caption = '-'
+      end
+      object Backup1: TMenuItem
+        Caption = 'Executar rotina de Backup'
+        OnClick = Backup1Click
+      end
     end
     object N4: TMenuItem
       Caption = '?'

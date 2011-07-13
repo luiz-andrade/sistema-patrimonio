@@ -2442,7 +2442,7 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'select * from bem '
+      'select top 20 * from bem '
       
         '                                left join bemAquisicao on bemAqu' +
         'isicao.bemid = bem.bemId')
