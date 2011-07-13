@@ -5,7 +5,7 @@ interface
 uses
 	Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
 	Dialogs, Menus, ComCtrls, PlatformDefaultStyleActnCtrls, ActnList, ActnMan,
-	uGlobais, ToolWin, ExtCtrls, ActnCtrls, StdCtrls, ActnColorMaps;
+	uGlobais, ToolWin, ExtCtrls, ActnCtrls, StdCtrls, ActnColorMaps, DB, ADODB;
 
 type
 	TfrmPrincipal = class(TForm)
@@ -75,6 +75,8 @@ type
     actDepreciacao: TAction;
     N7: TMenuItem;
     DepreciaodeBens1: TMenuItem;
+    N8: TMenuItem;
+    Backup1: TMenuItem;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
@@ -96,6 +98,7 @@ type
     procedure actGestaoExecute(Sender: TObject);
     procedure actBenPatrimonialExecute(Sender: TObject);
     procedure actDepreciacaoExecute(Sender: TObject);
+    procedure Backup1Click(Sender: TObject);
 	private
 		{ Private declarations }
 		procedure updateInfo;
@@ -315,6 +318,36 @@ begin
   begin
     try
       ShowModal;
+    finally
+      Free;
+    end;
+  end;
+end;
+
+procedure TfrmPrincipal.Backup1Click(Sender: TObject);
+var
+	NomeArquivo : String;
+begin
+	with TADOCommand.Create(Self) do
+  begin
+		try
+    	NomeArquivo := Concat(ExtractFilePath(Application.ExeName),
+      											'Backup.',
+    												FormatDateTime('ddMMyyyyhhmm', Now),'.bak');
+    	Connection  := dm.ADOConnection;
+      CommandType := cmdText;
+      CommandText := Concat ('BACKUP DATABASE [patrimonio] TO  DISK = ',
+      												QuotedStr(NomeArquivo),
+                              ' WITH NOFORMAT, NOINIT,  NAME = ',
+                              QuotedStr('INORTE-Full Database Backup'),
+                              ', SKIP, NOREWIND, NOUNLOAD,  STATS = 10');
+      try
+      	Execute();
+        ShowMessage(Concat( 'Backup executado com sucesso!', #13,
+        										NomeArquivo));
+      except
+				raise;
+      end;
     finally
       Free;
     end;
