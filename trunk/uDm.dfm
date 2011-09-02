@@ -8,7 +8,7 @@ object dm: Tdm
     Left = 390
     Top = 24
     Bitmap = {
-      494C010107000900E40020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900EC0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1075,7 +1075,7 @@ object dm: Tdm
     Left = 485
     Top = 24
     Bitmap = {
-      494C010104000600B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104000600BC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1376,6 +1376,7 @@ object dm: Tdm
     Top = 88
   end
   object ADOConnection: TADOConnection
+    Connected = True
     ConnectionString = 'FILE NAME=C:\Projetos\sistema-patrimonio\Debug\Win32\dbxcon.udl'
     LoginPrompt = False
     Provider = 'SQLNCLI10.1'
@@ -1934,10 +1935,11 @@ object dm: Tdm
     SQL.Strings = (
       'select'#9'grupo.grupoId,'
       #9#9'grupo.descricao,'
-      #9#9'coalesce(SUM(bem.valor),0) as total'
+      #9#9'coalesce(SUM(bem.valor),0) as total,'
+      #9#9'coalesce(SUM(bem.quantidade),0) as quantidade'
       'from grupo inner join bem'
       #9#9#9'on grupo.grupoId = bem.grupoId'
-      'where vGrupoId = 0'
+      'where grupo.vGrupoId = 0'
       'group by'#9'grupo.grupoId,'
       #9#9#9'grupo.descricao'
       'order by grupo.grupoId')
@@ -1957,6 +1959,10 @@ object dm: Tdm
       currency = True
       Precision = 19
     end
+    object totaisGruposquantidade: TFloatField
+      FieldName = 'quantidade'
+      ReadOnly = True
+    end
   end
   object totaisSubGrupos: TADOQuery
     Connection = ADOConnection
@@ -1966,7 +1972,8 @@ object dm: Tdm
       'select'#9'grupo.grupoId,'
       #9'grupo.descricao,'
       '                grupo.vGrupoId,'
-      #9'coalesce(SUM(bem.valor),0) as total'
+      #9'coalesce(SUM(bem.valor),0) as total,'
+      #9#9'coalesce(SUM(bem.quantidade),0) as quantidade'
       'from grupo inner join bem'
       #9#9#9'on grupo.grupoId = bem.subgrupoId'
       'group by'#9'grupo.grupoId,'
@@ -1992,6 +1999,10 @@ object dm: Tdm
     object totaisSubGruposvGrupoId: TStringField
       FieldName = 'vGrupoId'
       Size = 10
+    end
+    object totaisSubGruposquantidade: TFloatField
+      FieldName = 'quantidade'
+      ReadOnly = True
     end
   end
   object rvdTotaisGrupos: TRvDataSetConnection

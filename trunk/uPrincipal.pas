@@ -368,7 +368,7 @@ end;
 
 procedure TfrmPrincipal.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-	CanClose := (Application.MessageBox(	'Deseja realmente sair do sistema?',
+	CanClose := (Application.MessageBox(	'Deseja realmente sair do sistema?. '+ #13 +'Faça o backup sempre que possivel.',
 																			PChar(Application.Title),
 																			MB_ICONQUESTION or MB_YESNO) = IDYES);
 end;
