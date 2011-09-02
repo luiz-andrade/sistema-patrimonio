@@ -65,7 +65,8 @@ begin
 			SQL.Add('select	grupo.grupoId,');
 			SQL.Add('	grupo.descricao,');
 			SQL.Add('								grupo.vGrupoId,');
-			SQL.Add('	coalesce(SUM(bem.valor),0) as total');
+			SQL.Add('	coalesce(SUM(bem.valor),0) as total,');
+      SQL.Add('coalesce(SUM(bem.quantidade),0) as quantidade');
 			SQL.Add('from grupo inner join bem');
 			SQL.Add('			on grupo.grupoId = bem.subgrupoId');
       if cbGrupo.Checked then
@@ -95,7 +96,8 @@ begin
 				SQL.Clear;
 				SQL.Add('select	grupo.grupoId,');
 				SQL.Add('		grupo.descricao,');
-				SQL.Add('		coalesce(SUM(bem.valor),0) as total');
+				SQL.Add('		coalesce(SUM(bem.valor),0) as total,');
+        SQL.Add('coalesce(SUM(bem.quantidade),0) as quantidade');
 				SQL.Add('from grupo inner join bem');
 				SQL.Add('			on grupo.grupoId = bem.grupoId');
 				SQL.Add('where vGrupoId = 0');

@@ -132,6 +132,8 @@ type
     rvdlSubGrupoDM: TRvDataSetConnection;
     rvdGrupoDM: TRvDataSetConnection;
     sqlBemvalorAquisicao: TBCDField;
+    totaisGruposquantidade: TFloatField;
+    totaisSubGruposquantidade: TFloatField;
     procedure ADOConnectionBeforeConnect(Sender: TObject);
     procedure ApplicationEventsException(Sender: TObject; E: Exception);
   private

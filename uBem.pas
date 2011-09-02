@@ -282,7 +282,13 @@ begin
 		if not(IsEmpty) then
 		begin
 			case cbPesquisar.ItemIndex of
-				0 : Locate('idenficacao', txtPesquisa.Text, [loPartialKey]);
+				0 : begin
+							Close;
+							CommandText := 'select * from bem where idenficacao like :idenficacao';
+							Params.ParamByName('idenficacao').Value := Concat('%', txtPesquisa.Text, '%');
+              //Locate('idenficacao', txtPesquisa.Text, [loPartialKey]);
+              Open;
+            end;
 				1 : begin
 							Close;
 							CommandText := 'select * from bem where descricao like :descricao';
