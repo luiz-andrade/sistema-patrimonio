@@ -39,6 +39,13 @@ object FormPrinicipal: TFormPrinicipal
     Height = 13
     Caption = 'Local de Instala'#231#227'o'
   end
+  object Label4: TLabel
+    Left = 40
+    Top = 429
+    Width = 109
+    Height = 13
+    Caption = 'Arquivo de Instala'#231#227'o:'
+  end
   object btnCancelar: TButton
     Left = 432
     Top = 443
@@ -47,6 +54,7 @@ object FormPrinicipal: TFormPrinicipal
     Cursor = crHandPoint
     Caption = 'Cancelar'
     TabOrder = 0
+    OnClick = btnCancelarClick
   end
   object pnTopo: TPanel
     Left = 0
@@ -2103,10 +2111,10 @@ object FormPrinicipal: TFormPrinicipal
   end
   object chkBanco: TCheckBox
     Left = 40
-    Top = 244
-    Width = 145
-    Height = 17
-    Caption = 'Instalar banco de dados'
+    Top = 252
+    Width = 177
+    Height = 13
+    Caption = 'Instalar SQL Server'
     TabOrder = 3
   end
   object edtEndServidor: TEdit
@@ -2117,14 +2125,13 @@ object FormPrinicipal: TFormPrinicipal
     TabOrder = 4
     Text = '.\sqlexpress'
   end
-  object CheckBox1: TCheckBox
+  object chkSistema: TCheckBox
     Left = 40
     Top = 219
-    Width = 273
+    Width = 177
     Height = 17
-    Caption = 'Instalar depend'#234'ncias para windows XP ou inferior'
+    Caption = 'Instalar Arquivos do Sistema'
     TabOrder = 5
-    Visible = False
   end
   object edtPassword: TEdit
     Left = 303
@@ -2142,6 +2149,23 @@ object FormPrinicipal: TFormPrinicipal
     Height = 21
     TabOrder = 7
     Text = 'C:\Sistema de Patrim'#244'nio'
+  end
+  object edtInstalador: TEdit
+    Left = 40
+    Top = 445
+    Width = 166
+    Height = 21
+    TabOrder = 8
+    Text = 'SQLEXPRADV_x64_ENU.exe'
+  end
+  object chkCriarBanco: TCheckBox
+    Left = 40
+    Top = 283
+    Width = 177
+    Height = 13
+    Caption = 'Criar Banco de Dados'
+    TabOrder = 9
+    OnClick = chkCriarBancoClick
   end
   object Timer: TTimer
     Interval = 50
