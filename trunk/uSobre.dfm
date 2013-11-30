@@ -4,7 +4,7 @@ object frmSobre: TfrmSobre
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Sobre'
-  ClientHeight = 505
+  ClientHeight = 486
   ClientWidth = 622
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
