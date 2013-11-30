@@ -5,7 +5,7 @@ interface
 uses
 	Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
 	Dialogs, ExtCtrls, pngimage, StdCtrls, untWaterEffect, StrUtils, IniFiles, ADODB, 
-	ShellAPI, TlHelp32, Psapi;
+	ShellAPI, TlHelp32, Psapi, DB;
 
 type
   TFormPrinicipal = class(TForm)
@@ -17,14 +17,19 @@ type
     chkBanco: TCheckBox;
     Label1: TLabel;
     edtEndServidor: TEdit;
-    CheckBox1: TCheckBox;
+    chkSistema: TCheckBox;
     Label2: TLabel;
     edtPassword: TEdit;
     Label3: TLabel;
     edtLocalInstalacao: TEdit;
+    edtInstalador: TEdit;
+    Label4: TLabel;
+    chkCriarBanco: TCheckBox;
     procedure TimerTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure chkCriarBancoClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
   private
 		{ Private declarations }
 		Water : TWaterEffect;
@@ -179,7 +184,26 @@ begin
     end;
 end;
 
-procedure InstallMssql(local, destination, password : String);
+procedure CriarBanco(local, destination, password : String);
+var
+	params : String;
+	cmd : String;
+	config : String;
+	databaseScript : String;
+	log : WideString;
+begin
+	cmd := Concat('C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe -S '
+									,'localhost\sqlexpress'
+									,' -E ' // Connecta localmente sem informar password.
+									,' -n ' // Remove numeração
+									,' -i ' // Informa arquivo com script
+									,databaseScript);
+	log := GetDosOutput(cmd);
+	TerminarProcesso('osql');
+	TerminarProcesso('cmd');
+end;
+
+procedure InstallMssql(local, destination, password, instalador : String);
 var
 	params : String;
 	cmd : String;
@@ -192,18 +216,9 @@ begin
 	params := Concat(	' /IACCEPTSQLSERVERLICENSETERMS ',
 										' /SAPWD=',password,' ',
 										'/ConfigurationFile=',config, ' ');
-	cmd := local + 'SQLEXPRADV_x64_ENU.exe';
+	cmd := local + instalador;
 	ShellExecute(Application.Handle,nil,PWideChar(cmd),PWideChar(params),nil, SW_SHOWNORMAL);
 	//ShellExecute(0,'open','osql',PWideChar('-S localhost\sqlexpress -E -i ' + databaseScript),nil, SW_SHOWNORMAL);
-	cmd := Concat('C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe -S '
-									,'localhost\sqlexpress'
-									,' -E ' // Connecta localmente sem informar password.
-									,' -n ' // Remove numeração
-									,' -i ' // Informa arquivo com script
-									,databaseScript);
-	log := GetDosOutput(cmd);
-	TerminarProcesso('osql');
-	TerminarProcesso('cmd');
 end;
 
 procedure CreateDbFileIni(destination, password, host : String);
@@ -245,6 +260,11 @@ begin
 	end;
 end;
 
+procedure TFormPrinicipal.btnCancelarClick(Sender: TObject);
+begin
+	Application.Terminate;
+end;
+
 procedure TFormPrinicipal.Button1Click(Sender: TObject);
 var
 	local,
@@ -256,13 +276,19 @@ begin
 	destination := edtLocalInstalacao.Text;
 	if RightStr(destination,1) <> '\' then 
 		destination := destination + '\';
-	CopyFiles(local, destination);
+	if(chkSistema.Checked) then
+		CopyFiles(local, destination);
 	CreateDbFileIni(destination, password, host);
 	if(chkBanco.Checked) then
 	begin
-		InstallMssql(local, destination,password);
+		InstallMssql(local, destination,password, edtInstalador.Text);
 	end;
+	if(chkCriarBanco.Checked) then
+	begin
+    CriarBanco(local, destination,password);
+  end;
 end;
+
 
 procedure TFormPrinicipal.FormCreate(Sender: TObject);
 begin
@@ -285,6 +311,46 @@ begin
 	begin
 		Brush.Style := bsClear;
 		TextOut(35, 17, Concat('Versão: ', GetLocalVersion));
+	end;
+end;
+
+
+function TestarMssql(password, host : String) : Boolean;
+	var
+		connStr : String;
+begin
+	connStr := Concat('Provider=SQLNCLI10.1;'
+										,'Password=',Password,';',
+										'Persist Security Info=True;',
+										'User ID=sa;',
+										'Initial Catalog=master;',
+										'Data Source=', host);
+	with TADOConnection.Create(nil) do
+	begin
+		try
+			try
+				ConnectionString := connStr;
+				Connected := True;
+				Result := (Connected and FileExists('C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe1'));
+			except
+				Result := False;
+			end;
+		finally
+			Free;
+		end;
+  end;
+end;
+
+procedure TFormPrinicipal.chkCriarBancoClick(Sender: TObject);
+var
+	password, host : String;
+begin
+	password := edtPassword.Text;
+	host := edtEndServidor.Text;
+	if not TestarMssql(password, host) then
+	begin
+		Application.MessageBox('Não foi possível determinar se o banco de dados foi instalado!', 'Banco de dados', MB_ICONERROR);
+		chkCriarBanco.Checked := False;
 	end;
 end;
 
