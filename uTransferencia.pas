@@ -707,6 +707,7 @@ begin
 					ParamByName('localId').Value            := localId;
 					ParamByName('gestaoId').Value           := gestaoId;
 					ParamByName('valor').Value              := valor;
+					ParamByName('valorAquisicao').Value     := valor;
 					ParamByName('tipoIdentificacao').Value  := tipoIdentificacao;
 					ParamByName('subgrupoId').Value         := subgrupoId;
 					ParamByName('subLocalId').Value         := subLocalId;
