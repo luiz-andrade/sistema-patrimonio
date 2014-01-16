@@ -191,8 +191,13 @@ var
 	config : String;
 	databaseScript : String;
 	log : WideString;
+	localOsql : String;
 begin
-	cmd := Concat('C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe -S '
+ if FileExists('C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe') then
+	localOsql := 'C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe';
+ if FileExists('C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\osql.exe') then
+	localOsql := 'C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\osql.exe';
+	cmd := Concat(localOsql,' -S '
 									,'localhost\sqlexpress'
 									,' -E ' // Connecta localmente sem informar password.
 									,' -n ' // Remove numeração
