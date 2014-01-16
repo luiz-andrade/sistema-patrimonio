@@ -194,10 +194,10 @@ var
 	log : WideString;
 	localOsql : String;
 begin
- if FileExists('%ProgramFiles%\Microsoft SQL Server\100\Tools\Binn\osql.exe') then
-	localOsql := '%ProgramFiles%\Microsoft SQL Server\100\Tools\Binn\osql.exe';
- if FileExists('%ProgramFiles(x86)%\Microsoft SQL Server\100\Tools\Binn\osql.exe') then
-	localOsql := '%ProgramFiles(x86)%\Microsoft SQL Server\100\Tools\Binn\osql.exe';
+ if FileExists('C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe') then
+	localOsql := 'C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe';
+ if FileExists('C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\osql.exe') then
+	localOsql := 'C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\osql.exe';
 	ShowMessage(localOsql);
 	cmd := Concat(localOsql,' -S '
 									,'localhost\sqlexpress'
@@ -359,7 +359,7 @@ begin
 			try
 				ConnectionString := connStr;
 				Connected := True;
-				Result := (Connected and (FileExists('%ProgramFiles(x86)%\Microsoft SQL Server\100\Tools\Binn\osql.exe') OR FileExists('%ProgramFiles(x86)%\Microsoft SQL Server\100\Tools\Binn\osql.exe')));
+				Result := (Connected and (FileExists('C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe') OR FileExists('C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\osql.exe')));
 			except
 				Result := False;
 			end;
