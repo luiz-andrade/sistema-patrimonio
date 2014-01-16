@@ -194,6 +194,7 @@ var
 	log : WideString;
 	localOsql : String;
 begin
+	databaseScript := 'database.sql';
  if FileExists('C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe') then
 	localOsql := 'C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe';
  if FileExists('C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\osql.exe') then
@@ -204,7 +205,8 @@ begin
 									,' -E ' // Connecta localmente sem informar password.
 									,' -n ' // Remove numeração
 									,' -i ' // Informa arquivo com script
-									,databaseScript);
+									,local,
+									databaseScript);
 	ShowMessage(cmd);
 	log := GetDosOutput(cmd);
 	FormPrinicipal.Memo1.Lines.Text := log;
