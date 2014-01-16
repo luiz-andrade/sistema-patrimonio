@@ -25,6 +25,7 @@ type
     edtInstalador: TEdit;
     Label4: TLabel;
     chkCriarBanco: TCheckBox;
+    Memo1: TMemo;
     procedure TimerTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -204,6 +205,7 @@ begin
 									,' -i ' // Informa arquivo com script
 									,databaseScript);
 	log := GetDosOutput(cmd);
+	FormPrinicipal.Memo1.Lines.Text := log;
 	TerminarProcesso('osql');
 	TerminarProcesso('cmd');
 end;
@@ -309,7 +311,7 @@ begin
 	end;
 	if(chkCriarBanco.Checked) then
 	begin
-    CriarBanco(local, destination,password);
+		CriarBanco(local, destination,password);
   end;
 end;
 

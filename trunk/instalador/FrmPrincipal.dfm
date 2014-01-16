@@ -2167,6 +2167,13 @@ object FormPrinicipal: TFormPrinicipal
     TabOrder = 9
     OnClick = chkCriarBancoClick
   end
+  object Memo1: TMemo
+    Left = 40
+    Top = 320
+    Width = 520
+    Height = 89
+    TabOrder = 10
+  end
   object Timer: TTimer
     Interval = 50
     OnTimer = TimerTimer
