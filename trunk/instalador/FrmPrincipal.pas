@@ -200,14 +200,12 @@ begin
  if FileExists('C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\osql.exe') then
 	localOsql := 'C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\osql.exe';
 	localOsql := 'osql';
-	ShowMessage(localOsql);
 	cmd := Concat(localOsql,' -S '
 									,'localhost\sqlexpress'
 									,' -E ' // Connecta localmente sem informar password.
 									,' -n ' // Remove numeração
 									,' -i ' // Informa arquivo com script
-									,local,
-									databaseScript);
+									,QuotedStr(local + databaseScript));
 	ShowMessage(cmd);
 	log := GetDosOutput(cmd);
 	FormPrinicipal.Memo1.Lines.Text := log;
