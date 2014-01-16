@@ -220,7 +220,7 @@ begin
 										' /INSTANCEID=',('SQLExpress'),' ',
 										' /FEATURES=',('SQLENGINE'),' ',
 										' /HELP=',('False'),' ',
-										' /INDICATEPROGRESS=',('True'),' ',
+										' /INDICATEPROGRESS=',('False'),' ',
 										' /QUIETSIMPLE=',('False'),' ',
 										' /INSTANCENAME=',('SQLEXPRESS'),' ',
 										' /ADDCURRENTUSERASSQLADMIN=',('True'),' ',
@@ -350,7 +350,7 @@ begin
 			try
 				ConnectionString := connStr;
 				Connected := True;
-				Result := (Connected and FileExists('C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe1'));
+				Result := (Connected and FileExists('C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe'));
 			except
 				Result := False;
 			end;
