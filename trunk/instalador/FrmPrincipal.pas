@@ -199,6 +199,7 @@ begin
 	localOsql := 'C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe';
  if FileExists('C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\osql.exe') then
 	localOsql := 'C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\osql.exe';
+	localOsql := 'osql';
 	ShowMessage(localOsql);
 	cmd := Concat(localOsql,' -S '
 									,'localhost\sqlexpress'
