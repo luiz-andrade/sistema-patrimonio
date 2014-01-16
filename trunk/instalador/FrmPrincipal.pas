@@ -213,9 +213,25 @@ var
 begin
 	databaseScript := (local + 'database.sql');
 	config := local + 'ConfigurationFile.INI';
-	params := Concat(	' /IACCEPTSQLSERVERLICENSETERMS ',
+	params := Concat(	' /ACTION=Install ',
+										'UIMODE=Normal',
+										' /IACCEPTSQLSERVERLICENSETERMS ',
 										' /SAPWD=',password,' ',
-										'/ConfigurationFile=',config, ' ');
+										' /INSTANCEID=',('SQLExpress'),' ',
+										' /FEATURES=',('SQLENGINE'),' ',
+										' /HELP=',('False'),' ',
+										' /INDICATEPROGRESS=',('True'),' ',
+										' /QUIETSIMPLE=',('False'),' ',
+										' /INSTANCENAME=',('SQLEXPRESS'),' ',
+										' /ADDCURRENTUSERASSQLADMIN=',('True'),' ',
+										' /TCPENABLED=',('1'),' ',
+										' /NPENABLED=',('1'),' ',
+										' /SQLSVCACCOUNT=',('NT AUTHORITY\LOCAL SERVICE'),' ',
+										' /SECURITYMODE=',('SQL'),' ',
+										' /SQLSVCSTARTUPTYPE=',('Automatic'),' ',
+										' /AGTSVCACCOUNT=',QuotedStr('NT AUTHORITY\NETWORK SERVICE'),' '{,
+										'/ConfigurationFile=',config, ' '}
+										);
 	cmd := local + instalador;
 	ShellExecute(Application.Handle,nil,PWideChar(cmd),PWideChar(params),nil, SW_SHOWNORMAL);
 	//ShellExecute(0,'open','osql',PWideChar('-S localhost\sqlexpress -E -i ' + databaseScript),nil, SW_SHOWNORMAL);
@@ -232,6 +248,8 @@ begin
 										'User ID=sa;',
 										'Initial Catalog=patrimonio;',
 										'Data Source=', host);
+	if FileExists(destination + dbfileName) then
+		DeleteFile(destination + dbfileName);
 	CreateUDLFile(destination + dbfileName,'SQLNCLI10.1', connStr);
 end;
 
@@ -251,7 +269,8 @@ begin
 						begin
 							for i := 0 to Count -1 do
 							begin
-								CopyFile(PWideChar(local + Strings[i]),PWideChar(destination + Strings[i]),false);
+								if not FileExists(PWideChar(destination + Strings[i])) then
+									CopyFile(PWideChar(local + Strings[i]),PWideChar(destination + Strings[i]),false);
 							end;
 						end;
 					end;
