@@ -350,7 +350,7 @@ begin
 			try
 				ConnectionString := connStr;
 				Connected := True;
-				Result := (Connected and FileExists('C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe'));
+				Result := (Connected and (FileExists('C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe') OR FileExists('C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\osql.exe')));
 			except
 				Result := False;
 			end;
