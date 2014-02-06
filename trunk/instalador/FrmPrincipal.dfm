@@ -75,7 +75,7 @@ object FormPrinicipal: TFormPrinicipal
     Caption = 'Provedor de Acesso'
   end
   object btnCancelar: TButton
-    Left = 550
+    Left = 510
     Top = 579
     Width = 98
     Height = 33
@@ -102,7 +102,6 @@ object FormPrinicipal: TFormPrinicipal
     BevelOuter = bvNone
     BorderStyle = bsSingle
     TabOrder = 1
-    ExplicitLeft = 1
     object imgCental: TImage
       Left = 0
       Top = 0
@@ -2143,7 +2142,7 @@ object FormPrinicipal: TFormPrinicipal
     end
   end
   object Button1: TButton
-    Left = 656
+    Left = 619
     Top = 579
     Width = 98
     Height = 33
