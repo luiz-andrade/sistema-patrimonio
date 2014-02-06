@@ -4,54 +4,86 @@ object FormPrinicipal: TFormPrinicipal
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Instalador do Sistema de Patrim'#244'nio 1.0'
-  ClientHeight = 495
-  ClientWidth = 622
+  ClientHeight = 647
+  ClientWidth = 781
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -14
   Font.Name = 'Tahoma'
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
   Position = poDesktopCenter
   OnCreate = FormCreate
-  PixelsPerInch = 96
-  TextHeight = 13
+  OnShow = FormShow
+  PixelsPerInch = 120
+  TextHeight = 17
   object Label1: TLabel
-    Left = 40
-    Top = 128
-    Width = 166
-    Height = 13
+    Left = 37
+    Top = 167
+    Width = 213
+    Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Endere'#231'o servidor banco de dados'
   end
   object Label2: TLabel
-    Left = 303
-    Top = 128
-    Width = 175
-    Height = 13
+    Left = 381
+    Top = 167
+    Width = 223
+    Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Senha de acesso ao banco de dados'
   end
   object Label3: TLabel
-    Left = 40
-    Top = 168
-    Width = 92
-    Height = 13
+    Left = 37
+    Top = 220
+    Width = 115
+    Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Local de Instala'#231#227'o'
   end
   object Label4: TLabel
-    Left = 40
-    Top = 429
-    Width = 109
-    Height = 13
-    Caption = 'Arquivo de Instala'#231#227'o:'
+    Left = 37
+    Top = 565
+    Width = 209
+    Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Arquivo de Instala'#231#227'o SQL Server:'
+  end
+  object Label5: TLabel
+    Left = 465
+    Top = 220
+    Width = 122
+    Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Provedor de Acesso'
   end
   object btnCancelar: TButton
-    Left = 432
-    Top = 443
-    Width = 75
-    Height = 25
+    Left = 550
+    Top = 579
+    Width = 98
+    Height = 33
     Cursor = crHandPoint
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Cancelar'
     TabOrder = 0
     OnClick = btnCancelarClick
@@ -59,18 +91,28 @@ object FormPrinicipal: TFormPrinicipal
   object pnTopo: TPanel
     Left = 0
     Top = 0
-    Width = 622
+    Width = 781
     Height = 114
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alTop
     AutoSize = True
     BevelOuter = bvNone
     BorderStyle = bsSingle
     TabOrder = 1
+    ExplicitLeft = 1
     object imgCental: TImage
-      Left = -2
+      Left = 0
       Top = 0
-      Width = 620
+      Width = 777
       Height = 110
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Align = alClient
       AutoSize = True
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D494844520000026C0000
@@ -2097,87 +2139,121 @@ object FormPrinicipal: TFormPrinicipal
         722B8FB0A42EAA85086ECA073D7C2AC2D069D06D892E77A2968DBA3E41109987
         4AD81241C1C5CD6B5D3FCBB829E7573D9189C3F61F766544193A8D4B964E6489
         73D3469C848F2088CCE3FF01AC1439EC9904E63B0000000049454E44AE426082}
+      ExplicitWidth = 620
     end
   end
   object Button1: TButton
-    Left = 513
-    Top = 443
-    Width = 75
-    Height = 25
+    Left = 656
+    Top = 579
+    Width = 98
+    Height = 33
     Cursor = crHandPoint
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Instalar'
     TabOrder = 2
     OnClick = Button1Click
   end
   object chkBanco: TCheckBox
-    Left = 40
-    Top = 252
-    Width = 177
-    Height = 13
+    Left = 37
+    Top = 379
+    Width = 232
+    Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Instalar SQL Server'
     TabOrder = 3
   end
   object edtEndServidor: TEdit
-    Left = 40
-    Top = 144
-    Width = 257
-    Height = 21
+    Left = 37
+    Top = 188
+    Width = 336
+    Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     TabOrder = 4
     Text = '.\sqlexpress'
   end
   object chkSistema: TCheckBox
-    Left = 40
-    Top = 219
-    Width = 177
-    Height = 17
+    Left = 37
+    Top = 302
+    Width = 232
+    Height = 23
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Instalar Arquivos do Sistema'
     TabOrder = 5
   end
   object edtPassword: TEdit
-    Left = 303
-    Top = 144
-    Width = 257
-    Height = 21
+    Left = 381
+    Top = 188
+    Width = 336
+    Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     PasswordChar = '*'
     TabOrder = 6
     Text = '098063'
   end
   object edtLocalInstalacao: TEdit
-    Left = 40
-    Top = 184
-    Width = 520
-    Height = 21
+    Left = 37
+    Top = 241
+    Width = 420
+    Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     TabOrder = 7
     Text = 'C:\Sistema de Patrim'#244'nio'
   end
   object edtInstalador: TEdit
-    Left = 40
-    Top = 445
-    Width = 166
-    Height = 21
+    Left = 37
+    Top = 587
+    Width = 336
+    Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     TabOrder = 8
     Text = 'SQLEXPRADV_x64_ENU.exe'
   end
   object chkCriarBanco: TCheckBox
-    Left = 40
-    Top = 283
-    Width = 177
-    Height = 13
+    Left = 37
+    Top = 457
+    Width = 232
+    Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Criar Banco de Dados'
     TabOrder = 9
     OnClick = chkCriarBancoClick
   end
-  object Memo1: TMemo
-    Left = 40
-    Top = 320
-    Width = 520
-    Height = 89
+  object cbProviders: TComboBox
+    Left = 464
+    Top = 241
+    Width = 253
+    Height = 25
+    Style = csDropDownList
     TabOrder = 10
   end
   object Timer: TTimer
     Interval = 50
     OnTimer = TimerTimer
-    Left = 576
+    Left = 561
     Top = 16
   end
 end

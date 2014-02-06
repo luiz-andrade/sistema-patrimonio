@@ -25,12 +25,14 @@ type
     edtInstalador: TEdit;
     Label4: TLabel;
     chkCriarBanco: TCheckBox;
-    Memo1: TMemo;
+    cbProviders: TComboBox;
+    Label5: TLabel;
     procedure TimerTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure chkCriarBancoClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
 		{ Private declarations }
 		Water : TWaterEffect;
@@ -48,6 +50,35 @@ implementation
 uses uFuncoes;
 
 {$R *.dfm}
+
+function TestarMssql(password, host, provedor : String; banco : String = 'master') : Boolean;
+	var
+		connStr : String;
+begin
+	connStr := Concat('Provider=SQLOLEDB;'
+										,'Password=',Password,';',
+										'Persist Security Info=True;',
+										'User ID=sa;',
+										'Initial Catalog=',banco,';',
+										'Data Source=', host);
+	with TADOConnection.Create(nil) do
+	begin
+		try
+			try
+				ConnectionString := connStr;
+				Connected := True;
+				Result := (Connected);
+			except on E : Exception do
+        begin
+          Application.MessageBox(PWideChar('Ocorreu um erro ao tentar se conectar com o banco de dados!'+ #13 + 'Retorno: ' + E.Message), 'Banco de dados', MB_ICONERROR);
+          Result := False;
+        end;
+			end;
+		finally
+			Free;
+		end;
+  end;
+end;
 
 function GetDosOutput(CommandLine: string; Work: string = 'C:\'): string;
 var
@@ -185,7 +216,7 @@ begin
     end;
 end;
 
-procedure CriarBanco(local, destination, password : String);
+procedure CriarBanco(local, destination, password, host, provedor : String);
 var
 	params : String;
 	cmd : String;
@@ -195,22 +226,23 @@ var
 	localOsql : String;
 begin
 	databaseScript := 'database.sql';
- if FileExists('C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe') then
-	localOsql := 'C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe';
- if FileExists('C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\osql.exe') then
-	localOsql := 'C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\osql.exe';
 	localOsql := 'osql';
 	cmd := Concat(localOsql,' -S '
 									,'localhost\sqlexpress'
 									,' -E ' // Connecta localmente sem informar password.
 									,' -n ' // Remove numeração
 									,' -i ' // Informa arquivo com script
-									,QuotedStr(local + databaseScript));
-	ShowMessage(cmd);
-	log := GetDosOutput(cmd);
-	FormPrinicipal.Memo1.Lines.Text := log;
+									,('"'+local + databaseScript+'"'));
+	//ShowMessage(cmd);
+	log := GetDosOutput(cmd, destination);
 	TerminarProcesso('osql');
 	TerminarProcesso('cmd');
+
+	if TestarMssql(password, host, 'patrimonio', provedor) then
+    Application.MessageBox('Banco de Dados criado com sucesso!', 'Instalador', MB_ICONASTERISK)
+  else
+    Application.MessageBox('Não foi possível criar o Banco de Dados!', 'Instalador', MB_ICONERROR);
+
 end;
 
 procedure InstallMssql(local, destination, password, instalador : String);
@@ -247,20 +279,21 @@ begin
 	//ShellExecute(0,'open','osql',PWideChar('-S localhost\sqlexpress -E -i ' + databaseScript),nil, SW_SHOWNORMAL);
 end;
 
-procedure CreateDbFileIni(destination, password, host : String);
+procedure CreateDbFileIni(destination, password, host, provedor : String);
 	var
 		connStr : String;
 	const
 		dbfileName : String = 'dbxcon.udl';
 begin
 	connStr := Concat('Password=',Password,';',
+                    'Integrated Security="";',
 										'Persist Security Info=True;',
 										'User ID=sa;',
 										'Initial Catalog=patrimonio;',
 										'Data Source=', host);
 	if FileExists(destination + dbfileName) then
 		DeleteFile(destination + dbfileName);
-	CreateUDLFile(destination + dbfileName,'SQLNCLI10.1', connStr);
+	CreateUDLFile(destination + dbfileName,provedor, connStr);
 end;
 
 procedure CopyFiles(local, destination : String);
@@ -270,22 +303,27 @@ begin
 	with TStringList.Create do
 	begin
 		LoadFromFile(local + 'InstallOpt.txt');
-		if (Count > 0) then
-		begin
-			begin
-				if ForceDirectories(destination) then
-					begin
-						if ForceDirectories(destination + '\reports') then
-						begin
-							for i := 0 to Count -1 do
-							begin
-								if not FileExists(PWideChar(destination + Strings[i])) then
-									CopyFile(PWideChar(local + Strings[i]),PWideChar(destination + Strings[i]),false);
-							end;
-						end;
-					end;
-			end;
-		end;
+    try
+      if (Count > 0) then
+      begin
+        begin
+          if ForceDirectories(destination) then
+            begin
+              if ForceDirectories(destination + '\reports') then
+              begin
+                for i := 0 to Count -1 do
+                begin
+                  if not FileExists(PWideChar(destination + Strings[i])) then
+                    CopyFile(PWideChar(local + Strings[i]),PWideChar(destination + Strings[i]),false);
+                end;
+              end;
+            end;
+        end;
+      end;
+      Application.MessageBox('"Arquivos do Sistema" Instalados com Sucesso!', 'Instalador', MB_ICONASTERISK);
+    except
+        Application.MessageBox('Não foi possível concluir a instalação dos "Arquivos do Sistema"!', 'Instalador', MB_ICONERROR);
+    end;
 	end;
 end;
 
@@ -307,14 +345,14 @@ begin
 		destination := destination + '\';
 	if(chkSistema.Checked) then
 		CopyFiles(local, destination);
-	CreateDbFileIni(destination, password, host);
+	CreateDbFileIni(destination, password, host, cbProviders.Text);
 	if(chkBanco.Checked) then
 	begin
 		InstallMssql(local, destination,password, edtInstalador.Text);
 	end;
 	if(chkCriarBanco.Checked) then
 	begin
-		CriarBanco(local, destination,password);
+		CriarBanco(local, destination,password, host, cbProviders.Text);
   end;
 end;
 
@@ -331,6 +369,18 @@ begin
 	xImage := imgCental.Height;
 end;
 
+procedure TFormPrinicipal.FormShow(Sender: TObject);
+var
+  i : integer;
+begin
+  with TADOConnection.Create(Self) do
+  begin
+    GetProviderNames(cbProviders.Items);
+    if(cbProviders.Items.Count > 0) then
+      cbProviders.ItemIndex := 0;
+  end;
+end;
+
 procedure TFormPrinicipal.TimerTimer(Sender: TObject);
 begin
 	if Random(8) = 1 then
@@ -343,44 +393,20 @@ begin
 	end;
 end;
 
-
-function TestarMssql(password, host : String) : Boolean;
-	var
-		connStr : String;
-begin
-	connStr := Concat('Provider=SQLNCLI10.1;'
-										,'Password=',Password,';',
-										'Persist Security Info=True;',
-										'User ID=sa;',
-										'Initial Catalog=master;',
-										'Data Source=', host);
-	with TADOConnection.Create(nil) do
-	begin
-		try
-			try
-				ConnectionString := connStr;
-				Connected := True;
-				Result := (Connected and (FileExists('C:\Program Files\Microsoft SQL Server\100\Tools\Binn\osql.exe') OR FileExists('C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\osql.exe')));
-			except
-				Result := False;
-			end;
-		finally
-			Free;
-		end;
-  end;
-end;
-
 procedure TFormPrinicipal.chkCriarBancoClick(Sender: TObject);
 var
 	password, host : String;
 begin
 	password := edtPassword.Text;
 	host := edtEndServidor.Text;
-	if not TestarMssql(password, host) then
-	begin
-		Application.MessageBox('Não foi possível determinar se o banco de dados foi instalado!', 'Banco de dados', MB_ICONERROR);
-		chkCriarBanco.Checked := False;
-	end;
+  if (chkCriarBanco.Checked) then
+  begin
+    if not (TestarMssql(password, host, cbProviders.Text)) then
+    begin
+      chkCriarBanco.Checked := False;
+      Application.MessageBox('Não foi possível determinar se o banco de dados foi instalado!', 'Banco de dados', MB_ICONERROR);
+    end;
+  end;
 end;
 
 end.
