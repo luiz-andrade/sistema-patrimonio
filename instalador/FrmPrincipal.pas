@@ -4,8 +4,8 @@ interface
 
 uses
 	Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-	Dialogs, ExtCtrls, pngimage, StdCtrls, untWaterEffect, StrUtils, IniFiles, ADODB, 
-	ShellAPI, TlHelp32, Psapi, DB;
+	Dialogs, ExtCtrls, pngimage, StdCtrls, untWaterEffect, StrUtils, IniFiles, ADODB,
+	ShellAPI, TlHelp32, Psapi, DB, IOUtils;
 
 type
   TFormPrinicipal = class(TForm)
@@ -22,11 +22,11 @@ type
     edtPassword: TEdit;
     Label3: TLabel;
     edtLocalInstalacao: TEdit;
-    edtInstalador: TEdit;
     Label4: TLabel;
     chkCriarBanco: TCheckBox;
     cbProviders: TComboBox;
     Label5: TLabel;
+    edtInstalador: TComboBox;
     procedure TimerTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -238,7 +238,7 @@ begin
 	TerminarProcesso('osql');
 	TerminarProcesso('cmd');
 
-	if TestarMssql(password, host, 'patrimonio', provedor) then
+	if TestarMssql(password, host, provedor, 'patrimonio') then
     Application.MessageBox('Banco de Dados criado com sucesso!', 'Instalador', MB_ICONASTERISK)
   else
     Application.MessageBox('Não foi possível criar o Banco de Dados!', 'Instalador', MB_ICONERROR);
@@ -271,6 +271,7 @@ begin
 										' /SQLSVCACCOUNT=',('NT AUTHORITY\LOCAL SERVICE'),' ',
 										' /SECURITYMODE=',('SQL'),' ',
 										' /SQLSVCSTARTUPTYPE=',('Automatic'),' ',
+                    ' /SQLUSERDBDIR=',local + '\banco\',' ',
 										' /AGTSVCACCOUNT=',QuotedStr('NT AUTHORITY\NETWORK SERVICE'),' '{,
 										'/ConfigurationFile=',config, ' '}
 										);
@@ -320,6 +321,7 @@ begin
             end;
         end;
       end;
+      ForceDirectories(destination + '\banco');
       Application.MessageBox('"Arquivos do Sistema" Instalados com Sucesso!', 'Instalador', MB_ICONASTERISK);
     except
         Application.MessageBox('Não foi possível concluir a instalação dos "Arquivos do Sistema"!', 'Instalador', MB_ICONERROR);
@@ -341,7 +343,7 @@ begin
 	host := edtEndServidor.Text;
 	local := ExtractFilePath(Application.ExeName);
 	destination := edtLocalInstalacao.Text;
-	if RightStr(destination,1) <> '\' then 
+	if RightStr(destination,1) <> '\' then
 		destination := destination + '\';
 	if(chkSistema.Checked) then
 		CopyFiles(local, destination);
@@ -372,12 +374,34 @@ end;
 procedure TFormPrinicipal.FormShow(Sender: TObject);
 var
   i : integer;
+  local : String;
+  Rec: TSearchRec;
 begin
   with TADOConnection.Create(Self) do
   begin
     GetProviderNames(cbProviders.Items);
     if(cbProviders.Items.Count > 0) then
       cbProviders.ItemIndex := 0;
+  end;
+  local := ExtractFilePath(Application.ExeName);
+  edtInstalador.Items.Clear;
+  if FindFirst(Local + '\*.exe', faAnyFile, Rec) = 0 then try
+    repeat
+      if (Rec.Name = '.') or (Rec.Name = '..') then
+        continue;
+      if (Rec.Attr and faVolumeID) = faVolumeID then
+        continue; // nothing useful to do with volume IDs
+      if (Rec.Attr and faHidden) = faHidden then
+        continue; // honor the OS "hidden" setting
+      if (Rec.Attr and faDirectory) = faDirectory then
+      ;
+      if(AnsiContainsStr(Rec.Name, 'SQL')) then
+        edtInstalador.Items.Add(Rec.Name);
+    until FindNext(Rec) <> 0;
+  finally
+    SysUtils.FindClose(Rec);
+    if (edtInstalador.Items.Count > 0) then
+      edtInstalador.ItemIndex := 0;
   end;
 end;
 

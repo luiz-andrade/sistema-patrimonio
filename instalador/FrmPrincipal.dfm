@@ -112,7 +112,6 @@ object FormPrinicipal: TFormPrinicipal
       Margins.Right = 4
       Margins.Bottom = 4
       Align = alClient
-      AutoSize = True
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D494844520000026C0000
         006E08060000009AC24F070000000473424954080808087C0864880000000970
@@ -2216,18 +2215,6 @@ object FormPrinicipal: TFormPrinicipal
     TabOrder = 7
     Text = 'C:\Sistema de Patrim'#244'nio'
   end
-  object edtInstalador: TEdit
-    Left = 37
-    Top = 587
-    Width = 336
-    Height = 25
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
-    TabOrder = 8
-    Text = 'SQLEXPRADV_x64_ENU.exe'
-  end
   object chkCriarBanco: TCheckBox
     Left = 37
     Top = 457
@@ -2238,13 +2225,21 @@ object FormPrinicipal: TFormPrinicipal
     Margins.Right = 4
     Margins.Bottom = 4
     Caption = 'Criar Banco de Dados'
-    TabOrder = 9
+    TabOrder = 8
     OnClick = chkCriarBancoClick
   end
   object cbProviders: TComboBox
     Left = 464
     Top = 241
     Width = 253
+    Height = 25
+    Style = csDropDownList
+    TabOrder = 9
+  end
+  object edtInstalador: TComboBox
+    Left = 37
+    Top = 585
+    Width = 252
     Height = 25
     Style = csDropDownList
     TabOrder = 10
