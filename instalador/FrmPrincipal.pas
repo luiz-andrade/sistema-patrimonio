@@ -271,7 +271,7 @@ begin
 										' /SQLSVCACCOUNT=',('NT AUTHORITY\LOCAL SERVICE'),' ',
 										' /SECURITYMODE=',('SQL'),' ',
 										' /SQLSVCSTARTUPTYPE=',('Automatic'),' ',
-                    ' /SQLUSERDBDIR=',local + '\banco\',' ',
+                    ' /SQLUSERDBDIR="',local + '\banco\','" ',
 										' /AGTSVCACCOUNT=',QuotedStr('NT AUTHORITY\NETWORK SERVICE'),' '{,
 										'/ConfigurationFile=',config, ' '}
 										);
