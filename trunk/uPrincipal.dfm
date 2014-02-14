@@ -1,12 +1,12 @@
 object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
-  ClientHeight = 610
-  ClientWidth = 860
+  ClientHeight = 798
+  ClientWidth = 1125
   Color = clMedGray
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -14
   Font.Name = 'Tahoma'
   Font.Style = []
   FormStyle = fsMDIForm
@@ -16,13 +16,17 @@ object frmPrincipal: TfrmPrincipal
   WindowState = wsMaximized
   OnCloseQuery = FormCloseQuery
   OnShow = FormShow
-  PixelsPerInch = 96
-  TextHeight = 13
+  PixelsPerInch = 120
+  TextHeight = 17
   object StatusBar: TStatusBar
     Left = 0
-    Top = 591
-    Width = 860
+    Top = 779
+    Width = 1125
     Height = 19
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Panels = <
       item
         Bevel = pbNone
@@ -39,8 +43,12 @@ object frmPrincipal: TfrmPrincipal
   object pnToolBar: TPanel
     Left = 0
     Top = 0
-    Width = 860
-    Height = 62
+    Width = 1125
+    Height = 81
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alTop
     BevelOuter = bvNone
     BorderWidth = 5
@@ -50,11 +58,11 @@ object frmPrincipal: TfrmPrincipal
     object ToolBar: TToolBar
       Left = 5
       Top = 5
-      Width = 850
-      Height = 52
+      Width = 1115
+      Height = 71
       Align = alClient
-      ButtonHeight = 52
-      ButtonWidth = 104
+      ButtonHeight = 56
+      ButtonWidth = 128
       EdgeInner = esNone
       EdgeOuter = esNone
       GradientEndColor = clWhite
@@ -72,19 +80,19 @@ object frmPrincipal: TfrmPrincipal
         Action = actLocais
       end
       object ToolButton3: TToolButton
-        Left = 106
+        Left = 130
         Top = 0
         Cursor = crHandPoint
         Action = actPessoa
       end
       object ToolButton4: TToolButton
-        Left = 210
+        Left = 258
         Top = 0
         Cursor = crHandPoint
         Action = actGrupos
       end
       object ToolButton2: TToolButton
-        Left = 314
+        Left = 386
         Top = 0
         Width = 8
         Caption = 'ToolButton2'
@@ -92,13 +100,13 @@ object frmPrincipal: TfrmPrincipal
         Style = tbsSeparator
       end
       object ToolButton5: TToolButton
-        Left = 322
+        Left = 394
         Top = 0
         Cursor = crHandPoint
         Action = actRegistroBens
       end
       object ToolButton6: TToolButton
-        Left = 426
+        Left = 522
         Top = 0
         Width = 8
         Caption = 'ToolButton6'
@@ -106,19 +114,19 @@ object frmPrincipal: TfrmPrincipal
         Style = tbsSeparator
       end
       object ToolButton7: TToolButton
-        Left = 434
+        Left = 530
         Top = 0
         Cursor = crHandPoint
         Action = actInfoEmpresa
       end
       object ToolButton9: TToolButton
-        Left = 538
+        Left = 658
         Top = 0
         Cursor = crHandPoint
         Action = actMovimentacao
       end
       object ToolButton8: TToolButton
-        Left = 642
+        Left = 786
         Top = 0
         Width = 8
         Caption = 'ToolButton8'
@@ -126,7 +134,7 @@ object frmPrincipal: TfrmPrincipal
         Style = tbsSeparator
       end
       object ToolButton10: TToolButton
-        Left = 650
+        Left = 794
         Top = 0
         Caption = 'Relat'#243'rios'
         DropdownMenu = PopupMenu

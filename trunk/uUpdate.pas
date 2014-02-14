@@ -171,7 +171,7 @@ begin
   _versaoExe   := GetLocalVersion;
   _dirTrabalho := ExtractFilePath(Application.ExeName);
   _execName    := ExtractFileName(Application.ExeName);
-  _preUrl      := 'http://sistema-patrimonio.googlecode.com/svn/trunk/Release/Win32/patrimonio.exe';
+  _preUrl      := 'https://sistema-patrimonio.googlecode.com/svn/trunk/Debug/Win32/patrimonio.exe';
 end;
 
 procedure TfrmUpdate.btnAtualizarClick(Sender: TObject);

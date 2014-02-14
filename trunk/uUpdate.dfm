@@ -4,41 +4,53 @@ object frmUpdate: TfrmUpdate
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Atualiza'#231#227'o'
-  ClientHeight = 352
-  ClientWidth = 489
+  ClientHeight = 433
+  ClientWidth = 602
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -14
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
   Position = poDesktopCenter
   OnShow = FormShow
-  PixelsPerInch = 96
-  TextHeight = 13
+  PixelsPerInch = 120
+  TextHeight = 16
   object labDirTrabalho: TLabel
-    Left = 25
-    Top = 59
-    Width = 69
-    Height = 13
+    Left = 31
+    Top = 73
+    Width = 91
+    Height = 16
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'labDirTrabalho'
     Visible = False
   end
   object labVersaoLocal: TLabel
-    Left = 25
-    Top = 83
-    Width = 77
-    Height = 13
+    Left = 31
+    Top = 102
+    Width = 102
+    Height = 16
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'labelDirTrabalho'
     Visible = False
   end
   object Label1: TLabel
-    Left = 22
-    Top = 146
-    Width = 449
-    Height = 81
+    Left = 27
+    Top = 180
+    Width = 553
+    Height = 99
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     AutoSize = False
     Caption = 
       'OBS: Este processo de atualiza'#231#227'o faz download somente do ultimo' +
@@ -49,34 +61,46 @@ object frmUpdate: TfrmUpdate
     OnDblClick = Label1DblClick
   end
   object labVersaoBanco: TLabel
-    Left = 25
-    Top = 107
-    Width = 77
-    Height = 13
+    Left = 31
+    Top = 132
+    Width = 102
+    Height = 16
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'labelDirTrabalho'
     Visible = False
   end
   object pnTopo: TPanel
     Left = 0
     Top = 0
-    Width = 489
-    Height = 41
+    Width = 602
+    Height = 50
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alTop
     Alignment = taLeftJustify
     BorderWidth = 1
     Color = clWhite
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -13
+    Font.Height = -17
     Font.Name = 'Verdana'
     Font.Style = [fsBold, fsItalic]
     ParentFont = False
     TabOrder = 0
     object Label2: TLabel
-      Left = 49
+      Left = 60
       Top = 2
-      Width = 192
-      Height = 37
+      Width = 237
+      Height = 46
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Align = alLeft
       Alignment = taCenter
       AutoSize = False
@@ -86,8 +110,12 @@ object frmUpdate: TfrmUpdate
     object img: TImage
       Left = 2
       Top = 2
-      Width = 47
-      Height = 37
+      Width = 58
+      Height = 46
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Align = alLeft
       Center = True
       Picture.Data = {
@@ -930,18 +958,26 @@ object frmUpdate: TfrmUpdate
   end
   object pnAcoes: TPanel
     Left = 0
-    Top = 311
-    Width = 489
-    Height = 41
+    Top = 383
+    Width = 602
+    Height = 50
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
     object btnAtualizar: TBitBtn
-      Left = 278
-      Top = 7
-      Width = 99
-      Height = 26
+      Left = 342
+      Top = 9
+      Width = 122
+      Height = 32
       Cursor = crHandPoint
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Atualizar'
       DoubleBuffered = True
       Glyph.Data = {
@@ -976,11 +1012,15 @@ object frmUpdate: TfrmUpdate
       OnClick = btnAtualizarClick
     end
     object btnFechar: TBitBtn
-      Left = 382
-      Top = 7
-      Width = 99
-      Height = 25
+      Left = 470
+      Top = 9
+      Width = 122
+      Height = 30
       Cursor = crHandPoint
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Fechar  ESC'
       DoubleBuffered = True
       Glyph.Data = {
@@ -1015,10 +1055,14 @@ object frmUpdate: TfrmUpdate
       OnClick = btnFecharClick
     end
     object ProgressBar: TProgressBar
-      Left = 14
-      Top = 12
-      Width = 217
-      Height = 16
+      Left = 17
+      Top = 15
+      Width = 267
+      Height = 19
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       TabOrder = 2
       Visible = False
     end
