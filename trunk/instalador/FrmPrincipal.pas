@@ -233,7 +233,7 @@ begin
 									,' -n ' // Remove numeração
 									,' -i ' // Informa arquivo com script
 									,('"'+local + databaseScript+'"'));
-	//ShowMessage(cmd);
+	ShowMessage(cmd);
 	log := GetDosOutput(cmd, destination);
 	TerminarProcesso('osql');
 	TerminarProcesso('cmd');
