@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2013/10/21 21:00:54.000.939,C:\Users\Fagner\Documents\RAD Studio\Projects\Unit1.dfm=C:\Projetos\sistema-patrimonio\instalador\FrmPrincipal.dfm</Transaction>
-    <Transaction>2013/10/21 21:01:23.000.718,C:\Users\Fagner\Documents\RAD Studio\Projects\Project1.dproj=C:\Projetos\sistema-patrimonio\instalador\Instalador.dproj</Transaction>
+    <Transaction>2013/10/21 21:00:54.000.939,C:\Projetos\sistema-patrimonio\instalador\FrmPrincipal.dfm=C:\Users\Fagner\Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2013/10/21 21:01:23.000.718,C:\Projetos\sistema-patrimonio\instalador\Instalador.dproj=C:\Users\Fagner\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
   </Transactions>
 </BorlandProject>
