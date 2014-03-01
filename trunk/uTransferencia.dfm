@@ -3,80 +3,108 @@ object frmTransferencia: TfrmTransferencia
   Top = 0
   BorderWidth = 4
   Caption = 'Transferencia de dados.'
-  ClientHeight = 514
-  ClientWidth = 773
+  ClientHeight = 672
+  ClientWidth = 1011
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -14
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
   OnShow = FormShow
-  PixelsPerInch = 96
-  TextHeight = 13
+  PixelsPerInch = 120
+  TextHeight = 17
   object PageControl1: TPageControl
     Left = 0
-    Top = 39
-    Width = 773
-    Height = 475
+    Top = 51
+    Width = 1011
+    Height = 621
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ActivePage = tsBens
     Align = alClient
     TabOrder = 0
     object tsGrupos: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = '1 - Grupos'
       ImageIndex = 1
       object DBGrid2: TDBGrid
         Left = 0
         Top = 0
-        Width = 765
-        Height = 406
+        Width = 1003
+        Height = 535
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         DataSource = dsGrupos
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
-        TitleFont.Height = -11
+        TitleFont.Height = -14
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         OnDrawColumnCell = DBGrid2DrawColumnCell
       end
       object Panel2: TPanel
         Left = 0
-        Top = 406
-        Width = 765
-        Height = 41
+        Top = 535
+        Width = 1003
+        Height = 54
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 1
         DesignSize = (
-          765
-          41)
+          1003
+          54)
         object btnImportarGrupo: TButton
-          Left = 674
-          Top = 9
-          Width = 91
-          Height = 25
+          Left = 884
+          Top = 12
+          Width = 119
+          Height = 32
           Cursor = crHandPoint
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = []
           Caption = 'importar'
           TabOrder = 0
           OnClick = btnImportarGrupoClick
         end
         object pbGrupos: TProgressBar
-          Left = 4
-          Top = 13
-          Width = 257
-          Height = 16
+          Left = 5
+          Top = 17
+          Width = 336
+          Height = 21
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           TabOrder = 1
         end
         object btLimparGrupo: TButton
-          Left = 514
-          Top = 9
-          Width = 149
-          Height = 25
+          Left = 674
+          Top = 12
+          Width = 195
+          Height = 32
           Cursor = crHandPoint
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = []
           Caption = 'Apagar grupos e subgrupos'
           TabOrder = 2
@@ -85,107 +113,151 @@ object frmTransferencia: TfrmTransferencia
       end
     end
     object tsSubGrupos: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = '2 - SubGrupos'
       ImageIndex = 2
       object DBGrid3: TDBGrid
         Left = 0
         Top = 0
-        Width = 765
-        Height = 406
+        Width = 1003
+        Height = 535
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         DataSource = dsSubGrupos
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
-        TitleFont.Height = -11
+        TitleFont.Height = -14
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         OnDrawColumnCell = DBGrid3DrawColumnCell
       end
       object Panel3: TPanel
         Left = 0
-        Top = 406
-        Width = 765
-        Height = 41
+        Top = 535
+        Width = 1003
+        Height = 54
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 1
         DesignSize = (
-          765
-          41)
+          1003
+          54)
         object btnImportarSubGrupo: TButton
-          Left = 674
-          Top = 9
-          Width = 91
-          Height = 25
+          Left = 884
+          Top = 12
+          Width = 119
+          Height = 32
           Cursor = crHandPoint
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = []
           Caption = 'importar'
           TabOrder = 0
           OnClick = btnImportarSubGrupoClick
         end
         object pbSubGrupos: TProgressBar
-          Left = 4
-          Top = 13
-          Width = 257
-          Height = 16
+          Left = 5
+          Top = 17
+          Width = 336
+          Height = 21
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           TabOrder = 1
         end
       end
     end
     object tsOrgao: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = '3 - Org'#227'o'
       ImageIndex = 3
       object DBGrid4: TDBGrid
         Left = 0
         Top = 0
-        Width = 765
-        Height = 406
+        Width = 1003
+        Height = 535
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         DataSource = dsOrgaos
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
-        TitleFont.Height = -11
+        TitleFont.Height = -14
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         OnDrawColumnCell = DBGrid4DrawColumnCell
       end
       object Panel4: TPanel
         Left = 0
-        Top = 406
-        Width = 765
-        Height = 41
+        Top = 535
+        Width = 1003
+        Height = 54
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 1
         DesignSize = (
-          765
-          41)
+          1003
+          54)
         object btnImportarOrgao: TButton
-          Left = 674
-          Top = 9
-          Width = 91
-          Height = 25
+          Left = 884
+          Top = 12
+          Width = 119
+          Height = 32
           Cursor = crHandPoint
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = []
           Caption = 'importar'
           TabOrder = 0
           OnClick = btnImportarOrgaoClick
         end
         object pbOrgao: TProgressBar
-          Left = 4
-          Top = 13
-          Width = 257
-          Height = 16
+          Left = 5
+          Top = 17
+          Width = 336
+          Height = 21
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           TabOrder = 1
         end
         object btnLimparLocais: TButton
-          Left = 512
-          Top = 9
-          Width = 149
-          Height = 25
+          Left = 672
+          Top = 12
+          Width = 194
+          Height = 32
           Cursor = crHandPoint
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = []
           Caption = 'Apagar Orgaos e unidades'
           TabOrder = 2
@@ -194,92 +266,132 @@ object frmTransferencia: TfrmTransferencia
       end
     end
     object tsUnidades: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = '4 - Unidades'
       ImageIndex = 4
       object DBGrid5: TDBGrid
         Left = 0
         Top = 0
-        Width = 765
-        Height = 406
+        Width = 1003
+        Height = 535
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         DataSource = dsUnidades
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
-        TitleFont.Height = -11
+        TitleFont.Height = -14
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         OnDrawColumnCell = DBGrid5DrawColumnCell
       end
       object Panel5: TPanel
         Left = 0
-        Top = 406
-        Width = 765
-        Height = 41
+        Top = 535
+        Width = 1003
+        Height = 54
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 1
         DesignSize = (
-          765
-          41)
+          1003
+          54)
         object btnImportarUnidade: TButton
-          Left = 674
-          Top = 9
-          Width = 91
-          Height = 25
+          Left = 884
+          Top = 12
+          Width = 119
+          Height = 32
           Cursor = crHandPoint
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = []
           Caption = 'importar'
           TabOrder = 0
           OnClick = btnImportarUnidadeClick
         end
         object pbUnidades: TProgressBar
-          Left = 4
-          Top = 13
-          Width = 257
-          Height = 16
+          Left = 5
+          Top = 17
+          Width = 336
+          Height = 21
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           TabOrder = 1
         end
       end
     end
     object tsFornecedor: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = '5 - Fornecedores'
       ImageIndex = 5
       object Panel7: TPanel
         Left = 0
-        Top = 406
-        Width = 765
-        Height = 41
+        Top = 535
+        Width = 1003
+        Height = 54
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 0
         DesignSize = (
-          765
-          41)
+          1003
+          54)
         object btnImportaFornecedor: TButton
-          Left = 674
-          Top = 9
-          Width = 91
-          Height = 25
+          Left = 884
+          Top = 12
+          Width = 119
+          Height = 32
           Cursor = crHandPoint
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = []
           Caption = 'importar'
           TabOrder = 0
           OnClick = btnImportaFornecedorClick
         end
         object pbFornecedor: TProgressBar
-          Left = 4
-          Top = 13
-          Width = 257
-          Height = 16
+          Left = 5
+          Top = 17
+          Width = 336
+          Height = 21
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           TabOrder = 1
         end
         object btnApagarFornecedor: TButton
-          Left = 512
-          Top = 9
-          Width = 149
-          Height = 25
+          Left = 672
+          Top = 12
+          Width = 194
+          Height = 32
           Cursor = crHandPoint
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = []
           Caption = 'Apagar todos os Fonecedores'
           TabOrder = 2
@@ -289,72 +401,100 @@ object frmTransferencia: TfrmTransferencia
       object DBGrid6: TDBGrid
         Left = 0
         Top = 0
-        Width = 765
-        Height = 406
+        Width = 1003
+        Height = 535
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         DataSource = dsFornecedor
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
-        TitleFont.Height = -11
+        TitleFont.Height = -14
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         OnDrawColumnCell = DBGrid6DrawColumnCell
       end
     end
     object tsGestao: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = '6 - Gest'#227'o'
       ImageIndex = 6
       object DBGrid7: TDBGrid
         Left = 0
         Top = 0
-        Width = 765
-        Height = 406
+        Width = 1003
+        Height = 535
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         DataSource = dsGestao
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
-        TitleFont.Height = -11
+        TitleFont.Height = -14
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         OnDrawColumnCell = DBGrid7DrawColumnCell
       end
       object Panel8: TPanel
         Left = 0
-        Top = 406
-        Width = 765
-        Height = 41
+        Top = 535
+        Width = 1003
+        Height = 54
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 1
         DesignSize = (
-          765
-          41)
+          1003
+          54)
         object Button1: TButton
-          Left = 674
-          Top = 9
-          Width = 91
-          Height = 25
+          Left = 884
+          Top = 12
+          Width = 119
+          Height = 32
           Cursor = crHandPoint
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = []
           Caption = 'importar'
           TabOrder = 0
           OnClick = Button1Click
         end
         object pbGestao: TProgressBar
-          Left = 4
-          Top = 13
-          Width = 257
-          Height = 16
+          Left = 5
+          Top = 17
+          Width = 336
+          Height = 21
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           TabOrder = 1
         end
         object Button2: TButton
-          Left = 519
-          Top = 9
-          Width = 149
-          Height = 25
+          Left = 681
+          Top = 12
+          Width = 195
+          Height = 32
           Cursor = crHandPoint
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = []
           Caption = 'Apagar todos as gest'#227'o'
           TabOrder = 2
@@ -363,57 +503,81 @@ object frmTransferencia: TfrmTransferencia
       end
     end
     object tsBens: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = '7 - Bens'
       object DBGrid1: TDBGrid
         Left = 0
         Top = 0
-        Width = 765
-        Height = 406
+        Width = 1003
+        Height = 535
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         DataSource = dsBens
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
-        TitleFont.Height = -11
+        TitleFont.Height = -14
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         OnDrawColumnCell = DBGrid1DrawColumnCell
       end
       object Panel1: TPanel
         Left = 0
-        Top = 406
-        Width = 765
-        Height = 41
+        Top = 535
+        Width = 1003
+        Height = 54
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 1
         DesignSize = (
-          765
-          41)
+          1003
+          54)
         object btnImportarbem: TButton
-          Left = 674
-          Top = 9
-          Width = 91
-          Height = 25
+          Left = 884
+          Top = 12
+          Width = 119
+          Height = 32
           Cursor = crHandPoint
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = []
           Caption = 'importar'
           TabOrder = 0
           OnClick = btnImportarbemClick
         end
         object pbBens: TProgressBar
-          Left = 4
-          Top = 13
-          Width = 257
-          Height = 16
+          Left = 5
+          Top = 17
+          Width = 336
+          Height = 21
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           TabOrder = 1
         end
         object btnLimparBens: TButton
-          Left = 512
-          Top = 9
-          Width = 149
-          Height = 25
+          Left = 672
+          Top = 12
+          Width = 194
+          Height = 32
           Cursor = crHandPoint
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Anchors = []
           Caption = 'Apagar todos os bens'
           TabOrder = 2
@@ -424,46 +588,58 @@ object frmTransferencia: TfrmTransferencia
   end
   object Panel6: TPanel
     AlignWithMargins = True
-    Left = 3
-    Top = 3
-    Width = 767
-    Height = 33
+    Left = 4
+    Top = 4
+    Width = 1003
+    Height = 43
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
     object Label1: TLabel
       Left = 0
       Top = 0
-      Width = 41
-      Height = 33
+      Width = 52
+      Height = 43
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Align = alLeft
       Alignment = taCenter
       Caption = 'Arquivo:'
       Layout = tlCenter
-      ExplicitHeight = 13
+      ExplicitHeight = 17
     end
     object edtArquivo: TEdit
       AlignWithMargins = True
-      Left = 44
-      Top = 5
-      Width = 608
-      Height = 23
-      Margins.Top = 5
-      Margins.Bottom = 5
+      Left = 56
+      Top = 7
+      Width = 796
+      Height = 29
+      Margins.Left = 4
+      Margins.Top = 7
+      Margins.Right = 4
+      Margins.Bottom = 7
       Align = alClient
       ReadOnly = True
       TabOrder = 0
-      ExplicitHeight = 21
+      ExplicitHeight = 25
     end
     object btnSelecionar: TButton
       AlignWithMargins = True
-      Left = 658
-      Top = 4
-      Width = 25
-      Height = 25
+      Left = 860
+      Top = 5
+      Width = 33
+      Height = 33
       Cursor = crHandPoint
-      Margins.Top = 4
-      Margins.Bottom = 4
+      Margins.Left = 4
+      Margins.Top = 5
+      Margins.Right = 4
+      Margins.Bottom = 5
       Align = alRight
       Caption = '...'
       TabOrder = 1
@@ -471,13 +647,15 @@ object frmTransferencia: TfrmTransferencia
     end
     object btnConectar: TButton
       AlignWithMargins = True
-      Left = 689
-      Top = 4
-      Width = 75
-      Height = 25
+      Left = 901
+      Top = 5
+      Width = 98
+      Height = 33
       Cursor = crHandPoint
-      Margins.Top = 4
-      Margins.Bottom = 4
+      Margins.Left = 4
+      Margins.Top = 5
+      Margins.Right = 4
+      Margins.Bottom = 5
       Align = alRight
       Caption = 'Conectar'
       TabOrder = 2
