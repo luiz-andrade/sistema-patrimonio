@@ -693,10 +693,10 @@ begin
 					Clear;
 					Add('insert into bem(idenficacao, descricao ,grupoId, estadoId, localId, ');
 					Add('gestaoId, valor, tipoIdentificacao, subgrupoId, ');
-					Add('subLocalId, tipoAquisicao, quantidade) ');
+					Add('subLocalId, tipoAquisicao, quantidade,valorAquisicao) ');
 					Add('Values (:idenficacao, :descricao, :grupoId, :estadoId, :localId, ');
 					Add(':gestaoId, :valor, :tipoIdentificacao, :subgrupoId, ');
-					Add(':subLocalId, :tipoAquisicao, :quantidade)');
+					Add(':subLocalId, :tipoAquisicao, :quantidade, :valorAquisicao)');
 				end;
 				with Parameters do
 				begin
