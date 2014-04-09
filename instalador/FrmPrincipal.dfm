@@ -20,8 +20,8 @@ object FormPrinicipal: TFormPrinicipal
   PixelsPerInch = 120
   TextHeight = 17
   object Label1: TLabel
-    Left = 37
-    Top = 167
+    Left = 39
+    Top = 150
     Width = 213
     Height = 17
     Margins.Left = 4
@@ -31,8 +31,8 @@ object FormPrinicipal: TFormPrinicipal
     Caption = 'Endere'#231'o servidor banco de dados'
   end
   object Label2: TLabel
-    Left = 381
-    Top = 167
+    Left = 383
+    Top = 150
     Width = 223
     Height = 17
     Margins.Left = 4
@@ -42,8 +42,8 @@ object FormPrinicipal: TFormPrinicipal
     Caption = 'Senha de acesso ao banco de dados'
   end
   object Label3: TLabel
-    Left = 37
-    Top = 220
+    Left = 39
+    Top = 203
     Width = 115
     Height = 17
     Margins.Left = 4
@@ -53,8 +53,8 @@ object FormPrinicipal: TFormPrinicipal
     Caption = 'Local de Instala'#231#227'o'
   end
   object Label4: TLabel
-    Left = 37
-    Top = 565
+    Left = 39
+    Top = 564
     Width = 209
     Height = 17
     Margins.Left = 4
@@ -64,8 +64,8 @@ object FormPrinicipal: TFormPrinicipal
     Caption = 'Arquivo de Instala'#231#227'o SQL Server:'
   end
   object Label5: TLabel
-    Left = 465
-    Top = 220
+    Left = 467
+    Top = 203
     Width = 122
     Height = 17
     Margins.Left = 4
@@ -75,8 +75,8 @@ object FormPrinicipal: TFormPrinicipal
     Caption = 'Provedor de Acesso'
   end
   object btnCancelar: TButton
-    Left = 510
-    Top = 579
+    Left = 512
+    Top = 578
     Width = 98
     Height = 33
     Cursor = crHandPoint
@@ -2140,9 +2140,9 @@ object FormPrinicipal: TFormPrinicipal
       ExplicitWidth = 620
     end
   end
-  object Button1: TButton
-    Left = 619
-    Top = 579
+  object btnExecutar: TButton
+    Left = 621
+    Top = 578
     Width = 98
     Height = 33
     Cursor = crHandPoint
@@ -2150,13 +2150,13 @@ object FormPrinicipal: TFormPrinicipal
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
-    Caption = 'Instalar'
+    Caption = 'Executar'
     TabOrder = 2
-    OnClick = Button1Click
+    OnClick = btnExecutarClick
   end
   object chkBanco: TCheckBox
-    Left = 37
-    Top = 379
+    Left = 39
+    Top = 301
     Width = 232
     Height = 17
     Margins.Left = 4
@@ -2167,8 +2167,8 @@ object FormPrinicipal: TFormPrinicipal
     TabOrder = 3
   end
   object edtEndServidor: TEdit
-    Left = 37
-    Top = 188
+    Left = 39
+    Top = 171
     Width = 336
     Height = 25
     Margins.Left = 4
@@ -2179,8 +2179,8 @@ object FormPrinicipal: TFormPrinicipal
     Text = '.\sqlexpress'
   end
   object chkSistema: TCheckBox
-    Left = 37
-    Top = 302
+    Left = 39
+    Top = 261
     Width = 232
     Height = 23
     Margins.Left = 4
@@ -2191,8 +2191,8 @@ object FormPrinicipal: TFormPrinicipal
     TabOrder = 5
   end
   object edtPassword: TEdit
-    Left = 381
-    Top = 188
+    Left = 383
+    Top = 171
     Width = 336
     Height = 25
     Margins.Left = 4
@@ -2204,8 +2204,8 @@ object FormPrinicipal: TFormPrinicipal
     Text = '098063'
   end
   object edtLocalInstalacao: TEdit
-    Left = 37
-    Top = 241
+    Left = 39
+    Top = 224
     Width = 420
     Height = 25
     Margins.Left = 4
@@ -2216,8 +2216,8 @@ object FormPrinicipal: TFormPrinicipal
     Text = 'C:\Sistema de Patrim'#244'nio'
   end
   object chkCriarBanco: TCheckBox
-    Left = 37
-    Top = 457
+    Left = 39
+    Top = 339
     Width = 232
     Height = 17
     Margins.Left = 4
@@ -2229,25 +2229,85 @@ object FormPrinicipal: TFormPrinicipal
     OnClick = chkCriarBancoClick
   end
   object cbProviders: TComboBox
-    Left = 464
-    Top = 241
+    Left = 466
+    Top = 224
     Width = 253
     Height = 25
     Style = csDropDownList
     TabOrder = 9
   end
   object edtInstalador: TComboBox
-    Left = 37
-    Top = 585
+    Left = 39
+    Top = 584
     Width = 252
     Height = 25
     Style = csDropDownList
     TabOrder = 10
+  end
+  object chkRestoBanco: TCheckBox
+    Left = 40
+    Top = 378
+    Width = 323
+    Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    Caption = 'Restaurar Banco de Dados apartir do Backup:'
+    TabOrder = 11
+    OnClick = chkRestoBancoClick
+  end
+  object txtLocalBackup: TEdit
+    Left = 365
+    Top = 375
+    Width = 310
+    Height = 25
+    ReadOnly = True
+    TabOrder = 12
+    Visible = False
+  end
+  object btnFileBackup: TButton
+    Left = 678
+    Top = 375
+    Width = 35
+    Height = 25
+    Hint = 'Seleciona o Arquivo de Backup'
+    Caption = '...'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 13
+    Visible = False
+    OnClick = btnFileBackupClick
+  end
+  object rgPatrimonioUnico: TRadioGroup
+    Left = 40
+    Top = 413
+    Width = 673
+    Height = 73
+    Caption = 'Tipo de Identifica'#231#227'o do Bem: '
+    ItemIndex = 0
+    Items.Strings = (
+      #218'nica : N'#227'o permite que a identifica'#231#227'o do bem seja repetida;'
+      'Repetitiva : Permite que a identifica'#231#227'o do bem se repita;')
+    TabOrder = 14
   end
   object Timer: TTimer
     Interval = 50
     OnTimer = TimerTimer
     Left = 561
     Top = 16
+  end
+  object FileOpenDialog: TFileOpenDialog
+    DefaultExtension = '*.bak'
+    FavoriteLinks = <>
+    FileTypes = <
+      item
+        DisplayName = 'Arquivos de Backup'
+        FileMask = '*.bak'
+      end>
+    Options = []
+    Title = 'Selecione um arquivo de backup'
+    Left = 522
+    Top = 279
   end
 end

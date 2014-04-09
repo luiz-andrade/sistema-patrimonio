@@ -13,7 +13,7 @@ type
     pnTopo: TPanel;
     imgCental: TImage;
     Timer: TTimer;
-    Button1: TButton;
+    btnExecutar: TButton;
     chkBanco: TCheckBox;
     Label1: TLabel;
     edtEndServidor: TEdit;
@@ -27,12 +27,19 @@ type
     cbProviders: TComboBox;
     Label5: TLabel;
     edtInstalador: TComboBox;
+    chkRestoBanco: TCheckBox;
+    FileOpenDialog: TFileOpenDialog;
+    txtLocalBackup: TEdit;
+    btnFileBackup: TButton;
+    rgPatrimonioUnico: TRadioGroup;
     procedure TimerTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure btnExecutarClick(Sender: TObject);
     procedure chkCriarBancoClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure chkRestoBancoClick(Sender: TObject);
+    procedure btnFileBackupClick(Sender: TObject);
   private
 		{ Private declarations }
 		Water : TWaterEffect;
@@ -52,7 +59,7 @@ uses uFuncoes;
 {$R *.dfm}
 
 function TestarMssql(password, host, provedor : String; banco : String = 'master') : Boolean;
-	var
+var
 		connStr : String;
 begin
 	connStr := Concat('Provider=SQLOLEDB;'
@@ -75,6 +82,7 @@ begin
         end;
 			end;
 		finally
+      Connected := False;
 			Free;
 		end;
   end;
@@ -216,6 +224,120 @@ begin
     end;
 end;
 
+procedure AtivaBemUnico(password, host, provedor : String; databaseName : String = 'patrimonio');
+var
+		connStr, sqlCmd : String;
+begin
+	connStr := Concat('Provider=',provedor,';'
+										,'Password=',Password,';',
+										'Persist Security Info=True;',
+										'User ID=sa;',
+										'Initial Catalog=',databaseName,';',
+										'Data Source=', host);
+	with TADOConnection.Create(nil) do
+	begin
+		try
+			try
+				ConnectionString  := connStr;
+				Connected         := True;
+        sqlCmd            := Concat(  'USE [',databaseName,']');
+        Execute(sqlCmd);
+        sqlCmd            := Concat(  'IF NOT EXISTS(SELECT name FROM sysindexes WHERE name = ',QuotedStr('IxIdenfificacao'),')'
+                                    , 'CREATE UNIQUE NONCLUSTERED INDEX [IxIdenfificacao] ON [dbo].[bem]('
+                                    , '[idenficacao] ASC)'
+                                    , 'WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)');
+
+        Execute(sqlCmd);
+        Application.MessageBox('Ativação de identificação Unica de Bens realizada com sucesso!!', Pchar(Application.Title), MB_ICONQUESTION);
+			except on E : Exception do
+        begin
+          Application.MessageBox(PWideChar('Não foi possível concluir o processo de "Ativação de identificação Unica de Bens"!'+ #13 + 'Retorno: ' + E.Message), 'Banco de dados', MB_ICONERROR);
+        end;
+			end;
+		finally
+      Connected := False;
+			Free;
+		end;
+  end;
+end;
+
+procedure DesativaBemUnico(password, host, provedor : String; databaseName : String = 'patrimonio');
+var
+		connStr, sqlCmd : String;
+begin
+	connStr := Concat('Provider=',provedor,';'
+										,'Password=',Password,';',
+										'Persist Security Info=True;',
+										'User ID=sa;',
+										'Initial Catalog=',databaseName,';',
+										'Data Source=', host);
+	with TADOConnection.Create(nil) do
+	begin
+		try
+			try
+				ConnectionString  := connStr;
+				Connected         := True;
+        sqlCmd            := Concat(  'USE [',databaseName,']');
+        Execute(sqlCmd);
+        sqlCmd            := Concat( 'IF EXISTS(SELECT name FROM sysindexes WHERE name = ',QuotedStr('IxIdenfificacao'),')'
+                                    ,'DROP INDEX [IxIdenfificacao] ON [dbo].[bem]');
+        Execute(sqlCmd);
+        Application.MessageBox('Desativação de identificação Unica de Bens realizada com sucesso!!', Pchar(Application.Title), MB_ICONQUESTION);
+			except on E : Exception do
+        begin
+          Application.MessageBox(PWideChar('Não foi possível concluir o processo de "Desativação de identificação Unica de Bens"!'+ #13 + 'Retorno: ' + E.Message), 'Banco de dados', MB_ICONERROR);
+        end;
+			end;
+		finally
+      Connected := False;
+			Free;
+		end;
+  end;
+end;
+
+procedure RestaurarBanco(localBackup, local, destination, password, host,
+  provedor : String; databaseName : String = 'patrimonio');
+var
+		connStr, sqlCmd : String;
+begin
+	connStr := Concat('Provider=',provedor,';'
+										,'Password=',Password,';',
+										'Persist Security Info=True;',
+										'User ID=sa;',
+										'Initial Catalog=master;',
+										'Data Source=', host);
+
+	with TADOConnection.Create(nil) do
+	begin
+		try
+			try
+				ConnectionString  := connStr;
+				Connected         := True;
+        sqlCmd            := Concat('USE [master]'
+                                    , 'RESTORE DATABASE [',databaseName,'] FROM  DISK = N',
+                                      QuotedStr(localBackup),
+                                      'WITH  FILE = 1,  NOUNLOAD,  REPLACE,  STATS = 5');
+        Execute(sqlCmd);
+        if TestarMssql(password, host, provedor, databaseName) then
+        begin
+          Application.MessageBox('Banco restaurado com sucesso!!', Pchar(Application.Title), MB_ICONQUESTION);
+        end
+        else
+        begin
+          Application.MessageBox('O processo foi conclúdo sem erros, mais não foi possível determinar se o banco de dados foi restaurado com sucesso!!', PChar(Application.Title), MB_ICONWARNING);
+        end;
+			except on E : Exception do
+        begin
+          Application.MessageBox(PWideChar('Ocorreu um erro ao tentar restaurar o banco de dados!'+ #13 + 'Retorno: ' + E.Message), 'Banco de dados', MB_ICONERROR);
+        end;
+			end;
+		finally
+      Connected := False;
+			Free;
+		end;
+  end;
+end;
+
 procedure CriarBanco(local, destination, password, host, provedor : String);
 var
 	params : String;
@@ -334,30 +456,83 @@ begin
 	Application.Terminate;
 end;
 
-procedure TFormPrinicipal.Button1Click(Sender: TObject);
-var
-	local,
-	destination, password, host : String;
+procedure TFormPrinicipal.btnFileBackupClick(Sender: TObject);
 begin
-	password := edtPassword.Text;
-	host := edtEndServidor.Text;
-	local := ExtractFilePath(Application.ExeName);
-	destination := edtLocalInstalacao.Text;
-	if RightStr(destination,1) <> '\' then
-		destination := destination + '\';
-	if(chkSistema.Checked) then
-		CopyFiles(local, destination);
-	CreateDbFileIni(destination, password, host, cbProviders.Text);
-	if(chkBanco.Checked) then
-	begin
-		InstallMssql(local, destination,password, edtInstalador.Text);
-	end;
-	if(chkCriarBanco.Checked) then
-	begin
-		CriarBanco(local, destination,password, host, cbProviders.Text);
+  if(FileOpenDialog.Execute) then
+    txtLocalBackup.Text := FileOpenDialog.FileName;
+end;
+
+procedure TFormPrinicipal.btnExecutarClick(Sender: TObject);
+var
+	localBackup,
+  local,
+	destination,
+  password,
+  host : String;
+begin
+  try
+    try
+      btnExecutar.Enabled := False;
+      password    := edtPassword.Text;
+      host        := edtEndServidor.Text;
+      local       := ExtractFilePath(Application.ExeName);
+      localBackup := txtLocalBackup.Text;
+      destination := edtLocalInstalacao.Text;
+      if RightStr(destination,1) <> '\' then
+        destination := destination + '\';
+      if(chkSistema.Checked) then
+        CopyFiles(local, destination);
+      CreateDbFileIni(destination, password, host, cbProviders.Text);
+      if(chkBanco.Checked) then
+      begin
+        InstallMssql(local, destination,password, edtInstalador.Text);
+      end;
+      if(chkCriarBanco.Checked) then
+      begin
+        CriarBanco(local, destination,password, host, cbProviders.Text);
+      end;
+      if(chkRestoBanco.Checked) then
+      begin
+        RestaurarBanco(localBackup,local, destination,password, host, cbProviders.Text);
+      end;
+      if(rgPatrimonioUnico.ItemIndex = 0) then
+      begin
+        AtivaBemUnico(password, host, cbProviders.Text);
+      end
+      else
+      begin
+        DesativaBemUnico(password, host, cbProviders.Text);
+      end;
+    except
+      Application.MessageBox('Uma ou mais tarefas apresentaram erros em sua execução!!', 'Erro!!', MB_ICONERROR);
+    end;
+  finally
+    btnExecutar.Enabled := True;
   end;
 end;
 
+
+procedure TFormPrinicipal.chkRestoBancoClick(Sender: TObject);
+var
+	password, host : String;
+begin
+	password := edtPassword.Text;
+	host := edtEndServidor.Text;
+  if (chkRestoBanco.Checked) then
+  begin
+    if not (TestarMssql(password, host, cbProviders.Text)) then
+    begin
+      chkRestoBanco.Checked := False;
+      Application.MessageBox('Não foi possível determinar se o banco de dados foi instalado!', 'Banco de dados', MB_ICONERROR);
+    end
+    else
+    begin
+      chkCriarBanco.Checked := not chkRestoBanco.Checked;
+    end;
+  end;
+  txtLocalBackup.Visible  := chkRestoBanco.Checked;
+  btnFileBackup.Visible   := chkRestoBanco.Checked;
+end;
 
 procedure TFormPrinicipal.FormCreate(Sender: TObject);
 begin
@@ -429,6 +604,10 @@ begin
     begin
       chkCriarBanco.Checked := False;
       Application.MessageBox('Não foi possível determinar se o banco de dados foi instalado!', 'Banco de dados', MB_ICONERROR);
+    end
+    else
+    begin
+     chkRestoBanco.Checked := not chkCriarBanco.Checked;
     end;
   end;
 end;

@@ -339,7 +339,7 @@ begin
       CommandText := Concat ('BACKUP DATABASE [patrimonio] TO  DISK = ',
       												QuotedStr(NomeArquivo),
                               ' WITH NOFORMAT, NOINIT,  NAME = ',
-                              QuotedStr('INORTE-Full Database Backup'),
+                              QuotedStr('Patriminio-Full Database Backup'),
                               ', SKIP, NOREWIND, NOUNLOAD,  STATS = 10');
       try
       	Execute();
