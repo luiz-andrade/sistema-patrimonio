@@ -136,6 +136,7 @@ type
     totaisSubGruposquantidade: TFloatField;
     procedure ADOConnectionBeforeConnect(Sender: TObject);
     procedure ApplicationEventsException(Sender: TObject; E: Exception);
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -183,6 +184,11 @@ begin
 			Free;
 		end;
 	end;
+end;
+
+procedure Tdm.DataModuleCreate(Sender: TObject);
+begin
+  Application.MessageBox('dsd','sdsd',0);
 end;
 
 end.
