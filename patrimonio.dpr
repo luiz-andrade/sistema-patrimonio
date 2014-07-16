@@ -27,7 +27,11 @@ uses
   uFornecedor in 'uFornecedor.pas' {frmFornecedor},
   uGestao in 'uGestao.pas' {frmGestao},
   uRelatBens in 'uRelatBens.pas' {frmRelatBens},
-  uDepreciacao in 'uDepreciacao.pas' {frmDepreciacao};
+  uDepreciacao in 'uDepreciacao.pas' {frmDepreciacao},
+  uDefaultUnit in 'uDefaultUnit.pas' {frmDefaultForm},
+  uConvenio in 'uConvenio.pas' {frmConvenio},
+  uEmpenho in 'uEmpenho.pas' {frmEmpenho},
+  uProcesso in 'uProcesso.pas' {frmProcesso};
 
 {$R *.res}
 

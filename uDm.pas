@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, Classes, DB, SqlExpr, DBXMSSQL, FMTBcd, Provider, DBClient, ImgList,
-	Controls, Forms, Windows, RpDefine, RpRave, RpCon, RpConDS, ADODB, AppEvnts;
+	Controls, Forms, Windows, RpDefine, RpRave, RpCon, RpConDS, ADODB, AppEvnts, Inifiles;
 
 type
   Tdm = class(TDataModule)
@@ -134,9 +134,36 @@ type
     sqlBemvalorAquisicao: TBCDField;
     totaisGruposquantidade: TFloatField;
     totaisSubGruposquantidade: TFloatField;
+    sqlEmpenho: TADOQuery;
+    sqlConvenio: TADOQuery;
+    sqlProcesso: TADOQuery;
+    sqlModalidade: TADOQuery;
+    sqlConvenioTipo: TADOQuery;
+    sqlConvenioTipoconvenioTipoId: TAutoIncField;
+    sqlConvenioTipodescricao: TStringField;
+    sqlModalidademodalidadeId: TAutoIncField;
+    sqlModalidadedescricao: TStringField;
+    sqlProcessoprocessoId: TAutoIncField;
+    sqlProcessonumeroProcesso: TStringField;
+    sqlConvenioconvenioId: TAutoIncField;
+    sqlConvenionumeroConvenio: TStringField;
+    sqlConvenioconvenioTipoId: TIntegerField;
+    sqlEmpenhoempenhoId: TAutoIncField;
+    sqlEmpenhonumeroEmpenho: TStringField;
+    sqlBemidentificacaoAnterior: TStringField;
+    sqlBemAquisicaoempenhoId: TIntegerField;
+    sqlBemAquisicaoprocessoId: TIntegerField;
+    sqlBemAquisicaoconvenioId: TIntegerField;
+    sqlBemAquisicaomodalidadeId: TIntegerField;
+    rvdEmpenho: TRvDataSetConnection;
+    rvdConvenio: TRvDataSetConnection;
+    rvdProcesso: TRvDataSetConnection;
+    rvdModalidade: TRvDataSetConnection;
+    rvdConvenioTipo: TRvDataSetConnection;
     procedure ADOConnectionBeforeConnect(Sender: TObject);
     procedure ApplicationEventsException(Sender: TObject; E: Exception);
-    procedure DataModuleCreate(Sender: TObject);
+    procedure ApplicationEventsActionExecute(Action: TBasicAction;
+      var Handled: Boolean);
   private
     { Private declarations }
   public
@@ -151,6 +178,42 @@ implementation
 uses uFuncoes, uErro;
 
 {$R *.dfm}
+
+function ValidaSistema() : Boolean;
+var
+  licenca : TIniFile;
+  dateExc : TDateTime;
+  dateExp : TDateTime;
+  date    : TDateTime;
+  fileDir : String;
+  valLic  : Integer;
+begin
+  fileDir := Concat(ExtractFilePath(Application.ExeName), 'info.lic');
+  licenca := TIniFile.Create(fileDir);
+  with licenca do
+  begin
+    try
+      dateExc := StrToDate(cript(ReadString(cript('Licença'),cript('dateExc'), cript(FormatDateTime('dd/mm/yyyy', now)))));
+      dateExp := StrToDate(cript(ReadString(cript('Licença'),cript('dateExp'), cript('01/01/1900'))));
+      valLic  := StrToInt(cript(ReadString(cript('Licença'),cript('valLic'), cript('1'))));
+      date    := StrToDate(FormatDateTime('dd/mm/yyyy', now));
+      if ((date <= dateExp) and (date >= dateExc) or (valLic = 0)) then
+      begin
+        Result := True;
+      end
+      else
+      begin
+        Result := False;
+      end;
+    finally
+      WriteString(cript('Licença'),cript('dateExc'), cript(DateToStr(Now)));
+      WriteString(cript('Licença'),cript('dateExp'), cript(DateToStr(dateExp)));
+      WriteString(cript('Licença'),cript('valLic'), cript(IntToStr(valLic)));
+      Free;
+    end;
+  end;
+end;
+
 
 procedure Tdm.ADOConnectionBeforeConnect(Sender: TObject);
 begin
@@ -173,6 +236,25 @@ begin
 	end;
 end;
 
+procedure Tdm.ApplicationEventsActionExecute(Action: TBasicAction;
+  var Handled: Boolean);
+begin
+  if not ValidaSistema() then
+  begin
+    with TfrmErro.Create(Application) do
+    begin
+      try
+        memErro.Text := 'A Licença de uso do sistema expirou, entre em contato com suporte para mais informações!';
+        btnContinuar.Visible := False;
+        ShowModal;
+      finally
+        Free;
+        Application.Terminate();
+      end;
+    end;
+  end;
+end;
+
 procedure Tdm.ApplicationEventsException(Sender: TObject; E: Exception);
 begin
 	with TfrmErro.Create(Application) do
@@ -184,11 +266,6 @@ begin
 			Free;
 		end;
 	end;
-end;
-
-procedure Tdm.DataModuleCreate(Sender: TObject);
-begin
-  Application.MessageBox('dsd','sdsd',0);
 end;
 
 end.

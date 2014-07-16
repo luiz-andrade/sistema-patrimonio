@@ -3,7 +3,7 @@ unit uFuncoes;
 interface
 
 uses 	uMd5, DB, uDm, SysUtils, Classes, Forms, Dialogs, Windows,
-			Messages, Graphics, ExtCtrls, ADODB;
+			Messages, Graphics, ExtCtrls, ADODB, Inifiles;
 
 function validaAcesso(login : String; pws : String) : TDataSet;
 procedure VerticalText(Form : TForm; Texto1, Texto2 : String; Top : Integer; FontSize : Integer);overload;
@@ -235,7 +235,7 @@ var
 	c: integer;
 begin
 	result := '';
-	for c := 1 to length(str) do 
+	for c := 1 to length(str) do
 		result := chr(ord(str[c]) xor $DD) + result;
 end;
 

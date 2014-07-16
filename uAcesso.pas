@@ -12,13 +12,14 @@ type
 		dsEmpresa: TDataSource;
 		txtLogin: TLabeledEdit;
 		txtPassword: TLabeledEdit;
-    Image1: TImage;
+    imgCental: TImage;
     lblEmpresa: TLabel;
     imgLogar: TImage;
     imgCancelar: TImage;
     dspEpresa: TDataSetProvider;
     cdsEmpresa: TClientDataSet;
     dbgEmpresa: TDBGrid;
+    lvlVersao: TLabel;
 		procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure dsEmpresaDataChange(Sender: TObject; Field: TField);
@@ -28,6 +29,7 @@ type
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure lblEmpresaClick(Sender: TObject);
     procedure dbgEmpresaCellClick(Column: TColumn);
+    procedure FormShow(Sender: TObject);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -99,6 +101,11 @@ begin
 		end;
 		SelectNext(ActiveControl, True, True);
 	end;
+end;
+
+procedure TfrmAcesso.FormShow(Sender: TObject);
+begin
+  lvlVersao.Caption := Concat('Versão: ', GetLocalVersion);
 end;
 
 procedure TfrmAcesso.imgCancelarClick(Sender: TObject);

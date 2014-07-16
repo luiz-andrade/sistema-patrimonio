@@ -53,6 +53,9 @@ type
     procedure dspGestaoAfterUpdateRecord(Sender: TObject; SourceDS: TDataSet;
       DeltaDS: TCustomClientDataSet; UpdateKind: TUpdateKind);
     procedure cdsGestaoAfterEdit(DataSet: TDataSet);
+    procedure cdsGestaoReconcileError(DataSet: TCustomClientDataSet;
+      E: EReconcileError; UpdateKind: TUpdateKind;
+      var Action: TReconcileAction);
   private
     { Private declarations }
 		_empresaId : Integer;
@@ -125,6 +128,13 @@ end;
 procedure TfrmGestao.cdsGestaoAfterEdit(DataSet: TDataSet);
 begin
   _gestaoId := cdsGestaogestaoId.Value;
+end;
+
+procedure TfrmGestao.cdsGestaoReconcileError(DataSet: TCustomClientDataSet;
+  E: EReconcileError; UpdateKind: TUpdateKind; var Action: TReconcileAction);
+begin
+	raise Exception.Create(E.Message);
+	Action := raAbort;
 end;
 
 constructor TfrmGestao.Create(AOwner: TComponent; empresaId: Integer);

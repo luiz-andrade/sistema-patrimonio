@@ -77,6 +77,8 @@ type
     sqlBemnumeroNota: TStringField;
     pnLateral: TPanel;
     imgLateral: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
     procedure btnFecharClick(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

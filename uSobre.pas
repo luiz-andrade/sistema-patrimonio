@@ -17,6 +17,8 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -89,7 +91,7 @@ begin
 	with imgCental.Canvas do
 	begin
 		Brush.Style := bsClear;
-		TextOut(35, 17, Concat('Versão: ', GetLocalVersion));
+		TextOut(26, 10, Concat('Versão: ', GetLocalVersion));
 	end;
 end;
 

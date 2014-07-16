@@ -78,6 +78,8 @@ type
     cdsPessoacnpjCpf: TStringField;
     dspPessoa: TDataSetProvider;
     cdsPessoamunicipio: TStringField;
+    Label2: TLabel;
+    Label3: TLabel;
     procedure btnVisualizarClick(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

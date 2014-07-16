@@ -1,15 +1,14 @@
 object dm: Tdm
   OldCreateOrder = False
-  OnCreate = DataModuleCreate
-  Height = 507
-  Width = 788
+  Height = 685
+  Width = 1097
   object ImageListAcoes: TImageList
     Height = 32
     Width = 32
     Left = 390
     Top = 24
     Bitmap = {
-      494C010107000900F00020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900140120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1076,7 +1075,7 @@ object dm: Tdm
     Left = 485
     Top = 24
     Bitmap = {
-      494C010104000600C00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104000600E40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1377,9 +1376,12 @@ object dm: Tdm
     Top = 88
   end
   object ADOConnection: TADOConnection
-    ConnectionString = 'FILE NAME=C:\Projetos\sistema-patrimonio\Debug\Win32\dbxcon.udl'
+    ConnectionString = 
+      'Provider=SQLNCLI11.1;Integrated Security=SSPI;Persist Security I' +
+      'nfo=False;User ID="";Initial Catalog=patrimonio;Data Source=loca' +
+      'lhost;Initial File Name="";Server SPN="";'
     LoginPrompt = False
-    Provider = 'C:\Projetos\sistema-patrimonio\Debug\Win32\dbxcon.udl'
+    Provider = 'SQLNCLI11.1'
     BeforeConnect = ADOConnectionBeforeConnect
     Left = 456
     Top = 88
@@ -1479,7 +1481,7 @@ object dm: Tdm
       ReadOnly = True
     end
     object sqlBemidenficacao: TStringField
-      FieldName = 'idenficacao'
+      FieldName = 'identificacao'
       ProviderFlags = [pfInUpdate]
       Size = 50
     end
@@ -1540,6 +1542,10 @@ object dm: Tdm
       currency = True
       Precision = 19
     end
+    object sqlBemidentificacaoAnterior: TStringField
+      FieldName = 'identificacaoAnterior'
+      Size = 50
+    end
   end
   object sqlBemAquisicao: TADOQuery
     Connection = ADOConnection
@@ -1569,6 +1575,18 @@ object dm: Tdm
       FieldName = 'numeroNota'
       ProviderFlags = [pfInUpdate]
       Size = 100
+    end
+    object sqlBemAquisicaoempenhoId: TIntegerField
+      FieldName = 'empenhoId'
+    end
+    object sqlBemAquisicaoprocessoId: TIntegerField
+      FieldName = 'processoId'
+    end
+    object sqlBemAquisicaoconvenioId: TIntegerField
+      FieldName = 'convenioId'
+    end
+    object sqlBemAquisicaomodalidadeId: TIntegerField
+      FieldName = 'modalidadeId'
     end
   end
   object sqlEstado: TADOQuery
@@ -1924,6 +1942,7 @@ object dm: Tdm
     end
   end
   object ApplicationEvents: TApplicationEvents
+    OnActionExecute = ApplicationEventsActionExecute
     OnException = ApplicationEventsException
     Left = 456
     Top = 264
@@ -2048,5 +2067,133 @@ object dm: Tdm
     DataSet = sqlGrupo
     Left = 240
     Top = 88
+  end
+  object sqlEmpenho: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from empenho')
+    Left = 856
+    Top = 48
+    object sqlEmpenhoempenhoId: TAutoIncField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'empenhoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlEmpenhonumeroEmpenho: TStringField
+      FieldName = 'numeroEmpenho'
+      Size = 50
+    end
+  end
+  object sqlConvenio: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from convenio')
+    Left = 856
+    Top = 112
+    object sqlConvenioconvenioId: TAutoIncField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'convenioId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlConvenionumeroConvenio: TStringField
+      FieldName = 'numeroConvenio'
+      Size = 50
+    end
+    object sqlConvenioconvenioTipoId: TIntegerField
+      FieldName = 'convenioTipoId'
+    end
+  end
+  object sqlProcesso: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from processo')
+    Left = 856
+    Top = 176
+    object sqlProcessoprocessoId: TAutoIncField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'processoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlProcessonumeroProcesso: TStringField
+      FieldName = 'numeroProcesso'
+      Size = 50
+    end
+  end
+  object sqlModalidade: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from modalidade')
+    Left = 856
+    Top = 248
+    object sqlModalidademodalidadeId: TAutoIncField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'modalidadeId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlModalidadedescricao: TStringField
+      FieldName = 'descricao'
+      Size = 100
+    end
+  end
+  object sqlConvenioTipo: TADOQuery
+    Connection = ADOConnection
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from convenioTipo')
+    Left = 856
+    Top = 310
+    object sqlConvenioTipoconvenioTipoId: TAutoIncField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'convenioTipoId'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlConvenioTipodescricao: TStringField
+      FieldName = 'descricao'
+      Size = 50
+    end
+  end
+  object rvdEmpenho: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = sqlEmpenho
+    Left = 952
+    Top = 48
+  end
+  object rvdConvenio: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = sqlConvenio
+    Left = 952
+    Top = 112
+  end
+  object rvdProcesso: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = sqlProcesso
+    Left = 952
+    Top = 176
+  end
+  object rvdModalidade: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = sqlModalidade
+    Left = 952
+    Top = 248
+  end
+  object rvdConvenioTipo: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = sqlConvenioTipo
+    Left = 952
+    Top = 312
   end
 end
