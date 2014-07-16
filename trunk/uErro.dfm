@@ -4,40 +4,52 @@ object frmErro: TfrmErro
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Gerencimento de erros do sistema'
-  ClientHeight = 253
-  ClientWidth = 409
+  ClientHeight = 331
+  ClientWidth = 535
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -14
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
-  PixelsPerInch = 96
-  TextHeight = 13
+  PixelsPerInch = 120
+  TextHeight = 17
   object Label1: TLabel
-    Left = 24
-    Top = 86
-    Width = 87
-    Height = 13
+    Left = 31
+    Top = 112
+    Width = 111
+    Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Descri'#231#227'o t'#233'cnica:'
   end
   object Label2: TLabel
-    Left = 96
-    Top = 24
-    Width = 289
-    Height = 26
+    Left = 126
+    Top = 31
+    Width = 329
+    Height = 34
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 
       'O sistema identificou um erro . Para mais informa'#231#245'es verifique ' +
       'na descri'#231#227'o t'#233'cnica.'
     WordWrap = True
   end
   object Image: TImage
-    Left = 24
-    Top = 24
-    Width = 58
-    Height = 49
+    Left = 31
+    Top = 20
+    Width = 76
+    Height = 64
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Center = True
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000000300000
@@ -140,20 +152,28 @@ object frmErro: TfrmErro
       249A244DC2150000000049454E44AE426082}
   end
   object memErro: TMemo
-    Left = 24
-    Top = 105
-    Width = 361
-    Height = 80
+    Left = 31
+    Top = 137
+    Width = 472
+    Height = 105
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     ReadOnly = True
     ScrollBars = ssVertical
     TabOrder = 0
   end
   object btnContinuar: TBitBtn
-    Left = 160
-    Top = 210
-    Width = 99
-    Height = 25
+    Left = 209
+    Top = 275
+    Width = 130
+    Height = 32
     Cursor = crHandPoint
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Continuar'
     DoubleBuffered = True
     ParentDoubleBuffered = False
@@ -161,11 +181,15 @@ object frmErro: TfrmErro
     OnClick = btnContinuarClick
   end
   object btnFinalizar: TBitBtn
-    Left = 286
-    Top = 210
-    Width = 99
-    Height = 25
+    Left = 374
+    Top = 275
+    Width = 129
+    Height = 32
     Cursor = crHandPoint
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Finalizar sistema'
     DoubleBuffered = True
     ParentDoubleBuffered = False

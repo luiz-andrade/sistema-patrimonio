@@ -5,7 +5,7 @@ interface
 uses
 	Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
 	Dialogs, ExtCtrls, pngimage, StdCtrls, untWaterEffect, StrUtils, IniFiles, ADODB,
-	ShellAPI, TlHelp32, Psapi, DB, IOUtils;
+	ShellAPI, TlHelp32, Psapi, DB, IOUtils, ComCtrls, IdGlobal, IdHash, IdHashMessageDigest;
 
 type
   TFormPrinicipal = class(TForm)
@@ -32,6 +32,13 @@ type
     txtLocalBackup: TEdit;
     btnFileBackup: TButton;
     rgPatrimonioUnico: TRadioGroup;
+    SaveDialog: TSaveDialog;
+    GroupBox1: TGroupBox;
+    chkLicencaUso: TCheckBox;
+    Label6: TLabel;
+    dtpLimiteUso: TDateTimePicker;
+    Label7: TLabel;
+    Label8: TLabel;
     procedure TimerTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnExecutarClick(Sender: TObject);
@@ -45,6 +52,7 @@ type
 		Water : TWaterEffect;
 		bmp : TBitmap;
 		xImage : Integer;
+    procedure GravaLicencaUso(destination : String; valLic : Integer = 0);
 	public
 		{ Public declarations }
 	end;
@@ -481,8 +489,10 @@ begin
       if RightStr(destination,1) <> '\' then
         destination := destination + '\';
       if(chkSistema.Checked) then
+      begin
         CopyFiles(local, destination);
-      CreateDbFileIni(destination, password, host, cbProviders.Text);
+        CreateDbFileIni(destination, password, host, cbProviders.Text);
+      end;
       if(chkBanco.Checked) then
       begin
         InstallMssql(local, destination,password, edtInstalador.Text);
@@ -501,7 +511,16 @@ begin
       end
       else
       begin
-        DesativaBemUnico(password, host, cbProviders.Text);
+        if(rgPatrimonioUnico.ItemIndex = 1) then
+          DesativaBemUnico(password, host, cbProviders.Text);
+      end;
+      if chkLicencaUso.Checked then
+      begin
+        GravaLicencaUso(destination, 1);
+      end
+      else
+      begin
+        GravaLicencaUso(destination, 0);
       end;
     except
       Application.MessageBox('Uma ou mais tarefas apresentaram erros em sua execução!!', 'Erro!!', MB_ICONERROR);
@@ -548,7 +567,7 @@ end;
 
 procedure TFormPrinicipal.FormShow(Sender: TObject);
 var
-  i : integer;
+//  i : integer;
   local : String;
   Rec: TSearchRec;
 begin
@@ -577,6 +596,40 @@ begin
     SysUtils.FindClose(Rec);
     if (edtInstalador.Items.Count > 0) then
       edtInstalador.ItemIndex := 0;
+  end;
+end;
+
+procedure TFormPrinicipal.GravaLicencaUso(destination : String; valLic : Integer = 0);
+var
+  licenca : TIniFile;
+  dateExc : TDateTime;
+  dateExp : TDateTime;
+  key     : String;
+begin
+  licenca := TIniFile.Create(Concat(destination, 'info.lic'));
+  with licenca do
+  begin
+    try
+      dateExc := StrToDate(cript(ReadString(cript('Licença'),cript('dateExc'), cript(FormatDateTime('dd/mm/yyyy', now)))));
+      dateExp := StrToDate(cript(ReadString(cript('Licença'),cript('dateExp'), cript(FormatDateTime('dd/mm/yyyy',dtpLimiteUso.Date)))));
+      with TIdHashMessageDigest5.Create do
+      try
+          key := HashStringAsHex(DateToStr(dateExp));
+      finally
+          Free;
+      end;
+      try
+          WriteString(cript('Licença'),cript('dateExc'), cript(DateToStr(dateExc)));
+          WriteString(cript('Licença'),cript('dateExp'), cript(DateToStr(dateExp)));
+          WriteString(cript('Licença'),cript('valLic'), cript(IntToStr(valLic)));
+          WriteString(cript('Licença'),cript('key'), cript(key));
+          Application.MessageBox('Arquivo de licença gravado com sucesso!!', PWideChar(Application.Title), MB_ICONINFORMATION);
+      except
+        Application.MessageBox('Não foi possível gerar a licença de uso!!', PWideChar(Application.Title), MB_ICONERROR);
+      end;
+    finally
+      licenca.Free;
+    end;
   end;
 end;
 

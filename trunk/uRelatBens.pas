@@ -35,7 +35,6 @@ type
     imgLateral: TImage;
     sqlBem: TADOQuery;
     sqlBembemId: TAutoIncField;
-    sqlBemidenficacao: TStringField;
     sqlBemdescricao: TStringField;
     sqlBemgrupoId: TStringField;
     sqlBemestadoId: TIntegerField;
@@ -54,12 +53,48 @@ type
     rvdRelatBens: TRvDataSetConnection;
     btnFechar: TBitBtn;
     btnVisualizar: TBitBtn;
+    Label1: TLabel;
+    Label2: TLabel;
+    cbEmpenho: TCheckBox;
+    cbConvenio: TCheckBox;
+    cbProcesso: TCheckBox;
+    cbNotaFiscal: TCheckBox;
+    edtNotaFiscal: TEdit;
+    sqlBemvalorAquisicao: TBCDField;
+    sqlBemnumeroConvenio: TStringField;
+    sqlBemnumeroProcesso: TStringField;
+    sqlBemnumeroEmpenho: TStringField;
+    dblConvenio: TDBLookupComboBox;
+    dblProcesso: TDBLookupComboBox;
+    dblEmprenho: TDBLookupComboBox;
+    dblModalidade: TDBLookupComboBox;
+    cbModalidade: TCheckBox;
+    dsModalidade: TDataSource;
+    cdsModalidade: TClientDataSet;
+    dspModalidade: TDataSetProvider;
+    dspProcesso: TDataSetProvider;
+    cdsProcesso: TClientDataSet;
+    dsProcesso: TDataSource;
+    dspEmpenho: TDataSetProvider;
+    cdsEmpenho: TClientDataSet;
+    dsEmpenho: TDataSource;
+    dsConvenio: TDataSource;
+    cdsConvenio: TClientDataSet;
+    dspConvenio: TDataSetProvider;
+    sqlBemidentificacaoAnterior: TStringField;
+    sqlBemidentificacao: TStringField;
+    sqlBemdescricaoModalidade: TStringField;
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure btnFecharClick(Sender: TObject);
     procedure cbLocalClick(Sender: TObject);
     procedure cbDescricaoClick(Sender: TObject);
+    procedure cbNotaFiscalClick(Sender: TObject);
+    procedure cbProcessoClick(Sender: TObject);
+    procedure cbConvenioClick(Sender: TObject);
+    procedure cbEmpenhoClick(Sender: TObject);
+    procedure cbModalidadeClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -90,14 +125,25 @@ begin
 			SQL.Clear;
 			if cbFornecedor.Checked then
 			begin
-				SQL.Add( Concat('select * from bem ',
-															'left join bemAquisicao on bemAquisicao.bemid = bem.bemId ',
-															'where bemAquisicao.fornecedorId = :fornecedorId'));
+				SQL.Add( Concat('select *, modalidade.descricao as descricaoModalidade from bem ',
+                        'left join bemAquisicao on bemAquisicao.bemid = bem.bemId ',
+                        'left join processo on bemAquisicao.processoId = processo.processoId ',
+                        'left join empenho on bemAquisicao.empenhoId = empenho.empenhoId ',
+                        'left join convenio on bemAquisicao.convenioId = convenio.convenioId ',
+                        'left join convenioTipo on convenio.convenioTipoId = convenioTipo.convenioTipoId ',
+                        'left join modalidade on bemAquisicao.modalidadeId = modalidade.modalidadeId ',
+                        'where bemAquisicao.fornecedorId = :fornecedorId '));
 			end
 			else
 			begin
-				SQL.Add( Concat('select * from bem ',
-															'left join bemAquisicao on bemAquisicao.bemid = bem.bemId ', 'where 1=1 '));
+				SQL.Add( Concat('select *, modalidade.descricao as descricaoModalidade from bem ',
+												'left join bemAquisicao on bemAquisicao.bemid = bem.bemId ',
+                        'left join processo on bemAquisicao.processoId = processo.processoId ',
+                        'left join empenho on bemAquisicao.empenhoId = empenho.empenhoId ',
+                        'left join convenio on bemAquisicao.convenioId = convenio.convenioId ',
+                        'left join convenioTipo on convenio.convenioTipoId = convenioTipo.convenioTipoId ',
+                        'left join modalidade on bemAquisicao.modalidadeId = modalidade.modalidadeId ',
+                        'where 1=1 '));
 			end;
 			if cbGestao.Checked then
 			begin
@@ -115,6 +161,26 @@ begin
 			begin
 				SQL.Add(' and descricao like :descricao');
 			end;
+      if cbProcesso.Checked then
+      begin
+        SQL.Add(' and processo.processoId = :processoId');
+      end;
+      if cbConvenio.Checked then
+      begin
+        SQL.Add(' and convenio.convenioId = :convenioId');
+      end;
+      if cbEmpenho.Checked then
+      begin
+        SQL.Add(' and empenho.empenhoId = :empenhoId');
+      end;
+      if cbNotaFiscal.Checked then
+      begin
+        SQL.Add(' and numeroNota = :numeroNota');
+      end;
+      if cbModalidade.Checked then
+      begin
+        SQL.Add(' and modalidade.modalidadeId = :modalidadeId');;
+      end;
 			// Parametros
 			with Parameters do
 			begin
@@ -138,6 +204,26 @@ begin
 				begin
 					ParamByName('descricao').Value := Concat('%', edtDescricao.Text, '%');
 				end;
+        if cbProcesso.Checked then
+        begin
+          ParamByName('processoId').Value := dblProcesso.KeyValue;
+        end;
+        if cbConvenio.Checked then
+        begin
+          ParamByName('convenioId').Value := dblConvenio.KeyValue;
+        end;
+        if cbEmpenho.Checked then
+        begin
+          ParamByName('empenhoId').Value := dblEmprenho.KeyValue;
+        end;
+        if cbNotaFiscal.Checked then
+        begin
+          ParamByName('numeroNota').Value := edtNotaFiscal.Text;
+        end;
+        if cbModalidade.Checked then
+        begin
+          ParamByName('modalidadeId').Value := dblModalidade.KeyValue;
+        end;
 			end;
 		end;
 			ProjectFile := Concat(ExtractFilePath(Application.ExeName), 'Reports\', 'reportMovimentacao.rav');
@@ -145,9 +231,19 @@ begin
 	end;
 end;
 
+procedure TfrmRelatBens.cbConvenioClick(Sender: TObject);
+begin
+  dblConvenio.Enabled := not (dblConvenio.Enabled);
+end;
+
 procedure TfrmRelatBens.cbDescricaoClick(Sender: TObject);
 begin
 	edtDescricao.Enabled := not (edtDescricao.Enabled);
+end;
+
+procedure TfrmRelatBens.cbEmpenhoClick(Sender: TObject);
+begin
+  dblEmprenho.Enabled := not (dblEmprenho.Enabled);
 end;
 
 procedure TfrmRelatBens.cbLocalClick(Sender: TObject);
@@ -156,11 +252,30 @@ begin
 	dblsubLocalId.Enabled := not(dblsubLocalId.Enabled);
 end;
 
+procedure TfrmRelatBens.cbModalidadeClick(Sender: TObject);
+begin
+  dblModalidade.Enabled := not (dblModalidade.Enabled);
+end;
+
+procedure TfrmRelatBens.cbNotaFiscalClick(Sender: TObject);
+begin
+  edtNotaFiscal.Enabled := not (edtNotaFiscal.Enabled);
+end;
+
+procedure TfrmRelatBens.cbProcessoClick(Sender: TObject);
+begin
+  dblProcesso.Enabled := not (dblProcesso.Enabled);
+end;
+
 procedure TfrmRelatBens.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
 	dsFornecedor.DataSet.Close;
 	dsGestao.DataSet.Close;
 	dsLocal.DataSet.Close;
+  cdsEmpenho.Close;
+  cdsConvenio.Close;
+  cdsProcesso.Close;
+  cdsModalidade.Close;
 	dsAuxLocal.DataSet.Close;
 end;
 
@@ -170,6 +285,12 @@ begin
 	dsGestao.DataSet.Open;
 	dsLocal.DataSet.Open;
 	dsAuxLocal.DataSet.Open;
+
+  cdsEmpenho.Open;
+  cdsConvenio.Open;
+  cdsProcesso.Open;
+  cdsModalidade.Open;
+
 	cdsAuxLocal.Refresh;
 end;
 

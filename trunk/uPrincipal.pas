@@ -77,6 +77,15 @@ type
     DepreciaodeBens1: TMenuItem;
     N8: TMenuItem;
     Backup1: TMenuItem;
+    ToolButton11: TToolButton;
+    ToolButton12: TToolButton;
+    actConvenio: TAction;
+    N9: TMenuItem;
+    Convnios1: TMenuItem;
+    Processos1: TMenuItem;
+    Empenhos1: TMenuItem;
+    actProcesso: TAction;
+    actEmpenho: TAction;
 		procedure actLocaisExecute(Sender: TObject);
 		procedure actPessoaExecute(Sender: TObject);
     procedure actGruposExecute(Sender: TObject);
@@ -99,6 +108,9 @@ type
     procedure actBenPatrimonialExecute(Sender: TObject);
     procedure actDepreciacaoExecute(Sender: TObject);
     procedure Backup1Click(Sender: TObject);
+    procedure actConvenioExecute(Sender: TObject);
+    procedure actProcessoExecute(Sender: TObject);
+    procedure actEmpenhoExecute(Sender: TObject);
 	private
 		{ Private declarations }
 		procedure updateInfo;
@@ -114,9 +126,22 @@ implementation
 uses uLocal, uAcesso, uDm, uPessoa, uGrupo, uBem, uFuncoes, uMd5, uSobre,
   uEmpresa, uMovimentacao, uTransferencia, uAlteracaoSenha,
   uRelatTransferenciaBem, uRelatGrupoBem, uUpdate, uControlsTunning,
-  uRelatGrupoTotais, uFornecedor, uGestao, uRelatBens, uDepreciacao;
+  uRelatGrupoTotais, uFornecedor, uGestao, uRelatBens, uDepreciacao,
+  uDefaultUnit, uConvenio, uEmpenho, uProcesso;
 
 {$R *.dfm}
+
+procedure TfrmPrincipal.actConvenioExecute(Sender: TObject);
+begin
+	with TfrmConvenio.Create(Application, gEmpresaId) do
+	begin
+		try
+			Show;
+		finally
+			//Free - Metodo configurado dentro do formulario;
+		end;
+	end;
+end;
 
 procedure TfrmPrincipal.actDepreciacaoExecute(Sender: TObject);
 begin
@@ -128,6 +153,18 @@ begin
       Free;
     end;
   end;
+end;
+
+procedure TfrmPrincipal.actEmpenhoExecute(Sender: TObject);
+begin
+	with TfrmEmpenho.Create(Application, gEmpresaId) do
+	begin
+		try
+			Show;
+		finally
+			//Free - Metodo configurado dentro do formulario;
+		end;
+	end;
 end;
 
 procedure TfrmPrincipal.actFornecedorExecute(Sender: TObject);
@@ -201,12 +238,10 @@ end;
 procedure TfrmPrincipal.ActionManagerExecute(Action: TBasicAction;
   var Handled: Boolean);
 begin
-{
 	if not verificaUsuarioAcao(gUsuarioId, Action.Name) then
 	begin
 		Application.MessageBox('Acesso restrito!', PChar(Application.Title), MB_ICONASTERISK);
 	end;
-}
 end;
 
 procedure TfrmPrincipal.actLocaisExecute(Sender: TObject);
@@ -236,6 +271,18 @@ end;
 procedure TfrmPrincipal.actPessoaExecute(Sender: TObject);
 begin
 	with TfrmPessoa.Create(Application, gEmpresaId) do
+	begin
+		try
+			Show;
+		finally
+			//Free - Metodo configurado dentro do formulario;
+		end;
+	end;
+end;
+
+procedure TfrmPrincipal.actProcessoExecute(Sender: TObject);
+begin
+	with TfrmProcesso.Create(Application, gEmpresaId) do
 	begin
 		try
 			Show;

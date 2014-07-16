@@ -28,6 +28,8 @@ type
     btnFechar: TBitBtn;
     pnLateral: TPanel;
     imgLateral: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
     procedure btnFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

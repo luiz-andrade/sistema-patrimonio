@@ -140,6 +140,19 @@ object frmPrincipal: TfrmPrincipal
         DropdownMenu = PopupMenu
         ImageIndex = 6
       end
+      object ToolButton11: TToolButton
+        Left = 922
+        Top = 0
+        Width = 8
+        Caption = 'ToolButton11'
+        ImageIndex = 7
+        Style = tbsSeparator
+      end
+      object ToolButton12: TToolButton
+        Left = 930
+        Top = 0
+        Action = actFornecedor
+      end
     end
   end
   object MainMenu: TMainMenu
@@ -160,6 +173,18 @@ object frmPrincipal: TfrmPrincipal
         Action = actFornecedor
       end
       object N6: TMenuItem
+        Caption = '-'
+      end
+      object Convnios1: TMenuItem
+        Action = actConvenio
+      end
+      object Processos1: TMenuItem
+        Action = actProcesso
+      end
+      object Empenhos1: TMenuItem
+        Action = actEmpenho
+      end
+      object N9: TMenuItem
         Caption = '-'
       end
       object Locais1: TMenuItem
@@ -332,7 +357,8 @@ object frmPrincipal: TfrmPrincipal
       OnExecute = actRelatTotGrupoExecute
     end
     object actFornecedor: TAction
-      Caption = 'Cadastro de Fornecedores'
+      Caption = 'Fornecedores'
+      ImageIndex = 4
       OnExecute = actFornecedorExecute
     end
     object actGestao: TAction
@@ -346,6 +372,18 @@ object frmPrincipal: TfrmPrincipal
     object actDepreciacao: TAction
       Caption = 'Deprecia'#231#227'o de Bens'
       OnExecute = actDepreciacaoExecute
+    end
+    object actConvenio: TAction
+      Caption = 'Conv'#234'nios'
+      OnExecute = actConvenioExecute
+    end
+    object actProcesso: TAction
+      Caption = 'Processos'
+      OnExecute = actProcessoExecute
+    end
+    object actEmpenho: TAction
+      Caption = 'Empenhos'
+      OnExecute = actEmpenhoExecute
     end
   end
   object PopupMenu: TPopupMenu

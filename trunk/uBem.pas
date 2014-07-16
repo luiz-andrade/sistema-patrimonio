@@ -125,6 +125,33 @@ type
     cdsBemvalorAquisicao: TBCDField;
     Label16: TLabel;
     valorAquisicao: TDBEdit;
+    Label17: TLabel;
+    Label18: TLabel;
+    Label19: TLabel;
+    Label20: TLabel;
+    identificacaoAnterior: TDBEdit;
+    cdsBemidentificacaoAnterior: TStringField;
+    Label21: TLabel;
+    dblConvenio: TDBLookupComboBox;
+    dsConvenio: TDataSource;
+    cdsConvenio: TClientDataSet;
+    dspConvenio: TDataSetProvider;
+    cdsAquisicaoempenhoId: TIntegerField;
+    cdsAquisicaoprocessoId: TIntegerField;
+    cdsAquisicaoconvenioId: TIntegerField;
+    cdsAquisicaomodalidadeId: TIntegerField;
+    dblProcesso: TDBLookupComboBox;
+    dblEmprenho: TDBLookupComboBox;
+    dblModalidade: TDBLookupComboBox;
+    dspProcesso: TDataSetProvider;
+    cdsProcesso: TClientDataSet;
+    dsProcesso: TDataSource;
+    dsEmpenho: TDataSource;
+    cdsEmpenho: TClientDataSet;
+    dspEmpenho: TDataSetProvider;
+    dsModalidade: TDataSource;
+    cdsModalidade: TClientDataSet;
+    dspModalidade: TDataSetProvider;
     procedure btnNovoClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -284,8 +311,8 @@ begin
 			case cbPesquisar.ItemIndex of
 				0 : begin
 							Close;
-							CommandText := 'select * from bem where idenficacao like :idenficacao';
-							Params.ParamByName('idenficacao').Value := Concat('%', txtPesquisa.Text, '%');
+							CommandText := 'select * from bem where identificacao like :identificacao';
+							Params.ParamByName('identificacao').Value := Concat('%', txtPesquisa.Text, '%');
               //Locate('idenficacao', txtPesquisa.Text, [loPartialKey]);
               Open;
             end;
@@ -303,8 +330,8 @@ end;
 
 procedure TfrmBem.cdsAquisicaoAfterInsert(DataSet: TDataSet);
 begin
-	cdsAquisicaodata.AsDateTime     := (Now);
-	cdsAquisicaodataNota.AsDateTime :=(Now);
+	cdsAquisicaodata.AsDateTime     := StrToDate(FormatDateTime('dd/mm/yyyy',Now));
+	cdsAquisicaodataNota.AsDateTime := StrToDate(FormatDateTime('dd/mm/yyyy',Now));
 end;
 
 procedure TfrmBem.cdsAquisicaoReconcileError(DataSet: TCustomClientDataSet;
@@ -354,6 +381,10 @@ begin
 	dsGrupoPrincipal.DataSet.Open;
 	dsGrupo.DataSet.Open;
 	dsFornecedor.DataSet.Open;
+  dsConvenio.DataSet.Open;
+  dsProcesso.DataSet.Open;
+  dsEmpenho.DataSet.Open;
+  dsModalidade.DataSet.Open;
 end;
 
 procedure TfrmBem.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -502,6 +533,10 @@ begin
 	dsGrupo.DataSet.Close;
 	dsGrupoPrincipal.DataSet.Close;
 	dsFornecedor.DataSet.Close;
+  dsConvenio.DataSet.Close;
+  dsProcesso.DataSet.Close;
+  dsEmpenho.DataSet.Close;
+  dsModalidade.DataSet.Close;
 end;
 
 procedure TfrmBem.FormCreate(Sender: TObject);
