@@ -2270,8 +2270,8 @@ object frmRelatTranferenciaBem: TfrmRelatTranferenciaBem
       ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
     end
-    object cdsBensidenficacao: TStringField
-      FieldName = 'idenficacao'
+    object cdsBensidentificacao: TStringField
+      FieldName = 'identificacao'
       ProviderFlags = [pfInUpdate]
       Size = 50
     end

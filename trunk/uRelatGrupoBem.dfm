@@ -2346,8 +2346,8 @@ object frmRelatGrupoBem: TfrmRelatGrupoBem
       ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
     end
-    object sqlBemidenficacao: TStringField
-      FieldName = 'idenficacao'
+    object sqlBemidentificacao: TStringField
+      FieldName = 'identificacao'
       ProviderFlags = [pfInUpdate]
       Size = 50
     end

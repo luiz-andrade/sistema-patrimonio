@@ -4,12 +4,12 @@ object frmDepreciacao: TfrmDepreciacao
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Aplica'#231#227'o do percentual de deprecia'#231#227'o'
-  ClientHeight = 453
-  ClientWidth = 627
+  ClientHeight = 592
+  ClientWidth = 820
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -14
   Font.Name = 'Tahoma'
   Font.Style = []
   KeyPreview = True
@@ -17,29 +17,41 @@ object frmDepreciacao: TfrmDepreciacao
   Position = poDesktopCenter
   OnClose = FormClose
   OnCreate = FormCreate
-  PixelsPerInch = 96
-  TextHeight = 13
+  PixelsPerInch = 120
+  TextHeight = 17
   object Label1: TLabel
-    Left = 49
-    Top = 178
-    Width = 135
-    Height = 13
+    Left = 64
+    Top = 233
+    Width = 171
+    Height = 17
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Percentual de Deprecia'#231#227'o: '
   end
   object cbGrupo: TCheckBox
-    Left = 49
-    Top = 109
-    Width = 97
-    Height = 17
+    Left = 64
+    Top = 143
+    Width = 127
+    Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Grupo:'
     TabOrder = 0
     OnClick = cbGrupoClick
   end
   object dblGrupo: TDBLookupComboBox
-    Left = 160
-    Top = 107
-    Width = 400
-    Height = 21
+    Left = 209
+    Top = 140
+    Width = 523
+    Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     KeyField = 'grupoId'
     ListField = 'grupoId;descricao'
     ListFieldIndex = 1
@@ -47,20 +59,28 @@ object frmDepreciacao: TfrmDepreciacao
     TabOrder = 1
   end
   object cbSubGrupo: TCheckBox
-    Left = 49
-    Top = 139
-    Width = 105
-    Height = 17
+    Left = 64
+    Top = 182
+    Width = 137
+    Height = 22
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'SubGrupo:'
     Enabled = False
     TabOrder = 2
     OnClick = cbSubGrupoClick
   end
   object dblSubGrupo: TDBLookupComboBox
-    Left = 160
-    Top = 139
-    Width = 400
-    Height = 21
+    Left = 209
+    Top = 182
+    Width = 523
+    Height = 25
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Enabled = False
     KeyField = 'grupoId'
     ListField = 'grupoId;descricao'
@@ -69,11 +89,15 @@ object frmDepreciacao: TfrmDepreciacao
     TabOrder = 3
   end
   object btnAplicar: TBitBtn
-    Left = 400
-    Top = 413
-    Width = 91
-    Height = 25
+    Left = 523
+    Top = 540
+    Width = 119
+    Height = 33
     Cursor = crHandPoint
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Aplicar'
     DoubleBuffered = True
     ParentDoubleBuffered = False
@@ -81,11 +105,15 @@ object frmDepreciacao: TfrmDepreciacao
     OnClick = btnAplicarClick
   end
   object btnFechar: TBitBtn
-    Left = 508
-    Top = 413
-    Width = 91
-    Height = 25
+    Left = 664
+    Top = 540
+    Width = 119
+    Height = 33
     Cursor = crHandPoint
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Caption = 'Fechar'
     DoubleBuffered = True
     ParentDoubleBuffered = False
@@ -95,8 +123,12 @@ object frmDepreciacao: TfrmDepreciacao
   object pnLateral: TPanel
     Left = 0
     Top = 0
-    Width = 627
-    Height = 73
+    Width = 820
+    Height = 95
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alTop
     BevelOuter = bvNone
     BorderStyle = bsSingle
@@ -104,8 +136,12 @@ object frmDepreciacao: TfrmDepreciacao
     object imgLateral: TImage
       Left = 0
       Top = 0
-      Width = 623
-      Height = 69
+      Width = 815
+      Height = 90
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Align = alClient
       Center = True
       Picture.Data = {
@@ -2133,17 +2169,17 @@ object frmDepreciacao: TfrmDepreciacao
         722B8FB0A42EAA85086ECA073D7C2AC2D069D06D892E77A2968DBA3E41109987
         4AD81241C1C5CD6B5D3FCBB829E7573D9189C3F61F766544193A8D4B964E6489
         73D3469C848F2088CCE3FF01AC1439EC9904E63B0000000049454E44AE426082}
-      ExplicitLeft = 72
-      ExplicitTop = 2
-      ExplicitWidth = 711
-      ExplicitHeight = 49
     end
   end
   object edtPercentual: TEdit
-    Left = 200
-    Top = 175
-    Width = 65
+    Left = 262
+    Top = 229
+    Width = 85
     Height = 21
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     TabOrder = 7
     Text = '0,00'
     OnKeyPress = edtPercentualKeyPress

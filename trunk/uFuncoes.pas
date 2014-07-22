@@ -271,8 +271,8 @@ begin
 			Close;
 			Connection := dm.ADOConnection;
 			SQL.Clear;
-			SQL.Add('select * from bem where idenficacao = :idenficacao and SublocalId = :localId');
-			Parameters.ParamByName('idenficacao').Value   := identificacao;
+			SQL.Add('select * from bem where identificacao = :identificacao and SublocalId = :localId');
+			Parameters.ParamByName('identificacao').Value   := identificacao;
 			Parameters.ParamByName('localId').Value := locaId;
 			Open;
 			Result := qryBem;

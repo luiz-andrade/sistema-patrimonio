@@ -126,7 +126,7 @@ type
     dsBem: TDataSource;
     cdsBem: TClientDataSet;
     cdsBembemId: TIntegerField;
-    cdsBemidenficacao: TStringField;
+    cdsBemidentificacao: TStringField;
     cdsBemdescricao: TStringField;
     cdsBemestadoId: TIntegerField;
     cdsBemtipoIdentificacao: TIntegerField;
@@ -160,7 +160,7 @@ type
     sqlTransferenciaBembemId: TIntegerField;
     sqlTransferenciaBembemEstadoId: TIntegerField;
     sqlTransferenciaBemdescricao: TStringField;
-    sqlTransferenciaBemidenficacao: TStringField;
+    sqlTransferenciaBemidentificacao: TStringField;
     cdsMovimentacaonomeUsuario: TStringField;
     dsPessoaUsuario: TDataSource;
     cdsPessoaUsuario: TClientDataSet;
@@ -573,6 +573,7 @@ begin
 	cdsDestinoLocal.Open;
 	cdsDestino.Open;
 	cdsDestino.Refresh;
+  DBGrid2.Columns[1].Width := DBGrid2.Width - DBGrid2.Columns[0].Width - 50;
 end;
 
 procedure TfrmMovimentacao.ledtIdentificacaoKeyDown(Sender: TObject;

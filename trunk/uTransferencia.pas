@@ -691,7 +691,7 @@ begin
 				with SQL do
 				begin
 					Clear;
-					Add('insert into bem(idenficacao, descricao ,grupoId, estadoId, localId, ');
+					Add('insert into bem(identificacao, descricao ,grupoId, estadoId, localId, ');
 					Add('gestaoId, valor, tipoIdentificacao, subgrupoId, ');
 					Add('subLocalId, tipoAquisicao, quantidade,valorAquisicao) ');
 					Add('Values (:idenficacao, :descricao, :grupoId, :estadoId, :localId, ');

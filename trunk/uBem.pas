@@ -188,6 +188,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure btRemoverFornecedorClick(Sender: TObject);
     procedure dsAquisicaoDataChange(Sender: TObject; Field: TField);
+    procedure FormShow(Sender: TObject);
 	private
 		{ Private declarations }
 		_empresaId : Integer;
@@ -566,6 +567,11 @@ end;
 procedure TfrmBem.FormKeyPress(Sender: TObject; var Key: Char);
 begin
 	if key = #13 then SelectNext(ActiveControl, True, True);
+end;
+
+procedure TfrmBem.FormShow(Sender: TObject);
+begin
+  DBGrid1.Columns[2].Width := DBGrid1.Width - DBGrid1.Columns[1].Width - 50;
 end;
 
 procedure TfrmBem.imgLateralMouseMove(Sender: TObject; Shift: TShiftState; X,
