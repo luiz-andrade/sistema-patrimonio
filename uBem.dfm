@@ -22,6 +22,7 @@ object frmBem: TfrmBem
   OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
   OnKeyPress = FormKeyPress
+  OnShow = FormShow
   PixelsPerInch = 120
   TextHeight = 17
   object pcGeral: TPageControl
@@ -35,7 +36,7 @@ object frmBem: TfrmBem
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
-    ActivePage = tsAquisicao
+    ActivePage = tsPesquisa
     Align = alClient
     HotTrack = True
     TabOrder = 0
@@ -144,7 +145,7 @@ object frmBem: TfrmBem
           end
           item
             Expanded = False
-            FieldName = 'idenficacao'
+            FieldName = 'identificacao'
             Title.Caption = 'Identifica'#231#227'o'
             Width = 100
             Visible = True

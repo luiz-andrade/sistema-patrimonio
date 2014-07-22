@@ -59,7 +59,7 @@ type
     sqlSubGrupovGrupoId: TStringField;
     sqlBem: TADOQuery;
     sqlBembemId: TAutoIncField;
-    sqlBemidenficacao: TStringField;
+    sqlBemidentificacao: TStringField;
     sqlBemdescricao: TStringField;
     sqlBemgrupoId: TStringField;
     sqlBemestadoId: TIntegerField;

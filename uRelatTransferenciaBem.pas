@@ -43,7 +43,7 @@ type
     sqlSubLocalvLocalId: TStringField;
     sqlSubLocalpessoaId: TIntegerField;
     cdsBensbemId: TAutoIncField;
-    cdsBensidenficacao: TStringField;
+    cdsBensidentificacao: TStringField;
     cdsBensdescricao: TStringField;
     cdsBensgrupoId: TStringField;
     cdsBensestadoId: TIntegerField;
@@ -131,7 +131,7 @@ begin
       	with lvBens.Items.Add do
         begin
           Caption := FieldByName('bemId').Value;
-          SubItems.Add(FieldByName('idenficacao').Value);
+          SubItems.Add(FieldByName('identificacao').Value);
           SubItems.Add(FieldByName('descricao').Value);
         end;
         Next;

@@ -4,12 +4,12 @@ object frmMovimentacao: TfrmMovimentacao
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Movimenta'#231#227'o de Bens'
-  ClientHeight = 602
-  ClientWidth = 920
+  ClientHeight = 787
+  ClientWidth = 1203
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -14
   Font.Name = 'Tahoma'
   Font.Style = []
   KeyPreview = True
@@ -18,13 +18,17 @@ object frmMovimentacao: TfrmMovimentacao
   OnCloseQuery = FormCloseQuery
   OnKeyDown = FormKeyDown
   OnShow = FormShow
-  PixelsPerInch = 96
-  TextHeight = 13
+  PixelsPerInch = 120
+  TextHeight = 17
   object pnTopo: TPanel
     Left = 0
     Top = 0
-    Width = 920
-    Height = 49
+    Width = 1203
+    Height = 64
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alTop
     Alignment = taLeftJustify
     BorderWidth = 11
@@ -33,17 +37,21 @@ object frmMovimentacao: TfrmMovimentacao
     ParentBackground = False
     TabOrder = 0
     object btnFechar: TBitBtn
-      Left = 813
+      Left = 1067
       Top = 12
-      Width = 95
-      Height = 25
+      Width = 124
+      Height = 40
       Cursor = crHandPoint
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Align = alRight
       Caption = 'Fechar'
       DoubleBuffered = True
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -11
+      Font.Height = -15
       Font.Name = 'Tahoma'
       Font.Style = []
       Glyph.Data = {
@@ -80,14 +88,14 @@ object frmMovimentacao: TfrmMovimentacao
     end
     object btnGravar: TBitBtn
       AlignWithMargins = True
-      Left = 613
+      Left = 804
       Top = 12
-      Width = 95
-      Height = 25
+      Width = 124
+      Height = 40
       Cursor = crHandPoint
       Margins.Left = 0
       Margins.Top = 0
-      Margins.Right = 5
+      Margins.Right = 7
       Margins.Bottom = 0
       Align = alRight
       Caption = 'Gravar'
@@ -141,14 +149,14 @@ object frmMovimentacao: TfrmMovimentacao
     end
     object btnConcluir: TBitBtn
       AlignWithMargins = True
-      Left = 313
+      Left = 410
       Top = 12
-      Width = 95
-      Height = 25
+      Width = 125
+      Height = 40
       Cursor = crHandPoint
       Margins.Left = 0
       Margins.Top = 0
-      Margins.Right = 5
+      Margins.Right = 7
       Margins.Bottom = 0
       Align = alRight
       Caption = 'Concluir'
@@ -186,14 +194,14 @@ object frmMovimentacao: TfrmMovimentacao
     end
     object btnNovo: TBitBtn
       AlignWithMargins = True
-      Left = 413
+      Left = 542
       Top = 12
-      Width = 95
-      Height = 25
+      Width = 124
+      Height = 40
       Cursor = crHandPoint
       Margins.Left = 0
       Margins.Top = 0
-      Margins.Right = 5
+      Margins.Right = 7
       Margins.Bottom = 0
       Align = alRight
       Caption = 'Nova'
@@ -231,14 +239,14 @@ object frmMovimentacao: TfrmMovimentacao
     end
     object btnCancelar: TBitBtn
       AlignWithMargins = True
-      Left = 713
+      Left = 935
       Top = 12
-      Width = 95
-      Height = 25
+      Width = 125
+      Height = 40
       Cursor = crHandPoint
       Margins.Left = 0
       Margins.Top = 0
-      Margins.Right = 5
+      Margins.Right = 7
       Margins.Bottom = 0
       Align = alRight
       Caption = 'Cancelar'
@@ -292,14 +300,14 @@ object frmMovimentacao: TfrmMovimentacao
     end
     object btnImprimir: TBitBtn
       AlignWithMargins = True
-      Left = 213
+      Left = 279
       Top = 12
-      Width = 95
-      Height = 25
+      Width = 124
+      Height = 40
       Cursor = crHandPoint
       Margins.Left = 0
       Margins.Top = 0
-      Margins.Right = 5
+      Margins.Right = 7
       Margins.Bottom = 0
       Align = alRight
       Caption = 'Imprimir'
@@ -337,14 +345,14 @@ object frmMovimentacao: TfrmMovimentacao
     end
     object btnApagar: TBitBtn
       AlignWithMargins = True
-      Left = 513
+      Left = 673
       Top = 12
-      Width = 95
-      Height = 25
+      Width = 124
+      Height = 40
       Cursor = crHandPoint
       Margins.Left = 0
       Margins.Top = 0
-      Margins.Right = 5
+      Margins.Right = 7
       Margins.Bottom = 0
       Align = alRight
       Caption = 'Apagar'
@@ -383,23 +391,35 @@ object frmMovimentacao: TfrmMovimentacao
   end
   object pgGeral: TPageControl
     AlignWithMargins = True
-    Left = 3
-    Top = 52
-    Width = 914
-    Height = 547
-    ActivePage = tsInformacao
+    Left = 4
+    Top = 68
+    Width = 1195
+    Height = 715
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    ActivePage = tsBens
     Align = alClient
     TabOrder = 1
     OnChange = pgGeralChange
     object tsConsulta: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Consulta'
       object DBGrid1: TDBGrid
         AlignWithMargins = True
-        Left = 3
-        Top = 44
-        Width = 900
-        Height = 431
+        Left = 4
+        Top = 58
+        Width = 1179
+        Height = 568
         Cursor = crHandPoint
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         DataSource = dsMovimentacao
         DrawingStyle = gdsGradient
@@ -410,7 +430,7 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
-        TitleFont.Height = -11
+        TitleFont.Height = -14
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         Columns = <
@@ -442,9 +462,13 @@ object frmMovimentacao: TfrmMovimentacao
       end
       object pnPesquisa: TPanel
         Left = 0
-        Top = 478
-        Width = 906
-        Height = 41
+        Top = 630
+        Width = 1187
+        Height = 53
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alBottom
         Alignment = taLeftJustify
         BevelOuter = bvNone
@@ -454,42 +478,46 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 1
         object btnPesquisar: TSpeedButton
           AlignWithMargins = True
-          Left = 806
-          Top = 10
-          Width = 90
-          Height = 24
+          Left = 1057
+          Top = 12
+          Width = 118
+          Height = 33
           Cursor = crHandPoint
-          Margins.Left = 5
-          Margins.Top = 5
-          Margins.Right = 5
-          Margins.Bottom = 2
+          Margins.Left = 7
+          Margins.Top = 7
+          Margins.Right = 7
           Align = alRight
           Caption = 'Pesquisar'
           OnClick = btnPesquisarClick
-          ExplicitLeft = 226
-          ExplicitTop = 6
-          ExplicitHeight = 29
+          ExplicitLeft = 1054
+          ExplicitTop = 13
+          ExplicitHeight = 31
         end
         object txtPesquisa: TEdit
           AlignWithMargins = True
-          Left = 55
-          Top = 12
-          Width = 591
-          Height = 21
-          Margins.Left = 50
-          Margins.Top = 7
-          Margins.Right = 4
+          Left = 70
+          Top = 14
+          Width = 777
+          Height = 30
+          Margins.Left = 65
+          Margins.Top = 9
+          Margins.Right = 5
+          Margins.Bottom = 4
           Align = alClient
           TabOrder = 0
           TextHint = 'Entre com a informa'#231#227'o que deseja pesquisar'
+          ExplicitHeight = 25
         end
         object cbPesquisar: TComboBox
           AlignWithMargins = True
-          Left = 653
-          Top = 12
-          Width = 145
-          Height = 21
-          Margins.Top = 7
+          Left = 856
+          Top = 14
+          Width = 190
+          Height = 25
+          Margins.Left = 4
+          Margins.Top = 9
+          Margins.Right = 4
+          Margins.Bottom = 4
           Align = alRight
           Style = csDropDownList
           ItemIndex = 0
@@ -502,8 +530,12 @@ object frmMovimentacao: TfrmMovimentacao
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 906
-        Height = 41
+        Width = 1187
+        Height = 54
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 2
@@ -511,85 +543,129 @@ object frmMovimentacao: TfrmMovimentacao
       end
     end
     object tsInformacao: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Informa'#231#245'es sobre a transfer'#234'ncia'
       ImageIndex = 1
       object Label1: TLabel
-        Left = 24
-        Top = 24
-        Width = 41
-        Height = 13
+        Left = 31
+        Top = 31
+        Width = 54
+        Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'N'#250'mero:'
         FocusControl = transferenciaId
       end
       object Label2: TLabel
-        Left = 23
-        Top = 140
-        Width = 80
-        Height = 13
+        Left = 30
+        Top = 183
+        Width = 102
+        Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Unidade Origem:'
         FocusControl = origemSubLocal
       end
       object Label3: TLabel
-        Left = 432
-        Top = 140
-        Width = 82
-        Height = 13
+        Left = 565
+        Top = 183
+        Width = 104
+        Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Unidade Destino:'
         FocusControl = destinoSubLocal
       end
       object Label4: TLabel
-        Left = 164
-        Top = 24
-        Width = 114
-        Height = 13
+        Left = 214
+        Top = 31
+        Width = 148
+        Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Data da movimenta'#231#227'o:'
         FocusControl = data
       end
       object Label7: TLabel
-        Left = 572
-        Top = 24
-        Width = 40
-        Height = 13
+        Left = 748
+        Top = 31
+        Width = 50
+        Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Usuario:'
         FocusControl = usuarioId
       end
       object Label5: TLabel
-        Left = 433
-        Top = 176
-        Width = 48
-        Height = 13
+        Left = 566
+        Top = 230
+        Width = 61
+        Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Receptor:'
         FocusControl = receptorId
       end
       object Label6: TLabel
-        Left = 24
-        Top = 176
-        Width = 45
-        Height = 13
+        Left = 31
+        Top = 230
+        Width = 56
+        Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Cedente:'
         FocusControl = cedenteId
       end
       object Label8: TLabel
-        Left = 23
-        Top = 95
-        Width = 119
-        Height = 13
+        Left = 30
+        Top = 124
+        Width = 153
+        Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Org'#227'o/ Empresa Origem:'
         FocusControl = origemId
       end
       object Label9: TLabel
-        Left = 432
-        Top = 93
-        Width = 121
-        Height = 13
+        Left = 565
+        Top = 122
+        Width = 155
+        Height = 17
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Org'#227'o/ Empresa Destino:'
         FocusControl = destinoId
       end
       object transferenciaId: TDBEdit
-        Left = 24
-        Top = 39
-        Width = 134
-        Height = 21
+        Left = 31
+        Top = 51
+        Width = 176
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'transferenciaId'
         DataSource = dsMovimentacao
         ParentColor = True
@@ -597,48 +673,68 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 0
       end
       object origemSubLocal: TDBEdit
-        Left = 23
-        Top = 152
-        Width = 134
-        Height = 21
+        Left = 30
+        Top = 199
+        Width = 175
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'origemSubLocal'
         DataSource = dsMovimentacao
         TabOrder = 1
       end
       object destinoSubLocal: TDBEdit
-        Left = 432
-        Top = 152
-        Width = 134
-        Height = 21
+        Left = 565
+        Top = 199
+        Width = 175
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'destinoSubLocal'
         DataSource = dsMovimentacao
         TabOrder = 2
       end
       object data: TDBEdit
-        Left = 164
-        Top = 39
-        Width = 113
-        Height = 21
+        Left = 214
+        Top = 51
+        Width = 148
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'data'
         DataSource = dsMovimentacao
         ReadOnly = True
         TabOrder = 3
       end
       object usuarioId: TDBEdit
-        Left = 572
-        Top = 39
-        Width = 240
-        Height = 21
+        Left = 748
+        Top = 51
+        Width = 314
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'nomeUsuario'
         DataSource = dsMovimentacao
         Enabled = False
         TabOrder = 4
       end
       object DBCheckBox1: TDBCheckBox
-        Left = 839
-        Top = 3
-        Width = 64
-        Height = 17
+        Left = 1097
+        Top = 4
+        Width = 84
+        Height = 22
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Conclu'#237'da'
         DataField = 'concluida'
         DataSource = dsMovimentacao
@@ -648,10 +744,14 @@ object frmMovimentacao: TfrmMovimentacao
         Visible = False
       end
       object dblOrigemId: TDBLookupComboBox
-        Left = 163
-        Top = 152
-        Width = 240
-        Height = 21
+        Left = 213
+        Top = 199
+        Width = 314
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'origemSubLocal'
         DataSource = dsMovimentacao
         DropDownRows = 50
@@ -663,10 +763,14 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 6
       end
       object dblLdestinoSubLocal: TDBLookupComboBox
-        Left = 572
-        Top = 152
-        Width = 240
-        Height = 21
+        Left = 748
+        Top = 199
+        Width = 314
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'destinoSubLocal'
         DataSource = dsMovimentacao
         DropDownRows = 50
@@ -678,10 +782,14 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 7
       end
       object tipo: TDBRadioGroup
-        Left = 283
-        Top = 22
-        Width = 285
-        Height = 38
+        Left = 370
+        Top = 29
+        Width = 373
+        Height = 49
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Caption = 'Tipo de movimenta'#231#227'o:'
         Columns = 2
         DataField = 'tipo'
@@ -696,30 +804,42 @@ object frmMovimentacao: TfrmMovimentacao
           '2')
       end
       object receptorId: TDBEdit
-        Left = 433
-        Top = 192
-        Width = 134
-        Height = 21
+        Left = 566
+        Top = 251
+        Width = 175
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'receptorId'
         DataSource = dsMovimentacao
         ReadOnly = True
         TabOrder = 9
       end
       object cedenteId: TDBEdit
-        Left = 24
-        Top = 192
-        Width = 134
-        Height = 21
+        Left = 31
+        Top = 251
+        Width = 176
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'cedenteId'
         DataSource = dsMovimentacao
         ReadOnly = True
         TabOrder = 10
       end
       object dblCedenteId: TDBLookupComboBox
-        Left = 164
-        Top = 192
-        Width = 239
-        Height = 21
+        Left = 214
+        Top = 251
+        Width = 313
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'cedenteId'
         DataSource = dsMovimentacao
         KeyField = 'pessoaId'
@@ -728,10 +848,14 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 11
       end
       object dblReceptorId: TDBLookupComboBox
-        Left = 572
-        Top = 192
-        Width = 240
-        Height = 21
+        Left = 748
+        Top = 251
+        Width = 314
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'receptorId'
         DataSource = dsMovimentacao
         KeyField = 'pessoaId'
@@ -740,10 +864,14 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 12
       end
       object dblOrigemLocal: TDBLookupComboBox
-        Left = 163
-        Top = 111
-        Width = 240
-        Height = 21
+        Left = 213
+        Top = 145
+        Width = 314
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'origemId'
         DataSource = dsMovimentacao
         DropDownRows = 50
@@ -755,28 +883,40 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 13
       end
       object origemId: TDBEdit
-        Left = 23
-        Top = 111
-        Width = 134
-        Height = 21
+        Left = 30
+        Top = 145
+        Width = 175
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'origemId'
         DataSource = dsMovimentacao
         TabOrder = 14
       end
       object destinoId: TDBEdit
-        Left = 432
-        Top = 109
-        Width = 134
-        Height = 21
+        Left = 565
+        Top = 143
+        Width = 175
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'destinoId'
         DataSource = dsMovimentacao
         TabOrder = 15
       end
       object dblDestinoId: TDBLookupComboBox
-        Left = 572
-        Top = 109
-        Width = 240
-        Height = 21
+        Left = 748
+        Top = 143
+        Width = 314
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         DataField = 'destinoId'
         DataSource = dsMovimentacao
         DropDownRows = 50
@@ -789,13 +929,21 @@ object frmMovimentacao: TfrmMovimentacao
       end
     end
     object tsBens: TTabSheet
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
       Caption = 'Bens vinculados a tranfer'#234'ncia'
       ImageIndex = 2
       object pnAcoesProduto: TPanel
         Left = 0
         Top = 0
-        Width = 906
-        Height = 49
+        Width = 1187
+        Height = 64
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alTop
         Alignment = taLeftJustify
         BevelOuter = bvNone
@@ -804,17 +952,21 @@ object frmMovimentacao: TfrmMovimentacao
         ParentBackground = False
         TabOrder = 0
         object btnRemover: TBitBtn
-          Left = 800
+          Left = 1052
           Top = 11
-          Width = 95
-          Height = 27
+          Width = 124
+          Height = 42
           Cursor = crHandPoint
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
           Align = alRight
           Caption = 'Remover'
           DoubleBuffered = True
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -11
+          Font.Height = -15
           Font.Name = 'Tahoma'
           Font.Style = []
           Glyph.Data = {
@@ -851,14 +1003,14 @@ object frmMovimentacao: TfrmMovimentacao
         end
         object btnAddBem: TBitBtn
           AlignWithMargins = True
-          Left = 700
+          Left = 920
           Top = 11
-          Width = 95
-          Height = 27
+          Width = 125
+          Height = 42
           Cursor = crHandPoint
           Margins.Left = 0
           Margins.Top = 0
-          Margins.Right = 5
+          Margins.Right = 7
           Margins.Bottom = 0
           Align = alRight
           Caption = 'Adicionar'
@@ -895,12 +1047,20 @@ object frmMovimentacao: TfrmMovimentacao
           OnClick = btnAddBemClick
         end
         object ledtIdentificacao: TLabeledEdit
-          Left = 128
-          Top = 15
-          Width = 121
-          Height = 21
-          EditLabel.Width = 107
-          EditLabel.Height = 13
+          Left = 167
+          Top = 20
+          Width = 159
+          Height = 25
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          EditLabel.Width = 136
+          EditLabel.Height = 17
+          EditLabel.Margins.Left = 4
+          EditLabel.Margins.Top = 4
+          EditLabel.Margins.Right = 4
+          EditLabel.Margins.Bottom = 4
           EditLabel.Caption = 'Identifica'#231#227'o do bem: '
           LabelPosition = lpLeft
           TabOrder = 2
@@ -909,11 +1069,15 @@ object frmMovimentacao: TfrmMovimentacao
       end
       object DBGrid2: TDBGrid
         AlignWithMargins = True
-        Left = 3
-        Top = 52
-        Width = 900
-        Height = 464
+        Left = 4
+        Top = 68
+        Width = 1179
+        Height = 611
         Cursor = crHandPoint
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
         Align = alClient
         DataSource = dsMovimentacaoBem
         DrawingStyle = gdsGradient
@@ -922,13 +1086,13 @@ object frmMovimentacao: TfrmMovimentacao
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
-        TitleFont.Height = -11
+        TitleFont.Height = -14
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         Columns = <
           item
             Expanded = False
-            FieldName = 'idenficacao'
+            FieldName = 'identificacao'
             Title.Caption = 'Identifica'#231#227'o do Bem'
             Width = 120
             Visible = True
@@ -1252,10 +1416,10 @@ object frmMovimentacao: TfrmMovimentacao
     end
     object cdsMovimentacaoBemidenficacao: TStringField
       FieldKind = fkLookup
-      FieldName = 'idenficacao'
+      FieldName = 'identificacao'
       LookupDataSet = cdsBem
       LookupKeyFields = 'bemId'
-      LookupResultField = 'idenficacao'
+      LookupResultField = 'identificacao'
       KeyFields = 'bemId'
       Size = 50
       Lookup = True
@@ -1404,8 +1568,8 @@ object frmMovimentacao: TfrmMovimentacao
       FieldName = 'bemId'
       ProviderFlags = [pfInWhere, pfInKey]
     end
-    object cdsBemidenficacao: TStringField
-      FieldName = 'idenficacao'
+    object cdsBemidentificacao: TStringField
+      FieldName = 'identificacao'
       ProviderFlags = [pfInUpdate]
       Required = True
       Size = 50
@@ -1564,14 +1728,14 @@ object frmMovimentacao: TfrmMovimentacao
     Parameters = <
       item
         Name = 'transferenciaId'
-        Attributes = [paSigned]
+        Attributes = [paSigned, paNullable]
         DataType = ftInteger
         Precision = 10
         Size = 4
         Value = Null
       end>
     SQL.Strings = (
-      'select transferenciaBem.*, bem.descricao, bem.idenficacao'
+      'select transferenciaBem.*, bem.descricao, bem.identificacao'
       
         ' from transferenciaBem inner join bem on transferenciaBem.bemid ' +
         '= bem.bemid'
@@ -1594,8 +1758,8 @@ object frmMovimentacao: TfrmMovimentacao
       FieldName = 'descricao'
       Size = 255
     end
-    object sqlTransferenciaBemidenficacao: TStringField
-      FieldName = 'idenficacao'
+    object sqlTransferenciaBemidentificacao: TStringField
+      FieldName = 'identificacao'
       Size = 50
     end
   end
